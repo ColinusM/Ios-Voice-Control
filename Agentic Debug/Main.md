@@ -6,7 +6,7 @@ This document outlines the comprehensive hot reloading and fast injection strate
 
 ---
 
-## <¯ Hybrid Development Workflow: Simulator ’ iPhone X
+## <ï¿½ Hybrid Development Workflow: Simulator ï¿½ iPhone X
 
 ### Phase 1: Rapid Development (Simulator)
 ```swift
@@ -103,24 +103,24 @@ InjectConfiguration.animation = .spring(response: 0.3, dampingFraction: 0.8)
 
 set -e
 
-echo "=€ Starting auto-build for simulator..."
+echo "=ï¿½ Starting auto-build for simulator..."
 
-# Clean and build for simulator
-xcodebuild clean -scheme IosVoiceControl \
-  -destination 'platform=iOS Simulator,name=iPhone 15'
+# Clean and build for simulator - Use iPhone 16 (not iPhone 15)
+xcodebuild clean -scheme VoiceControlApp \
+  -destination 'platform=iOS Simulator,name=iPhone 16'
 
-xcodebuild -scheme IosVoiceControl \
-  -destination 'platform=iOS Simulator,name=iPhone 15' \
+xcodebuild -scheme VoiceControlApp \
+  -destination 'platform=iOS Simulator,name=iPhone 16' \
   build | tee build.log
 
 # Launch app and capture logs
-echo "=ñ Launching app on simulator..."
-xcrun simctl boot "iPhone 15" 2>/dev/null || true
-xcrun simctl install booted build/Release-iphonesimulator/IosVoiceControl.app 2>/dev/null || true
+echo "=ï¿½ Launching app on simulator..."
+xcrun simctl boot "iPhone 16" 2>/dev/null || true
+xcrun simctl install booted build/Release-iphonesimulator/VoiceControlApp.app 2>/dev/null || true
 xcrun simctl launch booted com.voicecontrol.app
 
 # Stream logs in real-time with filtering
-echo "=Ý Capturing logs..."
+echo "=ï¿½ Capturing logs..."
 xcrun simctl spawn booted log stream \
   --predicate 'subsystem contains "com.voicecontrol.app" OR subsystem contains "Firebase" OR category == "Auth"' \
   --style compact | tee app.log &
@@ -154,7 +154,7 @@ xcrun simctl spawn booted log stream \
 
 ---
 
-## =ñ iPhone X Real Testing Strategy
+## =ï¿½ iPhone X Real Testing Strategy
 
 ### Deployment Triggers
 ```swift
@@ -184,17 +184,17 @@ enum DeploymentTrigger {
 #!/bin/bash
 # deploy_to_iphone.sh
 
-echo "=ñ Deploying to iPhone X..."
+echo "=ï¿½ Deploying to iPhone X..."
 
-# Build for device
-xcodebuild -scheme IosVoiceControl \
+# Build for device  
+xcodebuild -scheme VoiceControlApp \
   -destination 'platform=iOS,name=iPhone X' \
   -configuration Debug \
   CODE_SIGN_IDENTITY="iPhone Developer" \
   build install | tee iphone_build.log
 
 # Capture device logs
-echo "=Ý Starting device log capture..."
+echo "=ï¿½ Starting device log capture..."
 idevicesyslog -u $(idevice_id -l | head -1) | \
   grep -E "(VoiceControl|Firebase|Auth)" | \
   tee iphone_logs.log &
@@ -280,14 +280,14 @@ if echo "$CHANGED_FILES" | grep -qE "(Auth|Voice|Camera|Performance|Firebase)"; 
     echo "Triggering device deployment..."
     ./deploy_to_iphone.sh
 else
-    echo "=ñ Simulator testing sufficient for these changes"
-    ./auto_build_simulator.sh
+    echo "=ï¿½ Simulator testing sufficient for these changes"
+    ./auto_build_simulator.sh  # Uses iPhone 16 simulator
 fi
 ```
 
 ---
 
-## ¡ Performance Optimization
+## ï¿½ Performance Optimization
 
 ### Hot Reload Performance Monitoring
 ```swift
@@ -320,10 +320,10 @@ struct HotReloadAnalytics {
         reloadCount += 1
         totalTimeSaved += timeSaved
         
-        print("=Ê Hot reloads: \(reloadCount), Total time saved: \(String(format: "%.1f", totalTimeSaved))s")
+        print("=ï¿½ Hot reloads: \(reloadCount), Total time saved: \(String(format: "%.1f", totalTimeSaved))s")
         
         if reloadCount % 10 == 0 {
-            print("<‰ Milestone: \(reloadCount) hot reloads, \(String(format: "%.1f", totalTimeSaved/3600)) hours saved!")
+            print("<ï¿½ Milestone: \(reloadCount) hot reloads, \(String(format: "%.1f", totalTimeSaved/3600)) hours saved!")
         }
     }
 }
@@ -352,7 +352,7 @@ class MemoryAwareManager {
     
     private func handleMemoryWarning() {
         // Clear caches, release non-essential resources
-        print("  Memory warning received - optimizing for iPhone X constraints")
+        print("ï¿½ Memory warning received - optimizing for iPhone X constraints")
         
         // Clear image caches
         URLCache.shared.removeAllCachedResponses()
@@ -375,7 +375,7 @@ extension Notification.Name {
 
 ---
 
-## <¯ Best Practices Summary
+## <ï¿½ Best Practices Summary
 
 ### Do's 
 - **Use simulator for 80% of development** - fastest iteration
@@ -401,7 +401,7 @@ extension Notification.Name {
 
 ---
 
-## =€ Implementation Checklist
+## =ï¿½ Implementation Checklist
 
 ### Setup Phase
 - [ ] Install InjectionNext/Inject Swift Package
@@ -424,4 +424,4 @@ extension Notification.Name {
 - [ ] Monitor and report time savings
 - [ ] Share best practices with team
 
-This comprehensive fast injection strategy maximizes your development velocity while ensuring authentic testing on your iPhone X device! =%=ñ
+This comprehensive fast injection strategy maximizes your development velocity while ensuring authentic testing on your iPhone X device! =%=ï¿½

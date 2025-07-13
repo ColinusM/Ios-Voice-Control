@@ -64,14 +64,14 @@ error: shell script build rule must declare at least one output file
 
 ### Build Verification
 ```bash
-# Full build test
+# Full build test - IMPORTANT: Use iPhone 16 (not iPhone 15)
 cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng"
 xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp \
   -destination 'platform=iOS Simulator,name=iPhone 16' clean build
 
-# Launch test
+# Launch test - Ensure iPhone 16 simulator is used
 xcrun simctl boot "iPhone 16"
-xcrun simctl install booted "path/to/VoiceControlApp.app"
+xcrun simctl install booted "path/to/VoiceControlApp.app" 
 xcrun simctl launch booted com.voicecontrol.app
 
 # MCP automation test
@@ -102,7 +102,7 @@ open VoiceControlApp.xcodeproj
 # Clean build
 xcodebuild clean
 
-# Build for simulator
+# Build for simulator - Use iPhone 16 (not iPhone 15)
 xcodebuild -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16' build
 
 # Install and launch
