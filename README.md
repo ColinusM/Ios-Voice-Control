@@ -1,6 +1,6 @@
 # PRP (Product Requirement prompts)
 
-- A collection of prompts i use in my every day work
+- A collection of prompts for AI-assisted development with Claude Code
 
 ## Video Walkthrough
 
