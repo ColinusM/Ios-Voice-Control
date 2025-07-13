@@ -13,6 +13,19 @@ struct User: Codable, Equatable {
     let phoneNumber: String?
     let photoURL: URL?
     
+    // MARK: - Initializers
+    
+    init(uid: String, email: String?, displayName: String?, isEmailVerified: Bool, creationDate: Date, lastSignInDate: Date, phoneNumber: String? = nil, photoURL: URL? = nil) {
+        self.uid = uid
+        self.email = email
+        self.displayName = displayName
+        self.isEmailVerified = isEmailVerified
+        self.creationDate = creationDate
+        self.lastSignInDate = lastSignInDate
+        self.phoneNumber = phoneNumber
+        self.photoURL = photoURL
+    }
+    
     // MARK: - Computed Properties
     
     var initials: String {
