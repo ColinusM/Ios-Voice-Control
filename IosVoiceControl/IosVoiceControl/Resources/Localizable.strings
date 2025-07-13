@@ -1,0 +1,230 @@
+/* 
+  Localizable.strings
+  IosVoiceControl
+
+  Localization strings for the iOS Voice Control app.
+*/
+
+// MARK: - App Information
+"app.name" = "Voice Control";
+"app.welcome" = "Welcome to Voice Control!";
+"app.description" = "Secure authentication for your voice control experience";
+
+// MARK: - Authentication General
+"auth.title" = "Authentication";
+"auth.signin" = "Sign In";
+"auth.signup" = "Sign Up";
+"auth.signout" = "Sign Out";
+"auth.cancel" = "Cancel";
+"auth.continue" = "Continue";
+"auth.done" = "Done";
+"auth.save" = "Save";
+"auth.delete" = "Delete";
+"auth.edit" = "Edit";
+"auth.retry" = "Retry";
+"auth.ok" = "OK";
+"auth.help" = "Help";
+"auth.settings" = "Settings";
+
+// MARK: - Sign In
+"signin.title" = "Sign In";
+"signin.email.placeholder" = "Enter your email";
+"signin.password.placeholder" = "Enter your password";
+"signin.button" = "Sign In";
+"signin.forgot.password" = "Forgot Password?";
+"signin.remember.me" = "Remember me";
+"signin.or" = "Or";
+"signin.biometric.faceid" = "Sign in with Face ID";
+"signin.biometric.touchid" = "Sign in with Touch ID";
+"signin.biometric.generic" = "Sign in with Biometric Authentication";
+
+// MARK: - Sign Up
+"signup.title" = "Sign Up";
+"signup.firstname.placeholder" = "First name";
+"signup.lastname.placeholder" = "Last name";
+"signup.email.placeholder" = "Enter your email";
+"signup.password.placeholder" = "Create a password";
+"signup.confirm.password.placeholder" = "Confirm your password";
+"signup.button" = "Create Account";
+"signup.terms.prefix" = "I agree to the ";
+"signup.terms.link" = "Terms of Service";
+"signup.terms.middle" = " and ";
+"signup.privacy.link" = "Privacy Policy";
+"signup.newsletter" = "Subscribe to newsletter for updates and features";
+
+// MARK: - Password Reset
+"password.reset.title" = "Reset Password";
+"password.reset.header" = "Forgot Your Password?";
+"password.reset.description" = "No worries! Enter your email address and we'll send you a link to reset your password.";
+"password.reset.email.placeholder" = "Enter your email address";
+"password.reset.button" = "Send Reset Link";
+"password.reset.success.title" = "Reset Link Sent!";
+"password.reset.success.description" = "We've sent a password reset link to:";
+"password.reset.success.instruction" = "Please check your email and click the link to reset your password.";
+"password.reset.success.spam.note" = "Don't forget to check your spam folder if you don't see the email.";
+"password.reset.resend" = "Resend Email";
+"password.reset.return" = "Return to Sign In";
+
+// MARK: - Password Requirements
+"password.strength" = "Password Strength:";
+"password.requirement.length" = "At least 8 characters";
+"password.requirement.uppercase" = "Contains uppercase letter";
+"password.requirement.lowercase" = "Contains lowercase letter";
+"password.requirement.number" = "Contains number";
+"password.requirement.special" = "Contains special character";
+"password.strength.very.weak" = "Very Weak";
+"password.strength.weak" = "Weak";
+"password.strength.fair" = "Fair";
+"password.strength.good" = "Good";
+"password.strength.strong" = "Strong";
+
+// MARK: - Biometric Authentication
+"biometric.reason.default" = "Authenticate to access your account securely";
+"biometric.reason.faceid" = "Use Face ID to securely access your account";
+"biometric.reason.touchid" = "Use Touch ID to securely access your account";
+"biometric.fallback.title" = "Use Passcode";
+"biometric.setup.instructions.faceid" = "Set up Face ID in Settings > Face ID & Passcode to use biometric authentication.";
+"biometric.setup.instructions.touchid" = "Set up Touch ID in Settings > Touch ID & Passcode to use biometric authentication.";
+"biometric.setup.instructions.generic" = "Set up biometric authentication in Settings to use this feature.";
+
+// MARK: - Account Management
+"account.title" = "Account";
+"account.profile" = "Profile";
+"account.security" = "Security";
+"account.preferences" = "Preferences";
+"account.actions" = "Account Actions";
+"account.info" = "App Information";
+"account.add.name" = "Add Your Name";
+"account.verify.email" = "Verify";
+"account.change.password" = "Change Password";
+"account.security.status" = "Account Security";
+"account.notifications" = "Push Notifications";
+"account.network.status" = "Network Status";
+"account.delete" = "Delete Account";
+"account.version" = "Version";
+"account.build" = "Build";
+
+// MARK: - Account Deletion
+"account.delete.title" = "Delete Account";
+"account.delete.message" = "This action cannot be undone. All your data will be permanently deleted.";
+"account.delete.confirm" = "Delete";
+
+// MARK: - Password Change
+"password.change.title" = "Change Password";
+"password.change.current" = "Current Password";
+"password.change.new" = "New Password";
+"password.change.confirm" = "Confirm Password";
+"password.change.footer" = "Your new password must be at least 8 characters long and include uppercase and lowercase letters, numbers, and special characters.";
+
+// MARK: - Validation Messages
+"validation.email.required" = "Email address is required";
+"validation.email.invalid" = "Please enter a valid email address";
+"validation.password.required" = "Password is required";
+"validation.password.too.weak" = "Password is too weak. Please use at least 8 characters with a mix of letters and numbers.";
+"validation.passwords.mismatch" = "Passwords do not match";
+"validation.name.required" = "Name is required";
+"validation.name.too.short" = "Name must be at least 2 characters";
+"validation.name.too.long" = "Name must be less than 50 characters";
+"validation.terms.required" = "You must accept the terms and conditions";
+
+// MARK: - Error Messages
+"error.generic" = "An unexpected error occurred. Please try again.";
+"error.network" = "Please check your internet connection and try again.";
+"error.authentication.failed" = "Authentication failed. Please check your credentials.";
+"error.invalid.credentials" = "The credentials provided are invalid. Please check your email and password.";
+"error.user.not.found" = "No account found with this email address. Please sign up or check your email.";
+"error.wrong.password" = "Incorrect password. Please try again or reset your password.";
+"error.email.already.in.use" = "An account already exists with this email address. Please sign in instead.";
+"error.weak.password" = "Password is too weak. Please use at least 8 characters with a mix of letters and numbers.";
+"error.network.connection" = "Network connection error. Please check your internet connection and try again.";
+"error.too.many.requests" = "Too many failed attempts. Please wait a few minutes before trying again.";
+"error.user.disabled" = "Your account has been disabled. Please contact support for assistance.";
+"error.biometric.unavailable" = "Biometric authentication is not available. Please use your password instead.";
+"error.keychain" = "Secure storage error. Please restart the app and try again.";
+"error.operation.not.allowed" = "This operation is not allowed. Please contact support if the problem persists.";
+"error.requires.recent.login" = "This operation requires recent authentication. Please sign in again.";
+"error.email.not.verified" = "Please verify your email address before continuing.";
+"error.session.expired" = "Your session has expired. Please sign in again.";
+
+// MARK: - Success Messages
+"success.account.created" = "Account created successfully! Please check your email to verify your account.";
+"success.password.reset" = "Password reset email sent successfully!";
+"success.email.verified" = "Email verified successfully!";
+"success.profile.updated" = "Profile updated successfully!";
+"success.password.changed" = "Password changed successfully!";
+"success.verification.sent" = "Verification email sent!";
+
+// MARK: - Loading States
+"loading.authenticating" = "Authenticating...";
+"loading.creating.account" = "Creating account...";
+"loading.sending.email" = "Sending email...";
+"loading.updating.profile" = "Updating profile...";
+"loading.changing.password" = "Changing password...";
+"loading.deleting.account" = "Deleting account...";
+"loading.please.wait" = "Please wait...";
+
+// MARK: - Accessibility Labels
+"accessibility.email.field" = "Email address";
+"accessibility.password.field" = "Password field";
+"accessibility.new.password.field" = "New password field";
+"accessibility.confirm.password.field" = "Confirm password field";
+"accessibility.signin.form" = "Sign in form";
+"accessibility.signup.form" = "Sign up form";
+"accessibility.biometric.auth" = "Biometric authentication";
+"accessibility.show.password" = "Show password";
+"accessibility.hide.password" = "Hide password";
+"accessibility.accept.terms" = "Accept terms and conditions";
+"accessibility.subscribe.newsletter" = "Subscribe to newsletter";
+
+// MARK: - Accessibility Hints
+"accessibility.hint.email.field" = "Enter your email address";
+"accessibility.hint.password.field" = "Enter your password securely";
+"accessibility.hint.new.password.field" = "Create a secure password with at least 8 characters";
+"accessibility.hint.confirm.password.field" = "Re-enter your password to confirm";
+"accessibility.hint.signin.button" = "Tap to sign in with your email and password";
+"accessibility.hint.signup.button" = "Tap to create your new account";
+"accessibility.hint.biometric.button" = "Use Face ID or Touch ID to sign in";
+"accessibility.hint.password.toggle" = "Tap to reveal or hide password";
+
+// MARK: - Network Status
+"network.connected.wifi" = "WiFi";
+"network.connected.cellular" = "Cellular";
+"network.connected.ethernet" = "Ethernet";
+"network.disconnected" = "No Internet Connection";
+"network.expensive" = "Expensive";
+"network.constrained" = "Constrained";
+
+// MARK: - Home Screen
+"home.welcome" = "Welcome to Voice Control!";
+"home.hello.user" = "Hello, %@!";
+"home.quick.actions" = "Quick Actions";
+"home.start.voice.control" = "Start Voice Control";
+"home.view.settings" = "View Settings";
+
+// MARK: - Feature Cards
+"feature.voice.commands.title" = "Voice Commands";
+"feature.voice.commands.description" = "Control your device with voice";
+"feature.secure.access.title" = "Secure Access";
+"feature.secure.access.description" = "Biometric authentication";
+"feature.settings.title" = "Settings";
+"feature.settings.description" = "Customize your experience";
+"feature.help.title" = "Help & Support";
+"feature.help.description" = "Get assistance";
+
+// MARK: - Voice Control
+"voice.control.title" = "Voice Control";
+"voice.control.coming.soon" = "Coming Soon";
+"voice.control.description" = "Advanced voice control features will be available in a future update.";
+
+// MARK: - Help & Support
+"help.privacy.policy" = "Privacy Policy";
+"help.terms.of.service" = "Terms of Service";
+"help.contact.support" = "Contact Support";
+"help.faq" = "FAQ & Support";
+"help.feedback" = "Send Feedback";
+"help.create.account" = "Create New Account";
+
+// MARK: - Tab Bar
+"tab.home" = "Home";
+"tab.voice.control" = "Voice Control";
+"tab.account" = "Account";
