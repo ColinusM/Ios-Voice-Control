@@ -10,6 +10,7 @@ Successfully built and deployed iOS Voice Control app using AI-first development
 - **Bundle ID**: `com.voicecontrol.app`
 - **Status**: ✅ Building and running on iPhone 16 simulator
 - **Framework**: SwiftUI with iOS 16+ deployment target
+- **MCP Server**: `mobile-ios` (installed for automated iOS testing)
 
 ---
 
@@ -59,6 +60,7 @@ error: shell script build rule must declare at least one output file
 - [ ] **Simulator Deploy**: App launches on iOS Simulator
 - [ ] **Project Type**: Blue app icon (not package icon) in Xcode
 - [ ] **Signing**: Automatic code signing configured
+- [ ] **MCP Server**: `claude mcp list` shows `mobile-ios`
 
 ### Build Verification
 ```bash
@@ -71,6 +73,9 @@ xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp \
 xcrun simctl boot "iPhone 16"
 xcrun simctl install booted "path/to/VoiceControlApp.app"
 xcrun simctl launch booted com.voicecontrol.app
+
+# MCP automation test
+# Can use: "Launch Settings app on iOS simulator" via mobile-ios MCP
 ```
 
 ---
@@ -90,6 +95,7 @@ open VoiceControlApp.xcodeproj
 - **Development**: Use Xcode for interactive development
 - **CI/CD**: Use xcodebuild for automated builds
 - **Testing**: Always test both Xcode and command line builds
+- **Automation**: Use mobile-ios MCP for UI testing and app control
 
 ### 3. Common Commands
 ```bash
@@ -112,12 +118,14 @@ xcrun simctl install booted "app_path" && xcrun simctl launch booted com.voiceco
 2. **Project Type Clarity**: Ensure proper iOS app structure vs Swift Package
 3. **Build Rule Validation**: Check for invalid Xcode project configurations
 4. **User Guidance**: Provide clear instructions on which project to open
+5. **MCP Integration**: Use mobile-ios MCP for automated iOS testing workflows
 
 ### Technical Insights
 - Xcode project generation requires careful attention to build rules and targets
 - Command line builds can succeed while Xcode builds fail due to different validation
 - Project structure determines Xcode UI behavior (app vs package icons)
 - Development team configuration is critical for proper signing
+- MCP servers enable AI-driven mobile app automation and testing
 
 ---
 
@@ -142,6 +150,7 @@ PRPs-agentic-eng/
 │   │   └── Utils/                 # Constants, validation
 │   ├── Assets.xcassets/           # App icons, colors
 │   └── GoogleService-Info.plist   # Firebase config
+├── mobile-mcp-ios/                # 🤖 MCP server for iOS automation
 └── Build App Config/
     └── Best Practices.md          # This file
 ```
@@ -151,6 +160,7 @@ PRPs-agentic-eng/
 - ❌ Deleted `IosVoiceControl/` (Swift Package)
 - ✅ Merged all authentication code into working app
 - ✅ Single clean iOS app project structure
+- ✅ Added mobile-ios MCP server for automation
 
 ---
 
@@ -160,6 +170,7 @@ PRPs-agentic-eng/
 3. Fix import statements and dependencies
 4. Test authentication system integration
 5. Add voice control functionality
-6. Configure app store deployment
+6. Use mobile-ios MCP for automated testing workflows
+7. Configure app store deployment
 
-**Current Status**: Complete authentication codebase merged - needs Xcode project integration.
+**Current Status**: Complete authentication codebase merged - needs Xcode project integration. MCP server ready for testing automation.
