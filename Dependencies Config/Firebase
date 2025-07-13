@@ -1,0 +1,114 @@
+# Firebase Configuration for iOS Voice Control
+
+## Project Information
+
+**Project Name:** Ios Voice Control  
+**Project ID:** ios-voice-control  
+**Project Number:** 1020288809254  
+**Web API Key:** AIzaSyDfPSiJnWv3Ww--87njC93SZxTjAcTsXoo  
+
+## Environment Configuration
+
+**Environment Type:** Non spécifié (Not specified)  
+**Public Name:** project-1020288809254  
+**Associated Email:** colin.mignot1@gmail.com  
+
+## iOS Application Configuration
+
+**Bundle ID:** com.voicecontrol.app  
+**Application ID:** 1:1020288809254:ios:0f690b195cca167b47a9e7  
+**Encoded Application ID:** app-1-1020288809254-ios-0f690b195cca167b47a9e7  
+
+### Additional Configuration Fields
+- **App Nickname:** [To be added]
+- **App Store ID:** [To be added when published]
+- **Team ID:** [To be added - required for Apple Pay integration]
+
+## SDK Installation and Configuration
+
+### GoogleService-Info.plist Configuration
+The GoogleService-Info.plist file should contain the following key configuration values:
+- **BUNDLE_ID:** com.voicecontrol.app
+- **PROJECT_ID:** ios-voice-control
+- **GOOGLE_APP_ID:** 1:1020288809254:ios:0f690b195cca167b47a9e7
+- **API_KEY:** AIzaSyDfPSiJnWv3Ww--87njC93SZxTjAcTsXoo
+
+### Firebase SDK Dependencies (Swift Package Manager)
+```swift
+// Package URL: https://github.com/firebase/firebase-ios-sdk
+// Required Products:
+dependencies: [
+    .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.0"),
+],
+targets: [
+    .target(
+        name: "IosVoiceControl",
+        dependencies: [
+            .product(name: "FirebaseAuth", package: "Firebase"),
+            .product(name: "FirebaseFirestore", package: "Firebase"),
+            .product(name: "FirebaseAnalytics", package: "Firebase"),
+        ]
+    ),
+]
+```
+
+## Future Integration Preparation
+
+### Apple Pay Configuration
+- **Merchant ID:** [To be configured when implementing Apple Pay]
+- **Team ID:** [Required - to be added from Apple Developer account]
+
+### Google Sign-In Configuration
+- **OAuth Client ID:** [To be configured for Google Sign-In]
+- **URL Schemes:** [To be extracted from GoogleService-Info.plist]
+
+### AssemblyAI Integration
+- **API Key:** [To be securely stored in Keychain when implementing voice features]
+- **Endpoint:** https://api.assemblyai.com/v2/
+
+## Security Configuration
+
+### Firebase Security Rules
+- Authentication rules to be configured in Firebase Console
+- Firestore security rules for user data access control
+- App Check configuration for production security
+
+### iOS Keychain Configuration
+- **Service Identifier:** com.voicecontrol.app.tokens
+- **Accessibility Level:** kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+- **Token Storage:** Firebase ID tokens and refresh tokens
+
+## Production Deployment Checklist
+
+- [ ] GoogleService-Info.plist added to Xcode project
+- [ ] Bundle ID matches exactly: com.voicecontrol.app
+- [ ] Firebase project authentication methods enabled
+- [ ] App Store ID configured (when available)
+- [ ] Team ID configured for Apple Pay (when implementing)
+- [ ] Security rules deployed to Firebase
+- [ ] App Check configured for production
+
+## Environment Variables (for CI/CD)
+
+```bash
+# Firebase Configuration
+FIREBASE_PROJECT_ID=ios-voice-control
+FIREBASE_WEB_API_KEY=AIzaSyDfPSiJnWv3Ww--87njC93SZxTjAcTsXoo
+IOS_BUNDLE_ID=com.voicecontrol.app
+
+# Apple Developer Configuration (to be added)
+APPLE_TEAM_ID=[To be configured]
+APPLE_APP_ID=[To be configured]
+```
+
+## Notes
+
+  **Security Notice:** This file contains sensitive configuration information. Ensure proper access controls are in place.
+
+=' **Configuration Status:** 
+-  Firebase project created and configured
+-  iOS app registered with correct bundle ID
+- ó Team ID and App Store ID to be added later
+- ó Production security rules to be implemented
+
+=Ý **Last Updated:** 2025-07-13
