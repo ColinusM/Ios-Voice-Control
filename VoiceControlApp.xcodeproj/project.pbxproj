@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		910830622E25706A006CF788 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 910830612E25706A006CF788 /* HotSwiftUI */; };
+		910B59FA2E24184C004A10CA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59F92E24184C004A10CA /* FirebaseAuth */; };
+		910B59FC2E24184C004A10CA /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59FB2E24184C004A10CA /* FirebaseDatabase */; };
+		910B59FE2E24184C004A10CA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59FD2E24184C004A10CA /* FirebaseFirestore */; };
+		910B5A002E24184C004A10CA /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59FF2E24184C004A10CA /* FirebaseFunctions */; };
 		911E5DC42E23D06F00571DEA /* InjectionNext in Frameworks */ = {isa = PBXBuildFile; productRef = 911E5DC32E23D06F00571DEA /* InjectionNext */; };
 		9192A9172E23C67300AB4DF1 /* InjectionNext in Frameworks */ = {isa = PBXBuildFile; productRef = 9192A9162E23C67300AB4DF1 /* InjectionNext */; };
 		A01234567890ABCDEF123001 /* VoiceControlAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */; };
@@ -31,7 +36,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9192A9172E23C67300AB4DF1 /* InjectionNext in Frameworks */,
+				910B59FA2E24184C004A10CA /* FirebaseAuth in Frameworks */,
+				910B59FC2E24184C004A10CA /* FirebaseDatabase in Frameworks */,
+				910B5A002E24184C004A10CA /* FirebaseFunctions in Frameworks */,
+				910B59FE2E24184C004A10CA /* FirebaseFirestore in Frameworks */,
 				911E5DC42E23D06F00571DEA /* InjectionNext in Frameworks */,
+				910830622E25706A006CF788 /* HotSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,8 +92,11 @@
 			buildConfigurationList = A01234567890ABCDEF12000B /* Build configuration list for PBXNativeTarget "VoiceControlApp" */;
 			buildPhases = (
 				A01234567890ABCDEF12FFF9 /* Sources */,
+				916367252E2591F000057DA6 /* ShellScript */,
 				A01234567890ABCDEF12FFFA /* Frameworks */,
 				A01234567890ABCDEF12FFFB /* Resources */,
+				9108305D2E242625006CF788 /* ShellScript */,
+				9108305F2E24263B006CF788 /*  */,
 			);
 			buildRules = (
 			);
@@ -120,6 +133,8 @@
 			mainGroup = A01234567890ABCDEF12FFF4;
 			packageReferences = (
 				9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */,
+				910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				910830602E25706A006CF788 /* XCRemoteSwiftPackageReference "HotSwiftUI" */,
 			);
 			productRefGroup = A01234567890ABCDEF12FFFE /* Products */;
 			projectDirPath = "";
@@ -143,6 +158,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9108305D2E242625006CF788 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RESOURCES=\"/Applications/InjectionNext.app/Contents/Resources\"\nif [ -f \"$RESOURCES/copy_bundle.sh\" ]; then\n      \"$RESOURCES/copy_bundle.sh\"\nfi\n";
+		};
+		9108305F2E24263B006CF788 /*  */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+		916367252E2591F000057DA6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RESOURCES=\"/Applications/InjectionNext.app/Contents/Resources\"\nif [ -f \"$RESOURCES/copy_bundle.sh\" ]; then\n    \"$RESOURCES/copy_bundle.sh\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A01234567890ABCDEF12FFF9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -164,6 +235,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiceControlApp/Preview Content\"";
+				DEVELOPMENT_TEAM = YJWKC5W73A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice Control";
@@ -178,6 +250,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+					"-framework",
+					"XCTest",
+					"-lXCTestSwiftSupport",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.voicecontrol.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -197,6 +276,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiceControlApp/Preview Content\"";
+				DEVELOPMENT_TEAM = YJWKC5W73A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Voice Control";
@@ -211,6 +291,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-Xlinker",
+					"-interposable",
+					"-framework",
+					"XCTest",
+					"-lXCTestSwiftSupport",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.voicecontrol.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -258,9 +345,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = YJWKC5W73A;
+				EMIT_FRONTEND_COMMAND_LINES = Yes;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -326,9 +414,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = YJWKC5W73A;
+				EMIT_FRONTEND_COMMAND_LINES = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -342,7 +431,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_COMPILATION_MODE = singlefile;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -371,6 +460,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		910830602E25706A006CF788 /* XCRemoteSwiftPackageReference "HotSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnno1962/HotSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
+		910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.15.0;
+			};
+		};
 		9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/johnno1962/InjectionNext";
@@ -382,6 +487,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		910830612E25706A006CF788 /* HotSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910830602E25706A006CF788 /* XCRemoteSwiftPackageReference "HotSwiftUI" */;
+			productName = HotSwiftUI;
+		};
+		910B59F92E24184C004A10CA /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		910B59FB2E24184C004A10CA /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		910B59FD2E24184C004A10CA /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		910B59FF2E24184C004A10CA /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
 		911E5DC32E23D06F00571DEA /* InjectionNext */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */;

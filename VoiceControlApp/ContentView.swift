@@ -1,6 +1,12 @@
 import SwiftUI
+#if DEBUG
+import HotSwiftUI
+#endif
 
 struct ContentView: View {
+    #if DEBUG
+    @ObservedObject var iO = injectionObserver
+    #endif
     
     var body: some View {
         NavigationView {
@@ -9,11 +15,12 @@ struct ContentView: View {
                     .font(.system(size: 80))
                     .foregroundColor(.blue)
                 
-                Text("Voice Control")
+                Text("✅ DEVICE  SUCCESS! ✅")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundColor(.green)
                 
-                Text("iOS Voice Control App")
+                Text("iOS  App")
                     .font(.title2)
                     .foregroundColor(.secondary)
                 
@@ -53,6 +60,9 @@ struct ContentView: View {
             .padding()
             .navigationTitle("Voice Control")
         }
+        #if DEBUG
+        .enableInjection()
+        #endif
     }
 }
 
