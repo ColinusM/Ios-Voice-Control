@@ -87,6 +87,96 @@ curl -X POST http://localhost:8000/endpoint -H "Content-Type: application/json" 
 # mcp servers, or other creative ways to self validate
 ```
 
+## iOS Development
+
+### Fast iOS Build and Deploy
+
+For this iOS project, use the optimized CLI workflow that's 6x faster than default xcodebuild:
+
+```bash
+# Fast build + install + launch to physical iPhone device
+# (Network blocking hack applied for speed - blocks slow Apple provisioning servers)
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphoneos/VoiceControlApp.app -i 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14
+```
+
+This command:
+- Builds the iOS app (~10 seconds vs 67+ seconds default)  
+- Installs to Colin's iPhone device
+- Launches the app automatically
+- Shows console logs in terminal
+- Uses optimized workflow with Apple server blocking for speed
+
+### iOS Log Capture Workflow
+
+After deploying with the fast build command, capture device logs for debugging:
+
+**Prerequisites:**
+```bash
+# Install libimobiledevice for device log access
+brew install libimobiledevice
+```
+
+**Past Log Buffer Capture:**
+
+When you say "grab logs", Claude retrieves recent logs from iOS device buffer - captures your past testing activity without needing live capture during testing.
+
+```bash
+# MINIMAL LOGS (default) - Recent buffer with no system noise
+idevicesyslog -u 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14 --quiet --no-kernel | head -100
+
+# ULTRA MINIMAL - Only VoiceControlApp process from recent buffer
+idevicesyslog -u 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14 --quiet --no-kernel -p "VoiceControlApp" | head -50
+
+# EXCLUDE UI NOISE - Remove UIKitCore spam, keep app activity
+idevicesyslog -u 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14 --quiet --no-kernel -e "UIKitCore|backboardd|CommCenter|mDNSResponder" | head -100
+
+# VERBOSE (for deep debugging) - All VoiceControlApp activity including UIKit
+idevicesyslog -u 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14 | grep -E "(VoiceControlApp|🔵|🟢)" | head -200
+
+# ERROR HUNTING - App crashes and exceptions only
+idevicesyslog -u 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14 --quiet --no-kernel | grep -E "(error|Error|crash|Crash|exception|Exception)" | head -50
+
+# LIVE CAPTURE - Background capture with custom duration (when buffer insufficient)
+idevicesyslog -u 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14 --quiet --no-kernel & sleep $DURATION && kill $!
+```
+
+**Key idevicesyslog Flags for Speed:**
+- `--quiet` / `-q`: Excludes noisy system processes
+- `--no-kernel` / `-K`: Removes kernel message spam  
+- `-m STRING`: Only messages containing string (faster than grep)
+- `-p PROCESS`: Only specific process logs
+- `-e PROCESS`: Exclude specific processes at source
+- `archive --start-time $LAUNCH_TIME`: Only logs from current app session
+
+**Buffer-Based Log Workflow:**
+1. **Build & Deploy**: Claude launches app to iPhone
+2. **Manual Testing**: You test freely - no logging interference 
+3. **Request Logs**: Say "grab logs" to get recent buffer:
+   - "grab logs" → MINIMAL (100 lines, clean)
+   - "grab verbose logs" → VERBOSE (200 lines, includes UIKit)
+   - "grab error logs" → ERROR HUNTING (crashes only)
+   - "grab minimal logs" → ULTRA MINIMAL (50 lines, app-only)
+4. **Analysis**: Claude analyzes your past testing activity from iOS buffer
+5. **Iterate**: Build → Test → Grab → Analyze → Repeat
+
+**How It Works:**
+- iOS keeps recent logs in memory buffer (~5-10 minutes)
+- When Claude connects, iOS dumps buffer first, then live logs
+- `head -N` limits output to recent activity only
+- No timeouts, no live capture needed during testing
+- Perfect for rapid test-debug cycles
+
+**Benefits:**
+- 🎯 **Perfect timing**: Only logs from your actual test session
+- ⚡ **Zero overhead**: No continuous streaming during testing
+- 🔧 **Agile verbosity**: Choose detail level when you need logs
+- 🚀 **Fast iteration**: No timeouts or interruptions
+
+**Compatibility Notes:**
+- Works with Xcode 16/26 beta and benefits from enhanced build caching
+- ios-deploy supports iOS < 17 (use xcrun devicectl for iOS 17+)
+- xcbeautify formats logs but doesn't capture them (use idevicesyslog for actual capture)
+
 ## Anti-Patterns to Avoid
 
 - L Don't create minimal context prompts - context is everything - the PRP must be comprehensive and self-contained, reference relevant documentation and examples.

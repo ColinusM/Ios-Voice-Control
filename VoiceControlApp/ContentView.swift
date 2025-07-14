@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 #if DEBUG
 import HotSwiftUI
 #endif
@@ -15,10 +16,10 @@ struct ContentView: View {
                     .font(.system(size: 80))
                     .foregroundColor(.blue)
                 
-                Text("✅ DEVICE  SUCCESS! ✅")
+                Text("🎯 LOG CAPTURE TEST 🎯")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.green)
+                    .foregroundColor(.purple)
                 
                 Text("iOS  App")
                     .font(.title2)
@@ -26,7 +27,7 @@ struct ContentView: View {
                 
                 VStack(spacing: 16) {
                     Button(action: {
-                        // Authentication action
+                        NSLog("🔵 Sign In button tapped - User wants to authenticate")
                     }) {
                         HStack {
                             Image(systemName: "person.circle")
@@ -40,7 +41,7 @@ struct ContentView: View {
                     }
                     
                     Button(action: {
-                        // Voice control action
+                        NSLog("🟢 Voice Control button tapped - User wants to start voice control")
                     }) {
                         HStack {
                             Image(systemName: "mic")
