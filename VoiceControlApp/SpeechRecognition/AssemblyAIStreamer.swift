@@ -10,6 +10,10 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     @Published var connectionState: StreamingState = .disconnected
     @Published var errorMessage: String?
     
+    // MARK: - Private Transcription State
+    private var accumulatedText: String = "" // Final completed turns
+    private var currentTurnText: String = "" // Current partial turn
+    
     // MARK: - Private Properties
     private var webSocket: WebSocket?
     private var audioManager = AudioManager()
@@ -77,6 +81,11 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
             isConnected = false
             sessionBegun = false
             reconnectAttempts = 0
+            
+            // Reset transcription state
+            accumulatedText = ""
+            currentTurnText = ""
+            transcriptionText = ""
         }
         
         print("✅ AssemblyAI streaming stopped")
@@ -208,28 +217,35 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
             sessionId = sessionBegins.session_id
             
         case .turn(let turn):
-            print("📝 Transcript: \"\(turn.transcript)\" (end_of_turn: \(turn.end_of_turn ?? false))")
+            print("📝 Transcript: \"\(turn.transcript)\" (end_of_turn: \(turn.end_of_turn ?? false), formatted: \(turn.turn_is_formatted ?? false))")
             
             Task { @MainActor in
-                // Update transcription text in real-time
-                let previousText = transcriptionText
-                
                 if turn.end_of_turn == true {
-                    // Final transcript - add to accumulated text
-                    if !transcriptionText.isEmpty {
-                        transcriptionText += " "
+                    // Final transcript - only keep formatted version, ignore unformatted duplicates
+                    if let isFormatted = turn.turn_is_formatted, isFormatted == true {
+                        // This is the formatted final transcript - use this one
+                        if !turn.transcript.isEmpty {
+                            if !accumulatedText.isEmpty {
+                                accumulatedText += " "
+                            }
+                            accumulatedText += turn.transcript
+                        }
+                        currentTurnText = ""
+                        print("📝 Final transcript completed (formatted): '\(turn.transcript)' -> Total: '\(accumulatedText)'")
+                    } else {
+                        // This is the unformatted final transcript - ignore it, but clear current turn
+                        currentTurnText = ""
+                        print("📝 Final transcript ignored (unformatted): '\(turn.transcript)'")
                     }
-                    transcriptionText += turn.transcript
-                    print("📝 Final transcript updated: '\(previousText)' -> '\(transcriptionText)'")
                 } else {
-                    // Partial transcript - show in real-time but don't accumulate yet
-                    // For now, we'll accumulate everything for simplicity
-                    if !transcriptionText.isEmpty && !transcriptionText.hasSuffix(" ") {
-                        transcriptionText += " "
-                    }
-                    transcriptionText += turn.transcript
-                    print("📝 Partial transcript updated: '\(previousText)' -> '\(transcriptionText)'")
+                    // Partial transcript - update current turn text (replace, don't accumulate)
+                    currentTurnText = turn.transcript
+                    print("📝 Partial transcript: '\(turn.transcript)'")
                 }
+                
+                // Update displayed text: accumulated + current turn
+                let newDisplayText = accumulatedText + (currentTurnText.isEmpty ? "" : (accumulatedText.isEmpty ? "" : " ") + currentTurnText)
+                transcriptionText = newDisplayText
                 
                 // Force UI update
                 objectWillChange.send()
