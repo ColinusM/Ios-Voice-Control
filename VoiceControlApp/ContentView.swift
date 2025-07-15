@@ -13,7 +13,63 @@ class AuthenticationManager: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    init() {}
+    private var authStateListener: AuthStateDidChangeListenerHandle?
+    
+    init() {
+        print("🔍 AuthenticationManager initialized")
+        setupAuthStateListener()
+        
+        // Check if there's already a user signed in
+        if let currentFirebaseUser = Auth.auth().currentUser {
+            print("🔍 Found existing Firebase user: \(currentFirebaseUser.email ?? "Unknown")")
+        } else {
+            print("🔍 No existing Firebase user found")
+        }
+    }
+    
+    deinit {
+        if let listener = authStateListener {
+            Auth.auth().removeStateDidChangeListener(listener)
+        }
+    }
+    
+    private func setupAuthStateListener() {
+        authStateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            DispatchQueue.main.async {
+                self?.handleAuthStateChange(user: user)
+            }
+        }
+    }
+    
+    @MainActor
+    private func handleAuthStateChange(user: FirebaseAuth.User?) {
+        print("🔍 Auth state changed - User: \(user?.email ?? "none")")
+        
+        if let user = user {
+            // Add 0.5 second delay to see authentication flow
+            print("⏱️ Delaying auto-restore by 0.5 seconds...")
+            Task {
+                try await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+                await MainActor.run {
+                    // User is signed in
+                    self.currentUser = User(
+                        id: user.uid,
+                        email: user.email ?? "",
+                        displayName: user.displayName ?? user.email ?? "Unknown User"
+                    )
+                    self.authState = .authenticated
+                    print("✅ Auto-restored user session: \(user.email ?? "Unknown")")
+                    self.isLoading = false
+                }
+            }
+        } else {
+            // User is signed out
+            self.currentUser = nil
+            self.authState = .unauthenticated
+            print("🔓 User session ended")
+            self.isLoading = false
+        }
+    }
     
     @MainActor
     func signInWithGoogle() async {
@@ -44,19 +100,38 @@ class AuthenticationManager: ObservableObject {
             
             let authResult = try await Auth.auth().signIn(with: credential)
             
-            currentUser = User(
-                id: authResult.user.uid,
-                email: authResult.user.email ?? "",
-                displayName: authResult.user.displayName
-            )
+            // Force immediate auth state update
+            DispatchQueue.main.async {
+                self.handleAuthStateChange(user: authResult.user)
+            }
             
-            authState = .authenticated
-            print("✅ Google Sign-In successful")
+            print("✅ Google Sign-In successful - User: \(authResult.user.email ?? "Unknown")")
             
         } catch {
             print("❌ Google Sign-In failed: \(error)")
             errorMessage = "Authentication failed: \(error.localizedDescription)"
             authState = .unauthenticated
+        }
+        
+        isLoading = false
+    }
+    
+    @MainActor
+    func signOut() async {
+        isLoading = true
+        
+        do {
+            // Sign out from Firebase
+            try Auth.auth().signOut()
+            
+            // Sign out from Google
+            GIDSignIn.sharedInstance.signOut()
+            
+            print("🔓 User signed out successfully")
+            
+        } catch {
+            print("❌ Sign out failed: \(error)")
+            errorMessage = "Sign out failed: \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -135,7 +210,7 @@ extension UIApplication {
 
 // MARK: - Authentication View
 struct AuthenticationView: View {
-    @StateObject private var authManager = AuthenticationManager()
+    @EnvironmentObject private var authManager: AuthenticationManager
     @State private var selectedTab: AuthTab = .signIn
     
     enum AuthTab: CaseIterable {
@@ -389,17 +464,171 @@ struct SignUpView: View {
     }
 }
 
+
 // MARK: - ContentView (Entry Point)
 struct ContentView: View {
+    @StateObject private var authManager = AuthenticationManager()
+    
     #if DEBUG
     @ObservedObject var iO = injectionObserver
     #endif
     
     var body: some View {
-        AuthenticationView()
+        Group {
+            switch authManager.authState {
+            case .authenticated:
+                VoiceControlMainView()
+                    .environmentObject(authManager)
+                    .onAppear {
+                        print("🎯 SHOWING VoiceControlMainView - Auth state: .authenticated")
+                    }
+            case .unauthenticated:
+                AuthenticationView()
+                    .environmentObject(authManager)
+                    .onAppear {
+                        print("🔓 SHOWING AuthenticationView - Auth state: .unauthenticated")
+                    }
+            case .authenticating:
+                AuthenticationView()
+                    .environmentObject(authManager)
+                    .onAppear {
+                        print("⏳ SHOWING AuthenticationView - Auth state: .authenticating")
+                    }
+            case .error(let message):
+                AuthenticationView()
+                    .environmentObject(authManager)
+                    .onAppear {
+                        print("❌ SHOWING AuthenticationView - Auth state: .error(\(message))")
+                    }
+            }
+        }
         #if DEBUG
         .enableInjection()
         #endif
+    }
+}
+
+// MARK: - Voice Control Main App
+struct VoiceControlMainView: View {
+    @EnvironmentObject private var authManager: AuthenticationManager
+    @State private var speechText: String = ""
+    @State private var isRecording: Bool = false
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 30) {
+                // Header with user info
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Voice Control")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                        
+                        if let user = authManager.currentUser {
+                            Text("Welcome, \(user.displayName?.split(separator: " ").first.map(String.init) ?? "User")")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    // Sign Out Button (more prominent)
+                    Button(action: {
+                        print("🔴 Sign Out button tapped")
+                        Task { await authManager.signOut() }
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                            Text("Sign Out")
+                                .font(.caption)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(Color.red.opacity(0.1))
+                        .foregroundColor(.red)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                        )
+                    }
+                }
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                // Main Speech Text Box
+                VStack(spacing: 16) {
+                    Text("Speech Recognition")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+                    
+                    ScrollView {
+                        Text(speechText.isEmpty ? "Tap the microphone to start speaking..." : speechText)
+                            .font(.body)
+                            .multilineTextAlignment(.leading)
+                            .foregroundColor(speechText.isEmpty ? .secondary : .primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                    }
+                    .frame(height: 200)
+                    .background(Color.gray.opacity(0.1))
+                    .cornerRadius(12)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(isRecording ? Color.red : Color.gray.opacity(0.3), lineWidth: 2)
+                    )
+                }
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                // Microphone Button
+                Button(action: {
+                    toggleRecording()
+                }) {
+                    ZStack {
+                        Circle()
+                            .fill(isRecording ? Color.red : Color.blue)
+                            .frame(width: 80, height: 80)
+                            .shadow(radius: isRecording ? 8 : 4)
+                        
+                        Image(systemName: isRecording ? "mic.fill" : "mic")
+                            .font(.system(size: 32))
+                            .foregroundColor(.white)
+                    }
+                }
+                .scaleEffect(isRecording ? 1.1 : 1.0)
+                .animation(.easeInOut(duration: 0.2), value: isRecording)
+                
+                Spacer()
+                
+                // Status Text
+                Text(isRecording ? "🎤 Listening..." : "Tap microphone to speak")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .padding(.bottom)
+            }
+            .navigationBarHidden(true)
+        }
+        .onAppear {
+            print("✅ VoiceControlMainView appeared - User: \(authManager.currentUser?.email ?? "Unknown")")
+        }
+    }
+    
+    private func toggleRecording() {
+        isRecording.toggle()
+        
+        if isRecording {
+            // Start speech recognition
+            speechText = "Recording started... (Speech recognition will be implemented next)"
+            print("🎤 Started recording")
+        } else {
+            // Stop speech recognition
+            speechText += "\n\nRecording stopped."
+            print("🛑 Stopped recording")
+        }
     }
 }
 
