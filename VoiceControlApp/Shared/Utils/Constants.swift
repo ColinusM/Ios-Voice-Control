@@ -35,6 +35,7 @@ struct Constants {
             static let idTokenKey = "firebase_id_token"
             static let refreshTokenKey = "firebase_refresh_token"
             static let biometricTokenKey = "biometric_token"
+            static let socialGoogleCredentials = "social_google_credentials"
         }
         
         // User Defaults Keys
@@ -229,7 +230,7 @@ struct Constants {
     
     struct FeatureFlags {
         static let biometricAuthEnabled = true
-        static let googleSignInEnabled = false // Future implementation
+        static let googleSignInEnabled = true // Enterprise-grade social sign-in enabled
         static let applePayEnabled = false // Future implementation
         static let pushNotificationsEnabled = false // Future implementation
         static let analyticsEnabled = false

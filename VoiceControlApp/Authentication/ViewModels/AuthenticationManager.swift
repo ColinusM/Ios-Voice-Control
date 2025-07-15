@@ -118,9 +118,19 @@ class AuthenticationManager {
         isLoading = true
         
         do {
+            // Sign out from Firebase
             try await firebaseAuthService.signOut()
+            
+            // Sign out from social providers
+            GoogleSignInService.signOut()
+            
             // Clear persisted session
             clearPersistedSession()
+            
+            #if DEBUG
+            print("✅ AuthenticationManager: Complete sign-out successful")
+            #endif
+            
             // State change will be handled by the listener
         } catch {
             let authError = AuthenticationError.fromFirebaseError(error)
@@ -188,6 +198,55 @@ class AuthenticationManager {
             return false
         }
     }
+    
+    // MARK: - Social Authentication
+    
+    @MainActor
+    func signInWithGoogle() async {
+        authState = .authenticating
+        isLoading = true
+        errorMessage = nil
+        
+        do {
+            let result = await GoogleSignInService.signIn()
+            
+            switch result {
+            case .success(let socialAuthResult):
+                // Convert to our User model and update state
+                currentUser = socialAuthResult.toUser()
+                
+                // Check if biometric authentication is required
+                if shouldRequireBiometricAuth() {
+                    authState = .requiresBiometric
+                } else {
+                    authState = .authenticated
+                }
+                
+                // Persist user session
+                await persistUserSession()
+                
+                #if DEBUG
+                print("✅ AuthenticationManager: Google Sign-In successful")
+                #endif
+                
+            case .failure(let socialError):
+                let authError = AuthenticationError.from(socialError)
+                authState = .error(authError)
+                errorMessage = authError.localizedDescription
+                
+                #if DEBUG
+                print("❌ AuthenticationManager: Google Sign-In failed - \(socialError.localizedDescription)")
+                #endif
+            }
+        } catch {
+            let authError = AuthenticationError.fromFirebaseError(error)
+            authState = .error(authError)
+            errorMessage = authError.localizedDescription
+        }
+        
+        isLoading = false
+    }
+    
     
     // MARK: - Session Persistence
     

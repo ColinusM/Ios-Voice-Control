@@ -41,6 +41,11 @@ struct SignInView: View {
                     biometricAuthView
                 }
                 
+                // Social Sign-In Section
+                if Constants.FeatureFlags.googleSignInEnabled {
+                    socialSignInSection
+                }
+                
                 // Error Display
                 if let errorMessage = authManager.errorMessage {
                     errorView(errorMessage)
@@ -209,6 +214,28 @@ struct SignInView: View {
         }
     }
     
+    // MARK: - Social Sign-In
+    
+    private var socialSignInSection: some View {
+        VStack(spacing: 16) {
+            Text("Or continue with")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            
+            // Google Sign-In Button  
+            if Constants.FeatureFlags.googleSignInEnabled {
+                GoogleSignInButton.standard(
+                    action: {
+                        Task {
+                            await signInWithGoogle()
+                        }
+                    },
+                    isLoading: authManager.isLoading
+                )
+            }
+        }
+    }
+    
     // MARK: - Error View
     
     private func errorView(_ message: String) -> some View {
@@ -282,6 +309,20 @@ struct SignInView: View {
             }
         }
     }
+    
+    private func signInWithGoogle() async {
+        // Dismiss keyboard
+        focusedField = nil
+        
+        // Clear any previous errors
+        await MainActor.run {
+            authManager.clearError()
+        }
+        
+        // Perform Google Sign-In
+        await authManager.signInWithGoogle()
+    }
+    
     
     // MARK: - Credential Management
     
