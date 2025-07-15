@@ -6,6 +6,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 This is an **iOS Voice Control App** with enterprise-grade Google Sign-In authentication. The app is designed for iPhone X (iOS 16+) compatibility and uses Firebase for backend services.
 
+## 🤖 Technology Agents
+
+**Available specialized agents in `claude_md_files_agents/` folder:**
+
+- **Swift/iOS**: `CLAUDE-SWIFT-IOS-AGENT.md` - Scope error prevention, framework imports, type safety
+- **React**: `CLAUDE-REACT.md` - Component patterns, type safety, testing  
+- **Node.js**: `CLAUDE-NODE.md` - Server patterns, async/await, error handling
+
+**To activate an agent, simply tell Claude:**
+- "use Swift iOS agent"
+- "use React agent" 
+- "use Node agent"
+
+**That's it.** No automatic detection - you control when to apply specific technology best practices.
+
 ## 🔥 MANDATORY: Use Physical iPhone Device Only
 
 **CRITICAL RULE: NEVER use iOS Simulator for builds or testing. ALWAYS use Colin's physical iPhone device.**

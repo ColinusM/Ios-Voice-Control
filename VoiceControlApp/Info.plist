@@ -15,5 +15,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs microphone access for real-time speech recognition.</string>
 </dict>
 </plist>
