@@ -4,7 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 ## Project Overview
 
-This is an **iOS Voice Control App** with enterprise-grade Google Sign-In authentication. The app is designed for iPhone X (iOS 16+) compatibility and uses Firebase for backend services.
+This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth authentication and real-time speech-to-text capabilities. Built with SwiftUI and designed for iPhone X+ (iOS 16+) with Firebase backend services.
+
+**Core Features:**
+- 🔐 Enterprise Google Sign-In with Firebase Auth
+- 🎙️ Real-time speech recognition via AssemblyAI streaming
+- 🎛️ Yamaha RCP mixer control integration
+- 📱 Native iOS SwiftUI interface with MVVM architecture
+- 🔄 Hot reloading for rapid development
+
+**📚 Developer Resources:**
+- **`QUICKSTART.md`** - Get running in 15 minutes (setup + first build)
+- **`ONBOARDING.md`** - Comprehensive developer guide (architecture, workflow, troubleshooting)
+
+**Bundle ID:** `com.voicecontrol.app`
 
 ## 🤖 Technology Agents
 
@@ -128,39 +141,126 @@ After completing these steps, I can help you:
 - Database schemas requiring DBA approval
 - Any GUI-based configuration that terminal tools cannot access
 
+## Current Technology Stack
+
+**Frontend:**
+- Swift 5.9+ with SwiftUI
+- MVVM architecture pattern
+- ObservableObject state management
+- Hot reloading (InjectionNext + HotSwiftUI)
+
+**Backend & Services:**
+- Firebase (Auth, Database, Firestore, Functions)
+- Google Sign-In SDK 9.0.0
+- AssemblyAI real-time streaming API
+- Starscream WebSocket library
+
+**Development Tools:**
+- Xcode 15.0+
+- ios-deploy (6x faster than Xcode builds)
+- libimobiledevice (device logging)
+
 ## Project Structure
 
 ```
 VoiceControlApp/
-├── VoiceControlAppApp.swift      # App entry point with Firebase config
-├── ContentView.swift             # Main authentication UI and Google Sign-In logic
-├── Info.plist                    # URL schemes for OAuth redirects
-├── GoogleService-Info.plist      # Firebase/Google services configuration
-└── Assets.xcassets              # App icons and images
+├── VoiceControlAppApp.swift          # App entry point with Firebase config
+├── ContentView.swift                 # Root view with auth flow
+├── VoiceControlMainView.swift        # Main app interface
+├── Info.plist                        # URL schemes & permissions
+├── GoogleService-Info.plist          # Firebase configuration
+├── VoiceControlApp.entitlements      # App capabilities
+│
+├── Authentication/                   # Complete auth system
+│   ├── Components/                  # UI components (GoogleSignInButton)
+│   ├── Models/                      # Auth models & state
+│   ├── Services/                    # Auth services (Google, Firebase, Biometric)
+│   ├── ViewModels/                  # Auth business logic
+│   └── Views/                       # Auth screens
+│
+├── SpeechRecognition/               # Speech-to-text system
+│   ├── AssemblyAIStreamer.swift     # Real-time streaming client
+│   ├── AudioManager.swift           # Audio capture & processing
+│   └── Models/                      # Speech processing models
+│
+└── Shared/                          # Common utilities
+    ├── Components/                  # Reusable UI components
+    ├── Extensions/                  # Swift extensions
+    └── Utils/                       # Helper utilities
 ```
 
-## Key Files
+## Key Files & Components
 
-- **ContentView.swift**: Contains all authentication logic, AuthenticationManager, and UI components
-- **Info.plist**: Contains URL schemes for Google Sign-In OAuth redirects
-- **GoogleService-Info.plist**: Firebase configuration with OAuth client IDs
-- **VoiceControlAppApp.swift**: App initialization with Firebase and Google Sign-In setup
+**Entry Points:**
+- **`VoiceControlAppApp.swift:12`**: App initialization with Firebase and Google Sign-In setup
+- **`ContentView.swift:1`**: Root view with authentication flow and main UI logic
+- **`VoiceControlMainView.swift`**: Main application interface post-authentication
+
+**Authentication System:**
+- **`Authentication/ViewModels/AuthenticationManager.swift`**: Central auth state management
+- **`Authentication/Services/GoogleSignInService.swift`**: Google OAuth implementation
+- **`Authentication/Services/FirebaseAuthService.swift`**: Firebase Auth integration
+- **`Authentication/Services/BiometricService.swift`**: Face ID/Touch ID authentication
+
+**Speech Recognition:**
+- **`SpeechRecognition/AssemblyAIStreamer.swift`**: Real-time speech streaming client
+- **`SpeechRecognition/AudioManager.swift`**: Audio capture and processing
+- **`SpeechRecognition/Models/TranscriptionModels.swift`**: Speech processing models
+
+**Configuration:**
+- **`Info.plist`**: URL schemes (`com.googleusercontent.apps.1020288809254-gs8jhl1ak8oi5rasarpc1i5cq28sokjv`) and microphone permissions
+- **`GoogleService-Info.plist`**: Firebase configuration with OAuth client IDs
+- **`VoiceControlApp.entitlements`**: App capabilities and security settings
 
 ## Development Workflow
 
-1. **Make changes** to Swift files
-2. **Build and deploy** using the fast iOS deploy command
-3. **Test manually** on the physical iPhone device
-4. **Capture logs** when needed using idevicesyslog commands
-5. **Iterate** quickly with the optimized build pipeline
+**Standard Development Cycle:**
+1. **Make changes** to Swift files in Xcode
+2. **Build and deploy** using fast ios-deploy command (6x faster)
+3. **Test manually** on physical iPhone device (required)
+4. **Capture logs** when needed using buffer-based commands (5s max)
+5. **Iterate** quickly with hot reloading enabled
 
-## Anti-Patterns to Avoid
+**Architecture Guidelines:**
+- **MVVM Pattern**: Separate Views, ViewModels, and Services
+- **Dependency Injection**: Services injected into ViewModels
+- **State Management**: @Published properties with ObservableObject
+- **Error Handling**: Result types with custom error models
+- **Security**: Never log sensitive data (tokens, passwords)
 
-- ❌ **Don't use iOS Simulator** - Always use physical device
-- ❌ **Don't create workarounds for OAuth/external service configuration** - Stop and request manual setup
-- ❌ **Don't continue implementation when manual user actions are required** - Stop immediately and request user intervention
-- ❌ **Don't hardcode OAuth credentials** - Use proper configuration files
-- ❌ **Don't skip URL scheme configuration** - Required for OAuth redirects
+**Code Organization:**
+- **Modular Structure**: Feature-based folders (Authentication/, SpeechRecognition/)
+- **Service Layer**: External API integrations (Google, Firebase, AssemblyAI)
+- **Shared Components**: Reusable UI and utility components
+- **Model Separation**: Clear data model definitions
+
+**Testing Approach:**
+- **Manual Testing**: Primary method on physical device
+- **Authentication Flow**: Test sign-in, logout, session persistence
+- **Speech Features**: Test microphone permissions and real-time transcription
+- **Network Scenarios**: Test various connectivity conditions
+
+## Development Best Practices
+
+**✅ DO:**
+- Use physical iPhone device (6x faster, real conditions)
+- Follow MVVM architecture with clear separation
+- Use SwiftUI best practices and existing patterns
+- Implement proper error handling with Result types
+- Use dependency injection for services
+- Follow existing code style and naming conventions
+- Use hot reloading for rapid UI development
+- Capture logs efficiently (buffer-based, 5s max)
+
+**❌ DON'T:**
+- Use iOS Simulator (slower, unrealistic)
+- Hardcode credentials or sensitive data
+- Skip URL scheme configuration (breaks OAuth)
+- Create workarounds for manual setup requirements
+- Continue when manual actions are needed
+- Block main thread with heavy operations
+- Log sensitive authentication data
+- Use live streaming for log capture
 
 ## Google Cloud Console URLs
 
@@ -195,3 +295,10 @@ https://console.cloud.google.com/home/dashboard?project=project-1020288809254
 **Initiative rule: Don't wait for user to ask for URLs - proactively provide them when giving any manual web navigation instructions.**
 
 Remember: When external service configuration is needed (Google Cloud, Firebase, etc.), **STOP** and request manual user action rather than creating workarounds.
+
+## 📚 Documentation
+
+**Project docs in `/docs/` folder:**
+- **AssemblyAI**: `/docs/assemblyai/` - Speech-to-text API docs
+- **Yamaha RCP**: `/docs/yamaha-rcp/METAMETA-YAMAHA-RCP.md` - Mixer control context
+- **Quick Reference**: `/docs/yamaha-rcp/yamaha-rcp-quick-reference.md` - Command syntax
