@@ -5,7 +5,7 @@ import GoogleSignIn
 // Import authentication modules
 import Foundation
 #if DEBUG
-import InjectionNext
+// import InjectionNext  // Temporarily disabled
 #endif
 
 @main

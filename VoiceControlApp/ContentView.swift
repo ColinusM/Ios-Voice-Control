@@ -1,7 +1,7 @@
 import SwiftUI
 import FirebaseAuth
 #if DEBUG
-import HotSwiftUI
+// import HotSwiftUI  // Temporarily disabled
 #endif
 
 // MARK: - ContentView (Entry Point)
@@ -9,7 +9,7 @@ struct ContentView: View {
     @StateObject private var authManager = AuthenticationManager()
     
     #if DEBUG
-    @ObservedObject var iO = injectionObserver
+    // @ObservedObject var iO = injectionObserver  // Temporarily disabled
     #endif
     
     var body: some View {
@@ -51,14 +51,14 @@ struct ContentView: View {
             print("📱 ContentView appeared - Current auth state: \(authManager.authState)")
         }
         #if DEBUG
-        .eraseToAnyView()
+        // .eraseToAnyView()  // Temporarily disabled
         #endif
     }
 }
 
 #if DEBUG
 // MARK: - Hot Reloading Support  
-let injectionObserver = InjectionObserver.shared
+// let injectionObserver = InjectionObserver.shared  // Temporarily disabled
 #endif
 
 // MARK: - Preview

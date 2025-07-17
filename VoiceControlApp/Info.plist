@@ -17,5 +17,7 @@
 	</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app needs microphone access for real-time speech recognition.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>This app uses speech recognition to process voice commands and transcribe audio.</string>
 </dict>
 </plist>
