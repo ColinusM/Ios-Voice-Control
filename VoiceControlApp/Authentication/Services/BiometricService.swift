@@ -1,9 +1,14 @@
 import Foundation
+import SwiftUI
 import LocalAuthentication
 
 // MARK: - Biometric Authentication Service
 
-class BiometricService {
+class BiometricService: ObservableObject {
+    @Published var isAvailable: Bool = false
+    @Published var isEnabled: Bool = false
+    @Published var isAuthenticating: Bool = false
+    @Published var biometricType: LABiometryType = .none
     
     // MARK: - Biometric Error Types
     
@@ -80,6 +85,10 @@ class BiometricService {
     // MARK: - Biometric Type Detection
     
     func getBiometricType() -> LABiometryType {
+        #if targetEnvironment(simulator)
+        // Biometric authentication is not available in simulators
+        return .none
+        #else
         let context = LAContext()
         var error: NSError?
         
@@ -88,6 +97,7 @@ class BiometricService {
         }
         
         return context.biometryType
+        #endif
     }
     
     func getBiometricTypeString() -> String {
@@ -103,23 +113,38 @@ class BiometricService {
         }
     }
     
+    func getBiometricTypeDisplayName() -> String {
+        return getBiometricTypeString()
+    }
+    
     // MARK: - Availability Checks
     
     func isBiometricAvailable() -> Bool {
+        #if targetEnvironment(simulator)
+        return false
+        #else
         let context = LAContext()
         var error: NSError?
         
         return context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error)
+        #endif
     }
     
     func isDevicePasscodeSet() -> Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #else
         let context = LAContext()
         var error: NSError?
         
         return context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error)
+        #endif
     }
     
     func getBiometricAvailabilityStatus() -> (available: Bool, error: BiometricError?) {
+        #if targetEnvironment(simulator)
+        return (false, .notAvailable)
+        #else
         let context = LAContext()
         var error: NSError?
         
@@ -135,11 +160,15 @@ class BiometricService {
         
         let biometricError = mapLAError(laError)
         return (false, biometricError)
+        #endif
     }
     
     // MARK: - Authentication Methods
     
     func authenticateWithBiometrics(reason: String = "Authenticate to access your account") async throws -> Bool {
+        #if targetEnvironment(simulator)
+        throw BiometricError.notAvailable
+        #else
         let context = LAContext()
         var error: NSError?
         
@@ -161,9 +190,15 @@ class BiometricService {
         } catch {
             throw mapLAError(error)
         }
+        #endif
     }
     
     func authenticateWithDevicePasscode(reason: String = "Authenticate to access your account") async throws -> Bool {
+        #if targetEnvironment(simulator)
+        // In simulator, simulate passcode authentication success
+        try await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
+        return true
+        #else
         let context = LAContext()
         var error: NSError?
         
@@ -184,6 +219,7 @@ class BiometricService {
         } catch {
             throw mapLAError(error)
         }
+        #endif
     }
     
     // MARK: - Enhanced Authentication with Fallback
@@ -192,6 +228,11 @@ class BiometricService {
         reason: String = "Authenticate to access your account",
         fallbackTitle: String = "Use Passcode"
     ) async throws -> Bool {
+        #if targetEnvironment(simulator)
+        // In simulator, simulate fallback to passcode authentication
+        try await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
+        return true
+        #else
         let context = LAContext()
         context.localizedFallbackTitle = fallbackTitle
         
@@ -215,11 +256,15 @@ class BiometricService {
         } catch {
             throw mapLAError(error)
         }
+        #endif
     }
     
     // MARK: - Secure Enclave Authentication
     
     func authenticateWithSecureEnclave(reason: String = "Authenticate for secure operation") async throws -> Bool {
+        #if targetEnvironment(simulator)
+        throw BiometricError.notAvailable
+        #else
         let context = LAContext()
         
         // Configure for secure enclave usage
@@ -244,6 +289,7 @@ class BiometricService {
         } catch {
             throw mapLAError(error)
         }
+        #endif
     }
     
     // MARK: - LAError Mapping
@@ -315,6 +361,33 @@ class BiometricService {
         throw BiometricError.authenticationFailed
     }
     #endif
+    
+    // MARK: - SignInView Interface Methods
+    
+    func authenticateWithBiometrics() async -> Bool {
+        isAuthenticating = true
+        defer { isAuthenticating = false }
+        
+        do {
+            return try await authenticateWithBiometrics(reason: "Authenticate to access your account")
+        } catch {
+            return false
+        }
+    }
+    
+    func loadBiometricCapabilities() async {
+        await MainActor.run {
+            let capabilities = getBiometricCapabilities()
+            self.isAvailable = capabilities.isAvailable
+            self.isEnabled = UserDefaults.standard.bool(forKey: "biometric_auth_enabled")
+            self.biometricType = capabilities.biometricType
+        }
+    }
+    
+    func promptForBiometricSetup() -> Bool {
+        // Only prompt if biometric is available but not enabled
+        return isAvailable && !isEnabled
+    }
 }
 
 // MARK: - Biometric Capabilities Model

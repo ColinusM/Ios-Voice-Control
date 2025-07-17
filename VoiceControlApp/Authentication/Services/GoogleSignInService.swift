@@ -10,11 +10,23 @@ class GoogleSignInService {
     
     // MARK: - Configuration
     
-    private static let clientId = Constants.Firebase.reversedClientId
+    // Client ID will be read from GoogleService-Info.plist
     
     // MARK: - Initialization
     
+    private static var isConfigured = false
+    
     static func configure() {
+        guard !isConfigured else { return }
+        
+        #if targetEnvironment(simulator)
+        #if DEBUG
+        print("⚠️ GoogleSignInService: Running in simulator - skipping Google Sign-In configuration")
+        #endif
+        isConfigured = true
+        return
+        #endif
+        
         guard let path = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
               let plist = NSDictionary(contentsOfFile: path),
               let clientId = plist["REVERSED_CLIENT_ID"] as? String else {
@@ -24,13 +36,18 @@ class GoogleSignInService {
             return
         }
         
+        #if DEBUG
+        print("🔧 GoogleSignInService: Starting configuration...")
+        print("   Client ID: \(clientId)")
+        #endif
+        
         // Configure Google Sign-In with client ID from Firebase configuration
         let config = GIDConfiguration(clientID: clientId)
         GIDSignIn.sharedInstance.configuration = config
-            
+        isConfigured = true
+        
         #if DEBUG
-        print("✅ GoogleSignInService: Configuration completed")
-        print("   Client ID: \(clientId)")
+        print("✅ GoogleSignInService: Configuration completed successfully")
         #endif
     }
     
@@ -43,7 +60,16 @@ class GoogleSignInService {
         print("🔵 GoogleSignInService: Initiating sign-in flow")
         #endif
         
+        #if targetEnvironment(simulator)
+        #if DEBUG
+        print("⚠️ GoogleSignInService: Running in simulator - returning mock failure")
+        #endif
+        return .failure(.providerConfigurationMissing(.google))
+        #endif
+        
         // Ensure Google Sign-In is configured
+        configure()
+        
         guard GIDSignIn.sharedInstance.configuration != nil else {
             #if DEBUG
             print("❌ GoogleSignInService: Not configured - call configure() first")
@@ -145,7 +171,16 @@ class GoogleSignInService {
         print("🔵 GoogleSignInService: Attempting to restore previous sign-in")
         #endif
         
+        #if targetEnvironment(simulator)
+        #if DEBUG
+        print("⚠️ GoogleSignInService: Running in simulator - no previous sign-in to restore")
+        #endif
+        return .success(nil)
+        #endif
+        
         // Ensure Google Sign-In is configured
+        configure()
+        
         guard GIDSignIn.sharedInstance.configuration != nil else {
             return .failure(.providerConfigurationMissing(.google))
         }
@@ -312,6 +347,13 @@ extension GoogleSignInService {
         print("🔵 GoogleSignInService: Refreshing access token")
         #endif
         
+        #if targetEnvironment(simulator)
+        #if DEBUG
+        print("⚠️ GoogleSignInService: Running in simulator - cannot refresh token")
+        #endif
+        return .failure(.googleAccountNotFound)
+        #endif
+        
         guard let currentUser = GIDSignIn.sharedInstance.currentUser else {
             return .failure(.googleAccountNotFound)
         }
@@ -351,11 +393,19 @@ extension GoogleSignInService {
     
     /// Checks if the current Google user is signed in
     static var isSignedIn: Bool {
+        #if targetEnvironment(simulator)
+        return false
+        #else
         return GIDSignIn.sharedInstance.currentUser != nil
+        #endif
     }
     
     /// Gets the current Google user's email if available
     static var currentUserEmail: String? {
+        #if targetEnvironment(simulator)
+        return nil
+        #else
         return GIDSignIn.sharedInstance.currentUser?.profile?.email
+        #endif
     }
 }

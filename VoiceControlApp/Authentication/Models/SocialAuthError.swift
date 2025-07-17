@@ -4,7 +4,7 @@ import AuthenticationServices
 // MARK: - Social Authentication Errors
 
 /// Comprehensive error handling for social authentication flows
-enum SocialAuthError: Error, LocalizedError, Equatable {
+enum SocialAuthError: Error, LocalizedError {
     
     // MARK: - Configuration Errors
     case providerConfigurationMissing(SocialAuthProvider)
@@ -34,6 +34,7 @@ enum SocialAuthError: Error, LocalizedError, Equatable {
     // Google-specific errors
     case googleSignInUnavailable
     case googleAccountAlreadyInUse
+    case googleAccountNotFound
     case googleInvalidClientId
     
     // Apple-specific errors
@@ -106,6 +107,8 @@ enum SocialAuthError: Error, LocalizedError, Equatable {
             return "Google Sign-In is temporarily unavailable. Please try again later."
         case .googleAccountAlreadyInUse:
             return "This Google account is already linked to another user. Please use a different account."
+        case .googleAccountNotFound:
+            return "Google account not found. Please ensure you're signed in to Google."
         case .googleInvalidClientId:
             return "Google Sign-In configuration error. Please contact support."
             
@@ -128,7 +131,7 @@ enum SocialAuthError: Error, LocalizedError, Equatable {
             return "Sign-in failed. Please try again."
         case .accountLinkingFailed(let provider):
             return "Failed to link \(provider.displayName) account. Please try again."
-        case .existingAccountConflict(let provider):
+        case .existingAccountConflict(_):
             return "An account with this email already exists. Please sign in with your existing method or contact support."
             
         // Device/Platform
@@ -227,6 +230,12 @@ extension SocialAuthError {
                 return .biometricAuthenticationRequired
             case .unknown:
                 return .unknown(underlying: error)
+            case .matchedExcludedCredential:
+                return .appleIdCredentialInvalid
+            case .credentialImport:
+                return .appleIdCredentialInvalid
+            case .credentialExport:
+                return .appleIdCredentialInvalid
             @unknown default:
                 return .unknown(underlying: error)
             }

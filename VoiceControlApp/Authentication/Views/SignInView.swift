@@ -3,8 +3,8 @@ import SwiftUI
 // MARK: - Sign In View
 
 struct SignInView: View {
-    @Environment(AuthenticationManager.self) private var authManager
-    @State private var biometricManager = BiometricAuthManager()
+    @EnvironmentObject private var authManager: AuthenticationManager
+    @StateObject private var biometricManager = BiometricService()
     
     @Binding var showPasswordReset: Bool
     
@@ -42,9 +42,7 @@ struct SignInView: View {
                 }
                 
                 // Social Sign-In Section
-                if Constants.FeatureFlags.googleSignInEnabled {
-                    socialSignInSection
-                }
+                socialSignInSection
                 
                 // Error Display
                 if let errorMessage = authManager.errorMessage {
@@ -223,16 +221,14 @@ struct SignInView: View {
                 .foregroundColor(.secondary)
             
             // Google Sign-In Button  
-            if Constants.FeatureFlags.googleSignInEnabled {
-                GoogleSignInButton.standard(
-                    action: {
-                        Task {
-                            await signInWithGoogle()
-                        }
-                    },
-                    isLoading: authManager.isLoading
-                )
-            }
+            GoogleSignInButton.standard(
+                action: {
+                    Task {
+                        await signInWithGoogle()
+                    }
+                },
+                isLoading: authManager.isLoading
+            )
         }
     }
     
@@ -254,7 +250,10 @@ struct SignInView: View {
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.red.opacity(0.1))
-                .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                )
         )
     }
     
@@ -274,6 +273,7 @@ struct SignInView: View {
             return "person.crop.circle.badge.checkmark"
         }
     }
+    
     
     // MARK: - Actions
     
@@ -352,11 +352,12 @@ struct SignInView: View {
             showBiometricPrompt = true
         }
     }
+    
 }
 
 // MARK: - Preview
 
 #Preview {
     SignInView(showPasswordReset: .constant(false))
-        .environment(AuthenticationManager())
+        .environmentObject(AuthenticationManager())
 }

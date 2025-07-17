@@ -235,7 +235,7 @@ class FirebaseAuthService {
             throw AuthenticationError.userNotFound
         }
         
-        try await user.multiFactor.enroll(with: assertion, session: session)
+        try await user.multiFactor.enroll(with: assertion, displayName: nil)
     }
     
     func unenrollMultiFactor(info: MultiFactorInfo) async throws {
@@ -254,7 +254,7 @@ class FirebaseAuthService {
     
     // MARK: - Session Monitoring
     
-    func addAuthStateListener(_ listener: @escaping AuthStateDidChangeListenerHandle) -> AuthStateDidChangeListenerHandle {
+    func addAuthStateListener(_ listener: @escaping (Auth, FirebaseAuth.User?) -> Void) -> AuthStateDidChangeListenerHandle {
         return auth.addStateDidChangeListener(listener)
     }
     

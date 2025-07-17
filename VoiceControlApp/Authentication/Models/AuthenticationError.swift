@@ -129,7 +129,7 @@ enum AuthenticationError: Error, LocalizedError, Equatable {
     
     static func fromFirebaseError(_ error: Error) -> AuthenticationError {
         guard let authError = error as NSError?,
-              let authErrorCode = AuthErrorCode.Code(rawValue: authError.code) else {
+              let authErrorCode = AuthErrorCode(rawValue: authError.code) else {
             return .unknownError(error.localizedDescription)
         }
         

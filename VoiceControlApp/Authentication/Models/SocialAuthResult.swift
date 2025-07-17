@@ -6,12 +6,12 @@ import FirebaseAuth
 /// Unified result from social authentication providers
 struct SocialAuthResult {
     let provider: SocialAuthProvider
-    let firebaseUser: User
+    let firebaseUser: FirebaseAuth.User
     let profile: SocialUserProfile
     let credentials: SocialCredentials
     let isNewUser: Bool
     
-    init(provider: SocialAuthProvider, firebaseUser: User, profile: SocialUserProfile, credentials: SocialCredentials, isNewUser: Bool = false) {
+    init(provider: SocialAuthProvider, firebaseUser: FirebaseAuth.User, profile: SocialUserProfile, credentials: SocialCredentials, isNewUser: Bool = false) {
         self.provider = provider
         self.firebaseUser = firebaseUser
         self.profile = profile
@@ -109,8 +109,8 @@ extension SocialAuthResult {
             email: profile.email,
             displayName: profile.displayName,
             isEmailVerified: profile.isEmailVerified,
-            creationDate: firebaseUser.metadata.creationDate ?? Date(),
-            lastSignInDate: firebaseUser.metadata.lastSignInDate ?? Date(),
+            creationDate: Date(),
+            lastSignInDate: Date(),
             phoneNumber: firebaseUser.phoneNumber,
             photoURL: profile.imageURL
         )

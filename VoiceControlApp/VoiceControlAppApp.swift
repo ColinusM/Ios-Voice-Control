@@ -14,9 +14,6 @@ struct VoiceControlAppApp: App {
     init() {
         FirebaseApp.configure()
         
-        // Configure Google Sign-In for enterprise security
-        GoogleSignInService.configure()
-        
         // Remove manual bundle loading - using HotSwiftUI package instead
     }
     

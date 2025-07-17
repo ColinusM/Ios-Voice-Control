@@ -1,5 +1,45 @@
 import SwiftUI
 
+// MARK: - Button Size Options
+
+enum ButtonSize {
+    case small
+    case medium
+    case large
+    
+    var height: CGFloat {
+        switch self {
+        case .small: return 40
+        case .medium: return 50
+        case .large: return 60
+        }
+    }
+    
+    var fontSize: CGFloat {
+        switch self {
+        case .small: return 14
+        case .medium: return 16
+        case .large: return 18
+        }
+    }
+    
+    var cornerRadius: CGFloat {
+        switch self {
+        case .small: return 8
+        case .medium: return 12
+        case .large: return 16
+        }
+    }
+    
+    var progressScale: CGFloat {
+        switch self {
+        case .small: return 0.7
+        case .medium: return 0.8
+        case .large: return 0.9
+        }
+    }
+}
+
 // MARK: - Google Sign-In Button Component
 
 struct GoogleSignInButton: View {
@@ -8,14 +48,14 @@ struct GoogleSignInButton: View {
     let isEnabled: Bool
     
     // Customization options following LoadingButton patterns
-    var size: LoadingButtonSize = .medium
+    var size: ButtonSize = .medium
     var hapticFeedback: Bool = true
     
     init(
         action: @escaping () -> Void,
         isLoading: Bool = false,
         isEnabled: Bool = true,
-        size: LoadingButtonSize = .medium,
+        size: ButtonSize = .medium,
         hapticFeedback: Bool = true
     ) {
         self.action = action
@@ -41,7 +81,7 @@ struct GoogleSignInButton: View {
                     
                     Text("Continue with Google")
                         .fontWeight(.medium)
-                        .font(size.font)
+                        .font(.system(size: size.fontSize))
                         .foregroundColor(.primary)
                 }
             }

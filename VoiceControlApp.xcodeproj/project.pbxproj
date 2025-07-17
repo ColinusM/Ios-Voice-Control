@@ -13,12 +13,35 @@
 		910B59FE2E24184C004A10CA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59FD2E24184C004A10CA /* FirebaseFirestore */; };
 		910B5A002E24184C004A10CA /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59FF2E24184C004A10CA /* FirebaseFunctions */; };
 		911E5DC42E23D06F00571DEA /* InjectionNext in Frameworks */ = {isa = PBXBuildFile; productRef = 911E5DC32E23D06F00571DEA /* InjectionNext */; };
+		913317DD2E282BF800E71CAE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 913317DC2E282BF800E71CAE /* GoogleSignIn */; };
+		913317DF2E282BF800E71CAE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 913317DE2E282BF800E71CAE /* GoogleSignInSwift */; };
 		9192A9172E23C67300AB4DF1 /* InjectionNext in Frameworks */ = {isa = PBXBuildFile; productRef = 9192A9162E23C67300AB4DF1 /* InjectionNext */; };
+		91CEFACB2E28E8A0006480E7 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 91CEFACA2E28E8A0006480E7 /* Starscream */; };
 		A01234567890ABCDEF123001 /* VoiceControlAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */; };
 		A01234567890ABCDEF123003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123002 /* ContentView.swift */; };
 		A01234567890ABCDEF123005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123004 /* Assets.xcassets */; };
 		A01234567890ABCDEF123008 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123007 /* Preview Assets.xcassets */; };
 		A01234567890ABCDEF123010 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF12300F /* GoogleService-Info.plist */; };
+		A01234567890ABCDEF123011 /* VoiceControlMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123012 /* VoiceControlMainView.swift */; };
+		A01234567890ABCDEF123013 /* VoiceControlApp/SpeechRecognition/AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123014 /* VoiceControlApp/SpeechRecognition/AudioManager.swift */; };
+		A01234567890ABCDEF123015 /* VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123016 /* VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift */; };
+		A01234567890ABCDEF123017 /* StreamingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123018 /* StreamingConfig.swift */; };
+		A01234567890ABCDEF123019 /* TranscriptionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123020 /* TranscriptionModels.swift */; };
+		A01234567890ABCDEF123021 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123022 /* AuthenticationView.swift */; };
+		A01234567890ABCDEF123023 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123024 /* SignInView.swift */; };
+		A01234567890ABCDEF123025 /* GoogleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123026 /* GoogleSignInButton.swift */; };
+		A01234567890ABCDEF123027 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123028 /* AuthenticationManager.swift */; };
+		A01234567890ABCDEF123029 /* AuthenticationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123030 /* AuthenticationState.swift */; };
+		A01234567890ABCDEF123031 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123032 /* User.swift */; };
+		A01234567890ABCDEF123033 /* AuthenticationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123034 /* AuthenticationError.swift */; };
+		A01234567890ABCDEF123035 /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123036 /* FirebaseAuthService.swift */; };
+		A01234567890ABCDEF123037 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123038 /* KeychainService.swift */; };
+		A01234567890ABCDEF123039 /* GoogleSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123040 /* GoogleSignInService.swift */; };
+		A01234567890ABCDEF123041 /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123042 /* BiometricService.swift */; };
+		A01234567890ABCDEF123043 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123044 /* PasswordResetView.swift */; };
+		A01234567890ABCDEF123045 /* SocialAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123046 /* SocialAuthError.swift */; };
+		A01234567890ABCDEF123047 /* SocialAuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123048 /* SocialAuthResult.swift */; };
+		A01234567890ABCDEF123049 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123050 /* SignUpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +50,26 @@
 		A01234567890ABCDEF123004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A01234567890ABCDEF123007 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A01234567890ABCDEF12300F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123012 /* VoiceControlMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlMainView.swift; sourceTree = "<group>"; };
+		A01234567890ABCDEF123014 /* VoiceControlApp/SpeechRecognition/AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/SpeechRecognition/AudioManager.swift; sourceTree = "<group>"; };
+		A01234567890ABCDEF123016 /* VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift; sourceTree = "<group>"; };
+		A01234567890ABCDEF123018 /* StreamingConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/SpeechRecognition/Models/StreamingConfig.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123020 /* TranscriptionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/SpeechRecognition/Models/TranscriptionModels.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123022 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Views/AuthenticationView.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123024 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Views/SignInView.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123026 /* GoogleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Components/GoogleSignInButton.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123028 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/ViewModels/AuthenticationManager.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123030 /* AuthenticationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Models/AuthenticationState.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123032 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Models/User.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123034 /* AuthenticationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Models/AuthenticationError.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123036 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Services/FirebaseAuthService.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123038 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Services/KeychainService.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123040 /* GoogleSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Services/GoogleSignInService.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123042 /* BiometricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Services/BiometricService.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123044 /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Views/PasswordResetView.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123046 /* SocialAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Models/SocialAuthError.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123048 /* SocialAuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Models/SocialAuthResult.swift"; sourceTree = "<group>"; };
+		A01234567890ABCDEF123050 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VoiceControlApp/Authentication/Views/SignUpView.swift"; sourceTree = "<group>"; };
 		A01234567890ABCDEF12FFFD /* VoiceControlApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceControlApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,7 +78,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				913317DF2E282BF800E71CAE /* GoogleSignInSwift in Frameworks */,
 				9192A9172E23C67300AB4DF1 /* InjectionNext in Frameworks */,
+				913317DD2E282BF800E71CAE /* GoogleSignIn in Frameworks */,
+				91CEFACB2E28E8A0006480E7 /* Starscream in Frameworks */,
 				910B59FA2E24184C004A10CA /* FirebaseAuth in Frameworks */,
 				910B59FC2E24184C004A10CA /* FirebaseDatabase in Frameworks */,
 				910B5A002E24184C004A10CA /* FirebaseFunctions in Frameworks */,
@@ -48,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91CEFAC82E28E7B0006480E7 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				A01234567890ABCDEF123014 /* VoiceControlApp/SpeechRecognition/AudioManager.swift */,
+				A01234567890ABCDEF123016 /* VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		A01234567890ABCDEF123006 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +116,7 @@
 			children = (
 				A01234567890ABCDEF12FFFF /* VoiceControlApp */,
 				A01234567890ABCDEF12FFFE /* Products */,
+				91CEFAC82E28E7B0006480E7 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,6 +133,7 @@
 			children = (
 				A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */,
 				A01234567890ABCDEF123002 /* ContentView.swift */,
+				A01234567890ABCDEF123012 /* VoiceControlMainView.swift */,
 				A01234567890ABCDEF123004 /* Assets.xcassets */,
 				A01234567890ABCDEF12300F /* GoogleService-Info.plist */,
 				A01234567890ABCDEF123006 /* Preview Content */,
@@ -135,6 +192,8 @@
 				9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */,
 				910B59F82E24184C004A10CA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				910830602E25706A006CF788 /* XCRemoteSwiftPackageReference "HotSwiftUI" */,
+				913317DB2E282BF800E71CAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				91CEFAC92E28E8A0006480E7 /* XCRemoteSwiftPackageReference "Starscream" */,
 			);
 			productRefGroup = A01234567890ABCDEF12FFFE /* Products */;
 			projectDirPath = "";
@@ -221,6 +280,26 @@
 			files = (
 				A01234567890ABCDEF123003 /* ContentView.swift in Sources */,
 				A01234567890ABCDEF123001 /* VoiceControlAppApp.swift in Sources */,
+				A01234567890ABCDEF123011 /* VoiceControlMainView.swift in Sources */,
+				A01234567890ABCDEF123013 /* VoiceControlApp/SpeechRecognition/AudioManager.swift in Sources */,
+				A01234567890ABCDEF123015 /* VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift in Sources */,
+				A01234567890ABCDEF123017 /* StreamingConfig.swift in Sources */,
+				A01234567890ABCDEF123019 /* TranscriptionModels.swift in Sources */,
+				A01234567890ABCDEF123021 /* AuthenticationView.swift in Sources */,
+				A01234567890ABCDEF123023 /* SignInView.swift in Sources */,
+				A01234567890ABCDEF123025 /* GoogleSignInButton.swift in Sources */,
+				A01234567890ABCDEF123027 /* AuthenticationManager.swift in Sources */,
+				A01234567890ABCDEF123029 /* AuthenticationState.swift in Sources */,
+				A01234567890ABCDEF123031 /* User.swift in Sources */,
+				A01234567890ABCDEF123033 /* AuthenticationError.swift in Sources */,
+				A01234567890ABCDEF123035 /* FirebaseAuthService.swift in Sources */,
+				A01234567890ABCDEF123037 /* KeychainService.swift in Sources */,
+				A01234567890ABCDEF123039 /* GoogleSignInService.swift in Sources */,
+				A01234567890ABCDEF123041 /* BiometricService.swift in Sources */,
+				A01234567890ABCDEF123043 /* PasswordResetView.swift in Sources */,
+				A01234567890ABCDEF123045 /* SocialAuthError.swift in Sources */,
+				A01234567890ABCDEF123047 /* SocialAuthResult.swift in Sources */,
+				A01234567890ABCDEF123049 /* SignUpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +333,7 @@
 					"-Xlinker",
 					"-interposable",
 					"-framework",
-					"XCTest",
+					XCTest,
 					"-lXCTestSwiftSupport",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.voicecontrol.app;
@@ -295,7 +374,7 @@
 					"-Xlinker",
 					"-interposable",
 					"-framework",
-					"XCTest",
+					XCTest,
 					"-lXCTestSwiftSupport",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.voicecontrol.app;
@@ -476,12 +555,28 @@
 				minimumVersion = 11.15.0;
 			};
 		};
+		913317DB2E282BF800E71CAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/johnno1962/InjectionNext";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.3.2;
+			};
+		};
+		91CEFAC92E28E8A0006480E7 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.8;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -517,10 +612,25 @@
 			package = 9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */;
 			productName = InjectionNext;
 		};
+		913317DC2E282BF800E71CAE /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 913317DB2E282BF800E71CAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		913317DE2E282BF800E71CAE /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 913317DB2E282BF800E71CAE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		9192A9162E23C67300AB4DF1 /* InjectionNext */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9192A9152E23C67300AB4DF1 /* XCRemoteSwiftPackageReference "InjectionNext" */;
 			productName = InjectionNext;
+		};
+		91CEFACA2E28E8A0006480E7 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91CEFAC92E28E8A0006480E7 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Main Authentication Container View
 
 struct AuthenticationView: View {
-    @Environment(AuthenticationManager.self) private var authManager
+    @EnvironmentObject private var authManager: AuthenticationManager
     @State private var selectedTab: AuthTab = .signIn
     @State private var showingPasswordReset = false
     
@@ -119,5 +119,5 @@ struct AuthenticationView: View {
 
 #Preview {
     AuthenticationView()
-        .environment(AuthenticationManager())
+        .environmentObject(AuthenticationManager())
 }

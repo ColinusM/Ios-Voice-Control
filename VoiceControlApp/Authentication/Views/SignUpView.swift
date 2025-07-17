@@ -3,7 +3,7 @@ import SwiftUI
 // MARK: - Sign Up View
 
 struct SignUpView: View {
-    @Environment(AuthenticationManager.self) private var authManager
+    @EnvironmentObject private var authManager: AuthenticationManager
     
     @State private var firstName = ""
     @State private var lastName = ""
@@ -346,7 +346,10 @@ struct SignUpView: View {
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.red.opacity(0.1))
-                .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.red.opacity(0.3), lineWidth: 1)
+                )
         )
     }
     
@@ -372,7 +375,10 @@ struct SignUpView: View {
         .background(
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.green.opacity(0.1))
-                .stroke(Color.green.opacity(0.3), lineWidth: 1)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.green.opacity(0.3), lineWidth: 1)
+                )
         )
     }
     
@@ -478,5 +484,5 @@ struct SignUpView: View {
 
 #Preview {
     SignUpView()
-        .environment(AuthenticationManager())
+        .environmentObject(AuthenticationManager())
 }

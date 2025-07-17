@@ -3,52 +3,57 @@ import SwiftUI
 // MARK: - Password Reset View
 
 struct PasswordResetView: View {
+    @EnvironmentObject private var authManager: AuthenticationManager
     @Environment(\.dismiss) private var dismiss
-    @Environment(AuthenticationManager.self) private var authManager
     
     @State private var email = ""
     @State private var isLoading = false
-    @State private var showSuccess = false
-    @State private var errorMessage: String?
-    
+    @State private var showingSuccessAlert = false
+    @State private var showingErrorAlert = false
+    @State private var errorMessage = ""
     @FocusState private var isEmailFocused: Bool
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 24) {
-                // Header
-                headerView
-                
-                if showSuccess {
-                    successView
-                } else {
-                    // Email Input Form
-                    emailFormView
+        NavigationView {
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Header
+                    headerView
+                    
+                    // Email Input
+                    emailInputView
                     
                     // Reset Button
                     resetButtonView
                     
-                    // Error Display
-                    if let errorMessage = errorMessage {
-                        errorView(errorMessage)
-                    }
+                    // Instructions
+                    instructionsView
+                    
+                    Spacer(minLength: 32)
                 }
-                
-                Spacer()
-                
-                // Additional Help
-                helpSectionView
+                .padding(.horizontal, 32)
+                .padding(.top, 24)
             }
-            .padding(.horizontal, 32)
-            .padding(.vertical, 24)
             .navigationTitle("Reset Password")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
                         dismiss()
                     }
                 }
+            }
+            .alert("Check Your Email", isPresented: $showingSuccessAlert) {
+                Button("OK") {
+                    dismiss()
+                }
+            } message: {
+                Text("We've sent a password reset link to \(email). Please check your inbox and follow the instructions.")
+            }
+            .alert("Error", isPresented: $showingErrorAlert) {
+                Button("OK") { }
+            } message: {
+                Text(errorMessage)
             }
         }
     }
@@ -57,29 +62,31 @@ struct PasswordResetView: View {
     
     private var headerView: some View {
         VStack(spacing: 16) {
-            Image(systemName: "key.horizontal.fill")
+            // Icon
+            Image(systemName: "key.fill")
                 .font(.system(size: 60))
                 .foregroundColor(.blue)
+                .padding(.bottom, 8)
             
-            VStack(spacing: 8) {
-                Text("Forgot Your Password?")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                
-                Text("No worries! Enter your email address and we'll send you a link to reset your password.")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
-            }
+            // Title
+            Text("Reset Your Password")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
+            
+            // Subtitle
+            Text("Enter your email address and we'll send you a link to reset your password.")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 16)
         }
         .padding(.bottom, 16)
     }
     
-    // MARK: - Email Form
+    // MARK: - Email Input View
     
-    private var emailFormView: some View {
+    private var emailInputView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Email Address")
                 .font(.subheadline)
@@ -87,21 +94,18 @@ struct PasswordResetView: View {
                 .foregroundColor(.primary)
             
             VStack(alignment: .leading, spacing: 4) {
-                TextField("Enter your email address", text: $email)
-                    .textFieldStyle(.roundedBorder)
-                    .keyboardType(.emailAddress)
+                TextField("Enter your email", text: $email)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .textContentType(.emailAddress)
+                    .keyboardType(.emailAddress)
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .focused($isEmailFocused)
-                    .accessibilityIdentifier("resetEmailTextField")
+                    .onSubmit {
+                        handlePasswordReset()
+                    }
                     .accessibilityLabel("Email address")
                     .accessibilityHint("Enter the email address associated with your account")
-                    .onSubmit {
-                        Task {
-                            await resetPassword()
-                        }
-                    }
                 
                 if !email.isEmpty && !isValidEmail {
                     Text("Please enter a valid email address")
@@ -112,245 +116,161 @@ struct PasswordResetView: View {
         }
     }
     
-    // MARK: - Reset Button
+    // MARK: - Reset Button View
     
     private var resetButtonView: some View {
-        Button(action: {
-            Task {
-                await resetPassword()
-            }
-        }) {
+        Button(action: handlePasswordReset) {
             HStack {
                 if isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         .scaleEffect(0.8)
-                } else {
-                    Text("Send Reset Link")
-                        .fontWeight(.semibold)
                 }
+                
+                Text(isLoading ? "Sending..." : "Send Reset Link")
+                    .font(.headline)
+                    .fontWeight(.semibold)
             }
             .frame(maxWidth: .infinity)
             .frame(height: 50)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(isResetEnabled ? Color.blue : Color.gray.opacity(0.3))
+                    .fill(canSendReset ? Color.blue : Color.gray.opacity(0.3))
             )
             .foregroundColor(.white)
         }
-        .disabled(!isResetEnabled || isLoading)
-        .accessibilityIdentifier("sendResetLinkButton")
-        .accessibilityLabel("Send reset link")
+        .disabled(!canSendReset || isLoading)
+        .animation(.easeInOut(duration: 0.2), value: isLoading)
+        .accessibilityLabel("Send password reset link")
         .accessibilityHint("Tap to send a password reset link to your email")
     }
     
-    // MARK: - Success View
+    // MARK: - Instructions View
     
-    private var successView: some View {
-        VStack(spacing: 20) {
-            Image(systemName: "envelope.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(.green)
-            
-            VStack(spacing: 12) {
-                Text("Reset Link Sent!")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
+    private var instructionsView: some View {
+        VStack(spacing: 16) {
+            // Divider
+            HStack {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 1)
                 
-                Text("We've sent a password reset link to:")
-                    .font(.subheadline)
+                Text("What happens next?")
+                    .font(.caption)
                     .foregroundColor(.secondary)
-                
-                Text(email)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.blue)
                     .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.blue.opacity(0.1))
-                    )
                 
-                VStack(spacing: 8) {
-                    Text("Please check your email and click the link to reset your password.")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    
-                    Text("Don't forget to check your spam folder if you don't see the email.")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 1)
             }
             
+            // Instructions
             VStack(spacing: 12) {
-                Button("Resend Email") {
-                    Task {
-                        await resetPassword()
-                    }
-                }
-                .font(.subheadline)
-                .foregroundColor(.blue)
-                .disabled(isLoading)
+                instructionStep(
+                    number: 1,
+                    title: "Check your email",
+                    description: "We'll send a secure link to your email address"
+                )
                 
-                Button("Return to Sign In") {
-                    dismiss()
-                }
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 44)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.blue)
+                instructionStep(
+                    number: 2,
+                    title: "Click the link",
+                    description: "Follow the link in the email to reset your password"
+                )
+                
+                instructionStep(
+                    number: 3,
+                    title: "Create new password",
+                    description: "Choose a strong, unique password for your account"
                 )
             }
         }
+        .padding(.top, 16)
     }
     
-    // MARK: - Error View
+    // MARK: - Instruction Step View
     
-    private func errorView(_ message: String) -> some View {
+    private func instructionStep(number: Int, title: String, description: String) -> some View {
         HStack(alignment: .top, spacing: 12) {
-            Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(.red)
-                .font(.headline)
+            // Step number
+            Text("\(number)")
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+                .frame(width: 20, height: 20)
+                .background(
+                    Circle()
+                        .fill(Color.blue)
+                )
             
+            // Step content
             VStack(alignment: .leading, spacing: 4) {
-                Text("Reset Failed")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.red)
-                
-                Text(message)
-                    .font(.subheadline)
-                    .foregroundColor(.red)
-                    .multilineTextAlignment(.leading)
-            }
-            
-            Spacer()
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.red.opacity(0.1))
-                .stroke(Color.red.opacity(0.3), lineWidth: 1)
-        )
-    }
-    
-    // MARK: - Help Section
-    
-    private var helpSectionView: some View {
-        VStack(spacing: 16) {
-            Divider()
-            
-            VStack(spacing: 12) {
-                Text("Need Additional Help?")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-                
-                VStack(spacing: 8) {
-                    helpButton(
-                        icon: "questionmark.circle",
-                        title: "FAQ & Support",
-                        action: openSupport
-                    )
-                    
-                    helpButton(
-                        icon: "envelope",
-                        title: "Contact Support",
-                        action: contactSupport
-                    )
-                    
-                    helpButton(
-                        icon: "person.badge.plus",
-                        title: "Create New Account",
-                        action: createNewAccount
-                    )
-                }
-            }
-        }
-    }
-    
-    private func helpButton(icon: String, title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(spacing: 12) {
-                Image(systemName: icon)
-                    .font(.headline)
-                    .foregroundColor(.blue)
-                    .frame(width: 20)
-                
                 Text(title)
                     .font(.subheadline)
+                    .fontWeight(.medium)
                     .foregroundColor(.primary)
                 
-                Spacer()
-                
-                Image(systemName: "chevron.right")
+                Text(description)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            .padding(.vertical, 8)
+            
+            Spacer()
         }
     }
     
     // MARK: - Computed Properties
     
     private var isValidEmail: Bool {
-        email.contains("@") && email.contains(".")
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
     }
     
-    private var isResetEnabled: Bool {
-        !email.isEmpty && isValidEmail
+    private var canSendReset: Bool {
+        !email.isEmpty && isValidEmail && !isLoading
     }
     
     // MARK: - Actions
     
-    private func resetPassword() async {
-        // Dismiss keyboard
+    private func handlePasswordReset() {
+        guard canSendReset else { return }
+        
+        // Clear focus
         isEmailFocused = false
         
-        guard isResetEnabled else { return }
+        // Clear previous errors
+        errorMessage = ""
         
+        // Validate email
+        guard isValidEmail else {
+            showError("Please enter a valid email address")
+            return
+        }
+        
+        // Start loading
         isLoading = true
-        errorMessage = nil
         
-        let success = await authManager.resetPassword(email: email.trimmingCharacters(in: .whitespacesAndNewlines))
-        
-        await MainActor.run {
-            isLoading = false
+        // Perform password reset
+        Task {
+            let success = await authManager.resetPassword(email: email.trimmingCharacters(in: .whitespacesAndNewlines))
             
-            if success {
-                showSuccess = true
-            } else {
-                errorMessage = authManager.errorMessage ?? "Failed to send reset email. Please try again."
+            await MainActor.run {
+                isLoading = false
+                
+                if success {
+                    showingSuccessAlert = true
+                } else {
+                    showError(authManager.errorMessage ?? "Failed to send reset email. Please try again.")
+                }
             }
         }
     }
     
-    private func openSupport() {
-        // Open support URL or navigate to support view
-        if let url = URL(string: "https://support.voicecontrol.app") {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    private func contactSupport() {
-        // Open email client or support contact
-        if let url = URL(string: "mailto:support@voicecontrol.app?subject=Password Reset Help") {
-            UIApplication.shared.open(url)
-        }
-    }
-    
-    private func createNewAccount() {
-        // Navigate to sign up flow
-        dismiss()
-        // Additional navigation logic would go here
+    private func showError(_ message: String) {
+        errorMessage = message
+        showingErrorAlert = true
     }
 }
 
@@ -358,5 +278,5 @@ struct PasswordResetView: View {
 
 #Preview {
     PasswordResetView()
-        .environment(AuthenticationManager())
+        .environmentObject(AuthenticationManager())
 }

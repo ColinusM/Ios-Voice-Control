@@ -2,18 +2,16 @@ import Foundation
 import SwiftUI
 import FirebaseAuth
 
-// MARK: - Authentication State Manager with @Observable Pattern
+// MARK: - Authentication State Manager with ObservableObject Pattern
 
-@Observable
-class AuthenticationManager {
-    var authState: AuthState = .unauthenticated
-    var currentUser: User?
-    var isLoading = false
-    var errorMessage: String?
+class AuthenticationManager: ObservableObject {
+    @Published var authState: AuthState = .unauthenticated
+    @Published var currentUser: User?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
     
     private var authStateListener: AuthStateDidChangeListenerHandle?
     private let firebaseAuthService = FirebaseAuthService()
-    private let keychainService = KeychainService()
     
     // MARK: - Initialization
     
@@ -253,34 +251,67 @@ class AuthenticationManager {
     private func checkPersistedSession() async {
         // Check if user has a valid session in Keychain
         do {
-            if let persistedUser: User = try keychainService.retrieve("current_user") {
-                // Verify the session is still valid with Firebase
-                if Auth.auth().currentUser != nil {
-                    await MainActor.run {
-                        currentUser = persistedUser
-                        authState = shouldRequireBiometricAuth() ? .requiresBiometric : .authenticated
-                    }
-                } else {
-                    // Session expired, clear persisted data
-                    clearPersistedSession()
+            let persistedUser: User = try KeychainService.retrieve("current_user", as: User.self)
+            // Verify the session is still valid with Firebase
+            if Auth.auth().currentUser != nil {
+                await MainActor.run {
+                    currentUser = persistedUser
+                    authState = shouldRequireBiometricAuth() ? .requiresBiometric : .authenticated
                 }
+            } else {
+                // Session expired, clear persisted data
+                clearPersistedSession()
             }
         } catch {
             // No persisted session or keychain error
             clearPersistedSession()
+            
+            // DEVELOPMENT: Auto-login for testing in simulator
+            #if DEBUG && targetEnvironment(simulator)
+            await autoLoginForTesting()
+            #endif
         }
     }
+    
+    #if DEBUG && targetEnvironment(simulator)
+    private func autoLoginForTesting() async {
+        // Auto-login with test credentials for faster development
+        let testEmail = "colin.mignot1@gmail.com"
+        let testPassword = "Licofeuh7."
+        
+        print("🔧 DEV MODE: Auto-login attempt with test credentials")
+        
+        await MainActor.run {
+            isLoading = true
+            errorMessage = nil
+        }
+        
+        do {
+            let authResult = try await firebaseAuthService.signIn(email: testEmail, password: testPassword)
+            // The authentication state will be handled by the Firebase auth listener
+            await MainActor.run {
+                isLoading = false
+                print("✅ DEV MODE: Auto-login successful")
+            }
+        } catch {
+            await MainActor.run {
+                isLoading = false
+                print("⚠️ DEV MODE: Auto-login failed, will show login screen")
+            }
+        }
+    }
+    #endif
     
     private func persistUserSession() async {
         guard let user = currentUser else { return }
         
         do {
-            try keychainService.save(user, for: "current_user")
+            try KeychainService.save(user, for: "current_user")
             
             // Store Firebase ID token for backend authentication
             if let firebaseUser = Auth.auth().currentUser {
                 let idToken = try await firebaseUser.getIDToken()
-                try keychainService.save(idToken, for: "firebase_id_token")
+                try KeychainService.save(idToken, for: "firebase_id_token")
             }
         } catch {
             print("Failed to persist user session: \(error)")
@@ -288,8 +319,8 @@ class AuthenticationManager {
     }
     
     private func clearPersistedSession() {
-        try? keychainService.delete("current_user")
-        try? keychainService.delete("firebase_id_token")
+        try? KeychainService.delete("current_user")
+        try? KeychainService.delete("firebase_id_token")
     }
     
     // MARK: - Biometric Authentication
@@ -335,7 +366,7 @@ class AuthenticationManager {
         let idToken = try await firebaseUser.getIDToken(forcingRefresh: true)
         
         // Update stored token
-        try keychainService.save(idToken, for: "firebase_id_token")
+        try KeychainService.save(idToken, for: "firebase_id_token")
         
         return idToken
     }

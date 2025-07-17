@@ -34,76 +34,72 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
 
 **That's it.** No automatic detection - you control when to apply specific technology best practices.
 
-## 🔥 MANDATORY: Use Physical iPhone Device Only
+## 🔥 MANDATORY: Use iPhone 16 iOS 18.5 Simulator Only
 
-**CRITICAL RULE: NEVER use iOS Simulator for builds or testing. ALWAYS use Colin's physical iPhone device.**
+**CRITICAL RULE: ALWAYS use iPhone 16 iOS 18.5 simulator for builds and testing. NEVER use physical device or other simulators.**
 
-For this iOS project, use the optimized CLI workflow that's 6x faster than default xcodebuild:
+For this iOS project, use the optimized simulator workflow:
 
 ```bash
-# REQUIRED: Fast build + install + launch to physical iPhone device
-# (Network blocking hack applied for speed - blocks slow Apple provisioning servers)
-cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphoneos/VoiceControlApp.app -i 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14
+# REQUIRED: Fast build + install + launch to iPhone 16 iOS 18.5 simulator
+# Device ID: 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphonesimulator/VoiceControlApp.app -i 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
 ```
 
-**Why Physical Device Only:**
-- Real-world testing conditions
-- Actual performance metrics  
-- Touch/gesture interaction testing
-- Camera/sensor functionality
-- Push notifications work properly
-- Network conditions are realistic
-- 6x faster than simulator builds
+**Why iPhone 16 iOS 18.5 Simulator Only:**
+- Consistent testing environment
+- No iOS 26 compatibility issues (FBSceneErrorDomain crashes)
+- Firebase Authentication works properly
+- Google Sign-In bypassed in simulator (as intended)
+- Biometric authentication properly protected for simulator
+- Auto-login testing functionality works
+- Fast rebuild and deployment cycles
 
 This command:
-- Builds the iOS app (~10 seconds vs 67+ seconds default)  
-- Installs to Colin's iPhone device (2b51e8a8e9ffe69c13296dd6673c5e0d47027e14)
+- Builds the iOS app for simulator target
+- Installs to iPhone 16 iOS 18.5 simulator (734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8)
 - Launches the app automatically
 - Shows console logs in terminal
-- Uses optimized workflow with Apple server blocking for speed
+- Uses optimized simulator workflow
 
 ### ❌ DO NOT USE THESE COMMANDS:
 ```bash
-# NEVER USE SIMULATOR BUILDS:
-xcodebuild -scheme VoiceControlApp -sdk iphonesimulator ...  # ❌ WRONG
-xcodebuild -destination 'platform=iOS Simulator' ...        # ❌ WRONG
+# NEVER USE PHYSICAL DEVICE:
+ios-deploy -b .../Debug-iphoneos/VoiceControlApp.app -i 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14  # ❌ WRONG
+
+# NEVER USE OTHER SIMULATORS:
+ios-deploy -b .../Debug-iphonesimulator/VoiceControlApp.app -i [OTHER_SIMULATOR_ID]  # ❌ WRONG
 ```
 
-## iOS Log Capture Workflow
+## iOS Simulator Log Capture Workflow
 
-After deploying with the fast build command, capture device logs for debugging:
+After deploying with the fast build command, capture simulator logs for debugging:
 
-**Prerequisites:**
-```bash
-# Install libimobiledevice for device log access
-brew install libimobiledevice
-```
+**Simulator Log Capture:**
 
-**Past Log Buffer Capture:**
-
-When you say "grab logs", Claude retrieves recent logs from iOS device buffer - captures your past testing activity without needing live capture during testing.
+When you say "grab logs", Claude retrieves recent logs from iOS simulator buffer - captures your past testing activity without needing live capture during testing.
 
 ```bash
-# PAST LOGS ONLY (5s max) - Recent buffer, no live streaming
-tail -200 /var/log/system.log | grep VoiceControlApp | head -30
+# SIMULATOR LOGS ONLY (5s max) - Recent buffer, no live streaming
+tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep VoiceControlApp | head -30
 
 # OAUTH/GOOGLE ERRORS - Past authentication issues  
-tail -300 /var/log/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
 
 # APP CRASHES - Past error buffer
-tail -100 /var/log/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
+tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
 ```
 
 **CRITICAL: All log commands must complete within 5 seconds and only read past buffer logs - never live stream.**
 
 **Buffer-Based Log Workflow:**
-1. **Build & Deploy**: Claude launches app to iPhone
+1. **Build & Deploy**: Claude launches app to iPhone 16 iOS 18.5 simulator
 2. **Manual Testing**: You test freely - no logging interference 
 3. **Request Logs**: Say "grab logs" to get recent buffer:
    - "grab logs" → MINIMAL (50 lines, app-only)
    - "grab verbose logs" → VERBOSE (200 lines, includes UIKit)
    - "grab error logs" → ERROR HUNTING (crashes only)
-4. **Analysis**: Claude analyzes your past testing activity from iOS buffer
+4. **Analysis**: Claude analyzes your past testing activity from iOS simulator buffer
 5. **Iterate**: Build → Test → Grab → Analyze → Repeat
 
 ## 🛑 MANDATORY: Universal Manual Action Stop Rule
@@ -157,8 +153,8 @@ After completing these steps, I can help you:
 
 **Development Tools:**
 - Xcode 15.0+
-- ios-deploy (6x faster than Xcode builds)
-- libimobiledevice (device logging)
+- ios-deploy (simulator builds)
+- iOS Simulator (iPhone 16 iOS 18.5)
 
 ## Project Structure
 
@@ -216,8 +212,8 @@ VoiceControlApp/
 
 **Standard Development Cycle:**
 1. **Make changes** to Swift files in Xcode
-2. **Build and deploy** using fast ios-deploy command (6x faster)
-3. **Test manually** on physical iPhone device (required)
+2. **Build and deploy** using fast ios-deploy command to iPhone 16 iOS 18.5 simulator
+3. **Test manually** on iPhone 16 iOS 18.5 simulator (required)
 4. **Capture logs** when needed using buffer-based commands (5s max)
 5. **Iterate** quickly with hot reloading enabled
 
@@ -235,7 +231,7 @@ VoiceControlApp/
 - **Model Separation**: Clear data model definitions
 
 **Testing Approach:**
-- **Manual Testing**: Primary method on physical device
+- **Manual Testing**: Primary method on iPhone 16 iOS 18.5 simulator
 - **Authentication Flow**: Test sign-in, logout, session persistence
 - **Speech Features**: Test microphone permissions and real-time transcription
 - **Network Scenarios**: Test various connectivity conditions
@@ -243,7 +239,7 @@ VoiceControlApp/
 ## Development Best Practices
 
 **✅ DO:**
-- Use physical iPhone device (6x faster, real conditions)
+- Use iPhone 16 iOS 18.5 simulator (stable, consistent)
 - Follow MVVM architecture with clear separation
 - Use SwiftUI best practices and existing patterns
 - Implement proper error handling with Result types
@@ -253,7 +249,7 @@ VoiceControlApp/
 - Capture logs efficiently (buffer-based, 5s max)
 
 **❌ DON'T:**
-- Use iOS Simulator (slower, unrealistic)
+- Use physical device or other simulators (compatibility issues)
 - Hardcode credentials or sensitive data
 - Skip URL scheme configuration (breaks OAuth)
 - Create workarounds for manual setup requirements
