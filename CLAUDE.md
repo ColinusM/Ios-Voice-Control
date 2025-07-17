@@ -16,16 +16,19 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
 **📚 Developer Resources:**
 - **`QUICKSTART.md`** - Get running in 15 minutes (setup + first build)
 - **`ONBOARDING.md`** - Comprehensive developer guide (architecture, workflow, troubleshooting)
+- **Technology Stack**: Swift 5.9+, SwiftUI, Firebase 11.15.0, Google Sign-In 9.0.0, AssemblyAI streaming
 
 **Bundle ID:** `com.voicecontrol.app`
 
 ## 🤖 Technology Agents
 
-**Available specialized agents in `claude_md_files_agents/` folder:**
+**Available specialized agents in `claude_md_files/` folder:**
 
 - **Swift/iOS**: `CLAUDE-SWIFT-IOS-AGENT.md` - Scope error prevention, framework imports, type safety
 - **React**: `CLAUDE-REACT.md` - Component patterns, type safety, testing  
 - **Node.js**: `CLAUDE-NODE.md` - Server patterns, async/await, error handling
+- **Java Gradle**: `CLAUDE-JAVA-GRADLE.md` - Build system patterns
+- **Python**: `CLAUDE-PYTHON-BASIC.md` - Python development patterns
 
 **To activate an agent, simply tell Claude:**
 - "use Swift iOS agent"
@@ -146,15 +149,24 @@ After completing these steps, I can help you:
 - Hot reloading (InjectionNext + HotSwiftUI)
 
 **Backend & Services:**
-- Firebase (Auth, Database, Firestore, Functions)
+- Firebase iOS SDK 11.15.0 (Auth, Database, Firestore, Functions)
 - Google Sign-In SDK 9.0.0
 - AssemblyAI real-time streaming API
-- Starscream WebSocket library
+- Starscream WebSocket library 4.0.8
+- AppAuth-iOS 2.0.0 for OAuth flows
 
 **Development Tools:**
 - Xcode 15.0+
 - ios-deploy (simulator builds)
-- iOS Simulator (iPhone 16 iOS 18.5)
+- iOS Simulator (iPhone 16 iOS 18.5 - Device ID: 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8)
+- HotSwiftUI 1.2.1 for hot reloading
+
+**Key Dependencies (from Package.resolved):**
+- Firebase iOS SDK 11.15.0
+- Google Sign-In 9.0.0
+- Starscream 4.0.8
+- HotSwiftUI 1.2.1
+- GoogleUtilities 8.1.0
 
 ## Project Structure
 
@@ -232,9 +244,17 @@ VoiceControlApp/
 
 **Testing Approach:**
 - **Manual Testing**: Primary method on iPhone 16 iOS 18.5 simulator
-- **Authentication Flow**: Test sign-in, logout, session persistence
+- **Authentication Flow**: Test Google sign-in (bypassed in simulator), logout, session persistence
 - **Speech Features**: Test microphone permissions and real-time transcription
 - **Network Scenarios**: Test various connectivity conditions
+- **Biometric Auth**: Test Face ID/Touch ID simulation
+- **Hot Reload**: Verify UI changes reflect immediately during development
+
+**Testing Workflow:**
+1. Build & deploy with fast ios-deploy command
+2. Manual testing on iPhone 16 iOS 18.5 simulator
+3. Capture logs when needed (buffer-based, 5s max)
+4. Iterate with hot reloading for UI changes
 
 ## Development Best Practices
 
@@ -258,6 +278,39 @@ VoiceControlApp/
 - Log sensitive authentication data
 - Use live streaming for log capture
 
+## Common Development Tasks
+
+### Adding New Authentication Method
+1. Create service in `Authentication/Services/`
+2. Extend `AuthenticationState.swift` and error models
+3. Update `AuthenticationManager.swift`
+4. Add UI components in `Authentication/Views/`
+5. Test with iPhone 16 iOS 18.5 simulator
+
+### Adding New Speech Feature
+1. Extend models in `SpeechRecognition/Models/`
+2. Modify `AssemblyAIStreamer.swift`
+3. Update `StreamingConfig.swift`
+4. Test real-time functionality
+
+### Debugging Common Issues
+1. **Build Failures**: Clean Xcode build folder (⌘⇧K), verify simulator
+2. **Authentication Issues**: Check URL schemes in Info.plist, verify Firebase config
+3. **Speech Recognition**: Verify microphone permissions, check AssemblyAI API key
+4. **WebSocket Errors**: Check network connectivity, verify endpoint URLs
+
+### Log Monitoring Commands
+```bash
+# Standard app logs (use this most often)
+tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep VoiceControlApp | head -30
+
+# OAuth/authentication errors
+tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+
+# App crashes and errors
+tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
+```
+
 ## Google Cloud Console URLs
 
 **OAuth Consent Screen (Test Users):**
@@ -268,6 +321,23 @@ https://console.cloud.google.com/apis/credentials/consent?project=project-102028
 **Google Cloud Project Overview:**
 ```
 https://console.cloud.google.com/home/dashboard?project=project-1020288809254
+```
+
+## Firebase Console URLs
+
+**Firebase Project Overview:**
+```
+https://console.firebase.google.com/project/project-1020288809254/overview
+```
+
+**Firebase Authentication:**
+```
+https://console.firebase.google.com/project/project-1020288809254/authentication
+```
+
+**Firebase Database:**
+```
+https://console.firebase.google.com/project/project-1020288809254/firestore
 ```
 
 ## 🎯 MANDATORY: Proactive Direct URL Rule
@@ -294,7 +364,79 @@ Remember: When external service configuration is needed (Google Cloud, Firebase,
 
 ## 📚 Documentation
 
+**Developer Onboarding:**
+- **`QUICKSTART.md`** - 15-minute setup guide with essential commands
+- **`ONBOARDING.md`** - Comprehensive developer guide (120+ sections)
+- **`README.md`** - Project overview and PRP methodology
+
 **Project docs in `/docs/` folder:**
-- **AssemblyAI**: `/docs/assemblyai/` - Speech-to-text API docs
+- **AssemblyAI**: `/docs/assemblyai/` - Speech-to-text API docs and examples
 - **Yamaha RCP**: `/docs/yamaha-rcp/METAMETA-YAMAHA-RCP.md` - Mixer control context
 - **Quick Reference**: `/docs/yamaha-rcp/yamaha-rcp-quick-reference.md` - Command syntax
+
+**AI Development Resources:**
+- **PRPs**: `/PRPs/` - Product Requirement Prompts methodology
+- **Templates**: `/PRPs/templates/` - Structured prompt templates
+- **AI Docs**: `/PRPs/ai_docs/` - Claude Code documentation
+- **Technology Agents**: `/claude_md_files/` - Specialized development agents
+
+**Configuration Files:**
+- **`Info.plist`** - App permissions, URL schemes, bundle configuration
+- **`GoogleService-Info.plist`** - Firebase and OAuth client configuration
+- **`VoiceControlApp.entitlements`** - iOS app capabilities and security settings
+
+## 🛠️ Development Environment
+
+**Required Simulator Configuration:**
+- **Simulator**: iPhone 16 iOS 18.5
+- **Device ID**: `734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8`
+- **Why This Specific Setup**: Consistent environment, Firebase compatibility, no iOS 26 crashes
+
+**Build Command (Bookmark This):**
+```bash
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphonesimulator/VoiceControlApp.app -i 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
+```
+
+**Hot Reloading**: Enabled with HotSwiftUI for rapid UI development cycles
+
+## 📋 Project Status & Versions
+
+**Current Version**: 1.0 (Build 1)
+**iOS Deployment Target**: iOS 16.0+
+**Xcode Compatibility**: 15.0+
+**Swift Version**: 5.9+
+
+**Recent Major Features:**
+- ✅ Enterprise Google OAuth authentication
+- ✅ Real-time AssemblyAI speech recognition
+- ✅ Firebase backend integration
+- ✅ Biometric authentication (Face ID/Touch ID)
+- ✅ Yamaha RCP mixer control preparation
+- ✅ Hot reloading development environment
+
+**Architecture Health:**
+- MVVM pattern consistently implemented
+- Dependency injection in place
+- Comprehensive error handling
+- Security best practices followed
+- Modular code organization
+
+---
+
+## 🚀 Quick Reference for Claude Code
+
+**Essential Commands:**
+1. **Build & Run**: Use the ios-deploy command with iPhone 16 iOS 18.5 simulator
+2. **Debug**: Use buffer-based log commands (5s max)
+3. **Develop**: Edit Swift files, leverage hot reloading
+4. **Test**: Manual testing on required simulator only
+
+**Key Files to Know:**
+- `VoiceControlAppApp.swift` - Entry point
+- `Authentication/ViewModels/AuthenticationManager.swift` - Auth state
+- `SpeechRecognition/AssemblyAIStreamer.swift` - Speech processing
+- `Info.plist` - App configuration
+- `QUICKSTART.md` - Get running in 15 minutes
+- `ONBOARDING.md` - Comprehensive developer guide
+
+**Remember**: Always use iPhone 16 iOS 18.5 simulator, follow MVVM patterns, and stop for manual GUI actions.
