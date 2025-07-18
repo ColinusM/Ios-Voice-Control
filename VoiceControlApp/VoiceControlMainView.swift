@@ -43,9 +43,25 @@ struct VoiceControlMainView: View {
                 
                 // Main Speech Text Box
                 VStack(spacing: 16) {
-                    Text("Speech Recognition")
-                        .font(.headline)
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("Speech Recognition")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                        
+                        // Clear button
+                        if !assemblyAIStreamer.transcriptionText.isEmpty {
+                            Button(action: {
+                                print("🗑️ Clicked on bin")
+                                assemblyAIStreamer.clearTranscriptionText()
+                            }) {
+                                Image(systemName: "trash")
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
                     
                     ScrollView {
                         Text(assemblyAIStreamer.transcriptionText.isEmpty ? "Tap the microphone to start speaking..." : assemblyAIStreamer.transcriptionText)

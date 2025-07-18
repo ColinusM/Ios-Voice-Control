@@ -28,10 +28,21 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     
     // MARK: - Public Methods
     
+    func clearTranscriptionText() {
+        Task { @MainActor in
+            accumulatedText = ""
+            currentTurnText = ""
+            transcriptionText = ""
+        }
+    }
+    
     func startStreaming() async {
         await MainActor.run {
             errorMessage = nil
             connectionState = .connecting
+            // Don't clear accumulated text when starting a new session
+            // Only clear current turn text
+            currentTurnText = ""
         }
         
         print("🚀 Starting AssemblyAI streaming...")
@@ -82,10 +93,10 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
             sessionBegun = false
             reconnectAttempts = 0
             
-            // Reset transcription state
-            accumulatedText = ""
+            // Reset only current turn text, keep accumulated text
             currentTurnText = ""
-            transcriptionText = ""
+            // Keep transcriptionText with accumulated text preserved
+            transcriptionText = accumulatedText
         }
         
         print("✅ AssemblyAI streaming stopped")
