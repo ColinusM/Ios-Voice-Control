@@ -182,6 +182,8 @@ struct VoiceControlMainView: View {
             return "🎤 Preparing to listen..."
         case .streaming:
             return "🎤 Listening..."
+        case .gracefulShutdown:
+            return "Stopping..."
         case .error(_):
             return "❌ Connection error"
         }

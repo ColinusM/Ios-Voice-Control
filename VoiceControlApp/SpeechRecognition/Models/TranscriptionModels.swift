@@ -112,6 +112,7 @@ enum StreamingState: Equatable {
     case connecting
     case connected
     case streaming
+    case gracefulShutdown
     case error(String)
 }
 

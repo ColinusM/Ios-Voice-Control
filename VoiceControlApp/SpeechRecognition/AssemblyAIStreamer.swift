@@ -24,6 +24,8 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     private var reconnectAttempts = 0
     private var isConnected = false
     private var sessionBegun = false // Track if we've received SessionBegins
+    private var isGracefulShutdown = false
+    private var gracefulShutdownTimer: Timer?
     private var chunkCount = 0
     
     // MARK: - Public Methods
@@ -70,36 +72,26 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     }
     
     func stopStreaming() {
-        print("🛑 Stopping AssemblyAI streaming...")
+        print("🛑 Starting graceful shutdown...")
         
-        // Stop audio recording
+        // Stop audio recording immediately (user feedback)
         audioManager.stopRecording()
         
-        // Send session termination message
-        if isConnected {
-            sendSessionTermination()
-        }
-        
-        // Disconnect WebSocket
-        webSocket?.disconnect()
-        webSocket = nil
-        
-        // Reset state
+        // Enter graceful shutdown state
         Task { @MainActor in
             isStreaming = false
-            connectionState = .disconnected
-            sessionId = nil
-            isConnected = false
-            sessionBegun = false
-            reconnectAttempts = 0
-            
-            // Reset only current turn text, keep accumulated text
-            currentTurnText = ""
-            // Keep transcriptionText with accumulated text preserved
-            transcriptionText = accumulatedText
+            connectionState = .gracefulShutdown
+            isGracefulShutdown = true
         }
         
-        print("✅ AssemblyAI streaming stopped")
+        // Start graceful shutdown timer (5 second timeout)
+        gracefulShutdownTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [weak self] _ in
+            print("⏰ Graceful shutdown timeout - forcing cleanup")
+            self?.forceCleanup()
+        }
+        
+        // Don't disconnect WebSocket yet - wait for final transcript
+        print("⏳ Waiting for final formatted transcript...")
     }
     
     // MARK: - Private Methods
@@ -243,6 +235,13 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
                         }
                         currentTurnText = ""
                         print("📝 Final transcript completed (formatted): '\(turn.transcript)' -> Total: '\(accumulatedText)'")
+                        
+                        // Check if we're in graceful shutdown and this is the final transcript
+                        if isGracefulShutdown {
+                            print("✅ Final formatted transcript received during graceful shutdown")
+                            completeGracefulShutdown()
+                            return
+                        }
                     } else {
                         // This is the unformatted final transcript - ignore it, but clear current turn
                         currentTurnText = ""
@@ -380,5 +379,45 @@ extension AssemblyAIStreamer: WebSocketDelegate {
                 connectionState = .disconnected
             }
         }
+    }
+    
+    private func completeGracefulShutdown() {
+        print("🏁 Completing graceful shutdown with final transcript")
+        
+        // Cancel timer
+        gracefulShutdownTimer?.invalidate()
+        gracefulShutdownTimer = nil
+        
+        // Now do full cleanup
+        forceCleanup()
+    }
+    
+    private func forceCleanup() {
+        print("🧹 Forcing cleanup")
+        
+        // Send session termination if still connected
+        if isConnected {
+            sendSessionTermination()
+        }
+        
+        // Disconnect WebSocket
+        webSocket?.disconnect()
+        webSocket = nil
+        
+        // Reset state
+        Task { @MainActor in
+            connectionState = .disconnected
+            sessionId = nil
+            isConnected = false
+            sessionBegun = false
+            reconnectAttempts = 0
+            isGracefulShutdown = false
+            
+            // Reset only current turn text, keep accumulated text
+            currentTurnText = ""
+            transcriptionText = accumulatedText
+        }
+        
+        print("✅ AssemblyAI streaming stopped")
     }
 }

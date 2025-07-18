@@ -44,9 +44,11 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
 For this iOS project, use the optimized simulator workflow:
 
 ```bash
-# REQUIRED: Fast build + install + launch to iPhone 16 iOS 18.5 simulator
-# Device ID: 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
-cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphonesimulator/VoiceControlApp.app -i 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
+# REQUIRED: Build for iPhone 16 iOS 18.5 simulator
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16 18.5,OS=18.5' -configuration Debug build
+
+# Then launch the app on simulator (after successful build)
+xcrun simctl launch 5B1989A0-1EC8-4187-8A99-466B20CB58F2 com.voicecontrol.app
 ```
 
 **Why iPhone 16 iOS 18.5 Simulator Only:**
@@ -60,10 +62,10 @@ cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-de
 
 This command:
 - Builds the iOS app for simulator target
-- Installs to iPhone 16 iOS 18.5 simulator (734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8)
-- Launches the app automatically
-- Shows console logs in terminal
-- Uses optimized simulator workflow
+- Builds for iPhone 16 iOS 18.5 simulator (5B1989A0-1EC8-4187-8A99-466B20CB58F2)
+- Creates build artifacts for simulator
+- Ready to launch with xcrun simctl command
+- Uses proper xcodebuild for simulator target
 
 ### ❌ DO NOT USE THESE COMMANDS:
 ```bash
@@ -84,13 +86,13 @@ When you say "grab logs", Claude retrieves recent logs from iOS simulator buffer
 
 ```bash
 # SIMULATOR LOGS ONLY (5s max) - Recent buffer, no live streaming
-tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep VoiceControlApp | head -30
+tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep VoiceControlApp | head -30
 
 # OAUTH/GOOGLE ERRORS - Past authentication issues  
-tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
 
 # APP CRASHES - Past error buffer
-tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
+tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
 ```
 
 **CRITICAL: All log commands must complete within 5 seconds and only read past buffer logs - never live stream.**
@@ -158,7 +160,7 @@ After completing these steps, I can help you:
 **Development Tools:**
 - Xcode 15.0+
 - ios-deploy (simulator builds)
-- iOS Simulator (iPhone 16 iOS 18.5 - Device ID: 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8)
+- iOS Simulator (iPhone 16 iOS 18.5 - Device ID: 5B1989A0-1EC8-4187-8A99-466B20CB58F2)
 - HotSwiftUI 1.2.1 for hot reloading
 
 **Key Dependencies (from Package.resolved):**
@@ -224,7 +226,7 @@ VoiceControlApp/
 
 **Standard Development Cycle:**
 1. **Make changes** to Swift files in Xcode
-2. **Build and deploy** using fast ios-deploy command to iPhone 16 iOS 18.5 simulator
+2. **Build and deploy** using xcodebuild command to iPhone 16 iOS 18.5 simulator
 3. **Test manually** on iPhone 16 iOS 18.5 simulator (required)
 4. **Capture logs** when needed using buffer-based commands (5s max)
 5. **Iterate** quickly with hot reloading enabled
@@ -251,7 +253,7 @@ VoiceControlApp/
 - **Hot Reload**: Verify UI changes reflect immediately during development
 
 **Testing Workflow:**
-1. Build & deploy with fast ios-deploy command
+1. Build & deploy with xcodebuild command
 2. Manual testing on iPhone 16 iOS 18.5 simulator
 3. Capture logs when needed (buffer-based, 5s max)
 4. Iterate with hot reloading for UI changes
@@ -302,13 +304,13 @@ VoiceControlApp/
 ### Log Monitoring Commands
 ```bash
 # Standard app logs (use this most often)
-tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep VoiceControlApp | head -30
+tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep VoiceControlApp | head -30
 
 # OAuth/authentication errors
-tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
 
 # App crashes and errors
-tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
+tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
 ```
 
 ## Google Cloud Console URLs
@@ -389,12 +391,12 @@ Remember: When external service configuration is needed (Google Cloud, Firebase,
 
 **Required Simulator Configuration:**
 - **Simulator**: iPhone 16 iOS 18.5
-- **Device ID**: `734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8`
+- **Device ID**: `5B1989A0-1EC8-4187-8A99-466B20CB58F2`
 - **Why This Specific Setup**: Consistent environment, Firebase compatibility, no iOS 26 crashes
 
 **Build Command (Bookmark This):**
 ```bash
-cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphonesimulator/VoiceControlApp.app -i 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16 18.5,OS=18.5' -configuration Debug build
 ```
 
 **Hot Reloading**: Enabled with HotSwiftUI for rapid UI development cycles
@@ -426,7 +428,7 @@ cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-de
 ## 🚀 Quick Reference for Claude Code
 
 **Essential Commands:**
-1. **Build & Run**: Use the ios-deploy command with iPhone 16 iOS 18.5 simulator
+1. **Build & Run**: Use the xcodebuild command with iPhone 16 iOS 18.5 simulator
 2. **Debug**: Use buffer-based log commands (5s max)
 3. **Develop**: Edit Swift files, leverage hot reloading
 4. **Test**: Manual testing on required simulator only
