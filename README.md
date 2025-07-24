@@ -1,370 +1,172 @@
-# PRP (Product Requirement prompts)
+# iOS Voice Control App
 
-- A collection of prompts for AI-assisted development with Claude Code
+Enterprise-grade iOS application featuring real-time speech-to-text capabilities with professional audio mixer control integration. Built with SwiftUI and designed for iPhone X+ (iOS 16+) with Firebase backend services.
 
-## Video Walkthrough
+## 🎯 Features
 
-👉 https://www.youtube.com/watch?v=KVOZ9s1S9Gk&lc=UgzfwxvFjo6pKEyPo1R4AaABAg
+- 🔐 **Enterprise Google Sign-In** with Firebase Auth integration
+- 🎙️ **Real-time Speech Recognition** via AssemblyAI streaming API
+- 🎛️ **Yamaha RCP Mixer Control** integration (preparation stage)
+- 📱 **Native iOS SwiftUI Interface** with MVVM architecture
+- 🔄 **Hot Reloading** for rapid development cycles
+- 👤 **Multi-Modal Authentication** (Google, Firebase, Biometric, Guest)
 
-### ☕ Support This Work
+## 🚀 Quick Start
 
-**Found value in these resources?**
+**New to this project?** Follow these guides in order:
 
-👉 **Buy me a coffee:** https://coff.ee/wirasm
+1. **[QUICKSTART.md](QUICKSTART.md)** - Get running in 15 minutes
+2. **[ONBOARDING.md](ONBOARDING.md)** - Comprehensive developer guide
 
-I spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying me a coffee to support my work.
+### Prerequisites
 
-That will help me maintain and improve the resources available for free
+- **macOS 13.0+** (Ventura or later)
+- **Xcode 15.0+** with Command Line Tools
+- **iPhone 16 iOS 18.5 Simulator** (critical requirement)
 
----
-
-### 🎯 Transform Your Team with AI Engineering Workshops
-
-**Ready to move beyond toy demos to production-ready AI systems?**
-
-👉 **Book a workshop:** https://www.rasmuswiding.com/
-
-✅ **What you'll get:**
-
-- Put your team on a path to become AI power users
-- Learn the exact PRP methodology used by top engineering teams
-- Hands-on training with Claude Code, PRPs, and real codebases
-- From beginner to advanced AI engineering workshops for teams and individuals
-
-💡 **Perfect for:** Engineering teams, Product teams, and developers who want AI that actually works in production
-
-Let's talk!
-Contact me directly at rasmus@widinglabs.com
-
-# AI Engineering Resources for Claude Code
-
-A comprehensive library of assets and context engineering for Agentic Engineering, optimized for Claude Code. This repository provides the Product Requirement Prompt (PRP) methodology, pre-configured commands, and extensive documentation to enable AI-assisted development that delivers production-ready code on the first pass.
-
-## What is PRP?
-
-Product Requirement Prompt (PRP)
-
-## In short
-
-A PRP is PRD + curated codebase intelligence + agent/runbook—the minimum viable packet an AI needs to plausibly ship production-ready code on the first pass.
-
-Product Requirement Prompt (PRP) is a structured prompt methodology first established in summer 2024 with context engineering at heart. A PRP supplies an AI coding agent with everything it needs to deliver a vertical slice of working software—no more, no less.
-
-### How PRP Differs from Traditional PRD
-
-A traditional PRD clarifies what the product must do and why customers need it, but deliberately avoids how it will be built.
-
-A PRP keeps the goal and justification sections of a PRD yet adds three AI-critical layers:
-
-### Context
-
-Precise file paths and content, library versions and library context, code snippets examples. LLMs generate higher-quality code when given direct, in-prompt references instead of broad descriptions. Usage of a ai_docs/ directory to pipe in library and other docs.
-
-## Getting Started
-
-### Option 1: Copy Resources to Your Existing Project
-
-1. **Copy the Claude commands** to your project:
-
-   ```bash
-   # From your project root
-   cp -r /path/to/PRPs-agentic-eng/.claude/commands .claude/
-   ```
-
-2. **Copy the PRP templates and runner**:
-
-   ```bash
-   cp -r /path/to/PRPs-agentic-eng/PRPs/templates PRPs/
-   cp -r /path/to/PRPs-agentic-eng/PRPs/scripts PRPs/
-   cp /path/to/PRPs-agentic-eng/PRPs/README.md PRPs/
-   ```
-
-3. **Copy AI documentation** (optional but recommended):
-   ```bash
-   cp -r /path/to/PRPs-agentic-eng/PRPs/ai_docs PRPs/
-   ```
-
-### Option 2: Clone and Start a New Project
-
-1. **Clone this repository**:
-
-   ```bash
-   git clone https://github.com/Wirasm/PRPs-agentic-eng.git
-   cd PRPs-agentic-eng
-   ```
-
-2. **Create your project structure**:
-
-   ```bash
-   # Example for a Python project
-   mkdir -p src/tests
-   touch src/__init__.py
-   touch pyproject.toml
-   touch CLAUDE.md
-   ```
-
-3. **Initialize with UV** (for Python projects):
-   ```bash
-   uv venv
-   uv sync
-   ```
-
-## Using Claude Commands
-
-The `.claude/commands/` directory contains 12 pre-configured commands that appear as slash commands in Claude Code.
-
-### Available Commands
-
-1. **PRP Creation & Execution**:
-   - `/create-base-prp` - Generate comprehensive PRPs with research
-   - `/execute-base-prp` - Execute PRPs against codebase
-   - `/planning-create` - Create planning documents with diagrams
-   - `/spec-create-adv` - Advanced specification creation
-   - `/spec-execute` - Execute specifications
-
-2. **Code Review & Refactoring**:
-   - `/review-general` - General code review
-   - `/review-staged-unstaged` - Review git changes
-   - `/refactor-simple` - Simple refactoring tasks
-
-3. **Git & GitHub**:
-   - `/create-pr` - Create pull requests
-
-4. **Utilities**:
-   - `/prime-core` - Prime Claude with project context
-   - `/onboarding` - Onboarding process for new team members
-   - `/debug` - Debugging workflow
-
-### How to Use Commands
-
-1. **In Claude Code**, type `/` to see available commands
-2. **Select a command** and provide arguments when prompted
-3. **Example usage**:
-   ```
-   /create-base-prp user authentication system with OAuth2
-   ```
-
-## Using PRPs
-
-### Creating a PRP
-
-1. **Use the template** as a starting point:
-
-   ```bash
-   cp PRPs/templates/prp_base.md PRPs/my-feature.md
-   ```
-
-2. **Fill in the sections**:
-   - Goal: What needs to be built
-   - Why: Business value and user impact
-   - Context: Documentation, code examples, gotchas
-   - Implementation Blueprint: Tasks and pseudocode
-   - Validation Loop: Executable tests
-
-3. **Or use Claude to generate one**:
-   ```
-   /create-base-prp implement user authentication with JWT tokens
-   ```
-
-### Executing a PRP
-
-1. **Using the runner script**:
-
-   ```bash
-   # Interactive mode (recommended for development)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --interactive
-
-   # Headless mode (for CI/CD)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format json
-
-   # Streaming JSON (for real-time monitoring)
-   uv run PRPs/scripts/prp_runner.py --prp my-feature --output-format stream-json
-   ```
-
-2. **Using Claude commands**:
-   ```
-   /execute-base-prp PRPs/my-feature.md
-   ```
-
-### PRP Best Practices
-
-1. **Context is King**: Include ALL necessary documentation, examples, and caveats
-2. **Validation Loops**: Provide executable tests/lints the AI can run and fix
-3. **Information Dense**: Use keywords and patterns from the codebase
-4. **Progressive Success**: Start simple, validate, then enhance
-
-### Example PRP Structure
-
-```markdown
-## Goal
-
-Implement user authentication with JWT tokens
-
-## Why
-
-- Enable secure user sessions
-- Support API authentication
-- Replace basic auth with industry standard
-
-## What
-
-JWT-based authentication system with login, logout, and token refresh
-
-### Success Criteria
-
-- [ ] Users can login with email/password
-- [ ] JWT tokens expire after 24 hours
-- [ ] Refresh tokens work correctly
-- [ ] All endpoints properly secured
-
-## All Needed Context
-
-### Documentation & References
-
-- url: https://jwt.io/introduction/
-  why: JWT structure and best practices
-
-- file: src/auth/basic_auth.py
-  why: Current auth pattern to replace
-
-- doc: https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/
-  section: OAuth2 with Password and JWT
-
-### Known Gotchas
-
-# CRITICAL: Use RS256 algorithm for production
-
-# CRITICAL: Store refresh tokens in httpOnly cookies
-
-# CRITICAL: Implement token blacklist for logout
-
-## Implementation Blueprint
-
-[... detailed implementation plan ...]
-
-## Validation Loop
-
-### Level 1: Syntax & Style
-
-ruff check src/ --fix
-mypy src/
-
-### Level 2: Unit Tests
-
-uv run pytest tests/test_auth.py -v
-
-### Level 3: Integration Test
-
-curl -X POST http://localhost:8000/auth/login \
- -H "Content-Type: application/json" \
- -d '{"email": "test@example.com", "password": "testpass"}'
-```
-
-## Project Structure Recommendations
-
-```
-your-project/
-|-- .claude/
-|   |-- commands/          # Claude Code commands
-|   `-- settings.json      # Tool permissions
-|-- PRPs/
-|   |-- templates/         # PRP templates
-|   |-- scrips/           # PRP runner
-|   |-- ai_docs/          # Library documentation
-|   |-- completed/        # Finished PRPs
-|   `-- *.md              # Active PRPs
-|-- CLAUDE.md             # Project-specific guidelines
-|-- src/                  # Your source code
-`-- tests/                # Your tests
-```
-
-## Setting Up CLAUDE.md
-
-Create a `CLAUDE.md` file in your project root with:
-
-1. **Core Principles**: KISS, YAGNI, etc.
-2. **Code Structure**: File size limits, function length
-3. **Architecture**: How your project is organized
-4. **Testing**: Test patterns and requirements
-5. **Style Conventions**: Language-specific guidelines
-6. **Development Commands**: How to run tests, lint, etc.
-
-See the example CLAUDE.md in this repository for a comprehensive template.
-
-## Advanced Usage
-
-### Running Multiple Claude Sessions
-
-Use Git worktrees for parallel development:
+### Essential Commands
 
 ```bash
-git worktree add -b feature-auth ../project-auth
-git worktree add -b feature-api ../project-api
+# Build and run (bookmark this)
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16 18.5,OS=18.5' -configuration Debug build
 
-# Run Claude in each worktree
-cd ../project-auth && claude
-cd ../project-api && claude
+# Launch app
+xcrun simctl launch 5B1989A0-1EC8-4187-8A99-466B20CB58F2 com.voicecontrol.app
+
+# Debug logs (when needed)
+tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep VoiceControlApp | head -30
 ```
 
-### CI/CD Integration
+## 🏗️ Tech Stack
 
-Use the PRP runner in headless mode:
+### Frontend
+- **Swift 5.9+** with SwiftUI
+- **MVVM Architecture** with dependency injection
+- **Hot Reloading** via HotSwiftUI 1.2.1
 
-```yaml
-# GitHub Actions example
-- name: Execute PRP
-  run: |
-    uv run PRPs/scripts/prp_runner.py \
-      --prp implement-feature \
-      --output-format json > result.json
+### Authentication
+- **Firebase iOS SDK 11.15.0** (Auth, Database, Firestore, Functions)
+- **Google Sign-In 9.0.0** with OAuth 2.0 + PKCE
+- **Biometric Authentication** (Face ID/Touch ID)
+- **Guest Mode** for Apple App Store compliance
+
+### Speech Processing
+- **AssemblyAI Streaming API** for real-time transcription
+- **AVAudioEngine** for audio capture
+- **Starscream WebSocket 4.0.8** for real-time communication
+
+### Development Tools
+- **Xcode 15.0+** for iOS development
+- **iPhone 16 iOS 18.5 Simulator** (mandatory)
+- **Firebase Console** for backend management
+- **Google Cloud Console** for OAuth configuration
+
+## 📱 Project Structure
+
+```
+VoiceControlApp/
+├── VoiceControlAppApp.swift          # App entry point with Firebase setup
+├── ContentView.swift                 # Root view with auth flow routing
+├── VoiceControlMainView.swift        # Main app interface post-auth
+├── Info.plist                        # App configuration & permissions
+├── GoogleService-Info.plist          # Firebase configuration
+│
+├── Authentication/                   # Complete authentication system
+│   ├── Services/                    # Google, Firebase, Biometric services
+│   ├── ViewModels/                  # Auth logic & state management
+│   ├── Views/                       # Auth screens (Sign In, Sign Up, etc.)
+│   └── Models/                      # Auth models & error handling
+│
+├── SpeechRecognition/               # Speech-to-text system
+│   ├── AssemblyAIStreamer.swift     # Real-time streaming client
+│   ├── AudioManager.swift           # Audio capture & processing
+│   └── Models/                      # Speech processing models
+│
+├── Subscriptions/                   # In-app subscription system
+└── Shared/                          # Common utilities & components
 ```
 
-### Custom Commands
+## ⚠️ Critical Requirements
 
-Create your own commands in `.claude/commands/`:
+### Simulator Usage (Non-Negotiable)
+- **MUST use iPhone 16 iOS 18.5 simulator** (Device ID: `5B1989A0-1EC8-4187-8A99-466B20CB58F2`)
+- **NEVER use physical device or other simulators** (causes FBSceneErrorDomain crashes)
+- This requirement is project-specific for Firebase compatibility
 
-```markdown
-# .claude/commands/my-command.md
+### Build Commands
+- **Use `xcodebuild`** commands (not `ios-deploy`)
+- **Buffer-based logging only** (5-second timeout)
+- **Follow MVVM architecture** patterns consistently
 
-# My Custom Command
+## 🔧 Configuration
 
-Do something specific to my project.
+### Required Configuration Files
+- **`GoogleService-Info.plist`**: Firebase configuration with OAuth client IDs
+- **`Info.plist`**: App permissions and URL schemes
+- **`VoiceControlApp.entitlements`**: iOS app capabilities
 
-## Arguments: $ARGUMENTS
+### External Services
+- **Google Cloud Console**: https://console.cloud.google.com/apis/credentials/consent?project=project-1020288809254
+- **Firebase Console**: https://console.firebase.google.com/project/project-1020288809254/authentication
+- **AssemblyAI**: Real-time streaming API for speech recognition
 
-[Your command implementation]
-```
+### Bundle Configuration
+- **Bundle ID**: `com.voicecontrol.app`
+- **URL Scheme**: `com.googleusercontent.apps.1020288809254-gs8jhl1ak8oi5rasarpc1i5cq28sokjv`
+- **Firebase Project**: `project-1020288809254`
 
-## Resources Included
+## 🎨 Architecture
 
-### Documentation (PRPs/ai_docs/)
+### MVVM Pattern
+- **Models**: Data structures and business entities
+- **Views**: SwiftUI views with clean UI/UX
+- **ViewModels**: `@ObservableObject` coordinators with `@Published` state
+- **Services**: External API integrations and system interfaces
 
-- `cc_base.md` - Core Claude Code documentation
-- `cc_actions_sdk.md` - GitHub Actions and SDK integration
-- `cc_best_practices.md` - Best practices guide
-- `cc_settings.md` - Configuration and security
-- `cc_tutorials.md` - Step-by-step tutorials
+### Key Components
+- **`AuthenticationManager`**: Central auth coordinator
+- **`AssemblyAIStreamer`**: Speech processing coordinator
+- **`GoogleSignInService`**: OAuth 2.0 integration
+- **`FirebaseAuthService`**: Firebase Auth wrapper
+- **`AudioManager`**: Real-time audio capture
 
-### Templates (PRPs/templates/)
+## 🚨 Common Gotchas
 
-- `prp_base.md` - Comprehensive PRP template with validation
-- `prp_spec.md` - Specification template
-- `prp_planning_base.md` - Planning template with diagrams
+1. **Device ID Mismatch**: Always use `5B1989A0-1EC8-4187-8A99-466B20CB58F2`
+2. **Google Sign-In Bypassed**: Expected behavior in simulator (not a bug)
+3. **Hot Reloading Limits**: Works for UI changes only, not architecture changes
+4. **Manual GUI Actions**: Stop and request user confirmation for external configurations
 
-### Example PRP
+## 📚 Documentation
 
-- `example-from-workshop-mcp-crawl4ai-refactor-1.md` - Real-world refactoring example
+- **[QUICKSTART.md](QUICKSTART.md)**: 15-minute setup guide
+- **[ONBOARDING.md](ONBOARDING.md)**: Comprehensive developer guide (120+ sections)
+- **[CLAUDE.md](CLAUDE.md)**: Project-specific AI development guidelines
+- **[docs/](docs/)**: Technical documentation for APIs and integrations
+- **[PRPs/](PRPs/)**: AI-assisted development methodology and templates
 
-## License
+## 🔗 Key Files
 
-MIT License
+**Entry Points:**
+- [`VoiceControlAppApp.swift`](VoiceControlApp/VoiceControlAppApp.swift) - App initialization
+- [`ContentView.swift`](VoiceControlApp/ContentView.swift) - Root navigation
+- [`AuthenticationManager.swift`](VoiceControlApp/Authentication/ViewModels/AuthenticationManager.swift) - Auth coordinator
+- [`AssemblyAIStreamer.swift`](VoiceControlApp/SpeechRecognition/AssemblyAIStreamer.swift) - Speech processing
 
-## Support
+**Configuration:**
+- [`Info.plist`](VoiceControlApp/Info.plist) - App configuration
+- [`GoogleService-Info.plist`](VoiceControlApp/GoogleService-Info.plist) - Firebase config
+- [`Package.resolved`](VoiceControlApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved) - Dependencies
 
-I spent a considerable amount of time creating these resources and prompts. If you find value in this project, please consider buying me a coffee to support my work.
+## 🚀 Getting Started Checklist
 
-👉 **Buy me a coffee:** https://coff.ee/wirasm
+- [ ] **macOS 13.0+** with Xcode 15.0+ installed
+- [ ] **iPhone 16 iOS 18.5 Simulator** configured
+- [ ] **Repository cloned** and Xcode project opened
+- [ ] **Build command executed** successfully
+- [ ] **App launches** on required simulator
+- [ ] **Read [ONBOARDING.md](ONBOARDING.md)** for comprehensive guide
 
 ---
 
-Remember: The goal is one-pass implementation success through comprehensive context. Happy coding with Claude Code!
+**Ready to develop?** Start with [QUICKSTART.md](QUICKSTART.md) for immediate setup, then dive into [ONBOARDING.md](ONBOARDING.md) for complete understanding of the architecture and development workflow.

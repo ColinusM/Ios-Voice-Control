@@ -25,23 +25,28 @@ npm install -g ios-deploy
 brew install ios-deploy
 ```
 
-### 3. Set Up iPhone 16 iOS 18.5 Simulator
+### 3. Set Up iPhone 16 iOS 18.5 Simulator ⚠️ CRITICAL
 - Open Xcode → Window → Devices and Simulators
 - Add iPhone 16 simulator running iOS 18.5
-- **Device ID Required:** `734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8`
+- **Device ID Required:** `5B1989A0-1EC8-4187-8A99-466B20CB58F2`
+- **NEVER use physical device or other simulators** (causes compatibility issues)
 
 ## 🏃‍♂️ First Run (2 minutes)
 
 ### Build & Launch
 ```bash
-cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphonesimulator/VoiceControlApp.app -i 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
+# MANDATORY build command (bookmark this)
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16 18.5,OS=18.5' -configuration Debug build
+
+# Then launch app on simulator
+xcrun simctl launch 5B1989A0-1EC8-4187-8A99-466B20CB58F2 com.voicecontrol.app
 ```
 
 **This command:**
-- Builds the app for simulator
-- Installs to iPhone 16 iOS 18.5 simulator
-- Launches automatically
-- Shows console logs
+- Builds the app for iPhone 16 iOS 18.5 simulator
+- Creates build artifacts ready for deployment
+- Second command launches the app automatically
+- Use separate log commands when needed (see below)
 
 ### Expected Results
 - ✅ App launches on iPhone 16 iOS 18.5 simulator
@@ -70,17 +75,23 @@ cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && time ios-de
 
 ### Build & Deploy
 ```bash
-# Fast build to iPhone 16 iOS 18.5 simulator (use this always)
-ios-deploy -b /Users/colinmignot/Library/Developer/Xcode/DerivedData/VoiceControlApp-*/Build/Products/Debug-iphonesimulator/VoiceControlApp.app -i 734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8
+# Primary build command (use this always)
+cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16 18.5,OS=18.5' -configuration Debug build
+
+# Launch after successful build
+xcrun simctl launch 5B1989A0-1EC8-4187-8A99-466B20CB58F2 com.voicecontrol.app
 ```
 
-### Debug Logs (when needed)
+### Debug Logs (when needed) - Buffer-Based Only
 ```bash
-# App logs (recent buffer)
-tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep VoiceControlApp | head -30
+# App logs (recent buffer, 5s max)
+tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep VoiceControlApp | head -30
 
 # OAuth errors
-tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+
+# App crashes
+tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
 ```
 
 ## 📱 Project Structure (Know This)
@@ -117,8 +128,8 @@ VoiceControlApp/
 ## ⚠️ Critical Rules
 
 ### ✅ ALWAYS USE:
-- **iPhone 16 iOS 18.5 simulator** (Device ID: `734CE727-9B7B-40B3-8D56-DB0A2C1C8CD8`)
-- Fast ios-deploy command for builds
+- **iPhone 16 iOS 18.5 simulator** (Device ID: `5B1989A0-1EC8-4187-8A99-466B20CB58F2`)
+- xcodebuild command for builds (not ios-deploy)
 - Buffer-based log commands (5s max)
 
 ### ❌ NEVER USE:
