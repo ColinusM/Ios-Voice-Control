@@ -93,38 +93,3 @@ enum CommandCategory: String, Codable, CaseIterable {
     }
 }
 
-/// Validation limits for RCP commands (ported from Python engine)
-struct ValidationLimits {
-    static let maxChannel = 40
-    static let maxMix = 20
-    static let maxScene = 100
-    static let maxDCA = 8
-    static let minDB = -60.0
-    static let maxDB = 10.0
-    static let maxInputLength = 200
-    
-    /// Validates if a channel number is within acceptable range
-    static func isValidChannel(_ channel: Int) -> Bool {
-        return channel >= 1 && channel <= maxChannel
-    }
-    
-    /// Validates if a mix number is within acceptable range
-    static func isValidMix(_ mix: Int) -> Bool {
-        return mix >= 1 && mix <= maxMix
-    }
-    
-    /// Validates if a scene number is within acceptable range
-    static func isValidScene(_ scene: Int) -> Bool {
-        return scene >= 1 && scene <= maxScene
-    }
-    
-    /// Validates if a DCA number is within acceptable range
-    static func isValidDCA(_ dca: Int) -> Bool {
-        return dca >= 1 && dca <= maxDCA
-    }
-    
-    /// Clamps dB value to safe range
-    static func clampDB(_ db: Double) -> Double {
-        return max(minDB, min(maxDB, db))
-    }
-}

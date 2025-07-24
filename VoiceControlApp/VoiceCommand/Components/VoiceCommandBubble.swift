@@ -18,6 +18,9 @@ struct VoiceCommandBubble: View {
     /// Callback for send button tap
     let onSend: (() -> Void)?
     
+    /// Learning prompt manager for brain emoji overlays
+    let promptManager: LearningPromptManager?
+    
     // MARK: - State
     
     @State private var isPressed = false
@@ -38,19 +41,61 @@ struct VoiceCommandBubble: View {
         command: ProcessedVoiceCommand,
         showMetadata: Bool = false,
         onTap: (() -> Void)? = nil,
-        onSend: (() -> Void)? = nil
+        onSend: (() -> Void)? = nil,
+        promptManager: LearningPromptManager? = nil
     ) {
         self.command = command
         self.showMetadata = showMetadata
         self.onTap = onTap
         self.onSend = onSend
+        self.promptManager = promptManager
     }
     
     // MARK: - Body
     
     var body: some View {
         Button(action: handleTap) {
-            VStack(alignment: .leading, spacing: 8) {
+            ZStack(alignment: .topTrailing) {
+                // Main bubble content
+                bubbleContent
+                
+                // Brain emoji learning overlay
+                if let promptManager = promptManager,
+                   promptManager.showingPrompt,
+                   let promptData = promptManager.currentPromptData {
+                    BrainEmojiOverlay.forBubbleIntegration(
+                        promptManager: promptManager,
+                        promptData: promptData
+                    )
+                    .transition(.asymmetric(
+                        insertion: .scale.combined(with: .opacity),
+                        removal: .opacity
+                    ))
+                    .zIndex(1) // Ensure overlay appears above bubble content
+                }
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .onLongPressGesture(minimumDuration: 0) { } onPressingChanged: { pressing in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                isPressed = pressing
+            }
+        }
+        .onAppear {
+            startEntranceAnimation()
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabel)
+        .accessibilityValue(accessibilityValue)
+        .accessibilityHint("Voice command bubble")
+        .accessibilityAddTraits(onTap != nil ? .isButton : [])
+    }
+    
+    // MARK: - Subviews
+    
+    @ViewBuilder
+    private var bubbleContent: some View {
+        VStack(alignment: .leading, spacing: 8) {
                 // Command header with category and timestamp
                 commandHeader
                 
@@ -81,21 +126,6 @@ struct VoiceCommandBubble: View {
             .scaleEffect(bubbleScale)
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
             .animation(.easeInOut(duration: 0.5), value: animationProgress)
-        }
-        .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(minimumDuration: 0) { } onPressingChanged: { pressing in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                isPressed = pressing
-            }
-        }
-        .onAppear {
-            startEntranceAnimation()
-        }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(accessibilityLabel)
-        .accessibilityValue(accessibilityValue)
-        .accessibilityHint("Voice command bubble")
-        .accessibilityAddTraits(onTap != nil ? .isButton : [])
     }
     
     // MARK: - Subviews

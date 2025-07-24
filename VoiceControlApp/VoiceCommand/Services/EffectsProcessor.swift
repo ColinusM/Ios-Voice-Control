@@ -214,7 +214,7 @@ class EffectsProcessor {
     
     /// Process "add reverb to [instrument]" pattern
     private func processAddReverbToInstrument(_ text: String) -> RCPCommand? {
-        let pattern = #"(?:add|set)\\s+(?:(?:(.+?)\\s+)?reverb\\s+to|reverb\\s+(?:(.+?)\\s+)?to)\\s+(.+?)(?:\\s+at\\s+(.+))?$"#
+        let pattern = #"(?:add|set)\s+(?:(?:(.+?)\s+)?reverb\s+to|reverb\s+(?:(.+?)\s+)?to)\s+(.+?)(?:\s+at\s+(.+))?$"#
         
         if let regex = try? NSRegularExpression(pattern: pattern, options: []),
            let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
@@ -247,7 +247,7 @@ class EffectsProcessor {
     
     /// Process "set [instrument] reverb to [type/level]" pattern
     private func processSetInstrumentReverb(_ text: String) -> RCPCommand? {
-        let pattern = #"set\\s+(.+?)\\s+reverb\\s+to\\s+(.+)"#
+        let pattern = #"set\s+(.+?)\s+reverb\s+to\s+(.+)"#
         
         if let regex = try? NSRegularExpression(pattern: pattern, options: []),
            let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
@@ -290,7 +290,7 @@ class EffectsProcessor {
     
     /// Process "[instrument] reverb [type/level/off]" pattern
     private func processInstrumentReverbDirect(_ text: String) -> RCPCommand? {
-        let pattern = #"(.+?)\\s+reverb\\s+(\\w+)(?:\\s+(\\w+))?"#
+        let pattern = #"(.+?)\s+reverb\s+(\w+)(?:\s+(\w+))?"#
         
         if let regex = try? NSRegularExpression(pattern: pattern, options: []),
            let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
@@ -329,7 +329,7 @@ class EffectsProcessor {
     
     /// Process delay commands similar to reverb
     private func processAddDelayToInstrument(_ text: String) -> RCPCommand? {
-        let pattern = #"(?:add|set)\\s+(?:(?:(.+?)\\s+)?delay\\s+to|delay\\s+(?:(.+?)\\s+)?to)\\s+(.+?)(?:\\s+at\\s+(.+?))?(?:\\s+(?:ms|milliseconds|note|notes))?$"#
+        let pattern = #"(?:add|set)\s+(?:(?:(.+?)\s+)?delay\s+to|delay\s+(?:(.+?)\s+)?to)\s+(.+?)(?:\s+at\s+(.+?))?(?:\s+(?:ms|milliseconds|note|notes))?$"#
         
         if let regex = try? NSRegularExpression(pattern: pattern, options: []),
            let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
@@ -362,7 +362,7 @@ class EffectsProcessor {
     
     /// Process compression commands
     private func processCompressInstrument(_ text: String) -> RCPCommand? {
-        let pattern = #"compress(?:or)?\\s+(?:the\\s+)?(.+?)(?:\\s+(gentle|light|medium|heavy|aggressive))?$"#
+        let pattern = #"compress(?:or)?\s+(?:the\s+)?(.+?)(?:\s+(gentle|light|medium|heavy|aggressive))?$"#
         
         if let regex = try? NSRegularExpression(pattern: pattern, options: []),
            let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
@@ -395,7 +395,7 @@ class EffectsProcessor {
     
     /// Process EQ boost/cut commands
     private func processBoostCutFrequency(_ text: String) -> RCPCommand? {
-        let pattern = #"(boost|cut)\\s+(?:the\\s+)?(.+?)\\s+on\\s+(.+?)(?:\\s+by\\s+([\\d.]+)\\s*(?:db|dB))?$"#
+        let pattern = #"(boost|cut)\s+(?:the\s+)?(.+?)\s+on\s+(.+?)(?:\s+by\s+([\d.]+)\s*(?:db|dB))?$"#
         
         if let regex = try? NSRegularExpression(pattern: pattern, options: []),
            let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
@@ -490,12 +490,12 @@ class EffectsProcessor {
     
     /// Add custom reverb type
     func addReverbType(_ name: String, typeNumber: Int) {
-        print("🎛️ Added custom reverb type: \\(name) -> Type \\(typeNumber)")
+        print("🎛️ Added custom reverb type: \(name) -> Type \(typeNumber)")
     }
     
     /// Add custom delay type
     func addDelayType(_ name: String, type: Int, time: Double) {
-        print("🎛️ Added custom delay type: \\(name) -> Type \\(type), Time \\(time)ms")
+        print("🎛️ Added custom delay type: \(name) -> Type \(type), Time \(time)ms")
     }
     
     /// Get all available effect types
@@ -510,6 +510,6 @@ class EffectsProcessor {
     
     /// Update effect level mapping
     func addEffectLevel(_ name: String, level: Double) {
-        print("🎛️ Added custom effect level: \\(name) -> \\(level)")
+        print("🎛️ Added custom effect level: \(name) -> \(level)")
     }
 }
