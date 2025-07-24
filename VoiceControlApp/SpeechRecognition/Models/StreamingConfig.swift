@@ -22,7 +22,7 @@ struct StreamingConfig {
     
     // Transcription Settings
     let language: String = "en"
-    let formatTurns: Bool = true
+    let formatTurns: Bool = false
     let endOfTurnConfidenceThreshold: Double = 0.7
     let minEndOfTurnSilenceWhenConfident: Int = 160 // milliseconds
     let maxTurnSilence: Int = 2400 // milliseconds

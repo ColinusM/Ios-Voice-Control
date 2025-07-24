@@ -46,7 +46,7 @@ class VoiceControlGUI:
         port_entry.grid(row=0, column=1, padx=(5, 20))
         
         ttk.Label(settings_frame, text="Mode:").grid(row=0, column=2, sticky=tk.W)
-        self.mode_var = tk.StringVar(value="Development")
+        self.mode_var = tk.StringVar(value="Development (UDP 8080)")
         mode_combo = ttk.Combobox(settings_frame, textvariable=self.mode_var, 
                                  values=["Development (UDP 8080)", "Yamaha RCP (TCP 49280)"], 
                                  state="readonly", width=20)
@@ -148,10 +148,11 @@ class VoiceControlGUI:
             port = int(self.port_var.get())
             mode = self.mode_var.get()
             
-            if "UDP" in mode:
-                self.start_udp_server(port)
-            else:
+            if "TCP" in mode or "Yamaha" in mode:
                 self.start_tcp_server(port)
+            else:
+                # Default to UDP for Development mode
+                self.start_udp_server(port)
             
             self.start_button.config(state=tk.DISABLED)
             self.stop_button.config(state=tk.NORMAL)
@@ -212,10 +213,20 @@ class VoiceControlGUI:
                 content = message.get('content', 'N/A')
                 self.log_message(f"Voice from {addr[0]}: \"{content}\"", "VOICE")
                 
-                # Convert to RCP
-                rcp = self.voice_to_rcp(content)
-                if rcp:
-                    self.log_message(f"RCP Command: {rcp}", "RCP")
+                # Check if RCP commands were already generated and sent
+                rcp_commands = message.get('rcpCommands', [])
+                if rcp_commands:
+                    self.log_message(f"Received {len(rcp_commands)} RCP commands:", "RCP")
+                    for i, cmd in enumerate(rcp_commands, 1):
+                        command = cmd.get('command', 'N/A')
+                        description = cmd.get('description', 'N/A')
+                        self.log_message(f"  {i}. {description}", "RCP")
+                        self.log_message(f"     {command}", "RCP")
+                else:
+                    # Fallback to simple voice-to-RCP conversion
+                    rcp = self.voice_to_rcp(content)
+                    if rcp:
+                        self.log_message(f"RCP Command: {rcp}", "RCP")
                 
             except json.JSONDecodeError:
                 self.log_message(f"Text from {addr[0]}: {message_str}", "INFO")

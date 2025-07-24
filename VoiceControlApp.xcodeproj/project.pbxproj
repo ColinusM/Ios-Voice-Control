@@ -7,11 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050E414D826293F26B4D02FF /* SpeechRecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51024E149C762048FDF3A9C8 /* SpeechRecognitionManager.swift */; };
 		0A5C4F20BDB7C41AA14C2EF8 /* GuestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB4590911E2267554D9E5C /* GuestUser.swift */; };
+		18DD40EB8DF43C7D4C9AA1E3 /* IOSSpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6464B8085D12B5755C5B351 /* IOSSpeechRecognizer.swift */; };
 		1C364BA0B63B08CC900FA2B9 /* GuestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958B4A4AB7BB5F90CC8514F3 /* GuestUser.swift */; };
+		2CD0402AAFA333102B935A1C /* SpeechRecognitionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5D47089EC57DC741ED043C /* SpeechRecognitionProtocol.swift */; };
 		2F324664879B11AA7EC82261 /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA44DEAFE392FB45634235 /* SubscriptionPlan.swift */; };
+		38CF495F9B1105AC9F96DFE1 /* ProfessionalAudioTerms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C74854BD78735A3821739A /* ProfessionalAudioTerms.swift */; };
+		396B4685AFCC146458028D75 /* ChannelProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D440D904E184F2F5663BA /* ChannelProcessor.swift */; };
+		3A49469099BEF8198120B41E /* EffectsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */; };
+		3D40445688B57A4F9F59642B /* VoiceCommandBubblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215402FBA1407C51B5EF419 /* VoiceCommandBubblesView.swift */; };
+		3F1A4D9293C235553FBA4CF2 /* CompoundCommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */; };
+		4DC7405AA1962DFAE0A7E049 /* RCPCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19E48EAAEC7587618577790 /* RCPCommand.swift */; };
+		59FA43089D27B69FCA550042 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2D4D03930E768A8D2E1E19 /* RecordButton.swift */; };
 		5ADE41B7B14863719480119C /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC534A5EACB74F78852F720E /* StoreKitService.swift */; };
 		728E4E5D92D68D6B9342084E /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */; };
+		74964C8F8BD323D899DDF07B /* OrbitalToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */; };
 		78274F678DA78C4ED20469D3 /* SubscriptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */; };
 		85BB44D691A93DE0ABF66FD2 /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025947C480861214F939679D /* StoreKitService.swift */; };
 		8EB04E8FA3285D85746B1C9B /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57504B8E95CF6C8177D11928 /* PlanCardView.swift */; };
@@ -24,6 +35,7 @@
 		913317DD2E282BF800E71CAE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 913317DC2E282BF800E71CAE /* GoogleSignIn */; };
 		913317DF2E282BF800E71CAE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 913317DE2E282BF800E71CAE /* GoogleSignInSwift */; };
 		91CEFACB2E28E8A0006480E7 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 91CEFACA2E28E8A0006480E7 /* Starscream */; };
+		9C0840F7BC4B809B33A8471F /* ProcessedVoiceCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E54A539C49B7E76DA55341 /* ProcessedVoiceCommand.swift */; };
 		A01234567890ABCDEF123001 /* VoiceControlAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */; };
 		A01234567890ABCDEF123003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123002 /* ContentView.swift */; };
 		A01234567890ABCDEF123005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123004 /* Assets.xcassets */; };
@@ -49,10 +61,15 @@
 		A01234567890ABCDEF123045 /* VoiceControlApp/Authentication/Models/SocialAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123046 /* VoiceControlApp/Authentication/Models/SocialAuthError.swift */; };
 		A01234567890ABCDEF123047 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123048 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift */; };
 		A01234567890ABCDEF123049 /* VoiceControlApp/Authentication/Views/SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123050 /* VoiceControlApp/Authentication/Views/SignUpView.swift */; };
+		A1874E73B8A72E36534D8477 /* RoutingProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0384B58BD2846AD6F94966C /* RoutingProcessor.swift */; };
 		A78E4608A282636A8D710C3A /* SubscriptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */; };
 		B69C49AF88BB77A646527931 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D84BCE947E115CC46D9995 /* SubscriptionView.swift */; };
 		B89941C4BADFB7CA9555EB8D /* SubscriptionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B14F6F85B8B1ACB888E2EC /* SubscriptionError.swift */; };
 		BB3B4A10ABEBA5F10F673938 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A041F48ECE945A41810CF9 /* WelcomeView.swift */; };
+		D42344C58CF2B3743E716CF8 /* VoiceCommandBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574718932A157455800E7D /* VoiceCommandBubble.swift */; };
+		D5574A2AAAEFF5BB8E259B1B /* VoiceCommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4D808D6247A823624451 /* VoiceCommandProcessor.swift */; };
+		D8ED414BA4AA6DCE04C6F240 /* VoiceCommandTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */; };
+		EA9043CDB3CC5C2DE17FD886 /* ContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0344C61BBF738337EFE9ACC /* ContextManager.swift */; };
 		F568485CBFD0A99F9379F7AE /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */; };
 		FDE34D7C8ACE7FFA9F3A4DC6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB452A8F781D1BF198318E /* WelcomeView.swift */; };
 		FF144B13A6D9DA224AFCF0BF /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92874E13A694BA5D9DF57124 /* SubscriptionManager.swift */; };
@@ -61,16 +78,22 @@
 /* Begin PBXFileReference section */
 		025947C480861214F939679D /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreKitService.swift; path = VoiceControlApp/Subscriptions/Services/StoreKitService.swift; sourceTree = SOURCE_ROOT; };
 		163F442C9C906B4C191D6617 /* SubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionError.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionError.swift; sourceTree = SOURCE_ROOT; };
+		31E54A539C49B7E76DA55341 /* ProcessedVoiceCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProcessedVoiceCommand.swift; path = VoiceControlApp/VoiceCommand/Models/ProcessedVoiceCommand.swift; sourceTree = SOURCE_ROOT; };
+		3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompoundCommandProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/CompoundCommandProcessor.swift; sourceTree = SOURCE_ROOT; };
 		4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
+		51024E149C762048FDF3A9C8 /* SpeechRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechRecognitionManager.swift; path = VoiceControlApp/SpeechRecognition/SpeechRecognitionManager.swift; sourceTree = SOURCE_ROOT; };
 		56FB4590911E2267554D9E5C /* GuestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GuestUser.swift; path = VoiceControlApp/Authentication/Models/GuestUser.swift; sourceTree = SOURCE_ROOT; };
 		57504B8E95CF6C8177D11928 /* PlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanCardView.swift; path = VoiceControlApp/Subscriptions/Views/PlanCardView.swift; sourceTree = SOURCE_ROOT; };
 		5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
 		79CB452A8F781D1BF198318E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
 		81D84BCE947E115CC46D9995 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionView.swift; path = VoiceControlApp/Subscriptions/Views/SubscriptionView.swift; sourceTree = SOURCE_ROOT; };
+		83C74854BD78735A3821739A /* ProfessionalAudioTerms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfessionalAudioTerms.swift; path = VoiceControlApp/VoiceCommand/Services/ProfessionalAudioTerms.swift; sourceTree = SOURCE_ROOT; };
+		8C5D47089EC57DC741ED043C /* SpeechRecognitionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechRecognitionProtocol.swift; path = VoiceControlApp/SpeechRecognition/Models/SpeechRecognitionProtocol.swift; sourceTree = SOURCE_ROOT; };
 		8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionManager.swift; path = VoiceControlApp/Subscriptions/ViewModels/SubscriptionManager.swift; sourceTree = SOURCE_ROOT; };
 		91B14F6F85B8B1ACB888E2EC /* SubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionError.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionError.swift; sourceTree = SOURCE_ROOT; };
 		92874E13A694BA5D9DF57124 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionManager.swift; path = VoiceControlApp/Subscriptions/ViewModels/SubscriptionManager.swift; sourceTree = SOURCE_ROOT; };
 		958B4A4AB7BB5F90CC8514F3 /* GuestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GuestUser.swift; path = VoiceControlApp/Authentication/Models/GuestUser.swift; sourceTree = SOURCE_ROOT; };
+		9D1C4D808D6247A823624451 /* VoiceCommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/VoiceCommandProcessor.swift; sourceTree = SOURCE_ROOT; };
 		A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlAppApp.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,8 +120,19 @@
 		A01234567890ABCDEF123048 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/Authentication/Models/SocialAuthResult.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123050 /* VoiceControlApp/Authentication/Views/SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/Authentication/Views/SignUpView.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF12FFFD /* VoiceControlApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceControlApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB2D4D03930E768A8D2E1E19 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RecordButton.swift; path = VoiceControlApp/Shared/Components/RecordButton.swift; sourceTree = SOURCE_ROOT; };
 		AC534A5EACB74F78852F720E /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreKitService.swift; path = VoiceControlApp/Subscriptions/Services/StoreKitService.swift; sourceTree = SOURCE_ROOT; };
+		B215402FBA1407C51B5EF419 /* VoiceCommandBubblesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandBubblesView.swift; path = VoiceControlApp/VoiceCommand/Components/VoiceCommandBubblesView.swift; sourceTree = SOURCE_ROOT; };
 		B8A041F48ECE945A41810CF9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
+		BC2D440D904E184F2F5663BA /* ChannelProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/ChannelProcessor.swift; sourceTree = SOURCE_ROOT; };
+		C0344C61BBF738337EFE9ACC /* ContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextManager.swift; path = VoiceControlApp/VoiceCommand/Services/ContextManager.swift; sourceTree = SOURCE_ROOT; };
+		D0384B58BD2846AD6F94966C /* RoutingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutingProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/RoutingProcessor.swift; sourceTree = SOURCE_ROOT; };
+		D19E48EAAEC7587618577790 /* RCPCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPCommand.swift; path = VoiceControlApp/VoiceCommand/Models/RCPCommand.swift; sourceTree = SOURCE_ROOT; };
+		DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandTester.swift; path = VoiceControlApp/VoiceCommand/Services/VoiceCommandTester.swift; sourceTree = SOURCE_ROOT; };
+		ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EffectsProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/EffectsProcessor.swift; sourceTree = SOURCE_ROOT; };
+		F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrbitalToggleButton.swift; path = VoiceControlApp/Shared/Components/OrbitalToggleButton.swift; sourceTree = SOURCE_ROOT; };
+		F5574718932A157455800E7D /* VoiceCommandBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandBubble.swift; path = VoiceControlApp/VoiceCommand/Components/VoiceCommandBubble.swift; sourceTree = SOURCE_ROOT; };
+		F6464B8085D12B5755C5B351 /* IOSSpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IOSSpeechRecognizer.swift; path = VoiceControlApp/SpeechRecognition/IOSSpeechRecognizer.swift; sourceTree = SOURCE_ROOT; };
 		F8FA44DEAFE392FB45634235 /* SubscriptionPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionPlan.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionPlan.swift; sourceTree = SOURCE_ROOT; };
 		FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionPlan.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionPlan.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -178,6 +212,23 @@
 				8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */,
 				81D84BCE947E115CC46D9995 /* SubscriptionView.swift */,
 				57504B8E95CF6C8177D11928 /* PlanCardView.swift */,
+				51024E149C762048FDF3A9C8 /* SpeechRecognitionManager.swift */,
+				F6464B8085D12B5755C5B351 /* IOSSpeechRecognizer.swift */,
+				F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */,
+				AB2D4D03930E768A8D2E1E19 /* RecordButton.swift */,
+				8C5D47089EC57DC741ED043C /* SpeechRecognitionProtocol.swift */,
+				D19E48EAAEC7587618577790 /* RCPCommand.swift */,
+				31E54A539C49B7E76DA55341 /* ProcessedVoiceCommand.swift */,
+				9D1C4D808D6247A823624451 /* VoiceCommandProcessor.swift */,
+				83C74854BD78735A3821739A /* ProfessionalAudioTerms.swift */,
+				F5574718932A157455800E7D /* VoiceCommandBubble.swift */,
+				B215402FBA1407C51B5EF419 /* VoiceCommandBubblesView.swift */,
+				BC2D440D904E184F2F5663BA /* ChannelProcessor.swift */,
+				DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */,
+				D0384B58BD2846AD6F94966C /* RoutingProcessor.swift */,
+				ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */,
+				C0344C61BBF738337EFE9ACC /* ContextManager.swift */,
+				3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -376,6 +427,23 @@
 				F568485CBFD0A99F9379F7AE /* SubscriptionManager.swift in Sources */,
 				B69C49AF88BB77A646527931 /* SubscriptionView.swift in Sources */,
 				8EB04E8FA3285D85746B1C9B /* PlanCardView.swift in Sources */,
+				050E414D826293F26B4D02FF /* SpeechRecognitionManager.swift in Sources */,
+				18DD40EB8DF43C7D4C9AA1E3 /* IOSSpeechRecognizer.swift in Sources */,
+				74964C8F8BD323D899DDF07B /* OrbitalToggleButton.swift in Sources */,
+				59FA43089D27B69FCA550042 /* RecordButton.swift in Sources */,
+				2CD0402AAFA333102B935A1C /* SpeechRecognitionProtocol.swift in Sources */,
+				4DC7405AA1962DFAE0A7E049 /* RCPCommand.swift in Sources */,
+				9C0840F7BC4B809B33A8471F /* ProcessedVoiceCommand.swift in Sources */,
+				D5574A2AAAEFF5BB8E259B1B /* VoiceCommandProcessor.swift in Sources */,
+				38CF495F9B1105AC9F96DFE1 /* ProfessionalAudioTerms.swift in Sources */,
+				D42344C58CF2B3743E716CF8 /* VoiceCommandBubble.swift in Sources */,
+				3D40445688B57A4F9F59642B /* VoiceCommandBubblesView.swift in Sources */,
+				396B4685AFCC146458028D75 /* ChannelProcessor.swift in Sources */,
+				D8ED414BA4AA6DCE04C6F240 /* VoiceCommandTester.swift in Sources */,
+				A1874E73B8A72E36534D8477 /* RoutingProcessor.swift in Sources */,
+				3A49469099BEF8198120B41E /* EffectsProcessor.swift in Sources */,
+				EA9043CDB3CC5C2DE17FD886 /* ContextManager.swift in Sources */,
+				3F1A4D9293C235553FBA4CF2 /* CompoundCommandProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +602,10 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_COMPILATION_MODE = singlefile;
+				CLANG_ENABLE_MODULE_CACHING = YES;
+				SWIFT_ENABLE_INCREMENTAL_COMPILATION = YES;
+				CLANG_MODULES_BUILD_SESSION_FILE = "$(DERIVED_DATA_DIR)/ModuleCache.noindex/Session.modulevalidation";
 			};
 			name = Debug;
 		};
@@ -590,7 +662,10 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				CLANG_ENABLE_MODULE_CACHING = YES;
+				SWIFT_ENABLE_INCREMENTAL_COMPILATION = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

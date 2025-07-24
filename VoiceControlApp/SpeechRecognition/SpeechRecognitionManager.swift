@@ -31,6 +31,9 @@ class SpeechRecognitionManager: ObservableObject {
     /// Performance metrics for current engine
     @Published var currentEngineMetrics: EnginePerformanceMetrics = EnginePerformanceMetrics()
     
+    /// Voice command processor for generating RCP commands from transcription
+    @Published var voiceCommandProcessor: VoiceCommandProcessor = VoiceCommandProcessor()
+    
     // MARK: - Engine Instances
     
     private let assemblyAIEngine: AssemblyAIStreamer
@@ -60,6 +63,7 @@ class SpeechRecognitionManager: ObservableObject {
         
         setupInitialEngine()
         print("🎯 SpeechRecognitionManager initialized with \(activeEngine.displayName) engine")
+        print("🎛️ VoiceCommandProcessor initialized for real-time RCP command generation")
     }
     
     // MARK: - Configuration
@@ -218,6 +222,11 @@ class SpeechRecognitionManager: ObservableObject {
         preservedState = nil
         sessionStats.reset()
         
+        // Clear voice commands as well
+        Task { @MainActor in
+            voiceCommandProcessor.clearCommands()
+        }
+        
         Task { @MainActor in
             transcriptionText = ""
         }
@@ -293,12 +302,19 @@ class SpeechRecognitionManager: ObservableObject {
     }
     
     private func syncTranscriptionText() {
+        let previousText = transcriptionText
+        
         // Preserve accumulated text if switching mid-session
         if let preserved = preservedState?.accumulatedText, !preserved.isEmpty {
             let currentText = currentEngine.transcriptionText
             transcriptionText = currentText.isEmpty ? preserved : "\(preserved) \(currentText)"
         } else {
             transcriptionText = currentEngine.transcriptionText
+        }
+        
+        // Process transcription text for voice commands if it has changed
+        if previousText != transcriptionText && !transcriptionText.isEmpty {
+            processTranscriptionForVoiceCommands(transcriptionText)
         }
     }
     
@@ -371,6 +387,108 @@ class SpeechRecognitionManager: ObservableObject {
         } else {
             print("❌ Engine switch failed")
         }
+    }
+    
+    // MARK: - Voice Command Processing
+    
+    /// Process transcription text through the voice command processor
+    private func processTranscriptionForVoiceCommands(_ text: String) {
+        // Only process during active recording to avoid stale processing
+        guard isRecording else { return }
+        
+        // Convert spoken numbers to digits for low-latency processing
+        let convertedText = convertSpokenNumbersToDigits(text)
+        
+        // Update the UI with converted text if it changed
+        if convertedText != text {
+            DispatchQueue.main.async { [weak self] in
+                self?.transcriptionText = convertedText
+            }
+            print("📝 Number conversion for UI: \"\(text)\" → \"\(convertedText)\"")
+        }
+        
+        // Process the converted text for voice commands
+        voiceCommandProcessor.processTranscription(convertedText)
+        
+        print("🎛️ Processing transcription for voice commands: \"\(convertedText.prefix(50))\(convertedText.count > 50 ? "..." : "")\"")
+    }
+    
+    /// Get the voice command processor for UI integration
+    func getVoiceCommandProcessor() -> VoiceCommandProcessor {
+        return voiceCommandProcessor
+    }
+    
+    /// Convert spoken numbers to digits for low-latency voice command processing
+    /// - Parameter text: Raw speech-to-text output with spoken numbers
+    /// - Returns: Text with spoken numbers converted to digits
+    private func convertSpokenNumbersToDigits(_ text: String) -> String {
+        var processedText = text
+        
+        // Common spoken number mappings used in audio engineering
+        let numberMappings: [(String, String)] = [
+            // Single digits (most common in channel numbers)
+            ("\\bone\\b", "1"),
+            ("\\btwo\\b", "2"), 
+            ("\\bthree\\b", "3"),
+            ("\\bfour\\b", "4"),
+            ("\\bfive\\b", "5"),
+            ("\\bsix\\b", "6"),
+            ("\\bseven\\b", "7"),
+            ("\\beight\\b", "8"),
+            ("\\bnine\\b", "9"),
+            ("\\bten\\b", "10"),
+            ("\\beleven\\b", "11"),
+            ("\\btwelve\\b", "12"),
+            ("\\bthirteen\\b", "13"),
+            ("\\bfourteen\\b", "14"),
+            ("\\bfifteen\\b", "15"),
+            ("\\bsixteen\\b", "16"),
+            ("\\bseventeen\\b", "17"),
+            ("\\beighteen\\b", "18"),
+            ("\\bnineteen\\b", "19"),
+            ("\\btwenty\\b", "20"),
+            
+            // Teens and twenties (common in mixing boards)
+            ("\\btwenty one\\b", "21"),
+            ("\\btwenty two\\b", "22"),
+            ("\\btwenty three\\b", "23"),
+            ("\\btwenty four\\b", "24"),
+            ("\\btwenty five\\b", "25"),
+            ("\\btwenty six\\b", "26"),
+            ("\\btwenty seven\\b", "27"),
+            ("\\btwenty eight\\b", "28"),
+            ("\\btwenty nine\\b", "29"),
+            ("\\bthirty\\b", "30"),
+            ("\\bthirty one\\b", "31"),
+            ("\\bthirty two\\b", "32"),
+            
+            // Common negative values (dB levels)
+            ("minus (\\w+)", "-$1"),
+            ("negative (\\w+)", "-$1"),
+            
+            // Alternative pronunciations
+            ("\\bzero\\b", "0"),
+            ("\\boh\\b", "0"), // "oh" often used for "0"
+        ]
+        
+        // Apply number conversions using regex
+        for (spokenPattern, digitReplacement) in numberMappings {
+            if let regex = try? NSRegularExpression(pattern: spokenPattern, options: [.caseInsensitive]) {
+                let range = NSRange(processedText.startIndex..., in: processedText)
+                processedText = regex.stringByReplacingMatches(
+                    in: processedText,
+                    options: [],
+                    range: range,
+                    withTemplate: digitReplacement
+                )
+            }
+        }
+        
+        // Clean up extra spaces
+        processedText = processedText.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+        processedText = processedText.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        return processedText
     }
 }
 

@@ -107,6 +107,47 @@ tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1E
 4. **Analysis**: Claude analyzes your past testing activity from iOS simulator buffer
 5. **Iterate**: Build → Test → Grab → Analyze → Repeat
 
+## 🛑 MANDATORY: File Addition to Xcode Project Rule
+
+**CRITICAL: Every time you create a new Swift file, you MUST add it to the Xcode project before building.**
+
+**✅ WORKING Command for adding new files to build target:**
+```bash
+cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng" && python3 -c "
+import pbxproj
+project = pbxproj.XcodeProject.load('VoiceControlApp.xcodeproj/project.pbxproj')
+project.add_file('VoiceControlApp/Path/To/NewFile.swift', target_name='VoiceControlApp')
+project.save()
+print('✅ NewFile.swift added to VoiceControlApp target')
+"
+```
+
+**Alternative method (if Python method fails):**
+```bash
+cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng" && pbxproj file VoiceControlApp.xcodeproj VoiceControlApp/Path/To/NewFile.swift
+```
+
+**Examples of recent successful file additions:**
+```bash
+# EffectsProcessor.swift
+cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng" && python3 -c "
+import pbxproj
+project = pbxproj.XcodeProject.load('VoiceControlApp.xcodeproj/project.pbxproj')
+project.add_file('VoiceControlApp/VoiceCommand/Services/EffectsProcessor.swift', target_name='VoiceControlApp')
+project.save()
+print('✅ EffectsProcessor.swift added to VoiceControlApp target')
+"
+```
+
+**This applies to ALL new Swift files:**
+- Service classes (ChannelProcessor, RoutingProcessor, EffectsProcessor, etc.)
+- UI components
+- Model files
+- Extension files
+- Test files
+
+**NEVER attempt to build without adding new files to the project first.**
+
 ## 🛑 MANDATORY: Universal Manual Action Stop Rule
 
 **META RULE: When you discover that ANY task requires manual actions that Claude Code terminal cannot perform agentically, you MUST:**

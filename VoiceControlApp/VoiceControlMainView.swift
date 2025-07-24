@@ -63,42 +63,82 @@ struct VoiceControlMainView: View {
                 
                 Spacer()
                 
-                // Main Speech Text Box
-                VStack(spacing: 16) {
-                    HStack {
-                        Text("Speech Recognition")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        
-                        Spacer()
-                        
-                        // Clear button
-                        if !speechManager.transcriptionText.isEmpty {
-                            Button(action: {
-                                print("🗑️ Clicked on bin")
-                                speechManager.clearTranscriptionText()
-                            }) {
-                                Image(systemName: "trash")
-                                    .font(.caption)
-                                    .foregroundColor(.red)
+                // Main Content Area - Split Layout (50/50)
+                HStack(spacing: 16) {
+                    // Left side: Speech Recognition (50%)
+                    VStack(spacing: 16) {
+                        HStack {
+                            Text("Speech Recognition")
+                                .font(.headline)
+                                .foregroundColor(.secondary)
+                            
+                            Spacer()
+                            
+                            // Clear button
+                            if !speechManager.transcriptionText.isEmpty {
+                                Button(action: {
+                                    print("🗑️ Clicked on bin")
+                                    speechManager.clearTranscriptionText()
+                                }) {
+                                    Image(systemName: "trash")
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                }
                             }
                         }
+                        
+                        ScrollView {
+                            Text(speechManager.transcriptionText.isEmpty ? "Tap the microphone to start speaking..." : speechManager.transcriptionText)
+                                .font(.body)
+                                .multilineTextAlignment(.leading)
+                                .foregroundColor(speechManager.transcriptionText.isEmpty ? .secondary : .primary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                        }
+                        .frame(height: 200)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(isRecording ? Color.red : Color.gray.opacity(0.3), lineWidth: 2)
+                        )
                     }
+                    .frame(maxWidth: .infinity)
                     
-                    ScrollView {
-                        Text(speechManager.transcriptionText.isEmpty ? "Tap the microphone to start speaking..." : speechManager.transcriptionText)
-                            .font(.body)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(speechManager.transcriptionText.isEmpty ? .secondary : .primary)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
+                    // Right side: Voice Command Bubbles (50%)
+                    VStack(spacing: 0) {
+                        VoiceCommandBubblesView(
+                            commandProcessor: speechManager.voiceCommandProcessor,
+                            showMetadata: false,
+                            showClearButton: true,
+                            onCommandTap: { command in
+                                // Handle command bubble tap
+                                print("🎯 Command tapped: \(command.rcpCommand.description)")
+                                // Could add functionality like copying to clipboard or executing command
+                            },
+                            onCommandSend: { command in
+                                // Handle command send button tap
+                                print("🚀 Sending RCP command: \(command.rcpCommand.command)")
+                                print("📡 Command description: \(command.rcpCommand.description)")
+                                
+                                // For now, just log the command - later this would send to your mixer console
+                                // TODO: Implement actual RCP command transmission to console/GUI
+                                
+                                // Show a brief success message
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    // Could add a toast notification here
+                                    print("✅ RCP command sent successfully!")
+                                }
+                            }
+                        )
                     }
+                    .frame(maxWidth: .infinity)
                     .frame(height: 200)
-                    .background(Color.gray.opacity(0.1))
+                    .background(Color.gray.opacity(0.05))
                     .cornerRadius(12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(isRecording ? Color.red : Color.gray.opacity(0.3), lineWidth: 2)
+                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                     )
                 }
                 .padding(.horizontal)
