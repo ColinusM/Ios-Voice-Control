@@ -24,11 +24,22 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     private var reconnectAttempts = 0
     private var isConnected = false
     private var sessionBegun = false // Track if we've received SessionBegins
-    private var isGracefulShutdown = false
-    private var gracefulShutdownTimer: Timer?
     private var chunkCount = 0
+    private var lastWords: [TranscriptWord] = [] // Track latest words for immediate extraction
+    
+    // MARK: - Usage Tracking
+    private var sessionStartTime: Date?
+    private var totalSessionMinutes: Int = 0
+    private weak var subscriptionManager: SubscriptionManager?
+    private weak var authManager: AuthenticationManager?
     
     // MARK: - Public Methods
+    
+    /// Configure managers for usage tracking and subscription validation
+    func configure(subscriptionManager: SubscriptionManager, authManager: AuthenticationManager) {
+        self.subscriptionManager = subscriptionManager
+        self.authManager = authManager
+    }
     
     func clearTranscriptionText() {
         Task { @MainActor in
@@ -39,6 +50,17 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     }
     
     func startStreaming() async {
+        // MARK: - Usage Validation and Gating
+        
+        // Check if user can access API (subscription or guest limits)
+        guard await canStartStreaming() else {
+            await MainActor.run {
+                errorMessage = "API usage limit reached. Please upgrade to Voice Control Pro for unlimited access."
+                connectionState = .error(.usageLimitReached)
+            }
+            return
+        }
+        
         await MainActor.run {
             errorMessage = nil
             connectionState = .connecting
@@ -48,6 +70,9 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
         }
         
         print("🚀 Starting AssemblyAI streaming...")
+        
+        // Start session timing
+        sessionStartTime = Date()
         
         do {
             // Setup WebSocket connection
@@ -72,26 +97,65 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
     }
     
     func stopStreaming() {
-        print("🛑 Starting graceful shutdown...")
+        print("🛑 Stopping streaming immediately...")
         
-        // Stop audio recording immediately (user feedback)
+        // Track usage before stopping
+        trackSessionUsage()
+        
+        // Stop audio recording immediately
         audioManager.stopRecording()
         
-        // Enter graceful shutdown state
+        // Extract any remaining words immediately before cleanup
         Task { @MainActor in
+            // Extract complete words if available
+            if !lastWords.isEmpty {
+                let wordsText = lastWords.map { $0.text }.joined(separator: " ")
+                print("📝 Extracting final words: '\(wordsText)'")
+                
+                // Replace current partial text with complete words
+                if !wordsText.isEmpty {
+                    if !accumulatedText.isEmpty {
+                        accumulatedText += " "
+                    }
+                    accumulatedText += wordsText
+                    currentTurnText = ""
+                    transcriptionText = accumulatedText
+                    print("📝 Final transcript with extracted words: '\(accumulatedText)'")
+                }
+            } else if !currentTurnText.isEmpty {
+                // Fallback: preserve partial transcript if no words available
+                if !accumulatedText.isEmpty {
+                    accumulatedText += " "
+                }
+                accumulatedText += currentTurnText
+                currentTurnText = ""
+                transcriptionText = accumulatedText
+                print("📝 Preserved partial transcript: '\(accumulatedText)'")
+            }
+            
+            // Immediate cleanup - no waiting
             isStreaming = false
-            connectionState = .gracefulShutdown
-            isGracefulShutdown = true
+            connectionState = .disconnected
         }
         
-        // Start graceful shutdown timer (5 second timeout)
-        gracefulShutdownTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { [weak self] _ in
-            print("⏰ Graceful shutdown timeout - forcing cleanup")
-            self?.forceCleanup()
+        // Send session termination and disconnect immediately
+        if isConnected {
+            sendSessionTermination()
         }
         
-        // Don't disconnect WebSocket yet - wait for final transcript
-        print("⏳ Waiting for final formatted transcript...")
+        webSocket?.disconnect()
+        webSocket = nil
+        
+        // Reset all state
+        Task { @MainActor in
+            sessionId = nil
+            isConnected = false
+            sessionBegun = false
+            reconnectAttempts = 0
+            lastWords = []
+        }
+        
+        print("✅ AssemblyAI streaming stopped immediately")
     }
     
     // MARK: - Private Methods
@@ -222,35 +286,33 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
         case .turn(let turn):
             print("📝 Transcript: \"\(turn.transcript)\" (end_of_turn: \(turn.end_of_turn ?? false), formatted: \(turn.turn_is_formatted ?? false))")
             
+            // Capture latest words for immediate extraction on stop
+            if let words = turn.words, !words.isEmpty {
+                lastWords = words
+                print("📝 Captured \(words.count) words for immediate extraction")
+            }
+            
             Task { @MainActor in
                 if turn.end_of_turn == true {
-                    // Final transcript - only keep formatted version, ignore unformatted duplicates
-                    if let isFormatted = turn.turn_is_formatted, isFormatted == true {
-                        // This is the formatted final transcript - use this one
-                        if !turn.transcript.isEmpty {
-                            if !accumulatedText.isEmpty {
-                                accumulatedText += " "
-                            }
-                            accumulatedText += turn.transcript
+                    // Final transcript - use words array if available, fallback to transcript
+                    let finalText = !lastWords.isEmpty ? lastWords.map { $0.text }.joined(separator: " ") : turn.transcript
+                    if !finalText.isEmpty {
+                        if !accumulatedText.isEmpty {
+                            accumulatedText += " "
                         }
-                        currentTurnText = ""
-                        print("📝 Final transcript completed (formatted): '\(turn.transcript)' -> Total: '\(accumulatedText)'")
-                        
-                        // Check if we're in graceful shutdown and this is the final transcript
-                        if isGracefulShutdown {
-                            print("✅ Final formatted transcript received during graceful shutdown")
-                            completeGracefulShutdown()
-                            return
-                        }
-                    } else {
-                        // This is the unformatted final transcript - ignore it, but clear current turn
-                        currentTurnText = ""
-                        print("📝 Final transcript ignored (unformatted): '\(turn.transcript)'")
+                        accumulatedText += finalText
                     }
+                    currentTurnText = ""
+                    print("📝 Final transcript from words: '\(finalText)' -> Total: '\(accumulatedText)'")
                 } else {
-                    // Partial transcript - update current turn text (replace, don't accumulate)
-                    currentTurnText = turn.transcript
-                    print("📝 Partial transcript: '\(turn.transcript)'")
+                    // Partial transcript - use words array for immediate display of all detected words
+                    if !lastWords.isEmpty {
+                        currentTurnText = lastWords.map { $0.text }.joined(separator: " ")
+                        print("📝 Partial from words: '\(currentTurnText)' (showing \(lastWords.count) words)")
+                    } else {
+                        currentTurnText = turn.transcript
+                        print("📝 Partial from transcript: '\(turn.transcript)'")
+                    }
                 }
                 
                 // Update displayed text: accumulated + current turn
@@ -277,7 +339,25 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
         print("❌ Streaming error: \(error)")
         
         errorMessage = error.localizedDescription
-        connectionState = .error(error.localizedDescription)
+        
+        // Convert error to appropriate StreamingError
+        let streamingError: StreamingError
+        if let audioStreamError = error as? AudioStreamError {
+            switch audioStreamError {
+            case .permissionDenied:
+                streamingError = .authenticationFailed
+            case .webSocketConnectionFailed:
+                streamingError = .connectionFailed(error.localizedDescription)
+            case .audioEngineFailure:
+                streamingError = .unknownError(error.localizedDescription)
+            case .audioFormatNotSupported, .microphoneUnavailable:
+                streamingError = .unknownError(error.localizedDescription)
+            }
+        } else {
+            streamingError = .unknownError(error.localizedDescription)
+        }
+        
+        connectionState = .error(streamingError)
         
         // Stop streaming on error
         if isStreaming {
@@ -327,7 +407,10 @@ extension AssemblyAIStreamer: WebSocketDelegate {
             sessionBegun = false
             
             Task { @MainActor in
-                if connectionState != .error("") { // Don't override error state
+                // Don't override error state - only set to disconnected if not in error
+                if case .error = connectionState {
+                    // Keep error state
+                } else {
                     connectionState = .disconnected
                 }
             }
@@ -381,43 +464,83 @@ extension AssemblyAIStreamer: WebSocketDelegate {
         }
     }
     
-    private func completeGracefulShutdown() {
-        print("🏁 Completing graceful shutdown with final transcript")
+    // MARK: - Usage Tracking and Gating
+    
+    /// Check if user can start streaming based on subscription status and usage limits
+    private func canStartStreaming() async -> Bool {
+        guard let subscriptionManager = subscriptionManager,
+              let _ = authManager else {
+            // If managers not configured, allow streaming (fallback)
+            print("⚠️ AssemblyAIStreamer: Managers not configured, allowing streaming")
+            return true
+        }
         
-        // Cancel timer
-        gracefulShutdownTimer?.invalidate()
-        gracefulShutdownTimer = nil
-        
-        // Now do full cleanup
-        forceCleanup()
+        // Check subscription state
+        switch subscriptionManager.subscriptionState {
+        case .premium:
+            // Premium users have unlimited access
+            print("✅ Premium user - unlimited API access")
+            return true
+            
+        case .free(let remainingMinutes):
+            // Free/guest users have limited access
+            if remainingMinutes > 0 {
+                print("✅ Guest user - \(remainingMinutes) minutes remaining")
+                return true
+            } else {
+                print("❌ Guest user - usage limit exceeded")
+                return false
+            }
+            
+        case .expired:
+            print("❌ Subscription expired")
+            return false
+            
+        case .loading, .unknown:
+            // Allow streaming while checking subscription status
+            print("⚠️ Subscription status loading - allowing streaming")
+            return true
+            
+        case .error:
+            // Allow streaming on subscription check errors (graceful fallback)
+            print("⚠️ Subscription check error - allowing streaming")
+            return true
+        }
     }
     
-    private func forceCleanup() {
-        print("🧹 Forcing cleanup")
-        
-        // Send session termination if still connected
-        if isConnected {
-            sendSessionTermination()
+    /// Track usage when session ends
+    private func trackSessionUsage() {
+        guard let sessionStartTime = sessionStartTime else {
+            print("⚠️ No session start time recorded")
+            return
         }
         
-        // Disconnect WebSocket
-        webSocket?.disconnect()
-        webSocket = nil
+        let sessionDuration = Date().timeIntervalSince(sessionStartTime)
+        let sessionMinutes = max(1, Int(ceil(sessionDuration / 60.0))) // Round up, minimum 1 minute
         
-        // Reset state
+        print("📊 Session ended - Duration: \(String(format: "%.1f", sessionDuration))s (\(sessionMinutes) minutes)")
+        
+        // Reset session timing
+        self.sessionStartTime = nil
+        
+        // Update usage tracking
         Task { @MainActor in
-            connectionState = .disconnected
-            sessionId = nil
-            isConnected = false
-            sessionBegun = false
-            reconnectAttempts = 0
-            isGracefulShutdown = false
-            
-            // Reset only current turn text, keep accumulated text
-            currentTurnText = ""
-            transcriptionText = accumulatedText
+            await updateUsageTracking(sessionMinutes: sessionMinutes)
+        }
+    }
+    
+    /// Update usage tracking for both subscription manager and auth manager
+    @MainActor
+    private func updateUsageTracking(sessionMinutes: Int) async {
+        // Update subscription manager usage
+        await subscriptionManager?.updateAPIUsage(minutesUsed: sessionMinutes)
+        
+        // Update guest user usage if in guest mode
+        if let authManager = authManager, authManager.authState == .guest {
+            authManager.updateGuestUsage(minutesUsed: sessionMinutes)
         }
         
-        print("✅ AssemblyAI streaming stopped")
+        print("📊 Usage updated - \(sessionMinutes) minutes tracked")
     }
+    
 }

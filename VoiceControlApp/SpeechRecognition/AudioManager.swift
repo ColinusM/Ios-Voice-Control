@@ -21,33 +21,75 @@ class AudioManager: NSObject {
     func requestMicrophonePermission() async -> Bool {
         print("🎤 Requesting microphone permission...")
         
-        // First check current permission status
-        let currentStatus = audioSession.recordPermission
-        print("🎤 Current permission status: \(currentStatus.rawValue)")
-        
-        switch currentStatus {
-        case .granted:
-            print("🎤 Permission already granted")
-            return true
-        case .denied:
-            print("🎤 Permission denied - user needs to enable in Settings")
-            return false
-        case .undetermined:
-            print("🎤 Permission undetermined - requesting now...")
-            return await withCheckedContinuation { continuation in
-                audioSession.requestRecordPermission { granted in
-                    print("🎤 Permission request result: \(granted ? "Granted" : "Denied")")
-                    continuation.resume(returning: granted)
+        // Use iOS 17+ API if available, fallback to older API
+        if #available(iOS 17.0, *) {
+            // First check current permission status using iOS 17+ API
+            let currentStatus = AVAudioApplication.shared.recordPermission
+            print("🎤 Current permission status: \(currentStatus.rawValue)")
+            
+            switch currentStatus {
+            case .granted:
+                print("🎤 Permission already granted")
+                return true
+            case .denied:
+                print("🎤 Permission denied - user needs to enable in Settings")
+                return false
+            case .undetermined:
+                print("🎤 Permission undetermined - requesting now...")
+                return await withCheckedContinuation { continuation in
+                    AVAudioApplication.requestRecordPermission { granted in
+                        print("🎤 Permission request result: \(granted ? "Granted" : "Denied")")
+                        continuation.resume(returning: granted)
+                    }
                 }
+            @unknown default:
+                print("🎤 Unknown permission status")
+                return false
             }
-        @unknown default:
-            print("🎤 Unknown permission status")
-            return false
+        } else {
+            // Fallback to pre-iOS 17 API
+            let currentStatus = audioSession.recordPermission
+            print("🎤 Current permission status: \(currentStatus.rawValue)")
+            
+            switch currentStatus {
+            case .granted:
+                print("🎤 Permission already granted")
+                return true
+            case .denied:
+                print("🎤 Permission denied - user needs to enable in Settings")
+                return false
+            case .undetermined:
+                print("🎤 Permission undetermined - requesting now...")
+                return await withCheckedContinuation { continuation in
+                    audioSession.requestRecordPermission { granted in
+                        print("🎤 Permission request result: \(granted ? "Granted" : "Denied")")
+                        continuation.resume(returning: granted)
+                    }
+                }
+            @unknown default:
+                print("🎤 Unknown permission status")
+                return false
+            }
         }
     }
     
     func checkMicrophonePermission() -> AVAudioSession.RecordPermission {
-        return audioSession.recordPermission
+        if #available(iOS 17.0, *) {
+            // Convert AVAudioApplication.RecordPermission to AVAudioSession.RecordPermission
+            let appPermission = AVAudioApplication.shared.recordPermission
+            switch appPermission {
+            case .granted:
+                return .granted
+            case .denied:
+                return .denied
+            case .undetermined:
+                return .undetermined
+            @unknown default:
+                return .undetermined
+            }
+        } else {
+            return audioSession.recordPermission
+        }
     }
     
     // MARK: - Audio Recording Management
@@ -108,7 +150,7 @@ class AudioManager: NSObject {
             // Configure audio session for recording
             try audioSession.setCategory(.playAndRecord, 
                                        mode: .default, 
-                                       options: [.defaultToSpeaker, .allowBluetooth])
+                                       options: [.defaultToSpeaker, .allowBluetoothA2DP])
             
             // Set preferred IO buffer duration for low latency
             try audioSession.setPreferredIOBufferDuration(config.chunkDuration)

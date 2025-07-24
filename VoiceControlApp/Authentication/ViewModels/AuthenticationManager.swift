@@ -2,11 +2,13 @@ import Foundation
 import SwiftUI
 import FirebaseAuth
 
+
 // MARK: - Authentication State Manager with ObservableObject Pattern
 
 class AuthenticationManager: ObservableObject {
     @Published var authState: AuthState = .unauthenticated
     @Published var currentUser: User?
+    @Published var guestUser: GuestUser?
     @Published var isLoading = false
     @Published var errorMessage: String?
     
@@ -122,8 +124,13 @@ class AuthenticationManager: ObservableObject {
             // Sign out from social providers
             GoogleSignInService.signOut()
             
-            // Clear persisted session
+            // Clear persisted session (includes guest data)
             clearPersistedSession()
+            
+            // Clear guest user if in guest mode
+            if authState.isGuest {
+                guestUser = nil
+            }
             
             #if DEBUG
             print("✅ AuthenticationManager: Complete sign-out successful")
@@ -197,6 +204,82 @@ class AuthenticationManager: ObservableObject {
         }
     }
     
+    // MARK: - Guest Mode (Apple Guideline 2.1 Compliance)
+    
+    @MainActor
+    func enterGuestMode() async {
+        #if DEBUG
+        print("🎯 AuthenticationManager: Entering guest mode")
+        #endif
+        
+        isLoading = true
+        errorMessage = nil
+        
+        // Load existing guest user or create new one
+        let guest = GuestUser.fromUserDefaults() ?? GuestUser()
+        guestUser = guest
+        
+        // Save guest user to UserDefaults
+        guest.saveToUserDefaults()
+        
+        // Update auth state to guest
+        authState = .guest
+        isLoading = false
+        
+        #if DEBUG
+        print("✅ AuthenticationManager: Guest mode activated")
+        print("   Guest User: \(guest.description)")
+        #endif
+    }
+    
+    @MainActor
+    func exitGuestMode() {
+        #if DEBUG
+        print("🎯 AuthenticationManager: Exiting guest mode")
+        #endif
+        
+        // Clear guest user data
+        GuestUser.clearFromUserDefaults()
+        guestUser = nil
+        
+        // Return to unauthenticated state
+        authState = .unauthenticated
+        
+        #if DEBUG
+        print("✅ AuthenticationManager: Guest mode exited")
+        #endif
+    }
+    
+    @MainActor
+    func updateGuestUsage(minutesUsed: Int) {
+        guard var guest = guestUser else { return }
+        
+        #if DEBUG
+        print("🎯 AuthenticationManager: Updating guest usage by \(minutesUsed) minutes")
+        print("   Previous usage: \(guest.totalAPIMinutesUsed) minutes")
+        #endif
+        
+        // Update usage
+        guest = guest.incrementUsage(by: minutesUsed)
+        guestUser = guest
+        
+        // Persist updated usage
+        guest.saveToUserDefaults()
+        
+        #if DEBUG
+        print("   New usage: \(guest.totalAPIMinutesUsed) minutes")
+        print("   Remaining: \(guest.remainingFreeMinutes) minutes")
+        #endif
+        
+        // Check if usage limit reached
+        if !guest.canMakeAPICall {
+            #if DEBUG
+            print("⚠️ AuthenticationManager: Guest usage limit reached")
+            #endif
+            // Could trigger paywall or upgrade prompt here
+        }
+    }
+    
     // MARK: - Social Authentication
     
     @MainActor
@@ -249,7 +332,7 @@ class AuthenticationManager: ObservableObject {
     // MARK: - Session Persistence
     
     private func checkPersistedSession() async {
-        // Check if user has a valid session in Keychain
+        // First check for authenticated user session in Keychain
         do {
             let persistedUser: User = try KeychainService.retrieve("current_user", as: User.self)
             // Verify the session is still valid with Firebase
@@ -258,12 +341,27 @@ class AuthenticationManager: ObservableObject {
                     currentUser = persistedUser
                     authState = shouldRequireBiometricAuth() ? .requiresBiometric : .authenticated
                 }
+                return
             } else {
                 // Session expired, clear persisted data
                 clearPersistedSession()
             }
         } catch {
-            // No persisted session or keychain error
+            // No authenticated session, check for guest session
+            if let persistedGuest = GuestUser.fromUserDefaults() {
+                await MainActor.run {
+                    guestUser = persistedGuest
+                    authState = .guest
+                    
+                    #if DEBUG
+                    print("✅ AuthenticationManager: Restored guest session")
+                    print("   Guest User: \(persistedGuest.description)")
+                    #endif
+                }
+                return
+            }
+            
+            // No persisted session at all
             clearPersistedSession()
             
             // DEVELOPMENT: Auto-login for testing in simulator
@@ -321,6 +419,8 @@ class AuthenticationManager: ObservableObject {
     private func clearPersistedSession() {
         try? KeychainService.delete("current_user")
         try? KeychainService.delete("firebase_id_token")
+        // Clear guest data as well
+        GuestUser.clearFromUserDefaults()
     }
     
     // MARK: - Biometric Authentication

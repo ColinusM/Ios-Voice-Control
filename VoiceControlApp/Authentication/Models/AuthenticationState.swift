@@ -4,6 +4,7 @@ import Foundation
 
 enum AuthState: Equatable {
     case unauthenticated
+    case guest
     case authenticating
     case authenticated
     case requiresBiometric
@@ -13,6 +14,7 @@ enum AuthState: Equatable {
     static func == (lhs: AuthState, rhs: AuthState) -> Bool {
         switch (lhs, rhs) {
         case (.unauthenticated, .unauthenticated),
+             (.guest, .guest),
              (.authenticating, .authenticating),
              (.authenticated, .authenticated),
              (.requiresBiometric, .requiresBiometric):
@@ -42,8 +44,29 @@ enum AuthState: Equatable {
         switch self {
         case .unauthenticated, .error, .requiresBiometric:
             return true
-        case .authenticated, .authenticating:
+        case .guest, .authenticated, .authenticating:
             return false
         }
+    }
+    
+    // MARK: - Guest Mode Support (Apple Guideline 2.1 Compliance)
+    
+    /// Whether the current auth state allows access to the main app
+    /// Guest and authenticated users can access core functionality
+    var allowsAppAccess: Bool {
+        switch self {
+        case .guest, .authenticated:
+            return true  // Both can access main app (Apple Guideline 2.1 compliance)
+        default:
+            return false
+        }
+    }
+    
+    /// Whether the user is in guest mode
+    var isGuest: Bool {
+        if case .guest = self {
+            return true
+        }
+        return false
     }
 }

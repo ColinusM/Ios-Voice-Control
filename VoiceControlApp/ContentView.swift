@@ -4,9 +4,11 @@ import FirebaseAuth
 // import HotSwiftUI  // Temporarily disabled
 #endif
 
+
 // MARK: - ContentView (Entry Point)
 struct ContentView: View {
     @StateObject private var authManager = AuthenticationManager()
+    @StateObject private var subscriptionManager = SubscriptionManager()
     
     #if DEBUG
     // @ObservedObject var iO = injectionObserver  // Temporarily disabled
@@ -15,33 +17,40 @@ struct ContentView: View {
     var body: some View {
         Group {
             switch authManager.authState {
-            case .authenticated:
+            case .authenticated, .guest:
+                // Both authenticated and guest users can access main app (Apple Guideline 2.1)
                 VoiceControlMainView()
                     .environmentObject(authManager)
+                    .environmentObject(subscriptionManager)
                     .onAppear {
-                        print("🎯 SHOWING VoiceControlMainView - Auth state: .authenticated")
+                        print("🎯 SHOWING VoiceControlMainView - Auth state: \(authManager.authState)")
                     }
             case .unauthenticated:
-                AuthenticationView()
+                // Show welcome screen with guest/sign-in options
+                WelcomeView()
                     .environmentObject(authManager)
+                    .environmentObject(subscriptionManager)
                     .onAppear {
-                        print("🔓 SHOWING AuthenticationView - Auth state: .unauthenticated")
+                        print("🔓 SHOWING WelcomeView - Auth state: .unauthenticated")
                     }
             case .authenticating:
                 AuthenticationView()
                     .environmentObject(authManager)
+                    .environmentObject(subscriptionManager)
                     .onAppear {
                         print("⏳ SHOWING AuthenticationView - Auth state: .authenticating")
                     }
             case .error(let message):
                 AuthenticationView()
                     .environmentObject(authManager)
+                    .environmentObject(subscriptionManager)
                     .onAppear {
                         print("❌ SHOWING AuthenticationView - Auth state: .error(\(message))")
                     }
             case .requiresBiometric:
                 AuthenticationView()
                     .environmentObject(authManager)
+                    .environmentObject(subscriptionManager)
                     .onAppear {
                         print("🔒 SHOWING AuthenticationView - Auth state: .requiresBiometric")
                     }

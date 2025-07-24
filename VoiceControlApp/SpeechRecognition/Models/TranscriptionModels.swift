@@ -22,7 +22,11 @@ struct SessionBeginMessage: Codable {
 }
 
 struct SessionTerminationMessage: Codable {
-    let terminate_session: Bool = true
+    let terminate_session: Bool
+    
+    init() {
+        self.terminate_session = true
+    }
 }
 
 // MARK: - Inbound Messages (Server to Client)
@@ -112,8 +116,30 @@ enum StreamingState: Equatable {
     case connecting
     case connected
     case streaming
-    case gracefulShutdown
-    case error(String)
+    case error(StreamingError)
+}
+
+enum StreamingError: LocalizedError, Equatable {
+    case connectionFailed(String)
+    case authenticationFailed
+    case usageLimitReached
+    case networkError
+    case unknownError(String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .connectionFailed(let message):
+            return "Connection failed: \(message)"
+        case .authenticationFailed:
+            return "Authentication failed"
+        case .usageLimitReached:
+            return "API usage limit reached"
+        case .networkError:
+            return "Network error occurred"
+        case .unknownError(let message):
+            return "Unknown error: \(message)"
+        }
+    }
 }
 
 // MARK: - Audio Stream Error

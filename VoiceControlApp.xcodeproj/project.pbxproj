@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A5C4F20BDB7C41AA14C2EF8 /* GuestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB4590911E2267554D9E5C /* GuestUser.swift */; };
+		1C364BA0B63B08CC900FA2B9 /* GuestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958B4A4AB7BB5F90CC8514F3 /* GuestUser.swift */; };
+		2F324664879B11AA7EC82261 /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA44DEAFE392FB45634235 /* SubscriptionPlan.swift */; };
+		5ADE41B7B14863719480119C /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC534A5EACB74F78852F720E /* StoreKitService.swift */; };
+		728E4E5D92D68D6B9342084E /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */; };
+		78274F678DA78C4ED20469D3 /* SubscriptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */; };
+		85BB44D691A93DE0ABF66FD2 /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 025947C480861214F939679D /* StoreKitService.swift */; };
+		8EB04E8FA3285D85746B1C9B /* PlanCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57504B8E95CF6C8177D11928 /* PlanCardView.swift */; };
+		8EE04F82A11A191E61B4BFF4 /* SubscriptionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163F442C9C906B4C191D6617 /* SubscriptionError.swift */; };
 		910830622E25706A006CF788 /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 910830612E25706A006CF788 /* HotSwiftUI */; };
 		910B59FA2E24184C004A10CA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59F92E24184C004A10CA /* FirebaseAuth */; };
 		910B59FC2E24184C004A10CA /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 910B59FB2E24184C004A10CA /* FirebaseDatabase */; };
@@ -40,9 +49,28 @@
 		A01234567890ABCDEF123045 /* VoiceControlApp/Authentication/Models/SocialAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123046 /* VoiceControlApp/Authentication/Models/SocialAuthError.swift */; };
 		A01234567890ABCDEF123047 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123048 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift */; };
 		A01234567890ABCDEF123049 /* VoiceControlApp/Authentication/Views/SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123050 /* VoiceControlApp/Authentication/Views/SignUpView.swift */; };
+		A78E4608A282636A8D710C3A /* SubscriptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */; };
+		B69C49AF88BB77A646527931 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D84BCE947E115CC46D9995 /* SubscriptionView.swift */; };
+		B89941C4BADFB7CA9555EB8D /* SubscriptionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B14F6F85B8B1ACB888E2EC /* SubscriptionError.swift */; };
+		BB3B4A10ABEBA5F10F673938 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A041F48ECE945A41810CF9 /* WelcomeView.swift */; };
+		F568485CBFD0A99F9379F7AE /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */; };
+		FDE34D7C8ACE7FFA9F3A4DC6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CB452A8F781D1BF198318E /* WelcomeView.swift */; };
+		FF144B13A6D9DA224AFCF0BF /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92874E13A694BA5D9DF57124 /* SubscriptionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		025947C480861214F939679D /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreKitService.swift; path = VoiceControlApp/Subscriptions/Services/StoreKitService.swift; sourceTree = SOURCE_ROOT; };
+		163F442C9C906B4C191D6617 /* SubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionError.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionError.swift; sourceTree = SOURCE_ROOT; };
+		4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
+		56FB4590911E2267554D9E5C /* GuestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GuestUser.swift; path = VoiceControlApp/Authentication/Models/GuestUser.swift; sourceTree = SOURCE_ROOT; };
+		57504B8E95CF6C8177D11928 /* PlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanCardView.swift; path = VoiceControlApp/Subscriptions/Views/PlanCardView.swift; sourceTree = SOURCE_ROOT; };
+		5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
+		79CB452A8F781D1BF198318E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
+		81D84BCE947E115CC46D9995 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionView.swift; path = VoiceControlApp/Subscriptions/Views/SubscriptionView.swift; sourceTree = SOURCE_ROOT; };
+		8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionManager.swift; path = VoiceControlApp/Subscriptions/ViewModels/SubscriptionManager.swift; sourceTree = SOURCE_ROOT; };
+		91B14F6F85B8B1ACB888E2EC /* SubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionError.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionError.swift; sourceTree = SOURCE_ROOT; };
+		92874E13A694BA5D9DF57124 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionManager.swift; path = VoiceControlApp/Subscriptions/ViewModels/SubscriptionManager.swift; sourceTree = SOURCE_ROOT; };
+		958B4A4AB7BB5F90CC8514F3 /* GuestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GuestUser.swift; path = VoiceControlApp/Authentication/Models/GuestUser.swift; sourceTree = SOURCE_ROOT; };
 		A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlAppApp.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +97,10 @@
 		A01234567890ABCDEF123048 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/Authentication/Models/SocialAuthResult.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123050 /* VoiceControlApp/Authentication/Views/SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/Authentication/Views/SignUpView.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF12FFFD /* VoiceControlApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceControlApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC534A5EACB74F78852F720E /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreKitService.swift; path = VoiceControlApp/Subscriptions/Services/StoreKitService.swift; sourceTree = SOURCE_ROOT; };
+		B8A041F48ECE945A41810CF9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
+		F8FA44DEAFE392FB45634235 /* SubscriptionPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionPlan.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionPlan.swift; sourceTree = SOURCE_ROOT; };
+		FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionPlan.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionPlan.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +162,22 @@
 				A01234567890ABCDEF12FFFF /* VoiceControlApp */,
 				A01234567890ABCDEF12FFFE /* Products */,
 				91CEFAC82E28E7B0006480E7 /* Recovered References */,
+				5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */,
+				91B14F6F85B8B1ACB888E2EC /* SubscriptionError.swift */,
+				FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */,
+				AC534A5EACB74F78852F720E /* StoreKitService.swift */,
+				92874E13A694BA5D9DF57124 /* SubscriptionManager.swift */,
+				79CB452A8F781D1BF198318E /* WelcomeView.swift */,
+				958B4A4AB7BB5F90CC8514F3 /* GuestUser.swift */,
+				56FB4590911E2267554D9E5C /* GuestUser.swift */,
+				B8A041F48ECE945A41810CF9 /* WelcomeView.swift */,
+				4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */,
+				163F442C9C906B4C191D6617 /* SubscriptionError.swift */,
+				F8FA44DEAFE392FB45634235 /* SubscriptionPlan.swift */,
+				025947C480861214F939679D /* StoreKitService.swift */,
+				8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */,
+				81D84BCE947E115CC46D9995 /* SubscriptionView.swift */,
+				57504B8E95CF6C8177D11928 /* PlanCardView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -312,6 +360,22 @@
 				A01234567890ABCDEF123045 /* VoiceControlApp/Authentication/Models/SocialAuthError.swift in Sources */,
 				A01234567890ABCDEF123047 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift in Sources */,
 				A01234567890ABCDEF123049 /* VoiceControlApp/Authentication/Views/SignUpView.swift in Sources */,
+				78274F678DA78C4ED20469D3 /* SubscriptionState.swift in Sources */,
+				B89941C4BADFB7CA9555EB8D /* SubscriptionError.swift in Sources */,
+				728E4E5D92D68D6B9342084E /* SubscriptionPlan.swift in Sources */,
+				5ADE41B7B14863719480119C /* StoreKitService.swift in Sources */,
+				FF144B13A6D9DA224AFCF0BF /* SubscriptionManager.swift in Sources */,
+				FDE34D7C8ACE7FFA9F3A4DC6 /* WelcomeView.swift in Sources */,
+				1C364BA0B63B08CC900FA2B9 /* GuestUser.swift in Sources */,
+				0A5C4F20BDB7C41AA14C2EF8 /* GuestUser.swift in Sources */,
+				BB3B4A10ABEBA5F10F673938 /* WelcomeView.swift in Sources */,
+				A78E4608A282636A8D710C3A /* SubscriptionState.swift in Sources */,
+				8EE04F82A11A191E61B4BFF4 /* SubscriptionError.swift in Sources */,
+				2F324664879B11AA7EC82261 /* SubscriptionPlan.swift in Sources */,
+				85BB44D691A93DE0ABF66FD2 /* StoreKitService.swift in Sources */,
+				F568485CBFD0A99F9379F7AE /* SubscriptionManager.swift in Sources */,
+				B69C49AF88BB77A646527931 /* SubscriptionView.swift in Sources */,
+				8EB04E8FA3285D85746B1C9B /* PlanCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -226,11 +226,84 @@ struct Constants {
         }
     }
     
+    // MARK: - Subscription Configuration
+    
+    struct Subscription {
+        
+        // Guest User Limits (Apple Guideline 2.1 Compliance)
+        struct GuestLimits {
+            static let freeAPIMinutes = 60 // 1 hour of free AssemblyAI usage
+            static let warningThresholdPercentage = 0.75 // Show warning at 75% usage (45 minutes)
+            static let criticalThresholdPercentage = 0.90 // Show critical warning at 90% usage (54 minutes)
+        }
+        
+        // StoreKit 2 Product IDs (must match App Store Connect)
+        struct ProductIDs {
+            static let monthlyPro = "com.voicecontrol.app.pro.monthly"
+            static let yearlyPro = "com.voicecontrol.app.pro.yearly"
+        }
+        
+        // Pricing Information (for display purposes)
+        struct Pricing {
+            static let monthlyPriceUSD = 4.99
+            static let yearlyPriceUSD = 49.99
+            static let yearlySavingsPercentage = 17 // Save 17% with yearly
+        }
+        
+        // API Cost Management (AssemblyAI: $0.37/hour = $0.0062/minute)
+        struct APICosts {
+            static let costPerMinuteUSD = 0.0062 // AssemblyAI real-time streaming cost
+            static let freeMinutesCostUSD = Double(GuestLimits.freeAPIMinutes) * costPerMinuteUSD // ~$0.37
+            static let monthlyBreakEvenMinutes = Int(Pricing.monthlyPriceUSD / costPerMinuteUSD) // ~804 minutes
+        }
+        
+        // Subscription Features
+        struct Features {
+            // Premium Features
+            static let unlimitedAPIAccess = "Unlimited AssemblyAI voice recognition"
+            static let advancedMixingControl = "Advanced mixing console control"
+            static let cloudSync = "Cloud sync across devices"
+            static let prioritySupport = "Priority customer support"
+            static let premiumProcessing = "Premium voice processing features"
+            static let noUsageLimits = "No usage limits or restrictions"
+            static let adFreeExperience = "Ad-free experience"
+            
+            // Free/Guest Features
+            static let basicVoiceRecognition = "1 hour free voice recognition"
+            static let basicMixingControl = "Basic mixing console control"
+            static let localProcessing = "Local-only processing"
+        }
+        
+        // Trial Configuration
+        struct Trial {
+            static let durationDays = 30 // 1 month free trial
+            static let enabled = true
+        }
+        
+        // Usage Tracking
+        struct Usage {
+            static let trackingInterval: TimeInterval = 60.0 // Track usage every minute
+            static let minimumSessionDuration: TimeInterval = 5.0 // Minimum 5 seconds to count as usage
+            static let roundUpMinimum = true // Always round up partial minutes
+        }
+        
+        // User Experience
+        struct UX {
+            static let showUsageIndicator = true
+            static let showWarningAtPercentage = GuestLimits.warningThresholdPercentage
+            static let blockAPIAtLimit = true // Block API calls when limit reached
+            static let gracefulDegradation = false // Don't allow degraded service
+        }
+    }
+    
     // MARK: - Feature Flags
     
     struct FeatureFlags {
         static let biometricAuthEnabled = true
         static let googleSignInEnabled = true // Enterprise-grade social sign-in enabled
+        static let subscriptionsEnabled = true // StoreKit 2 subscriptions enabled
+        static let guestModeEnabled = true // Apple Guideline 2.1 compliance
+        static let usageTrackingEnabled = true // API usage tracking for cost control
         static let applePayEnabled = false // Future implementation
         static let pushNotificationsEnabled = false // Future implementation
         static let analyticsEnabled = false
