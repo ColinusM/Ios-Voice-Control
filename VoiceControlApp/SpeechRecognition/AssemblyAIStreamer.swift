@@ -2,7 +2,7 @@ import Foundation
 import Starscream
 
 // MARK: - AssemblyAI WebSocket Streamer
-class AssemblyAIStreamer: NSObject, ObservableObject {
+class AssemblyAIStreamer: NSObject, SpeechRecognitionEngine, ObservableObject {
     
     // MARK: - Published Properties
     @Published var isStreaming: Bool = false
@@ -286,38 +286,56 @@ class AssemblyAIStreamer: NSObject, ObservableObject {
         case .turn(let turn):
             print("📝 Transcript: \"\(turn.transcript)\" (end_of_turn: \(turn.end_of_turn ?? false), formatted: \(turn.turn_is_formatted ?? false))")
             
-            // Capture latest words for immediate extraction on stop
+            // Store latest words for potential cleanup on stop
             if let words = turn.words, !words.isEmpty {
                 lastWords = words
-                print("📝 Captured \(words.count) words for immediate extraction")
             }
             
             Task { @MainActor in
                 if turn.end_of_turn == true {
-                    // Final transcript - use words array if available, fallback to transcript
-                    let finalText = !lastWords.isEmpty ? lastWords.map { $0.text }.joined(separator: " ") : turn.transcript
+                    // Final turn - use words for accuracy, fallback to transcript
+                    let finalText: String
+                    if let words = turn.words, !words.isEmpty {
+                        finalText = words.map { $0.text }.joined(separator: " ")
+                        print("📝 Final turn from words: '\(finalText)' (\(words.count) words)")
+                    } else {
+                        finalText = turn.transcript
+                        print("📝 Final turn from transcript: '\(finalText)'")
+                    }
+                    
+                    // Add to accumulated text only if not empty
                     if !finalText.isEmpty {
                         if !accumulatedText.isEmpty {
                             accumulatedText += " "
                         }
                         accumulatedText += finalText
                     }
+                    
+                    // Clear current turn since it's now final
                     currentTurnText = ""
-                    print("📝 Final transcript from words: '\(finalText)' -> Total: '\(accumulatedText)'")
+                    
+                    // Update display to show only accumulated (final) text
+                    transcriptionText = accumulatedText
+                    print("📝 Total accumulated: '\(accumulatedText)'")
+                    
                 } else {
-                    // Partial transcript - use words array for immediate display of all detected words
-                    if !lastWords.isEmpty {
-                        currentTurnText = lastWords.map { $0.text }.joined(separator: " ")
-                        print("📝 Partial from words: '\(currentTurnText)' (showing \(lastWords.count) words)")
+                    // Partial turn - show live words as they come in
+                    if let words = turn.words, !words.isEmpty {
+                        currentTurnText = words.map { $0.text }.joined(separator: " ")
+                        print("📝 Partial from words: '\(currentTurnText)' (\(words.count) words)")
                     } else {
                         currentTurnText = turn.transcript
-                        print("📝 Partial from transcript: '\(turn.transcript)'")
+                        print("📝 Partial from transcript: '\(currentTurnText)'")
                     }
+                    
+                    // Update display: accumulated final + current partial (FIXED)
+                    if accumulatedText.isEmpty {
+                        transcriptionText = currentTurnText
+                    } else {
+                        transcriptionText = accumulatedText + " " + currentTurnText
+                    }
+                    print("📝 Display text updated: '\(transcriptionText)'")
                 }
-                
-                // Update displayed text: accumulated + current turn
-                let newDisplayText = accumulatedText + (currentTurnText.isEmpty ? "" : (accumulatedText.isEmpty ? "" : " ") + currentTurnText)
-                transcriptionText = newDisplayText
                 
                 // Force UI update
                 objectWillChange.send()

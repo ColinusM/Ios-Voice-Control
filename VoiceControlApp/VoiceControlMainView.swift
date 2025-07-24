@@ -1,13 +1,16 @@
 import SwiftUI
 import FirebaseAuth
 import AVFoundation
+import Speech
+import Combine
 
 // MARK: - Voice Control Main App
 struct VoiceControlMainView: View {
     @EnvironmentObject private var authManager: AuthenticationManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
-    @StateObject private var assemblyAIStreamer = AssemblyAIStreamer()
+    @StateObject private var speechManager = SpeechRecognitionManager()
     @State private var isRecording: Bool = false
+    @State private var orbitalAngle: Double = 0.0
     @State private var showSubscriptionView = false
     
     var body: some View {
@@ -70,10 +73,10 @@ struct VoiceControlMainView: View {
                         Spacer()
                         
                         // Clear button
-                        if !assemblyAIStreamer.transcriptionText.isEmpty {
+                        if !speechManager.transcriptionText.isEmpty {
                             Button(action: {
                                 print("🗑️ Clicked on bin")
-                                assemblyAIStreamer.clearTranscriptionText()
+                                speechManager.clearTranscriptionText()
                             }) {
                                 Image(systemName: "trash")
                                     .font(.caption)
@@ -83,10 +86,10 @@ struct VoiceControlMainView: View {
                     }
                     
                     ScrollView {
-                        Text(assemblyAIStreamer.transcriptionText.isEmpty ? "Tap the microphone to start speaking..." : assemblyAIStreamer.transcriptionText)
+                        Text(speechManager.transcriptionText.isEmpty ? "Tap the microphone to start speaking..." : speechManager.transcriptionText)
                             .font(.body)
                             .multilineTextAlignment(.leading)
-                            .foregroundColor(assemblyAIStreamer.transcriptionText.isEmpty ? .secondary : .primary)
+                            .foregroundColor(speechManager.transcriptionText.isEmpty ? .secondary : .primary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                     }
@@ -102,23 +105,28 @@ struct VoiceControlMainView: View {
                 
                 Spacer()
                 
-                // Microphone Button
-                Button(action: {
-                    toggleRecording()
-                }) {
-                    ZStack {
-                        Circle()
-                            .fill(isRecording ? Color.red : Color.blue)
-                            .frame(width: 80, height: 80)
-                            .shadow(radius: isRecording ? 8 : 4)
-                        
-                        Image(systemName: isRecording ? "mic.fill" : "mic")
-                            .font(.system(size: 32))
-                            .foregroundColor(.white)
-                    }
+                // Orbital Toggle System (Earth-Moon UI)
+                ZStack {
+                    // Main Record Button (Earth)
+                    RecordButton(
+                        isRecording: speechManager.isRecording,
+                        mode: speechManager.activeEngine,
+                        isSwitchingEngines: speechManager.isSwitchingEngines,
+                        connectionState: speechManager.connectionState,
+                        onTap: { toggleRecording() }
+                    )
+                    
+                    // Orbital Toggle Button (Moon)
+                    OrbitalToggleButton(
+                        angle: orbitalAngle,
+                        currentMode: speechManager.activeEngine,
+                        isSwitchingEngines: speechManager.isSwitchingEngines,
+                        onToggle: { newMode in
+                            switchToEngineSync(newMode)
+                        }
+                    )
                 }
-                .scaleEffect(isRecording ? 1.1 : 1.0)
-                .animation(.easeInOut(duration: 0.2), value: isRecording)
+                .frame(height: 160) // Accommodate orbital radius
                 
                 Spacer()
                 
@@ -128,7 +136,13 @@ struct VoiceControlMainView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     
-                    if let errorMessage = assemblyAIStreamer.errorMessage {
+                    // Engine indicator
+                    Text("Engine: \(speechManager.activeEngine.displayName)")
+                        .font(.caption)
+                        .foregroundColor(speechManager.activeEngine.color)
+                        .fontWeight(.medium)
+                    
+                    if let errorMessage = speechManager.errorMessage {
                         Text("Error: \(errorMessage)")
                             .font(.caption)
                             .foregroundColor(.red)
@@ -147,23 +161,35 @@ struct VoiceControlMainView: View {
         .onAppear {
             print("✅ VoiceControlMainView appeared - User: \(authManager.currentUser?.email ?? "Unknown")")
             
-            // Configure AssemblyAI streamer with managers for usage tracking  
-            assemblyAIStreamer.configure(subscriptionManager: subscriptionManager, authManager: authManager)
+            // Configure speech manager with dependency injection
+            speechManager.configure(subscriptionManager: subscriptionManager, authManager: authManager)
+            
+            // Initialize orbital position
+            orbitalAngle = speechManager.activeEngine.orbitalAngle
         }
-        .onChange(of: assemblyAIStreamer.isStreaming) { oldValue, newValue in
+        .onChange(of: speechManager.isRecording) { oldValue, newValue in
             // Sync UI recording state with actual streaming state
             DispatchQueue.main.async {
                 isRecording = newValue
             }
+        }
+        .onChange(of: speechManager.activeEngine) { oldValue, newValue in
+            // Update orbital angle when engine changes
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                orbitalAngle = newValue.orbitalAngle
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .environmentRecommendationUpdated)) { notification in
+            handleEnvironmentRecommendation(notification)
         }
     }
     
     private func toggleRecording() {
         if isRecording {
             // Stop recording
-            assemblyAIStreamer.stopStreaming()
+            speechManager.stopRecording()
             isRecording = false
-            print("🛑 Stopped recording")
+            print("🛑 Stopped recording with \(speechManager.activeEngine.displayName)")
         } else {
             // Start recording with explicit permission check
             print("🎤 User tapped microphone - checking permissions...")
@@ -173,34 +199,37 @@ struct VoiceControlMainView: View {
                 let audioManager = AudioManager()
                 let hasPermission = await audioManager.requestMicrophonePermission()
                 
-                await MainActor.run {
-                    if hasPermission {
-                        print("🎤 Permission granted - starting recording")
+                if hasPermission {
+                    print("🎤 Permission granted - starting recording with \(speechManager.activeEngine.displayName)")
+                    
+                    await MainActor.run {
                         isRecording = true
-                        
-                        Task {
-                            await assemblyAIStreamer.startStreaming()
-                            
-                            // Update UI state based on actual streaming state
-                            await MainActor.run {
-                                if !assemblyAIStreamer.isStreaming {
-                                    // If streaming failed, reset recording state
-                                    isRecording = false
-                                }
-                            }
-                        }
-                    } else {
-                        print("🎤 Permission denied - cannot start recording")
-                        // Show error to user
-                        assemblyAIStreamer.errorMessage = "Microphone permission required. Please enable in Settings > Privacy & Security > Microphone > VoiceControlApp"
                     }
+                    
+                    await speechManager.startRecording()
+                    
+                    // Update UI state based on actual streaming state
+                    await MainActor.run {
+                        if !speechManager.isRecording {
+                            // If streaming failed, reset recording state
+                            isRecording = false
+                        }
+                    }
+                } else {
+                    print("🎤 Permission denied - cannot start recording")
+                    // Show error to user
+                    speechManager.errorMessage = "Microphone permission required. Please enable in Settings > Privacy & Security > Microphone > VoiceControlApp"
                 }
             }
         }
     }
     
     private func getStatusText() -> String {
-        switch assemblyAIStreamer.connectionState {
+        if speechManager.isSwitchingEngines {
+            return "🔄 Switching engines..."
+        }
+        
+        switch speechManager.connectionState {
         case .disconnected:
             return "Tap microphone to speak"
         case .connecting:
@@ -223,6 +252,53 @@ struct VoiceControlMainView: View {
                 return "❌ Unknown error"
             }
         }
+    }
+    
+    // MARK: - Engine Switching
+    
+    private func switchToEngineSync(_ newEngine: SpeechRecognitionMode) {
+        print("🔄 User requested switch to \(newEngine.displayName)")
+        
+        // Animate orbital position change
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+            orbitalAngle = newEngine.orbitalAngle
+        }
+        
+        // Perform engine switch asynchronously
+        Task {
+            await speechManager.switchEngine(to: newEngine)
+            print("✅ Engine switch completed to \(newEngine.displayName)")
+        }
+    }
+    
+    private func switchToEngine(_ newEngine: SpeechRecognitionMode) async {
+        print("🔄 User requested switch to \(newEngine.displayName)")
+        
+        // Animate orbital position change
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+            orbitalAngle = newEngine.orbitalAngle
+        }
+        
+        // Perform engine switch
+        await speechManager.switchEngine(to: newEngine)
+        
+        print("✅ Engine switch completed to \(newEngine.displayName)")
+    }
+    
+    // MARK: - Environment Recommendations
+    
+    private func handleEnvironmentRecommendation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let recommendationString = userInfo["recommendation"] as? String,
+              let recommendation = SpeechRecognitionMode(rawValue: recommendationString),
+              recommendation != speechManager.activeEngine else {
+            return
+        }
+        
+        print("🤖 Environment recommendation: \(recommendation.displayName)")
+        
+        // For now, just log the recommendation
+        // In future, could show subtle UI hint or auto-switch based on user preferences
     }
 }
 

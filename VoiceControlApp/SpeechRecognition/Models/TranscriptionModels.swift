@@ -1,4 +1,62 @@
 import Foundation
+import SwiftUI
+
+// MARK: - Speech Recognition Mode
+
+/// Speech recognition mode selection for orbital toggle system
+enum SpeechRecognitionMode: String, CaseIterable, Identifiable {
+    case professional = "professional"  // AssemblyAI
+    case fast = "fast"                  // iOS Speech
+    
+    var id: String { rawValue }
+    
+    var displayName: String {
+        switch self {
+        case .professional: return "Pro Accuracy"
+        case .fast: return "Fast & Free"
+        }
+    }
+    
+    var shortName: String {
+        switch self {
+        case .professional: return "Pro"
+        case .fast: return "Fast"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .professional: return .orange
+        case .fast: return .blue
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .professional: return "cloud.fill"
+        case .fast: return "waveform"
+        }
+    }
+    
+    var orbitalAngle: Double {
+        switch self {
+        case .professional: return 0.0    // Top-right position (12 o'clock)
+        case .fast: return 60.0           // Right side position (2 o'clock)
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .professional: return "Superior noise handling, cloud processing"
+        case .fast: return "Ultra-low latency, on-device processing, offline capable"
+        }
+    }
+    
+    // Note: SpeechEngineType reference removed to avoid circular dependency
+    // Engine type mapping handled in SpeechRecognitionManager
+}
+
+// Note: SpeechRecognitionEngine protocol is defined in SpeechRecognitionProtocol.swift
 
 // MARK: - AssemblyAI WebSocket Message Types
 
