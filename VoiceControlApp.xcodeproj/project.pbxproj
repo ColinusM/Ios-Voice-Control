@@ -19,8 +19,11 @@
 		3D40445688B57A4F9F59642B /* VoiceCommandBubblesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B215402FBA1407C51B5EF419 /* VoiceCommandBubblesView.swift */; };
 		3F1A4D9293C235553FBA4CF2 /* CompoundCommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */; };
 		4DC7405AA1962DFAE0A7E049 /* RCPCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19E48EAAEC7587618577790 /* RCPCommand.swift */; };
+		54FF412C9F74FF55D7E44003 /* NetworkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71664F87AD5ED9E8B83C2DEE /* NetworkSettings.swift */; };
 		59FA43089D27B69FCA550042 /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2D4D03930E768A8D2E1E19 /* RecordButton.swift */; };
 		5ADE41B7B14863719480119C /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC534A5EACB74F78852F720E /* StoreKitService.swift */; };
+		5B0E4631A8C58F5B1718DF74 /* NetworkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D214F85B6E87C0845E382B0 /* NetworkSettingsView.swift */; };
+		62DB45E1B11928B288426EE4 /* RCPNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B4C2EAF4FD284A918000C /* RCPNetworkClient.swift */; };
 		728E4E5D92D68D6B9342084E /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */; };
 		74964C8F8BD323D899DDF07B /* OrbitalToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */; };
 		78274F678DA78C4ED20469D3 /* SubscriptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */; };
@@ -80,11 +83,13 @@
 		163F442C9C906B4C191D6617 /* SubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionError.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionError.swift; sourceTree = SOURCE_ROOT; };
 		31E54A539C49B7E76DA55341 /* ProcessedVoiceCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProcessedVoiceCommand.swift; path = VoiceControlApp/VoiceCommand/Models/ProcessedVoiceCommand.swift; sourceTree = SOURCE_ROOT; };
 		3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompoundCommandProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/CompoundCommandProcessor.swift; sourceTree = SOURCE_ROOT; };
+		3D214F85B6E87C0845E382B0 /* NetworkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkSettingsView.swift; path = VoiceControlApp/NetworkSettingsView.swift; sourceTree = SOURCE_ROOT; };
 		4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
 		51024E149C762048FDF3A9C8 /* SpeechRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechRecognitionManager.swift; path = VoiceControlApp/SpeechRecognition/SpeechRecognitionManager.swift; sourceTree = SOURCE_ROOT; };
 		56FB4590911E2267554D9E5C /* GuestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GuestUser.swift; path = VoiceControlApp/Authentication/Models/GuestUser.swift; sourceTree = SOURCE_ROOT; };
 		57504B8E95CF6C8177D11928 /* PlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanCardView.swift; path = VoiceControlApp/Subscriptions/Views/PlanCardView.swift; sourceTree = SOURCE_ROOT; };
 		5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
+		71664F87AD5ED9E8B83C2DEE /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkSettings.swift; path = VoiceControlApp/NetworkSettings.swift; sourceTree = SOURCE_ROOT; };
 		79CB452A8F781D1BF198318E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
 		81D84BCE947E115CC46D9995 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionView.swift; path = VoiceControlApp/Subscriptions/Views/SubscriptionView.swift; sourceTree = SOURCE_ROOT; };
 		83C74854BD78735A3821739A /* ProfessionalAudioTerms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfessionalAudioTerms.swift; path = VoiceControlApp/VoiceCommand/Services/ProfessionalAudioTerms.swift; sourceTree = SOURCE_ROOT; };
@@ -126,6 +131,7 @@
 		B8A041F48ECE945A41810CF9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
 		BC2D440D904E184F2F5663BA /* ChannelProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/ChannelProcessor.swift; sourceTree = SOURCE_ROOT; };
 		C0344C61BBF738337EFE9ACC /* ContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextManager.swift; path = VoiceControlApp/VoiceCommand/Services/ContextManager.swift; sourceTree = SOURCE_ROOT; };
+		C68B4C2EAF4FD284A918000C /* RCPNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPNetworkClient.swift; path = VoiceControlApp/RCPNetworkClient.swift; sourceTree = SOURCE_ROOT; };
 		D0384B58BD2846AD6F94966C /* RoutingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutingProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/RoutingProcessor.swift; sourceTree = SOURCE_ROOT; };
 		D19E48EAAEC7587618577790 /* RCPCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPCommand.swift; path = VoiceControlApp/VoiceCommand/Models/RCPCommand.swift; sourceTree = SOURCE_ROOT; };
 		DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandTester.swift; path = VoiceControlApp/VoiceCommand/Services/VoiceCommandTester.swift; sourceTree = SOURCE_ROOT; };
@@ -229,6 +235,9 @@
 				ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */,
 				C0344C61BBF738337EFE9ACC /* ContextManager.swift */,
 				3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */,
+				71664F87AD5ED9E8B83C2DEE /* NetworkSettings.swift */,
+				C68B4C2EAF4FD284A918000C /* RCPNetworkClient.swift */,
+				3D214F85B6E87C0845E382B0 /* NetworkSettingsView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -444,6 +453,9 @@
 				3A49469099BEF8198120B41E /* EffectsProcessor.swift in Sources */,
 				EA9043CDB3CC5C2DE17FD886 /* ContextManager.swift in Sources */,
 				3F1A4D9293C235553FBA4CF2 /* CompoundCommandProcessor.swift in Sources */,
+				54FF412C9F74FF55D7E44003 /* NetworkSettings.swift in Sources */,
+				62DB45E1B11928B288426EE4 /* RCPNetworkClient.swift in Sources */,
+				5B0E4631A8C58F5B1718DF74 /* NetworkSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,8 +557,10 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULE_CACHING = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_MODULES_BUILD_SESSION_FILE = "$(DERIVED_DATA_DIR)/ModuleCache.noindex/Session.modulevalidation";
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
@@ -601,11 +615,9 @@
 				);
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_COMPILATION_MODE = singlefile;
-				CLANG_ENABLE_MODULE_CACHING = YES;
 				SWIFT_ENABLE_INCREMENTAL_COMPILATION = YES;
-				CLANG_MODULES_BUILD_SESSION_FILE = "$(DERIVED_DATA_DIR)/ModuleCache.noindex/Session.modulevalidation";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -618,6 +630,7 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_MODULE_CACHING = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
@@ -663,9 +676,8 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				CLANG_ENABLE_MODULE_CACHING = YES;
 				SWIFT_ENABLE_INCREMENTAL_COMPILATION = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

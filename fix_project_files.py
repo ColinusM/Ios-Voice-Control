@@ -8,20 +8,17 @@ def main():
     print("Loading Xcode project...")
     project = XcodeProject.load('VoiceControlApp.xcodeproj/project.pbxproj')
     
-    # List of VoiceCommand files to add
-    voice_command_files = [
-        'VoiceControlApp/VoiceCommand/Models/RCPCommand.swift',
-        'VoiceControlApp/VoiceCommand/Models/ProcessedVoiceCommand.swift', 
-        'VoiceControlApp/VoiceCommand/Services/VoiceCommandProcessor.swift',
-        'VoiceControlApp/VoiceCommand/Services/ProfessionalAudioTerms.swift',
-        'VoiceControlApp/VoiceCommand/Components/VoiceCommandBubble.swift',
-        'VoiceControlApp/VoiceCommand/Components/VoiceCommandBubblesView.swift'
+    # List of network files to add
+    network_files = [
+        'VoiceControlApp/NetworkSettings.swift',
+        'VoiceControlApp/RCPNetworkClient.swift',
+        'VoiceControlApp/NetworkSettingsView.swift'
     ]
     
     print("Attempting to remove and re-add files...")
     
     # First, try to remove any existing references
-    for file_path in voice_command_files:
+    for file_path in network_files:
         try:
             project.remove_file(file_path)
             print(f"  Removed {file_path}")
@@ -29,7 +26,7 @@ def main():
             print(f"  {file_path} was not in project (or couldn't be removed)")
     
     # Now add the files using a simpler approach
-    for file_path in voice_command_files:
+    for file_path in network_files:
         # Check if file exists on disk
         if not os.path.exists(file_path):
             print(f"  ❌ File does not exist: {file_path}")
@@ -62,7 +59,7 @@ def main():
         print(f"❌ Error saving project: {e}")
         return False
     
-    print("\n🎉 Done! VoiceCommand files should now be properly added to the Xcode project.")
+    print("\n🎉 Done! Network files should now be properly added to the Xcode project.")
     return True
 
 if __name__ == "__main__":

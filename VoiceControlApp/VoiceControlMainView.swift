@@ -9,9 +9,11 @@ struct VoiceControlMainView: View {
     @EnvironmentObject private var authManager: AuthenticationManager
     @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @StateObject private var speechManager = SpeechRecognitionManager()
+    @StateObject private var networkClient = RCPNetworkClient.shared
     @State private var isRecording: Bool = false
     @State private var orbitalAngle: Double = 0.0
     @State private var showSubscriptionView = false
+    @State private var showNetworkSettings = false
     
     var body: some View {
         NavigationView {
@@ -37,6 +39,15 @@ struct VoiceControlMainView: View {
                     }
                     
                     Spacer()
+                    
+                    // Network Settings Button
+                    Button(action: {
+                        showNetworkSettings = true
+                    }) {
+                        Image(systemName: "network")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                    }
                     
                     // Sign Out Button (compact)
                     Button(action: {
@@ -117,17 +128,23 @@ struct VoiceControlMainView: View {
                                 // Could add functionality like copying to clipboard or executing command
                             },
                             onCommandSend: { command in
-                                // Handle command send button tap
+                                // Handle command send button tap - send via network
                                 print("🚀 Sending RCP command: \(command.rcpCommand.command)")
                                 print("📡 Command description: \(command.rcpCommand.description)")
                                 
-                                // For now, just log the command - later this would send to your mixer console
-                                // TODO: Implement actual RCP command transmission to console/GUI
-                                
-                                // Show a brief success message
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    // Could add a toast notification here
-                                    print("✅ RCP command sent successfully!")
+                                Task {
+                                    let result = await networkClient.sendRCPCommand(command)
+                                    
+                                    await MainActor.run {
+                                        switch result {
+                                        case .success(let message):
+                                            print("✅ RCP command sent successfully: \(message)")
+                                            // TODO: Could add a toast notification here
+                                        case .failure(let error):
+                                            print("❌ Failed to send RCP command: \(error.localizedDescription)")
+                                            // TODO: Could show error alert to user
+                                        }
+                                    }
                                 }
                             }
                         )
@@ -197,6 +214,9 @@ struct VoiceControlMainView: View {
             SubscriptionView()
                 .environmentObject(subscriptionManager)
                 .environmentObject(authManager)
+        }
+        .sheet(isPresented: $showNetworkSettings) {
+            NetworkSettingsView()
         }
         .onAppear {
             print("✅ VoiceControlMainView appeared - User: \(authManager.currentUser?.email ?? "Unknown")")
