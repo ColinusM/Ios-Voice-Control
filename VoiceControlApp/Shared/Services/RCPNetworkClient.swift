@@ -1,10 +1,10 @@
 import Foundation
 import Network
+import UIKit
 
 // MARK: - RCP Network Client
 
 /// Network client for sending RCP commands to Yamaha consoles or testing receivers
-@MainActor
 class RCPNetworkClient: ObservableObject {
     
     // MARK: - Properties
@@ -54,8 +54,10 @@ class RCPNetworkClient: ObservableObject {
             return .failure(.networkUnavailable("No network connection"))
         }
         
-        // Update connection status
-        await networkSettings.updateConnectionStatus(.connecting)
+        // Update connection status  
+        await MainActor.run {
+            networkSettings.updateConnectionStatus(.connecting)
+        }
         
         // Create command payload
         let payload = createCommandPayload(from: command)
@@ -112,6 +114,170 @@ class RCPNetworkClient: ObservableObject {
         )
     }
     
+    /// Verify console connection for learning prompts
+    /// Used by LearningPromptManager to determine if prompts should appear
+    /// - Returns: True if connected to actual console (not GUI testing)
+    func isConsoleConnectionVerified() async -> Bool {
+        guard networkSettings.shouldSendToConsole else {
+            if networkSettings.enableLogging {
+                print("🔍 Console verification: Not configured to connect to console")
+            }
+            return false
+        }
+        
+        // Test connection to console with console-specific command
+        let verificationResult = await testConsoleCapabilities()
+        
+        switch verificationResult {
+        case .success:
+            if networkSettings.enableLogging {
+                print("✅ Console verification: Successfully connected to Yamaha console")
+            }
+            return true
+        case .failure(let error):
+            if networkSettings.enableLogging {
+                print("❌ Console verification failed: \(error.localizedDescription)")
+            }
+            return false
+        }
+    }
+    
+    /// Test console-specific capabilities to verify it's a real console
+    /// - Returns: Result indicating if target is a real Yamaha console
+    private func testConsoleCapabilities() async -> Result<String, RCPNetworkError> {
+        // Use console-specific RCP command that only real consoles respond to
+        let consoleTestPayload = RCPCommandPayload(
+            command: "get MIXER:Current/InCh/Fader/Level 0 0",
+            description: "Console capability test",
+            confidence: 1.0,
+            originalText: "console verification",
+            timestamp: ISO8601DateFormatter().string(from: Date()),
+            deviceId: UIDevice.current.name,
+            commandType: "console_verification"
+        )
+        
+        return await sendToTarget(
+            payload: consoleTestPayload,
+            ip: networkSettings.consoleIP,
+            port: networkSettings.consolePort,
+            targetName: "Console Verification"
+        )
+    }
+    
+    /// Get current connection status for learning system
+    /// - Returns: Current connection status
+    func getCurrentConnectionStatus() -> ConnectionStatus {
+        return networkSettings.connectionStatus
+    }
+    
+    /// Check if connected to actual hardware (not testing GUI)
+    /// - Returns: True if connected to real hardware
+    func isConnectedToHardware() -> Bool {
+        let status = networkSettings.connectionStatus
+        
+        switch status {
+        case .connected(let target):
+            // Consider it hardware if connected to "Yamaha Console" and not "Mac GUI"
+            return target.contains("Console") || target.contains("Yamaha")
+        default:
+            return false
+        }
+    }
+    
+    /// Verify network connectivity and configuration
+    /// - Returns: Comprehensive network status
+    func verifyNetworkConfiguration() async -> NetworkVerificationResult {
+        var issues: [String] = []
+        var warnings: [String] = []
+        
+        // Check basic network availability
+        guard isNetworkAvailable else {
+            issues.append("No network connection available")
+            return NetworkVerificationResult(
+                isValid: false,
+                issues: issues,
+                warnings: warnings,
+                consoleReachable: false,
+                guiReachable: false
+            )
+        }
+        
+        // Validate IP addresses and ports
+        if networkSettings.shouldSendToConsole {
+            if !isValidIPAddress(networkSettings.consoleIP) {
+                issues.append("Invalid console IP address: \(networkSettings.consoleIP)")
+            }
+            if !isValidPort(networkSettings.consolePort) {
+                issues.append("Invalid console port: \(networkSettings.consolePort)")
+            }
+        }
+        
+        if networkSettings.shouldSendToGUI {
+            if !isValidIPAddress(networkSettings.testingIP) {
+                issues.append("Invalid testing IP address: \(networkSettings.testingIP)")
+            }
+            if !isValidPort(networkSettings.testingPort) {
+                issues.append("Invalid testing port: \(networkSettings.testingPort)")
+            }
+        }
+        
+        // Test connectivity if configuration is valid
+        var consoleReachable = false
+        var guiReachable = false
+        
+        if issues.isEmpty {
+            // Test console connectivity
+            if networkSettings.shouldSendToConsole {
+                let consoleTest = await testConnection(
+                    ip: networkSettings.consoleIP,
+                    port: networkSettings.consolePort
+                )
+                consoleReachable = consoleTest.isSuccess
+                if !consoleReachable {
+                    warnings.append("Console not reachable at \(networkSettings.consoleIP):\(networkSettings.consolePort)")
+                }
+            }
+            
+            // Test GUI connectivity
+            if networkSettings.shouldSendToGUI {
+                let guiTest = await testConnection(
+                    ip: networkSettings.testingIP,
+                    port: networkSettings.testingPort
+                )
+                guiReachable = guiTest.isSuccess
+                if !guiReachable {
+                    warnings.append("GUI testing receiver not reachable at \(networkSettings.testingIP):\(networkSettings.testingPort)")
+                }
+            }
+        }
+        
+        return NetworkVerificationResult(
+            isValid: issues.isEmpty,
+            issues: issues,
+            warnings: warnings,
+            consoleReachable: consoleReachable,
+            guiReachable: guiReachable
+        )
+    }
+    
+    // MARK: - Helper Methods
+    
+    /// Validate IP address format
+    private func isValidIPAddress(_ ip: String) -> Bool {
+        let parts = ip.split(separator: ".")
+        guard parts.count == 4 else { return false }
+        
+        return parts.allSatisfy { part in
+            guard let num = Int(part), num >= 0, num <= 255 else { return false }
+            return true
+        }
+    }
+    
+    /// Validate port number
+    private func isValidPort(_ port: Int) -> Bool {
+        return port > 0 && port <= 65535
+    }
+    
     // MARK: - Private Implementation
     
     /// Send payload to specific target
@@ -159,7 +325,9 @@ class RCPNetworkClient: ObservableObject {
                 // Success - parse response
                 let responseString = String(data: data, encoding: .utf8) ?? "No response data"
                 
-                await networkSettings.updateConnectionStatus(.connected(targetName))
+                await MainActor.run {
+                    networkSettings.updateConnectionStatus(.connected(targetName))
+                }
                 
                 if networkSettings.enableLogging {
                     print("✅ Success from \(targetName): \(responseString)")
@@ -181,7 +349,9 @@ class RCPNetworkClient: ObservableObject {
             
         } catch let error as URLError {
             let networkError = mapURLError(error)
-            await networkSettings.updateConnectionStatus(.error(networkError.localizedDescription))
+            await MainActor.run {
+                networkSettings.updateConnectionStatus(.error(networkError.localizedDescription))
+            }
             
             if networkSettings.enableLogging {
                 print("❌ Network error to \(targetName): \(networkError.localizedDescription)")
@@ -191,7 +361,9 @@ class RCPNetworkClient: ObservableObject {
             
         } catch {
             let rcpError = RCPNetworkError.unknownError(error.localizedDescription)
-            await networkSettings.updateConnectionStatus(.error(error.localizedDescription))
+            await MainActor.run {
+                networkSettings.updateConnectionStatus(.error(error.localizedDescription))
+            }
             
             if networkSettings.enableLogging {
                 print("❌ Unknown error to \(targetName): \(error.localizedDescription)")
@@ -368,4 +540,67 @@ enum RCPNetworkError: LocalizedError, Equatable {
 extension RCPNetworkClient {
     /// Shared network client instance
     static let shared = RCPNetworkClient()
+}
+
+// MARK: - Network Verification Result
+
+/// Result of comprehensive network verification
+struct NetworkVerificationResult {
+    let isValid: Bool
+    let issues: [String]
+    let warnings: [String]
+    let consoleReachable: Bool
+    let guiReachable: Bool
+    
+    /// Human-readable summary of the verification
+    var summary: String {
+        if isValid && issues.isEmpty && warnings.isEmpty {
+            return "✅ Network configuration is valid and all targets are reachable"
+        } else if isValid && warnings.isEmpty {
+            return "✅ Network configuration is valid"
+        } else if isValid {
+            return "⚠️ Network configuration is valid but has warnings"
+        } else {
+            return "❌ Network configuration has issues"
+        }
+    }
+    
+    /// Detailed status report
+    var detailedReport: String {
+        var report = [summary]
+        
+        if !issues.isEmpty {
+            report.append("\nIssues:")
+            for issue in issues {
+                report.append("  • \(issue)")
+            }
+        }
+        
+        if !warnings.isEmpty {
+            report.append("\nWarnings:")
+            for warning in warnings {
+                report.append("  • \(warning)")
+            }
+        }
+        
+        report.append("\nConnectivity:")
+        report.append("  • Console: \(consoleReachable ? "✅ Reachable" : "❌ Not reachable")")
+        report.append("  • GUI Testing: \(guiReachable ? "✅ Reachable" : "❌ Not reachable")")
+        
+        return report.joined(separator: "\n")
+    }
+}
+
+// MARK: - Result Extension
+
+extension Result {
+    /// Check if the result is a success
+    var isSuccess: Bool {
+        switch self {
+        case .success:
+            return true
+        case .failure:
+            return false
+        }
+    }
 }

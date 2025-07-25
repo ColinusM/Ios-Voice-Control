@@ -27,7 +27,6 @@
 		5ADE41B7B14863719480119C /* StoreKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC534A5EACB74F78852F720E /* StoreKitService.swift */; };
 		5B0E4631A8C58F5B1718DF74 /* NetworkSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D214F85B6E87C0845E382B0 /* NetworkSettingsView.swift */; };
 		5C3D4B6C95781A1ED9332BC6 /* LearningPromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B642849E1F7648C0A4DE38 /* LearningPromptManager.swift */; };
-		62DB45E1B11928B288426EE4 /* RCPNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B4C2EAF4FD284A918000C /* RCPNetworkClient.swift */; };
 		728E4E5D92D68D6B9342084E /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA04FEC9EBC65DB9100842C /* SubscriptionPlan.swift */; };
 		74964C8F8BD323D899DDF07B /* OrbitalToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */; };
 		78274F678DA78C4ED20469D3 /* SubscriptionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */; };
@@ -73,6 +72,7 @@
 		B69C49AF88BB77A646527931 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D84BCE947E115CC46D9995 /* SubscriptionView.swift */; };
 		B89941C4BADFB7CA9555EB8D /* SubscriptionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B14F6F85B8B1ACB888E2EC /* SubscriptionError.swift */; };
 		BB3B4A10ABEBA5F10F673938 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A041F48ECE945A41810CF9 /* WelcomeView.swift */; };
+		C9A642A0B47F008E30E6D896 /* RCPNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4654B50B50F42A7D3F33912 /* RCPNetworkClient.swift */; };
 		D42344C58CF2B3743E716CF8 /* VoiceCommandBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574718932A157455800E7D /* VoiceCommandBubble.swift */; };
 		D5574A2AAAEFF5BB8E259B1B /* VoiceCommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4D808D6247A823624451 /* VoiceCommandProcessor.swift */; };
 		D8ED414BA4AA6DCE04C6F240 /* VoiceCommandTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */; };
@@ -140,10 +140,10 @@
 		B8A041F48ECE945A41810CF9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
 		BC2D440D904E184F2F5663BA /* ChannelProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChannelProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/ChannelProcessor.swift; sourceTree = SOURCE_ROOT; };
 		C0344C61BBF738337EFE9ACC /* ContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextManager.swift; path = VoiceControlApp/VoiceCommand/Services/ContextManager.swift; sourceTree = SOURCE_ROOT; };
-		C68B4C2EAF4FD284A918000C /* RCPNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPNetworkClient.swift; path = VoiceControlApp/RCPNetworkClient.swift; sourceTree = SOURCE_ROOT; };
 		D0384B58BD2846AD6F94966C /* RoutingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutingProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/RoutingProcessor.swift; sourceTree = SOURCE_ROOT; };
 		D19E48EAAEC7587618577790 /* RCPCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPCommand.swift; path = VoiceControlApp/VoiceCommand/Models/RCPCommand.swift; sourceTree = SOURCE_ROOT; };
 		DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandTester.swift; path = VoiceControlApp/VoiceCommand/Services/VoiceCommandTester.swift; sourceTree = SOURCE_ROOT; };
+		E4654B50B50F42A7D3F33912 /* RCPNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPNetworkClient.swift; path = VoiceControlApp/Shared/Services/RCPNetworkClient.swift; sourceTree = SOURCE_ROOT; };
 		ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EffectsProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/EffectsProcessor.swift; sourceTree = SOURCE_ROOT; };
 		F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrbitalToggleButton.swift; path = VoiceControlApp/Shared/Components/OrbitalToggleButton.swift; sourceTree = SOURCE_ROOT; };
 		F5574718932A157455800E7D /* VoiceCommandBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandBubble.swift; path = VoiceControlApp/VoiceCommand/Components/VoiceCommandBubble.swift; sourceTree = SOURCE_ROOT; };
@@ -246,13 +246,13 @@
 				C0344C61BBF738337EFE9ACC /* ContextManager.swift */,
 				3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */,
 				71664F87AD5ED9E8B83C2DEE /* NetworkSettings.swift */,
-				C68B4C2EAF4FD284A918000C /* RCPNetworkClient.swift */,
 				3D214F85B6E87C0845E382B0 /* NetworkSettingsView.swift */,
 				B7794449BBF32D619FF4EC9D /* SimilarityEngine.swift */,
 				B32D47CC9FA36FC5A739169C /* PersonalDictionaryStore.swift */,
 				92B642849E1F7648C0A4DE38 /* LearningPromptManager.swift */,
 				313249BA847C780E418C2EC1 /* BrainEmojiOverlay.swift */,
 				F9B548E7ADA0FC81A7272629 /* ValidationLimits.swift */,
+				E4654B50B50F42A7D3F33912 /* RCPNetworkClient.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -469,13 +469,13 @@
 				EA9043CDB3CC5C2DE17FD886 /* ContextManager.swift in Sources */,
 				3F1A4D9293C235553FBA4CF2 /* CompoundCommandProcessor.swift in Sources */,
 				54FF412C9F74FF55D7E44003 /* NetworkSettings.swift in Sources */,
-				62DB45E1B11928B288426EE4 /* RCPNetworkClient.swift in Sources */,
 				5B0E4631A8C58F5B1718DF74 /* NetworkSettingsView.swift in Sources */,
 				3C064F0BA0AC303930C28BD1 /* SimilarityEngine.swift in Sources */,
 				56E04DFF96821BE9D8BE3C42 /* PersonalDictionaryStore.swift in Sources */,
 				5C3D4B6C95781A1ED9332BC6 /* LearningPromptManager.swift in Sources */,
 				19E04CA8B83994B5BE57FC70 /* BrainEmojiOverlay.swift in Sources */,
 				FB584170851C0D301165E8BE /* ValidationLimits.swift in Sources */,
+				C9A642A0B47F008E30E6D896 /* RCPNetworkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

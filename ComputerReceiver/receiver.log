@@ -1,0 +1,21 @@
+============================================================
+🎙️  iOS RCP Command Receiver
+============================================================
+
+📡 Starting HTTP server for iOS Voice Control App...
+
+🌐 Web GUI: http://localhost:8080
+📍 RCP Endpoint: http://localhost:8080/rcp
+📊 Status API: http://localhost:8080/status
+
+📱 Configure your iOS app to send commands to:
+   • IP: Your Mac's IP address
+   • Port: 8080
+   • Target: Mac GUI (Testing)
+
+Press Ctrl+C to stop the server
+
+ * Serving Flask app 'ios_rcp_receiver'
+ * Debug mode: off
+Address already in use
+Port 8080 is in use by another program. Either identify and stop that program, or start the server with a different port.

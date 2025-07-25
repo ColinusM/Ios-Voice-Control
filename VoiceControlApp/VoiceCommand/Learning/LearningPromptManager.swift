@@ -231,13 +231,11 @@ class LearningPromptManager: ObservableObject {
     /// Check if console is currently connected for network verification
     /// - Returns: True if connected to console (not GUI)
     private func isConsoleConnected() -> Bool {
-        // Check network settings to determine if we're connected to console vs GUI
-        let networkSettings = NetworkSettings.shared
+        // Use the enhanced network verification from RCPNetworkClient
+        let networkClient = RCPNetworkClient.shared
         
-        // Must be connected to network and specifically to console (not GUI testing)
-        return networkSettings.isValidConfiguration && 
-               networkSettings.shouldSendToConsole &&
-               networkSettings.connectionStatus == .connected("Yamaha Console")
+        // Check if connected to actual hardware (not testing GUI)
+        return networkClient.isConnectedToHardware()
     }
 }
 

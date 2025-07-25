@@ -34,7 +34,6 @@ enum NetworkTargetType: String, CaseIterable {
 // MARK: - Network Settings Model
 
 /// Configuration settings for RCP command network transmission
-@MainActor
 class NetworkSettings: ObservableObject {
     
     // MARK: - Published Properties
