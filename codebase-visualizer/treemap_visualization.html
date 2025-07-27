@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Treemap Codebase Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; background: #0a0a0a; }
+        .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+        .header { background: rgba(255, 255, 255, 0.95); padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 1000; }
+        .title { font-size: 24px; font-weight: bold; color: #2c3e50; margin: 0 0 10px 0; }
+        .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .search-box { padding: 8px 12px; border: 2px solid #ddd; border-radius: 20px; font-size: 14px; min-width: 250px; }
+        .btn { padding: 8px 16px; border: none; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .visualization { flex: 1; position: relative; background: #1a1a2e; }
+        
+        .treemap-rect {
+            stroke: #ffffff;
+            stroke-width: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .treemap-rect:hover {
+            stroke-width: 4px;
+            opacity: 0.8;
+        }
+        
+        .treemap-text {
+            fill: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-anchor: middle;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        .category-title {
+            fill: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-anchor: middle;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+        
+        /* Category colors */
+        .cat-ios_swift { fill: #3498db; }
+        .cat-documentation { fill: #2ecc71; }
+        .cat-prp_methodology { fill: #9b59b6; }
+        .cat-configuration { fill: #f39c12; }
+        .cat-tests { fill: #e74c3c; }
+        .cat-tools { fill: #ff6b35; }
+        
+        .info-panel { 
+            position: absolute; top: 20px; right: 20px; 
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 20px; border-radius: 15px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3); 
+            max-width: 400px; max-height: 70%; 
+            overflow-y: auto; display: none; z-index: 1000;
+            border: 2px solid #3498db;
+        }
+        
+        .stats { 
+            position: absolute; top: 20px; left: 20px; 
+            background: rgba(0, 0, 0, 0.9); 
+            color: white; padding: 15px; border-radius: 15px; 
+            font-size: 14px; font-weight: bold;
+            border: 2px solid #3498db;
+        }
+        .stats div { margin: 5px 0; }
+        
+        .loading { 
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            color: #00bfff; font-size: 24px; text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">📊 Treemap Codebase Visualization - File Size & Hierarchy</div>
+            <div class="controls">
+                <input type="text" class="search-box" placeholder="Search files..." id="searchInput">
+                <button class="btn btn-primary" onclick="resetView()">🔍 Reset View</button>
+                <button class="btn btn-secondary" onclick="toggleView()" id="viewBtn">🔄 Switch to Network</button>
+                <span id="nodeCount" style="margin-left: 15px; font-weight: bold; color: #2c3e50;"></span>
+            </div>
+        </div>
+        
+        <div class="visualization" id="visualization">
+            <div class="loading" id="loading">🔄 Loading treemap visualization...</div>
+        </div>
+        
+        <div class="info-panel" id="infoPanel">
+            <h3 id="nodeTitle">File Information</h3>
+            <div id="nodeDetails"></div>
+            <button onclick="hideInfo()" class="btn btn-secondary" style="margin-top: 15px;">Close</button>
+        </div>
+        
+        <div class="stats" id="stats">
+            <div>📁 Total Files: <span id="totalFiles">0</span></div>
+            <div>📊 Categories: <span id="totalCategories">6</span></div>
+            <div>👁️ Visible: <span id="visibleNodes">0</span></div>
+            <div style="margin-top: 10px; font-size: 12px; opacity: 0.8;">
+                💡 File size = rectangle size
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🚀 Starting Treemap Visualization...');
+        
+        let projectData = null;
+        let svg, allNodes = [], currentNodes = [];
+        
+        // Load project data
+        async function loadProjectData() {
+            console.log('📂 Loading project data...');
+            try {
+                const response = await fetch('./data/project_visualization_data.json');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch project data');
+                }
+                projectData = await response.json();
+                allNodes = projectData.nodes || [];
+                
+                console.log(`✅ Loaded ${allNodes.length} nodes`);
+                
+                // Update stats
+                document.getElementById('totalFiles').textContent = allNodes.length;
+                document.getElementById('visibleNodes').textContent = allNodes.length;
+                
+                initTreemap();
+            } catch (error) {
+                console.error('❌ Failed to load project data:', error);
+                document.getElementById('loading').innerHTML = '❌ Failed to load project data.';
+            }
+        }
+        
+        function initTreemap() {
+            console.log('🔧 Initializing treemap...');
+            
+            const container = d3.select("#visualization");
+            const width = container.node().getBoundingClientRect().width;
+            const height = container.node().getBoundingClientRect().height;
+            
+            // Remove loading message
+            d3.select('#loading').remove();
+            
+            svg = container.append("svg")
+                .attr("width", width)
+                .attr("height", height);
+            
+            updateTreemap(allNodes);
+            
+            // Search functionality
+            d3.select("#searchInput").on("input", function() {
+                const query = this.value.toLowerCase();
+                if (query.length >= 2) {
+                    const filteredNodes = allNodes.filter(d => 
+                        d.name.toLowerCase().includes(query) ||
+                        d.path.toLowerCase().includes(query) ||
+                        d.category.toLowerCase().includes(query)
+                    );
+                    updateTreemap(filteredNodes);
+                } else if (query.length === 0) {
+                    updateTreemap(allNodes);
+                }
+            });
+            
+            console.log('✅ Treemap initialized successfully');
+        }
+        
+        function updateTreemap(nodes) {
+            console.log(`🔄 Updating treemap: ${nodes.length} nodes`);
+            
+            currentNodes = nodes;
+            d3.select("#visibleNodes").text(nodes.length);
+            d3.select("#nodeCount").text(`${nodes.length} files`);
+            
+            // Clear previous visualization
+            svg.selectAll("*").remove();
+            
+            const width = svg.attr("width");
+            const height = svg.attr("height");
+            
+            // Group nodes by category
+            const categories = {};
+            nodes.forEach(d => {
+                if (!categories[d.category]) {
+                    categories[d.category] = [];
+                }
+                categories[d.category].push(d);
+            });
+            
+            // Calculate layout
+            const categoryNames = Object.keys(categories);
+            const cols = Math.ceil(Math.sqrt(categoryNames.length));
+            const rows = Math.ceil(categoryNames.length / cols);
+            
+            const categoryWidth = width / cols;
+            const categoryHeight = height / rows;
+            
+            categoryNames.forEach((categoryName, i) => {
+                const col = i % cols;
+                const row = Math.floor(i / cols);
+                
+                const x = col * categoryWidth;
+                const y = row * categoryHeight;
+                const w = categoryWidth - 10; // margin
+                const h = categoryHeight - 10; // margin
+                
+                createCategoryTreemap(categoryName, categories[categoryName], x + 5, y + 5, w, h);
+            });
+        }
+        
+        function createCategoryTreemap(categoryName, nodes, x, y, width, height) {
+            // Category background
+            svg.append("rect")
+                .attr("x", x)
+                .attr("y", y)
+                .attr("width", width)
+                .attr("height", height)
+                .attr("fill", "rgba(255,255,255,0.1)")
+                .attr("stroke", "#ffffff")
+                .attr("stroke-width", 2)
+                .attr("rx", 10);
+            
+            // Category title
+            svg.append("text")
+                .attr("class", "category-title")
+                .attr("x", x + width/2)
+                .attr("y", y + 25)
+                .text(`📁 ${categoryName.replace('_', ' ').toUpperCase()} (${nodes.length})`);
+            
+            if (nodes.length === 0) return;
+            
+            // Create hierarchy for treemap
+            const root = d3.hierarchy({children: nodes})
+                .sum(d => d.size || 1000)
+                .sort((a, b) => b.value - a.value);
+            
+            // Create treemap layout
+            const treemap = d3.treemap()
+                .size([width - 20, height - 50]) // leave space for title
+                .padding(2);
+            
+            treemap(root);
+            
+            // Draw rectangles
+            const leaf = svg.selectAll(`g.leaf-${categoryName}`)
+                .data(root.leaves())
+                .join("g")
+                .attr("class", `leaf-${categoryName}`)
+                .attr("transform", d => `translate(${x + 10 + d.x0},${y + 40 + d.y0})`);
+            
+            leaf.append("rect")
+                .attr("class", `treemap-rect cat-${categoryName}`)
+                .attr("width", d => d.x1 - d.x0)
+                .attr("height", d => d.y1 - d.y0)
+                .on("click", function(event, d) {
+                    showNodeInfo(event, d.data);
+                });
+            
+            // Add text labels for larger rectangles
+            leaf.append("text")
+                .attr("class", "treemap-text")
+                .attr("x", d => (d.x1 - d.x0) / 2)
+                .attr("y", d => (d.y1 - d.y0) / 2)
+                .text(d => {
+                    const width = d.x1 - d.x0;
+                    const height = d.y1 - d.y0;
+                    
+                    // Only show text if rectangle is large enough
+                    if (width > 60 && height > 20) {
+                        const name = d.data.name;
+                        const maxLength = Math.floor(width / 8); // rough character width
+                        return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
+                    }
+                    return "";
+                })
+                .attr("font-size", d => {
+                    const width = d.x1 - d.x0;
+                    const height = d.y1 - d.y0;
+                    return Math.min(12, Math.max(8, Math.min(width / 8, height / 3)));
+                });
+        }
+        
+        function showNodeInfo(event, d) {
+            const panel = d3.select("#infoPanel");
+            const title = d3.select("#nodeTitle");
+            const details = d3.select("#nodeDetails");
+            
+            title.text(d.name);
+            
+            let html = `<strong>📁 Path:</strong> ${d.path}<br>`;
+            html += `<strong>🏷️ Category:</strong> ${d.category}<br>`;
+            html += `<strong>📊 Size:</strong> ${(d.size || 0).toLocaleString()} bytes<br>`;
+            html += `<strong>📝 Lines:</strong> ${(d.lines || 0).toLocaleString()}<br>`;
+            
+            if (d.language) {
+                html += `<strong>🔤 Language:</strong> ${d.language}<br>`;
+            }
+            
+            if (d.content_summary) {
+                html += `<strong>📋 Summary:</strong> ${d.content_summary}<br>`;
+            }
+            
+            if (d.key_concepts && d.key_concepts.length > 0) {
+                html += `<strong>🔑 Key Concepts:</strong> ${d.key_concepts.join(', ')}<br>`;
+            }
+            
+            details.html(html);
+            panel.style("display", "block");
+        }
+        
+        function hideInfo() {
+            d3.select("#infoPanel").style("display", "none");
+        }
+        
+        function resetView() {
+            d3.select("#searchInput").property("value", "");
+            updateTreemap(allNodes);
+            hideInfo();
+        }
+        
+        function toggleView() {
+            // Switch between treemap and network view
+            window.location.href = './ultimate_project_visualization.html';
+        }
+        
+        // Initialize when page loads
+        window.addEventListener("load", () => {
+            console.log('📄 Page loaded, starting treemap...');
+            setTimeout(loadProjectData, 500);
+        });
+        
+        // Handle resize
+        window.addEventListener("resize", () => {
+            if (svg && currentNodes.length > 0) {
+                const container = d3.select("#visualization");
+                const width = container.node().getBoundingClientRect().width;
+                const height = container.node().getBoundingClientRect().height;
+                svg.attr("width", width).attr("height", height);
+                updateTreemap(currentNodes);
+            }
+        });
+    </script>
+</body>
+</html>

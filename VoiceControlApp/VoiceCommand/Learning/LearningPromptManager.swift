@@ -415,7 +415,7 @@ class LearningAnalytics {
 }
 
 /// Single learning event for analytics
-struct LearningEvent: Identifiable {
+struct LearningEvent: Identifiable, Codable {
     let id: UUID
     let timestamp: Date
     let originalCommand: String
@@ -426,7 +426,7 @@ struct LearningEvent: Identifiable {
 }
 
 /// Types of learning events
-enum LearningEventType {
+enum LearningEventType: Codable {
     case promptShown
     case userResponse(LearningResponse, TimeInterval)
     case similarityDetected(Double)

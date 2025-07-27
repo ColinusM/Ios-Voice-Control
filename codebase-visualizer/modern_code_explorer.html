@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Modern Code Explorer</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        /* VSCode-inspired dark theme */
+        :root {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #252526;
+            --bg-tertiary: #2d2d30;
+            --border: #3e3e42;
+            --text-primary: #cccccc;
+            --text-secondary: #969696;
+            --accent-blue: #007acc;
+            --accent-orange: #ff8c00;
+            --accent-green: #4ec9b0;
+            --accent-purple: #c586c0;
+            --hover: #2a2d2e;
+            --selection: #264f78;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* Activity Bar (left side) */
+        .activity-bar {
+            width: 48px;
+            background: var(--bg-tertiary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0;
+        }
+        
+        .activity-item {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .activity-item:hover,
+        .activity-item.active {
+            color: var(--text-primary);
+            background: var(--hover);
+        }
+        
+        .activity-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 24px;
+            background: var(--accent-blue);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 300px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        
+        /* File Tree */
+        .tree-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 16px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 13px;
+            line-height: 22px;
+            white-space: nowrap;
+            position: relative;
+        }
+        
+        .tree-item:hover {
+            background: var(--hover);
+        }
+        
+        .tree-item.selected {
+            background: var(--selection);
+        }
+        
+        .tree-item.folder {
+            font-weight: 500;
+        }
+        
+        .tree-indent {
+            width: 16px;
+            flex-shrink: 0;
+        }
+        
+        .tree-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        
+        .tree-chevron {
+            width: 12px;
+            height: 12px;
+            margin-right: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            color: var(--text-secondary);
+        }
+        
+        .tree-chevron.expanded {
+            transform: rotate(90deg);
+        }
+        
+        /* Main Editor Area */
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-primary);
+        }
+        
+        .tab-bar {
+            height: 35px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            height: 35px;
+            background: var(--bg-tertiary);
+            border-right: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            white-space: nowrap;
+            min-width: 120px;
+        }
+        
+        .tab.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--accent-blue);
+        }
+        
+        .tab:hover {
+            color: var(--text-primary);
+        }
+        
+        .tab-close {
+            margin-left: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.2s;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .tab:hover .tab-close {
+            opacity: 1;
+        }
+        
+        .tab-close:hover {
+            background: var(--hover);
+        }
+        
+        /* Visualization Canvas */
+        .canvas {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .viz-toolbar {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+        
+        .viz-btn {
+            padding: 8px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .viz-btn:hover {
+            background: var(--hover);
+            border-color: var(--accent-blue);
+        }
+        
+        .viz-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+        
+        /* Minimap */
+        .minimap {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 160px;
+            height: 120px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0.9;
+        }
+        
+        /* Node styles for D3 */
+        .node {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .node:hover {
+            filter: brightness(1.2);
+            transform: scale(1.1);
+        }
+        
+        .node.selected {
+            stroke: var(--accent-blue);
+            stroke-width: 3px;
+        }
+        
+        .link {
+            stroke: var(--border);
+            stroke-opacity: 0.6;
+            stroke-width: 1.5px;
+            fill: none;
+        }
+        
+        .link.highlighted {
+            stroke: var(--accent-blue);
+            stroke-opacity: 1;
+            stroke-width: 2.5px;
+        }
+        
+        .node-label {
+            fill: var(--text-primary);
+            font-size: 10px;
+            font-family: 'Segoe UI', sans-serif;
+            text-anchor: middle;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px var(--bg-primary);
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: var(--text-primary);
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px var(--shadow);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            height: 22px;
+            background: var(--accent-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 12px;
+            justify-content: space-between;
+        }
+        
+        .status-left,
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        /* File type colors */
+        .swift-file { color: var(--accent-orange); }
+        .md-file { color: var(--accent-green); }
+        .json-file { color: var(--accent-purple); }
+        .config-file { color: var(--text-secondary); }
+        
+        /* Loading animation */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+        
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-top: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 12px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Search */
+        .search-box {
+            width: 100%;
+            padding: 8px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 13px;
+            margin: 8px 16px;
+            width: calc(100% - 32px);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+        
+        .search-box::placeholder {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Activity Bar -->
+        <div class="activity-bar">
+            <div class="activity-item active" data-view="explorer" title="Explorer">
+                📁
+            </div>
+            <div class="activity-item" data-view="search" title="Search">
+                🔍
+            </div>
+            <div class="activity-item" data-view="graph" title="Dependency Graph">
+                🔗
+            </div>
+            <div class="activity-item" data-view="architecture" title="Architecture">
+                🏗️
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span id="sidebarTitle">Explorer</span>
+                <span>📱</span>
+            </div>
+            
+            <input type="text" class="search-box" id="searchBox" placeholder="Search files...">
+            
+            <div class="sidebar-content" id="sidebarContent">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Loading project structure...
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Editor Area -->
+        <div class="editor-area">
+            <div class="tab-bar" id="tabBar">
+                <div class="tab active">
+                    <span>🏠 Architecture Overview</span>
+                    <div class="tab-close">×</div>
+                </div>
+            </div>
+            
+            <div class="canvas">
+                <div class="viz-toolbar">
+                    <button class="viz-btn active" onclick="showNetworkView()">🔗 Network</button>
+                    <button class="viz-btn" onclick="showLayerView()">📚 Layers</button>
+                    <button class="viz-btn" onclick="showFlowView()">🌊 Flow</button>
+                </div>
+                
+                <div class="minimap" id="minimap">
+                    <svg width="160" height="120"></svg>
+                </div>
+                
+                <svg id="mainCanvas" width="100%" height="100%"></svg>
+                
+                <div class="tooltip" id="tooltip"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span>📱 iOS Voice Control</span>
+            <span id="fileCount">0 files</span>
+        </div>
+        <div class="status-right">
+            <span id="selectedInfo">Ready</span>
+            <span>Swift 5.9</span>
+        </div>
+    </div>
+
+    <script>
+        console.log('🚀 Starting Modern Code Explorer...');
+        
+        let projectData = null;
+        let currentView = 'explorer';
+        let selectedFile = null;
+        let simulation = null;
+        
+        // File tree data structure
+        let fileTree = {};
+        
+        // Initialize the application
+        async function init() {
+            await loadProjectData();
+            setupEventHandlers();
+            renderExplorer();
+            initVisualization();
+        }
+        
+        async function loadProjectData() {
+            try {
+                const response = await fetch('./data/project_visualization_data.json');
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                projectData = await response.json();
+                buildFileTree();
+                
+                document.getElementById('fileCount').textContent = `${projectData.nodes.length} files`;
+                console.log('✅ Project data loaded');
+                
+            } catch (error) {
+                console.error('❌ Failed to load project data:', error);
+                document.getElementById('sidebarContent').innerHTML = 
+                    '<div style="padding: 16px; color: #f48771;">Failed to load project data</div>';
+            }
+        }
+        
+        function buildFileTree() {
+            fileTree = {};
+            
+            projectData.nodes.forEach(node => {
+                const parts = node.path.split('/');
+                let current = fileTree;
+                let fullPath = '';
+                
+                parts.forEach((part, index) => {
+                    fullPath += (fullPath ? '/' : '') + part;
+                    
+                    if (!current[part]) {
+                        current[part] = {
+                            name: part,
+                            path: fullPath,
+                            isFile: index === parts.length - 1,
+                            children: {},
+                            nodeData: index === parts.length - 1 ? node : null,
+                            expanded: false
+                        };
+                    }
+                    current = current[part].children;
+                });
+            });
+        }
+        
+        function setupEventHandlers() {
+            // Activity bar navigation
+            document.querySelectorAll('.activity-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.activity-item').forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    const view = item.dataset.view;
+                    switchView(view);
+                });
+            });
+            
+            // Search functionality
+            document.getElementById('searchBox').addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                filterFiles(query);
+            });
+        }
+        
+        function switchView(view) {
+            currentView = view;
+            const titles = {
+                explorer: 'Explorer',
+                search: 'Search',
+                graph: 'Dependency Graph',
+                architecture: 'Architecture'
+            };
+            
+            document.getElementById('sidebarTitle').textContent = titles[view];
+            
+            switch(view) {
+                case 'explorer':
+                    renderExplorer();
+                    break;
+                case 'search':
+                    renderSearch();
+                    break;
+                case 'graph':
+                    renderDependencyGraph();
+                    break;
+                case 'architecture':
+                    renderArchitecture();
+                    break;
+            }
+        }
+        
+        function renderExplorer() {
+            const content = document.getElementById('sidebarContent');
+            content.innerHTML = '';
+            
+            function renderTreeNode(node, level = 0) {
+                const div = document.createElement('div');
+                div.className = 'tree-item' + (node.isFile ? '' : ' folder');
+                
+                const indent = level * 16;
+                div.style.paddingLeft = `${16 + indent}px`;
+                
+                let html = '';
+                
+                if (!node.isFile && Object.keys(node.children).length > 0) {
+                    html += `<span class="tree-chevron ${node.expanded ? 'expanded' : ''}">${node.expanded ? '▼' : '▶'}</span>`;
+                }
+                
+                const icon = getFileIcon(node.name, node.isFile);
+                html += `<span class="tree-icon">${icon}</span>`;
+                html += `<span>${node.name}</span>`;
+                
+                div.innerHTML = html;
+                
+                // Click handlers
+                if (node.isFile) {
+                    div.addEventListener('click', () => selectFile(node.nodeData));
+                } else {
+                    div.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('tree-chevron')) {
+                            toggleFolder(node, div);
+                        }
+                    });
+                }
+                
+                content.appendChild(div);
+                
+                // Render children if expanded
+                if (!node.isFile && node.expanded) {
+                    Object.values(node.children)
+                        .sort((a, b) => {
+                            if (a.isFile === b.isFile) return a.name.localeCompare(b.name);
+                            return a.isFile ? 1 : -1;
+                        })
+                        .forEach(child => renderTreeNode(child, level + 1));
+                }
+            }
+            
+            Object.values(fileTree)
+                .sort((a, b) => {
+                    if (a.isFile === b.isFile) return a.name.localeCompare(b.name);
+                    return a.isFile ? 1 : -1;
+                })
+                .forEach(node => renderTreeNode(node));
+        }
+        
+        function getFileIcon(name, isFile) {
+            if (!isFile) return '📁';
+            
+            const ext = name.split('.').pop()?.toLowerCase();
+            const icons = {
+                'swift': '🟠',
+                'js': '🟨',
+                'ts': '🔷',
+                'py': '🐍',
+                'html': '🌐',
+                'css': '🎨',
+                'json': '🟦',
+                'md': '📝',
+                'yml': '⚙️',
+                'yaml': '⚙️',
+                'xml': '📄',
+                'plist': '⚙️'
+            };
+            
+            return icons[ext] || '📄';
+        }
+        
+        function toggleFolder(node, element) {
+            node.expanded = !node.expanded;
+            renderExplorer();
+        }
+        
+        function selectFile(nodeData) {
+            selectedFile = nodeData;
+            
+            // Update selection in tree
+            document.querySelectorAll('.tree-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            event.target.closest('.tree-item').classList.add('selected');
+            
+            // Update status bar
+            document.getElementById('selectedInfo').textContent = nodeData.name;
+            
+            // Add tab if not exists
+            addTab(nodeData);
+            
+            // Highlight in visualization
+            highlightNode(nodeData.id);
+            
+            console.log('📄 Selected:', nodeData.name);
+        }
+        
+        function addTab(nodeData) {
+            const tabBar = document.getElementById('tabBar');
+            
+            // Check if tab already exists
+            const existingTab = tabBar.querySelector(`[data-file-id="${nodeData.id}"]`);
+            if (existingTab) {
+                // Activate existing tab
+                tabBar.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                existingTab.classList.add('active');
+                return;
+            }
+            
+            // Deactivate other tabs
+            tabBar.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            
+            // Create new tab
+            const tab = document.createElement('div');
+            tab.className = 'tab active';
+            tab.dataset.fileId = nodeData.id;
+            
+            const icon = getFileIcon(nodeData.name, true);
+            tab.innerHTML = `
+                <span>${icon} ${nodeData.name}</span>
+                <div class="tab-close">×</div>
+            `;
+            
+            // Close handler
+            tab.querySelector('.tab-close').addEventListener('click', (e) => {
+                e.stopPropagation();
+                tab.remove();
+            });
+            
+            tabBar.appendChild(tab);
+        }
+        
+        function initVisualization() {
+            const canvas = d3.select('#mainCanvas');
+            const width = canvas.node().getBoundingClientRect().width;
+            const height = canvas.node().getBoundingClientRect().height;
+            
+            // Create force simulation
+            simulation = d3.forceSimulation(projectData.nodes)
+                .force('link', d3.forceLink(projectData.links).id(d => d.id).distance(100))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(20));
+            
+            // Create links
+            const links = canvas.selectAll('.link')
+                .data(projectData.links)
+                .enter().append('line')
+                .attr('class', 'link');
+            
+            // Create nodes
+            const nodes = canvas.selectAll('.node')
+                .data(projectData.nodes)
+                .enter().append('circle')
+                .attr('class', 'node')
+                .attr('r', d => Math.max(6, Math.sqrt(d.size || 1000) / 100))
+                .attr('fill', d => getCategoryColor(d.category))
+                .call(d3.drag()
+                    .on('start', dragStarted)
+                    .on('drag', dragged)
+                    .on('end', dragEnded))
+                .on('click', (event, d) => selectFile(d))
+                .on('mouseover', showTooltip)
+                .on('mouseout', hideTooltip);
+            
+            // Add labels for larger nodes
+            const labels = canvas.selectAll('.node-label')
+                .data(projectData.nodes.filter(d => (d.size || 1000) > 5000))
+                .enter().append('text')
+                .attr('class', 'node-label')
+                .text(d => d.name.length > 12 ? d.name.substring(0, 12) + '...' : d.name);
+            
+            // Update positions on tick
+            simulation.on('tick', () => {
+                links
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+                
+                nodes
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+                
+                labels
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y + 4);
+            });
+        }
+        
+        function getCategoryColor(category) {
+            const colors = {
+                'ios_swift': '#ff8c00',
+                'documentation': '#4ec9b0',
+                'prp_methodology': '#c586c0',
+                'configuration': '#dcdcaa',
+                'tests': '#f48771',
+                'tools': '#9cdcfe'
+            };
+            return colors[category] || '#cccccc';
+        }
+        
+        function highlightNode(nodeId) {
+            d3.selectAll('.node').classed('selected', false);
+            d3.select(`.node[data-id="${nodeId}"]`).classed('selected', true);
+        }
+        
+        function showTooltip(event, d) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.innerHTML = `
+                <strong>${d.name}</strong><br>
+                <span style="color: var(--text-secondary)">${d.category}</span><br>
+                ${(d.size || 0).toLocaleString()} bytes
+            `;
+            tooltip.style.left = (event.pageX + 10) + 'px';
+            tooltip.style.top = (event.pageY - 10) + 'px';
+            tooltip.style.opacity = '1';
+        }
+        
+        function hideTooltip() {
+            document.getElementById('tooltip').style.opacity = '0';
+        }
+        
+        function dragStarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        
+        function dragEnded(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        
+        function showNetworkView() {
+            document.querySelectorAll('.viz-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Implementation for network view
+        }
+        
+        function showLayerView() {
+            document.querySelectorAll('.viz-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Implementation for layer view
+        }
+        
+        function showFlowView() {
+            document.querySelectorAll('.viz-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Implementation for flow view
+        }
+        
+        function filterFiles(query) {
+            // Implementation for search filtering
+            console.log('🔍 Searching for:', query);
+        }
+        
+        function renderSearch() {
+            document.getElementById('sidebarContent').innerHTML = 
+                '<div style="padding: 16px; color: var(--text-secondary);">Search functionality coming soon...</div>';
+        }
+        
+        function renderDependencyGraph() {
+            document.getElementById('sidebarContent').innerHTML = 
+                '<div style="padding: 16px; color: var(--text-secondary);">Dependency graph view...</div>';
+        }
+        
+        function renderArchitecture() {
+            document.getElementById('sidebarContent').innerHTML = 
+                '<div style="padding: 16px; color: var(--text-secondary);">Architecture view...</div>';
+        }
+        
+        // Initialize the application
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

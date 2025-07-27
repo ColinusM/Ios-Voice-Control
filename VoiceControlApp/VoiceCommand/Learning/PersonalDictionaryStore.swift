@@ -199,6 +199,20 @@ actor PersonalDictionaryStore {
         )
     }
     
+    /// Merge a dictionary entry (used by CloudSyncService)
+    /// - Parameter entry: The entry to merge
+    func mergeEntry(_ entry: PersonalDictionaryEntry) async throws {
+        if let existingEntry = await getEntry(for: entry.originalCommand) {
+            // Merge with existing entry using mergeData strategy
+            let mergedEntry = try await resolveConflict(existing: existingEntry, incoming: entry, strategy: .mergeData)
+            let key = generateKey(for: entry.originalCommand)
+            try await saveEntry(mergedEntry, for: key)
+        } else {
+            // Add as new entry
+            try await addEntry(entry)
+        }
+    }
+    
     /// Export dictionary data for cloud sync or backup
     /// - Returns: Exportable dictionary data
     func exportData() async -> DictionaryExportData {

@@ -147,7 +147,8 @@ struct VoiceCommandBubblesView: View {
                             command: command,
                             showMetadata: showMetadata,
                             onTap: onCommandTap != nil ? { onCommandTap?(command) } : nil,
-                            onSend: onCommandSend != nil ? { onCommandSend?(command) } : nil
+                            onSend: onCommandSend != nil ? { onCommandSend?(command) } : nil,
+                            promptManager: commandProcessor.promptManager
                         )
                         .id(command.id)
                         .transition(.asymmetric(

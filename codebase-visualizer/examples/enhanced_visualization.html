@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Project Knowledge Graph</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; background: #0a0a0a; }
+        .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+        .header { background: rgba(255, 255, 255, 0.95); padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 1000; }
+        .title { font-size: 24px; font-weight: bold; color: #2c3e50; margin: 0 0 10px 0; }
+        .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .search-box { padding: 8px 12px; border: 2px solid #ddd; border-radius: 20px; font-size: 14px; min-width: 200px; }
+        .btn { padding: 8px 16px; border: none; border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .visualization { flex: 1; position: relative; background: radial-gradient(circle at center, #1a1a3e 0%, #0d0d1f 100%); }
+        
+        /* Enhanced node visibility */
+        .node { 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            stroke: #ffffff; 
+            stroke-width: 2px;
+            opacity: 0.9;
+        }
+        .node:hover { 
+            stroke-width: 4px; 
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        /* Enhanced link visibility */
+        .link { 
+            stroke: #6c757d; 
+            stroke-opacity: 0.7; 
+            stroke-width: 1.5px; 
+        }
+        
+        .node-label { 
+            font-size: 11px; 
+            fill: #ffffff; 
+            text-anchor: middle; 
+            pointer-events: none; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            font-weight: bold;
+        }
+        
+        .info-panel { 
+            position: absolute; top: 20px; right: 20px; 
+            background: rgba(255, 255, 255, 0.98); 
+            padding: 20px; border-radius: 15px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3); 
+            max-width: 400px; max-height: 70%; 
+            overflow-y: auto; display: none; z-index: 1000;
+            border: 2px solid #3498db;
+        }
+        
+        /* Brighter, more contrasted category colors */
+        .category-ios_swift { fill: #00bfff; }
+        .category-documentation { fill: #00ff7f; }
+        .category-prp_methodology { fill: #da70d6; }
+        .category-configuration { fill: #ffa500; }
+        .category-tests { fill: #ff6b6b; }
+        .category-tools { fill: #ff8c42; }
+        
+        .legend { 
+            position: absolute; bottom: 20px; left: 20px; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 20px; border-radius: 15px; font-size: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 2px solid #95a5a6;
+        }
+        .legend-item { display: flex; align-items: center; margin: 8px 0; }
+        .legend-color { width: 20px; height: 20px; border-radius: 50%; margin-right: 12px; border: 2px solid #fff; }
+        
+        .stats { 
+            position: absolute; top: 20px; left: 20px; 
+            background: rgba(0, 0, 0, 0.9); 
+            color: white; padding: 15px; border-radius: 15px; 
+            font-size: 14px; font-weight: bold;
+            border: 2px solid #3498db;
+        }
+        .stats div { margin: 5px 0; }
+        
+        .loading { 
+            position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); 
+            color: #00bfff; font-size: 24px; text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">🎯 Enhanced Project Knowledge Graph - iOS Voice Control Ecosystem</div>
+            <div class="controls">
+                <input type="text" class="search-box" placeholder="Search files, classes, concepts..." id="searchInput">
+                <button class="btn btn-primary" onclick="resetView()">🔍 Reset View</button>
+                <button class="btn btn-secondary" onclick="toggleLabels()" id="labelBtn">🏷️ Labels</button>
+                <button class="btn btn-primary" onclick="focusCategory('ios_swift')">📱 iOS Code</button>
+                <button class="btn btn-secondary" onclick="focusCategory('documentation')">📚 Docs</button>
+                <button class="btn btn-secondary" onclick="focusCategory('prp_methodology')">📋 PRPs</button>
+                <button class="btn btn-secondary" onclick="focusCategory('tests')">🧪 Tests</button>
+                <span id="nodeCount" style="margin-left: 15px; font-weight: bold; color: #2c3e50;"></span>
+            </div>
+        </div>
+        
+        <div class="visualization" id="visualization">
+            <div class="loading" id="loading">🔄 Loading 418 files...</div>
+        </div>
+        
+        <div class="info-panel" id="infoPanel">
+            <h3 id="nodeTitle">File Information</h3>
+            <div id="nodeDetails"></div>
+            <button onclick="hideInfo()" style="margin-top: 15px; padding: 8px 16px; border: none; border-radius: 8px; background: #95a5a6; color: white; cursor: pointer;">Close</button>
+        </div>
+        
+        <div class="stats" id="stats">
+            <div>📁 Total Files: <span id="totalFiles">418</span></div>
+            <div>🔗 Connections: <span id="totalLinks">1,989</span></div>
+            <div>👁️ Visible: <span id="visibleNodes">418</span></div>
+            <div style="margin-top: 10px; font-size: 12px; opacity: 0.8;">
+                💡 Tip: Scroll to zoom, drag nodes
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div style="font-weight: bold; margin-bottom: 10px; color: #2c3e50;">📊 File Categories</div>
+            <div class="legend-item"><div class="legend-color category-ios_swift"></div><span><strong>iOS Swift Code</strong></span></div>
+            <div class="legend-item"><div class="legend-color category-documentation"></div><span><strong>Documentation</strong></span></div>
+            <div class="legend-item"><div class="legend-color category-prp_methodology"></div><span><strong>PRP Methodology</strong></span></div>
+            <div class="legend-item"><div class="legend-color category-configuration"></div><span><strong>Configuration</strong></span></div>
+            <div class="legend-item"><div class="legend-color category-tests"></div><span><strong>Tests & Validation</strong></span></div>
+            <div class="legend-item"><div class="legend-color category-tools"></div><span><strong>Tools & Utilities</strong></span></div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🚀 Starting Enhanced Project Visualization...');
+        
+        // Simplified but representative sample data for testing
+        const sampleData = {
+            nodes: [
+                // iOS Swift Code (blue)
+                {id: '1', name: 'VoiceControlApp.swift', category: 'ios_swift', size: 5000, path: 'VoiceControlApp/VoiceControlApp.swift'},
+                {id: '2', name: 'AuthenticationManager.swift', category: 'ios_swift', size: 8000, path: 'VoiceControlApp/Authentication/AuthenticationManager.swift'},
+                {id: '3', name: 'CloudSyncService.swift', category: 'ios_swift', size: 6000, path: 'VoiceControlApp/Shared/Services/CloudSyncService.swift'},
+                {id: '4', name: 'PremiumFeatureGate.swift', category: 'ios_swift', size: 4000, path: 'VoiceControlApp/Authentication/Premium/PremiumFeatureGate.swift'},
+                {id: '5', name: 'VoiceCommandProcessor.swift', category: 'ios_swift', size: 7000, path: 'VoiceControlApp/VoiceCommand/Services/VoiceCommandProcessor.swift'},
+                
+                // Documentation (green)
+                {id: '6', name: 'README.md', category: 'documentation', size: 3000, path: 'README.md'},
+                {id: '7', name: 'ONBOARDING.md', category: 'documentation', size: 5000, path: 'ONBOARDING.md'},
+                {id: '8', name: 'QUICKSTART.md', category: 'documentation', size: 2000, path: 'QUICKSTART.md'},
+                
+                // PRP Methodology (purple)
+                {id: '9', name: 'CLAUDE.md', category: 'prp_methodology', size: 15000, path: 'CLAUDE.md'},
+                {id: '10', name: 'ios-firebase-authentication.md', category: 'prp_methodology', size: 8000, path: 'PRPs/Personal/1 - ios-firebase-authentication.md'},
+                {id: '11', name: 'self-learning-voice-system.md', category: 'prp_methodology', size: 10000, path: 'PRPs/Personal/8self-learning-voice-command-system-10-10.md'},
+                
+                // Configuration (orange)
+                {id: '12', name: 'Info.plist', category: 'configuration', size: 2000, path: 'VoiceControlApp/Info.plist'},
+                {id: '13', name: 'GoogleService-Info.plist', category: 'configuration', size: 1500, path: 'VoiceControlApp/GoogleService-Info.plist'},
+                {id: '14', name: 'Package.resolved', category: 'configuration', size: 5000, path: 'VoiceControlApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved'},
+                
+                // Tests (red)
+                {id: '15', name: 'AuthenticationManagerTests.swift', category: 'tests', size: 3000, path: 'VoiceControlAppTests/AuthenticationManagerTests.swift'},
+                {id: '16', name: 'SimilarityDetectionTests.swift', category: 'tests', size: 2500, path: 'VoiceControlAppTests/SimilarityDetectionTests.swift'},
+                
+                // Tools (orange-red)
+                {id: '17', name: 'mobile-mcp-ios', category: 'tools', size: 12000, path: 'mobile-mcp-ios/'},
+                {id: '18', name: 'ComputerReceiver', category: 'tools', size: 8000, path: 'ComputerReceiver/'},
+                {id: '19', name: 'project_visualizer_analyzer.py', category: 'tools', size: 4000, path: 'project_visualizer_analyzer.py'}
+            ],
+            links: [
+                {source: '1', target: '2'}, {source: '1', target: '12'}, {source: '1', target: '13'},
+                {source: '2', target: '3'}, {source: '2', target: '4'}, {source: '2', target: '15'},
+                {source: '3', target: '4'}, {source: '5', target: '2'}, {source: '5', target: '16'},
+                {source: '6', target: '7'}, {source: '7', target: '8'}, {source: '9', target: '10'},
+                {source: '9', target: '11'}, {source: '10', target: '2'}, {source: '11', target: '5'},
+                {source: '17', target: '18'}, {source: '19', target: '9'}, {source: '6', target: '9'}
+            ]
+        };
+        
+        let simulation, svg, g, labelsVisible = true;
+        let allNodes = sampleData.nodes;
+        let allLinks = sampleData.links;
+        let currentNodes = allNodes;
+        let currentLinks = allLinks;
+        
+        function initVisualization() {
+            console.log('🔧 Initializing enhanced visualization...');
+            
+            const container = d3.select("#visualization");
+            const width = container.node().getBoundingClientRect().width;
+            const height = container.node().getBoundingClientRect().height;
+            
+            console.log(`📐 Canvas size: ${width} x ${height}`);
+            
+            // Remove loading message
+            d3.select('#loading').remove();
+            
+            svg = container.append("svg")
+                .attr("width", width)
+                .attr("height", height);
+            
+            // Add zoom behavior
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 8])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+            
+            svg.call(zoom);
+            g = svg.append("g");
+            
+            // Create enhanced force simulation
+            simulation = d3.forceSimulation()
+                .force("link", d3.forceLink().id(d => d.id).distance(120).strength(0.8))
+                .force("charge", d3.forceManyBody().strength(-400).distanceMax(300))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(d => getNodeRadius(d) + 10))
+                .force("x", d3.forceX(width / 2).strength(0.1))
+                .force("y", d3.forceY(height / 2).strength(0.1));
+            
+            updateVisualization(allNodes, allLinks);
+            
+            // Enhanced search functionality
+            d3.select("#searchInput").on("input", function() {
+                const query = this.value.toLowerCase();
+                if (query.length >= 2) {
+                    const filteredNodes = allNodes.filter(d => 
+                        d.name.toLowerCase().includes(query) ||
+                        d.path.toLowerCase().includes(query) ||
+                        d.category.toLowerCase().includes(query)
+                    );
+                    const nodeIds = new Set(filteredNodes.map(d => d.id));
+                    const filteredLinks = allLinks.filter(l => 
+                        nodeIds.has(l.source.id || l.source) && nodeIds.has(l.target.id || l.target)
+                    );
+                    updateVisualization(filteredNodes, filteredLinks);
+                } else if (query.length === 0) {
+                    updateVisualization(allNodes, allLinks);
+                }
+            });
+            
+            console.log('✅ Enhanced visualization initialized successfully');
+        }
+        
+        function getNodeRadius(d) {
+            const baseRadius = 8; // Larger base radius for better visibility
+            const sizeRadius = Math.sqrt(d.size || 1000) / 150;
+            return Math.max(baseRadius, Math.min(25, baseRadius + sizeRadius));
+        }
+        
+        function updateVisualization(nodes, links) {
+            console.log(`🔄 Updating visualization: ${nodes.length} nodes, ${links.length} links`);
+            
+            currentNodes = nodes;
+            currentLinks = links;
+            
+            // Update stats
+            d3.select("#visibleNodes").text(nodes.length);
+            d3.select("#nodeCount").text(`${nodes.length} files`);
+            
+            // Update links with enhanced visibility
+            const link = g.selectAll(".link")
+                .data(links, d => `${d.source.id || d.source}-${d.target.id || d.target}`);
+                
+            link.exit().remove();
+            
+            link.enter().append("line")
+                .attr("class", "link")
+                .merge(link);
+            
+            // Update nodes with enhanced styling
+            const node = g.selectAll(".node")
+                .data(nodes, d => d.id);
+                
+            node.exit().remove();
+            
+            const nodeEnter = node.enter().append("circle")
+                .attr("class", d => `node category-${d.category}`)
+                .attr("r", getNodeRadius)
+                .on("click", showNodeInfo)
+                .on("mouseover", function(event, d) {
+                    d3.select(this)
+                        .style("stroke-width", "4px")
+                        .style("opacity", "1");
+                })
+                .on("mouseout", function(event, d) {
+                    d3.select(this)
+                        .style("stroke-width", "2px")
+                        .style("opacity", "0.9");
+                })
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+            
+            // Update labels with better visibility
+            const label = g.selectAll(".node-label")
+                .data(labelsVisible ? nodes : [], d => d.id);
+                
+            label.exit().remove();
+            
+            label.enter().append("text")
+                .attr("class", "node-label")
+                .text(d => {
+                    const name = d.name;
+                    if (name.length > 15) return name.substring(0, 15) + "...";
+                    return name;
+                })
+                .merge(label);
+            
+            // Update simulation
+            simulation.nodes(nodes);
+            simulation.force("link").links(links);
+            simulation.alpha(0.5).restart();
+            
+            simulation.on("tick", () => {
+                g.selectAll(".link")
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+                
+                g.selectAll(".node")
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+                
+                g.selectAll(".node-label")
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y + 4);
+            });
+        }
+        
+        function showNodeInfo(event, d) {
+            const panel = d3.select("#infoPanel");
+            const title = d3.select("#nodeTitle");
+            const details = d3.select("#nodeDetails");
+            
+            title.text(d.name);
+            
+            let html = `<strong>📁 Path:</strong> ${d.path}<br>`;
+            html += `<strong>🏷️ Category:</strong> ${d.category}<br>`;
+            html += `<strong>📊 Size:</strong> ${(d.size || 0).toLocaleString()} bytes<br>`;
+            html += `<strong>🔗 Node ID:</strong> ${d.id}<br>`;
+            
+            details.html(html);
+            panel.style("display", "block");
+        }
+        
+        function hideInfo() {
+            d3.select("#infoPanel").style("display", "none");
+        }
+        
+        function resetView() {
+            d3.select("#searchInput").property("value", "");
+            updateVisualization(allNodes, allLinks);
+            hideInfo();
+            
+            // Reset zoom
+            if (svg) {
+                svg.transition().duration(750).call(
+                    d3.zoom().transform,
+                    d3.zoomIdentity
+                );
+            }
+        }
+        
+        function toggleLabels() {
+            labelsVisible = !labelsVisible;
+            const btn = d3.select("#labelBtn");
+            btn.text(labelsVisible ? "🏷️ Hide Labels" : "🏷️ Show Labels");
+            updateVisualization(currentNodes, currentLinks);
+        }
+        
+        function focusCategory(category) {
+            console.log(`🎯 Focusing on category: ${category}`);
+            const filteredNodes = allNodes.filter(d => d.category === category);
+            const nodeIds = new Set(filteredNodes.map(d => d.id));
+            const filteredLinks = allLinks.filter(l => 
+                nodeIds.has(l.source.id || l.source) && nodeIds.has(l.target.id || l.target)
+            );
+            updateVisualization(filteredNodes, filteredLinks);
+        }
+        
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        
+        // Initialize when page loads
+        window.addEventListener("load", () => {
+            console.log('📄 Page loaded, starting visualization...');
+            setTimeout(initVisualization, 500);
+        });
+        
+        // Handle resize
+        window.addEventListener("resize", () => {
+            if (svg) {
+                const container = d3.select("#visualization");
+                const width = container.node().getBoundingClientRect().width;
+                const height = container.node().getBoundingClientRect().height;
+                svg.attr("width", width).attr("height", height);
+                simulation.force("center", d3.forceCenter(width / 2, height / 2));
+                simulation.force("x", d3.forceX(width / 2).strength(0.1));
+                simulation.force("y", d3.forceY(height / 2).strength(0.1));
+                simulation.restart();
+            }
+        });
+    </script>
+</body>
+</html>

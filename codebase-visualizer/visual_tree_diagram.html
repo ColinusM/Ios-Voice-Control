@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 Visual Codebase Tree</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { 
+            margin: 0; 
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; 
+            background: linear-gradient(135deg, #0c0c1e 0%, #1a1a3e 50%, #0d0d1f 100%); 
+            overflow: hidden;
+        }
+        
+        .container { 
+            width: 100vw; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        .header { 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 15px 20px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+            z-index: 1000; 
+        }
+        
+        .title { 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            margin: 0 0 10px 0; 
+        }
+        
+        .controls { 
+            display: flex; 
+            gap: 10px; 
+            align-items: center; 
+            flex-wrap: wrap; 
+        }
+        
+        .btn { 
+            padding: 8px 16px; 
+            border: none; 
+            border-radius: 20px; 
+            font-size: 12px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn-success { background: #2ecc71; color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        
+        .visualization { 
+            flex: 1; 
+            position: relative; 
+            overflow: hidden;
+        }
+        
+        /* Tree SVG styles */
+        .tree-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Tree nodes */
+        .tree-node {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tree-node circle {
+            stroke: #ffffff;
+            stroke-width: 2px;
+            transition: all 0.3s;
+        }
+        
+        .tree-node:hover circle {
+            stroke-width: 4px;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.6));
+        }
+        
+        .tree-node.selected circle {
+            stroke: #e74c3c;
+            stroke-width: 5px;
+            filter: drop-shadow(0 0 12px rgba(231,76,60,0.8));
+        }
+        
+        /* Tree links/branches */
+        .tree-link {
+            fill: none;
+            stroke: #6c757d;
+            stroke-opacity: 0.6;
+            stroke-width: 2px;
+        }
+        
+        .tree-link.highlighted {
+            stroke: #3498db;
+            stroke-opacity: 1;
+            stroke-width: 4px;
+            animation: pulse-line 1.5s infinite;
+        }
+        
+        @keyframes pulse-line {
+            0%, 100% { stroke-opacity: 1; }
+            50% { stroke-opacity: 0.4; }
+        }
+        
+        /* Node labels */
+        .tree-label {
+            fill: #ffffff;
+            font-size: 11px;
+            font-weight: bold;
+            text-anchor: middle;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        .tree-label.folder {
+            font-size: 13px;
+            fill: #ffd700;
+        }
+        
+        .tree-label.root {
+            font-size: 16px;
+            fill: #00bfff;
+            font-weight: 900;
+        }
+        
+        /* Node colors by type */
+        .node-root { fill: #2c3e50; }
+        .node-folder { fill: #f39c12; }
+        .node-swift { fill: #ff8c00; }
+        .node-markdown { fill: #2ecc71; }
+        .node-json { fill: #9b59b6; }
+        .node-config { fill: #95a5a6; }
+        .node-test { fill: #e74c3c; }
+        .node-tool { fill: #3498db; }
+        
+        /* Info panel */
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 2px solid #3498db;
+            display: none;
+            z-index: 1000;
+        }
+        
+        .breadcrumb {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        
+        .stats {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            border: 2px solid #3498db;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00bfff;
+            font-size: 24px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #00bfff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Minimap */
+        .minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .minimap svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">🌳 Visual Codebase Tree - Hierarchical Structure</div>
+            <div class="controls">
+                <button class="btn btn-primary" onclick="expandAll()">🌳 Expand All</button>
+                <button class="btn btn-secondary" onclick="collapseAll()">📁 Collapse All</button>
+                <button class="btn btn-success" onclick="fitToView()">🎯 Fit View</button>
+                <button class="btn btn-secondary" onclick="resetZoom()">🔄 Reset</button>
+                <span id="selectedPath" style="margin-left: 15px; font-weight: bold; color: #2c3e50;">Click nodes to explore</span>
+            </div>
+        </div>
+        
+        <div class="visualization">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                🌳 Growing your codebase tree...
+            </div>
+            
+            <div class="breadcrumb" id="breadcrumb">
+                📱 iOS Voice Control Project
+            </div>
+            
+            <svg class="tree-svg" id="treeSvg"></svg>
+            
+            <div class="info-panel" id="infoPanel">
+                <h3 id="nodeTitle">Node Details</h3>
+                <div id="nodeDetails"></div>
+                <button onclick="hideInfo()" style="margin-top: 15px; padding: 8px 16px; border: none; border-radius: 8px; background: #95a5a6; color: white; cursor: pointer;">Close</button>
+            </div>
+            
+            <div class="stats">
+                <div><strong>🌳 Tree Structure</strong></div>
+                <div>📁 Total Nodes: <span id="totalNodes">0</span></div>
+                <div>📊 Max Depth: <span id="maxDepth">0</span></div>
+                <div>👁️ Visible: <span id="visibleNodes">0</span></div>
+                <div style="margin-top: 8px; font-size: 10px; opacity: 0.8;">
+                    💡 Click nodes to expand/collapse
+                </div>
+            </div>
+            
+            <div class="minimap">
+                <svg id="minimapSvg"></svg>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🌳 Starting Visual Tree Diagram...');
+        
+        let projectData = null;
+        let treeData = null;
+        let svg, g, tree, root;
+        let selectedNode = null;
+        let zoom;
+        
+        // Tree configuration
+        const nodeRadius = 8;
+        const nodeSpacing = { x: 180, y: 60 };
+        
+        async function loadProjectData() {
+            console.log('📂 Loading project data...');
+            try {
+                const response = await fetch('./data/project_visualization_data.json');
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                projectData = await response.json();
+                console.log(`✅ Loaded ${projectData.nodes.length} files`);
+                
+                buildTreeStructure();
+                initTreeVisualization();
+                
+            } catch (error) {
+                console.error('❌ Failed to load project data:', error);
+                document.getElementById('loading').innerHTML = '❌ Failed to load tree data';
+            }
+        }
+        
+        function buildTreeStructure() {
+            console.log('🌲 Building tree structure...');
+            
+            // Create hierarchical tree structure
+            const treeRoot = {
+                name: 'iOS Voice Control',
+                id: 'root',
+                type: 'root',
+                children: [],
+                data: { category: 'root', size: 0 }
+            };
+            
+            // Group files by directory structure
+            const pathMap = new Map();
+            pathMap.set('', treeRoot);
+            
+            projectData.nodes.forEach(node => {
+                const pathParts = node.path.split('/');
+                let currentPath = '';
+                let parent = treeRoot;
+                
+                // Build path hierarchy
+                pathParts.forEach((part, index) => {
+                    const previousPath = currentPath;
+                    currentPath = currentPath ? `${currentPath}/${part}` : part;
+                    
+                    if (!pathMap.has(currentPath)) {
+                        const isFile = index === pathParts.length - 1;
+                        const newNode = {
+                            name: part,
+                            id: currentPath,
+                            type: isFile ? getFileType(part) : 'folder',
+                            children: isFile ? null : [],
+                            data: isFile ? node : { category: 'folder', size: 0 },
+                            parent: parent,
+                            depth: index + 1
+                        };
+                        
+                        pathMap.set(currentPath, newNode);
+                        parent.children.push(newNode);
+                    }
+                    
+                    parent = pathMap.get(currentPath);
+                });
+            });
+            
+            treeData = d3.hierarchy(treeRoot);
+            console.log('✅ Tree structure built', treeData);
+        }
+        
+        function getFileType(filename) {
+            const ext = filename.split('.').pop()?.toLowerCase();
+            if (ext === 'swift') return 'swift';
+            if (ext === 'md') return 'markdown';
+            if (ext === 'json') return 'json';
+            if (['plist', 'yml', 'yaml', 'xml'].includes(ext)) return 'config';
+            if (filename.includes('test') || filename.includes('Test')) return 'test';
+            if (ext === 'py' || ext === 'sh') return 'tool';
+            return 'file';
+        }
+        
+        function initTreeVisualization() {
+            console.log('🎨 Initializing tree visualization...');
+            
+            const width = window.innerWidth;
+            const height = window.innerHeight - 80; // Account for header
+            
+            // Remove loading
+            document.getElementById('loading').remove();
+            
+            // Setup SVG
+            svg = d3.select('#treeSvg')
+                .attr('width', width)
+                .attr('height', height);
+            
+            // Add zoom behavior
+            zoom = d3.zoom()
+                .scaleExtent([0.1, 3])
+                .on('zoom', (event) => {
+                    g.attr('transform', event.transform);
+                });
+            
+            svg.call(zoom);
+            g = svg.append('g');
+            
+            // Create tree layout
+            tree = d3.tree()
+                .size([height - 100, width - 200])
+                .separation((a, b) => {
+                    const separation = a.parent === b.parent ? 1 : 1.5;
+                    return separation * (a.data.type === 'folder' ? 1.2 : 1);
+                });
+            
+            // Assign positions
+            root = tree(treeData);
+            
+            // Initially collapse deep nodes
+            root.descendants().forEach(d => {
+                if (d.depth > 2) {
+                    d._children = d.children;
+                    d.children = null;
+                }
+            });
+            
+            updateTree();
+            updateStats();
+            
+            console.log('✅ Tree visualization ready');
+        }
+        
+        function updateTree() {
+            const nodes = root.descendants();
+            const links = root.links();
+            
+            // Update links
+            const link = g.selectAll('.tree-link')
+                .data(links, d => d.target.id);
+            
+            link.exit().remove();
+            
+            const linkEnter = link.enter()
+                .insert('path', 'g')
+                .attr('class', 'tree-link')
+                .attr('d', d => {
+                    const o = { x: d.source.x0 || d.source.x, y: d.source.y0 || d.source.y };
+                    return diagonal(o, o);
+                });
+            
+            const linkUpdate = linkEnter.merge(link);
+            linkUpdate.transition()
+                .duration(500)
+                .attr('d', d => diagonal(d.source, d.target));
+            
+            // Update nodes
+            const node = g.selectAll('.tree-node')
+                .data(nodes, d => d.id);
+            
+            node.exit()
+                .transition()
+                .duration(500)
+                .attr('transform', d => `translate(${root.y},${root.x})`)
+                .style('opacity', 0)
+                .remove();
+            
+            const nodeEnter = node.enter()
+                .append('g')
+                .attr('class', 'tree-node')
+                .attr('transform', d => `translate(${d.parent ? d.parent.y0 || d.parent.y : d.y},${d.parent ? d.parent.x0 || d.parent.x : d.x})`)
+                .style('opacity', 0)
+                .on('click', handleNodeClick);
+            
+            // Add circles for nodes
+            nodeEnter.append('circle')
+                .attr('r', nodeRadius)
+                .attr('class', d => `node-${d.data.type}`)
+                .style('fill', d => getNodeColor(d.data.type));
+            
+            // Add labels
+            nodeEnter.append('text')
+                .attr('class', d => `tree-label ${d.data.type}`)
+                .attr('dy', '0.35em')
+                .attr('x', d => d.children || d._children ? -15 : 15)
+                .style('text-anchor', d => d.children || d._children ? 'end' : 'start')
+                .text(d => {
+                    let name = d.data.name;
+                    if (name.length > 15) name = name.substring(0, 15) + '...';
+                    return name;
+                });
+            
+            const nodeUpdate = nodeEnter.merge(node);
+            
+            nodeUpdate.transition()
+                .duration(500)
+                .attr('transform', d => `translate(${d.y},${d.x})`)
+                .style('opacity', 1);
+            
+            // Store old positions for transitions
+            nodes.forEach(d => {
+                d.x0 = d.x;
+                d.y0 = d.y;
+            });
+            
+            updateStats();
+        }
+        
+        function getNodeColor(type) {
+            const colors = {
+                'root': '#2c3e50',
+                'folder': '#f39c12',
+                'swift': '#ff8c00',
+                'markdown': '#2ecc71',
+                'json': '#9b59b6',
+                'config': '#95a5a6',
+                'test': '#e74c3c',
+                'tool': '#3498db',
+                'file': '#7f8c8d'
+            };
+            return colors[type] || '#cccccc';
+        }
+        
+        function diagonal(s, d) {
+            return `M ${s.y} ${s.x}
+                    C ${(s.y + d.y) / 2} ${s.x},
+                      ${(s.y + d.y) / 2} ${d.x},
+                      ${d.y} ${d.x}`;
+        }
+        
+        function handleNodeClick(event, d) {
+            console.log('🖱️ Clicked node:', d.data.name);
+            
+            // Clear previous selection
+            g.selectAll('.tree-node').classed('selected', false);
+            d3.select(event.currentTarget).classed('selected', true);
+            
+            selectedNode = d;
+            
+            // Update breadcrumb
+            const path = getNodePath(d);
+            document.getElementById('breadcrumb').textContent = path;
+            document.getElementById('selectedPath').textContent = d.data.name;
+            
+            // Toggle children if folder
+            if (d.children || d._children) {
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                updateTree();
+            }
+            
+            // Show info panel
+            showNodeInfo(d);
+            
+            // Highlight path to root
+            highlightPath(d);
+        }
+        
+        function getNodePath(node) {
+            const path = [];
+            let current = node;
+            while (current) {
+                path.unshift(current.data.name);
+                current = current.parent;
+            }
+            return path.join(' > ');
+        }
+        
+        function highlightPath(node) {
+            // Clear previous highlights
+            g.selectAll('.tree-link').classed('highlighted', false);
+            
+            // Highlight path to root
+            let current = node;
+            while (current.parent) {
+                g.selectAll('.tree-link')
+                    .filter(d => d.target === current)
+                    .classed('highlighted', true);
+                current = current.parent;
+            }
+        }
+        
+        function showNodeInfo(node) {
+            const panel = document.getElementById('infoPanel');
+            const title = document.getElementById('nodeTitle');
+            const details = document.getElementById('nodeDetails');
+            
+            title.textContent = node.data.name;
+            
+            let html = `<strong>📁 Type:</strong> ${node.data.type}<br>`;
+            html += `<strong>🌳 Depth:</strong> ${node.depth}<br>`;
+            
+            if (node.data.data && node.data.data.size) {
+                html += `<strong>📊 Size:</strong> ${node.data.data.size.toLocaleString()} bytes<br>`;
+            }
+            
+            if (node.children || node._children) {
+                const childCount = (node.children || node._children).length;
+                html += `<strong>📂 Children:</strong> ${childCount}<br>`;
+            }
+            
+            if (node.data.data && node.data.data.category) {
+                html += `<strong>🏷️ Category:</strong> ${node.data.data.category}<br>`;
+            }
+            
+            if (node.data.data && node.data.data.language) {
+                html += `<strong>🔤 Language:</strong> ${node.data.data.language}<br>`;
+            }
+            
+            details.innerHTML = html;
+            panel.style.display = 'block';
+        }
+        
+        function hideInfo() {
+            document.getElementById('infoPanel').style.display = 'none';
+        }
+        
+        function expandAll() {
+            console.log('🌳 Expanding all nodes...');
+            root.descendants().forEach(d => {
+                if (d._children) {
+                    d.children = d._children;
+                    d._children = null;
+                }
+            });
+            updateTree();
+        }
+        
+        function collapseAll() {
+            console.log('📁 Collapsing all nodes...');
+            root.descendants().forEach(d => {
+                if (d.children && d.depth > 0) {
+                    d._children = d.children;
+                    d.children = null;
+                }
+            });
+            updateTree();
+        }
+        
+        function fitToView() {
+            console.log('🎯 Fitting tree to view...');
+            const bounds = g.node().getBBox();
+            const width = svg.attr('width');
+            const height = svg.attr('height');
+            const midX = bounds.x + bounds.width / 2;
+            const midY = bounds.y + bounds.height / 2;
+            
+            const scale = Math.min(width / bounds.width, height / bounds.height) * 0.8;
+            
+            const transform = d3.zoomIdentity
+                .translate(width / 2 - midX * scale, height / 2 - midY * scale)
+                .scale(scale);
+            
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, transform);
+        }
+        
+        function resetZoom() {
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity);
+        }
+        
+        function updateStats() {
+            const allNodes = root.descendants();
+            const visibleNodes = allNodes.filter(d => d.x !== undefined);
+            const maxDepth = d3.max(allNodes, d => d.depth);
+            
+            document.getElementById('totalNodes').textContent = allNodes.length;
+            document.getElementById('visibleNodes').textContent = visibleNodes.length;
+            document.getElementById('maxDepth').textContent = maxDepth;
+        }
+        
+        // Initialize
+        window.addEventListener('load', () => {
+            console.log('📄 Page loaded, building tree...');
+            setTimeout(loadProjectData, 500);
+        });
+        
+        // Handle resize
+        window.addEventListener('resize', () => {
+            if (svg) {
+                const width = window.innerWidth;
+                const height = window.innerHeight - 80;
+                svg.attr('width', width).attr('height', height);
+                tree.size([height - 100, width - 200]);
+                updateTree();
+            }
+        });
+    </script>
+</body>
+</html>

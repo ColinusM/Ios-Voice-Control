@@ -15,6 +15,9 @@ class AuthenticationManager: ObservableObject {
     private var authStateListener: AuthStateDidChangeListenerHandle?
     private let firebaseAuthService = FirebaseAuthService()
     
+    /// Premium feature gate for subscription management
+    let premiumFeatureGate = PremiumFeatureGate.shared
+    
     // MARK: - Initialization
     
     init() {
@@ -469,5 +472,26 @@ class AuthenticationManager: ObservableObject {
         try KeychainService.save(idToken, for: "firebase_id_token")
         
         return idToken
+    }
+    
+    // MARK: - Premium Feature Convenience Methods
+    
+    /// Check if user has premium subscription
+    @MainActor
+    var isPremiumUser: Bool {
+        return premiumFeatureGate.subscriptionStatus.isPremium
+    }
+    
+    /// Get current subscription status
+    @MainActor
+    var subscriptionStatus: SubscriptionStatus {
+        return premiumFeatureGate.subscriptionStatus
+    }
+    
+    /// Update subscription status
+    /// - Parameter status: New subscription status
+    @MainActor
+    func updateSubscriptionStatus(_ status: SubscriptionStatus) {
+        premiumFeatureGate.updateSubscription(status)
     }
 }

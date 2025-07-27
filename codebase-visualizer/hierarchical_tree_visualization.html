@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 Hierarchical Codebase Tree</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif; background: #0a0a0a; }
+        .container { width: 100vw; height: 100vh; display: flex; }
+        
+        /* Left Panel - Tree Structure */
+        .tree-panel { 
+            width: 350px; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-right: 2px solid #3498db;
+            overflow-y: auto; 
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .tree-title { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .tree-search {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        /* Tree Styles */
+        .tree-node {
+            cursor: pointer;
+            margin: 2px 0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+        }
+        
+        .tree-node:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+        
+        .tree-node.selected {
+            background: rgba(52, 152, 219, 0.3);
+            font-weight: bold;
+        }
+        
+        .tree-folder {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .tree-file {
+            color: #2c3e50;
+        }
+        
+        .tree-indent {
+            width: 20px;
+            display: inline-block;
+        }
+        
+        .tree-icon {
+            margin-right: 6px;
+            width: 16px;
+            text-align: center;
+        }
+        
+        /* Right Panel - Visualization */
+        .viz-panel { 
+            flex: 1; 
+            background: radial-gradient(circle at center, #1a1a3e 0%, #0d0d1f 100%);
+            position: relative;
+        }
+        
+        .viz-header {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .viz-title { 
+            font-size: 20px; 
+            font-weight: bold; 
+            margin-bottom: 8px;
+        }
+        
+        .viz-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn { 
+            padding: 6px 12px; 
+            border: none; 
+            border-radius: 15px; 
+            font-size: 11px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+        }
+        .btn-primary { background: #3498db; color: white; }
+        .btn-secondary { background: #95a5a6; color: white; }
+        .btn:hover { transform: translateY(-1px); }
+        
+        /* File Content Display */
+        .file-display {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            display: none;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 2px solid #3498db;
+        }
+        
+        .file-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .file-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            flex: 1;
+        }
+        
+        .close-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .file-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .file-content {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* Network Visualization */
+        .network-viz {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+        }
+        
+        .node { 
+            cursor: pointer; 
+            stroke: #ffffff; 
+            stroke-width: 2px;
+            transition: all 0.3s;
+        }
+        .node:hover { 
+            stroke-width: 4px; 
+            transform: scale(1.2);
+        }
+        
+        .link { 
+            stroke: #6c757d; 
+            stroke-opacity: 0.3; 
+            stroke-width: 1px; 
+        }
+        
+        /* Category colors */
+        .category-ios_swift { fill: #00bfff; }
+        .category-documentation { fill: #00ff7f; }
+        .category-prp_methodology { fill: #da70d6; }
+        .category-configuration { fill: #ffa500; }
+        .category-tests { fill: #ff6b6b; }
+        .category-tools { fill: #ff8c42; }
+        
+        .loading { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            color: #00bfff; 
+            font-size: 18px; 
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel - Tree Structure -->
+        <div class="tree-panel">
+            <div class="tree-title">🌳 Project Structure</div>
+            <input type="text" class="tree-search" id="treeSearch" placeholder="Search files...">
+            <div id="treeContainer">
+                <div class="loading">📂 Loading file tree...</div>
+            </div>
+        </div>
+        
+        <!-- Right Panel - Visualization -->
+        <div class="viz-panel">
+            <div class="viz-header">
+                <div class="viz-title">📊 Codebase Architecture View</div>
+                <div class="viz-controls">
+                    <button class="btn btn-primary" onclick="showNetworkView()">🔗 Network View</button>
+                    <button class="btn btn-secondary" onclick="showTreemapView()">📊 Size View</button>
+                    <button class="btn btn-secondary" onclick="showStatsView()">📈 Stats</button>
+                    <span id="selectedFile" style="color: #ecf0f1; margin-left: 15px;">Select a file to view details</span>
+                </div>
+            </div>
+            
+            <!-- File Content Display -->
+            <div class="file-display" id="fileDisplay">
+                <div class="file-header">
+                    <div class="file-name" id="fileName">File Details</div>
+                    <button class="close-btn" onclick="closeFileView()">×</button>
+                </div>
+                <div class="file-info" id="fileInfo"></div>
+                <div class="file-content" id="fileContent"></div>
+            </div>
+            
+            <!-- Network Visualization -->
+            <div class="network-viz" id="networkViz">
+                <div class="loading">🔄 Loading visualization...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🌳 Starting Hierarchical Tree Visualization...');
+        
+        // Global state
+        let projectData = null;
+        let allNodes = [];
+        let allLinks = [];
+        let fileTree = {};
+        let selectedFile = null;
+        
+        // Initialize
+        window.addEventListener("load", () => {
+            loadProjectData();
+        });
+        
+        async function loadProjectData() {
+            console.log('📂 Loading project data...');
+            try {
+                const response = await fetch('./data/project_visualization_data.json');
+                if (!response.ok) throw new Error('Failed to fetch data');
+                
+                projectData = await response.json();
+                allNodes = projectData.nodes || [];
+                allLinks = projectData.links || [];
+                
+                console.log(`✅ Loaded ${allNodes.length} files`);
+                
+                buildFileTree();
+                renderFileTree();
+                initNetworkView();
+                
+            } catch (error) {
+                console.error('❌ Failed to load project data:', error);
+                document.getElementById('treeContainer').innerHTML = '❌ Failed to load data';
+            }
+        }
+        
+        function buildFileTree() {
+            console.log('🌲 Building hierarchical file tree...');
+            
+            fileTree = {};
+            
+            allNodes.forEach(node => {
+                const pathParts = node.path.split('/');
+                let current = fileTree;
+                let fullPath = '';
+                
+                // Build nested structure
+                pathParts.forEach((part, index) => {
+                    fullPath += (fullPath ? '/' : '') + part;
+                    
+                    if (!current[part]) {
+                        current[part] = {
+                            name: part,
+                            path: fullPath,
+                            isFile: index === pathParts.length - 1,
+                            children: {},
+                            nodeData: index === pathParts.length - 1 ? node : null
+                        };
+                    }
+                    current = current[part].children;
+                });
+            });
+            
+            console.log('✅ File tree built', fileTree);
+        }
+        
+        function renderFileTree(searchQuery = '') {
+            const container = document.getElementById('treeContainer');
+            container.innerHTML = '';
+            
+            function renderNode(node, level = 0) {
+                const div = document.createElement('div');
+                div.className = 'tree-node';
+                div.style.paddingLeft = (level * 20) + 'px';
+                
+                if (searchQuery && !node.name.toLowerCase().includes(searchQuery)) {
+                    // Check if any children match
+                    const hasMatchingChild = Object.values(node.children).some(child => 
+                        child.name.toLowerCase().includes(searchQuery) || hasMatchingDescendant(child, searchQuery)
+                    );
+                    if (!hasMatchingChild && !node.isFile) return;
+                }
+                
+                const icon = node.isFile ? 
+                    (getFileIcon(node.name)) : 
+                    '📁';
+                
+                div.innerHTML = `
+                    <span class="tree-icon">${icon}</span>
+                    <span class="${node.isFile ? 'tree-file' : 'tree-folder'}">${node.name}</span>
+                `;
+                
+                if (node.isFile) {
+                    div.onclick = () => selectFile(node.nodeData);
+                } else {
+                    div.onclick = () => toggleFolder(div, node);
+                }
+                
+                container.appendChild(div);
+                
+                // Render children (initially collapsed for folders)
+                const childContainer = document.createElement('div');
+                childContainer.style.display = node.isFile ? 'none' : 'block';
+                
+                Object.values(node.children)
+                    .sort((a, b) => {
+                        if (a.isFile === b.isFile) return a.name.localeCompare(b.name);
+                        return a.isFile ? 1 : -1; // folders first
+                    })
+                    .forEach(child => {
+                        const childDiv = renderNode(child, level + 1);
+                        if (childDiv) childContainer.appendChild(childDiv);
+                    });
+                
+                if (childContainer.children.length > 0) {
+                    container.appendChild(childContainer);
+                }
+                
+                return div;
+            }
+            
+            // Render root level
+            Object.values(fileTree)
+                .sort((a, b) => {
+                    if (a.isFile === b.isFile) return a.name.localeCompare(b.name);
+                    return a.isFile ? 1 : -1;
+                })
+                .forEach(node => renderNode(node));
+        }
+        
+        function hasMatchingDescendant(node, query) {
+            if (node.name.toLowerCase().includes(query)) return true;
+            return Object.values(node.children).some(child => hasMatchingDescendant(child, query));
+        }
+        
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'swift': '🍎',
+                'js': '🟨',
+                'ts': '🔷',
+                'py': '🐍',
+                'html': '🌐',
+                'css': '🎨',
+                'json': '📋',
+                'md': '📝',
+                'yml': '⚙️',
+                'yaml': '⚙️',
+                'xml': '📄',
+                'plist': '⚙️'
+            };
+            return icons[ext] || '📄';
+        }
+        
+        function toggleFolder(element, node) {
+            const nextSibling = element.nextElementSibling;
+            if (nextSibling) {
+                nextSibling.style.display = nextSibling.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        function selectFile(nodeData) {
+            console.log('📄 Selected file:', nodeData.name);
+            
+            // Update selected state
+            document.querySelectorAll('.tree-node').forEach(el => el.classList.remove('selected'));
+            event.target.closest('.tree-node').classList.add('selected');
+            
+            selectedFile = nodeData;
+            document.getElementById('selectedFile').textContent = nodeData.name;
+            
+            showFileDetails(nodeData);
+        }
+        
+        function showFileDetails(node) {
+            const display = document.getElementById('fileDisplay');
+            const fileName = document.getElementById('fileName');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileContent = document.getElementById('fileContent');
+            
+            fileName.textContent = node.name;
+            
+            // File info
+            let info = `
+                <strong>📁 Path:</strong> ${node.path}<br>
+                <strong>🏷️ Category:</strong> ${node.category}<br>
+                <strong>📊 Size:</strong> ${(node.size || 0).toLocaleString()} bytes<br>
+                <strong>📝 Lines:</strong> ${(node.lines || 0).toLocaleString()}<br>
+            `;
+            
+            if (node.language) {
+                info += `<strong>🔤 Language:</strong> ${node.language}<br>`;
+            }
+            
+            if (node.content_summary) {
+                info += `<strong>📋 Summary:</strong> ${node.content_summary}<br>`;
+            }
+            
+            if (node.key_concepts && node.key_concepts.length > 0) {
+                info += `<strong>🔑 Key Concepts:</strong> ${node.key_concepts.join(', ')}<br>`;
+            }
+            
+            if (node.dependencies && node.dependencies.length > 0) {
+                info += `<strong>🔗 Dependencies:</strong> ${node.dependencies.slice(0, 8).join(', ')}${node.dependencies.length > 8 ? '...' : ''}<br>`;
+            }
+            
+            fileInfo.innerHTML = info;
+            
+            // File content simulation (since we can't read actual files in browser)
+            let content = `// ${node.name}\n// Path: ${node.path}\n// Category: ${node.category}\n\n`;
+            
+            if (node.language === 'Swift') {
+                content += `import Foundation\nimport SwiftUI\n\n// ${node.content_summary || 'Swift implementation'}\n\n`;
+                if (node.key_concepts && node.key_concepts.length > 0) {
+                    content += `/* Key Concepts:\n${node.key_concepts.map(c => ` * ${c}`).join('\n')}\n */\n\n`;
+                }
+                content += `class ${node.name.replace('.swift', '')} {\n    // Implementation details...\n    // Size: ${(node.size || 0).toLocaleString()} bytes\n    // Lines: ${(node.lines || 0).toLocaleString()}\n}\n`;
+            } else if (node.language === 'Markdown') {
+                content += `# ${node.name.replace('.md', '')}\n\n${node.content_summary || 'Documentation content'}\n\n## Overview\n\nThis file contains important project documentation.\n\n**Size:** ${(node.size || 0).toLocaleString()} bytes  \n**Lines:** ${(node.lines || 0).toLocaleString()}`;
+            } else {
+                content += `File Analysis:\n- Size: ${(node.size || 0).toLocaleString()} bytes\n- Lines: ${(node.lines || 0).toLocaleString()}\n- Language: ${node.language || 'Unknown'}\n\n${node.content_summary || 'Content details not available'}`;
+            }
+            
+            fileContent.textContent = content;
+            display.style.display = 'block';
+        }
+        
+        function closeFileView() {
+            document.getElementById('fileDisplay').style.display = 'none';
+        }
+        
+        function showNetworkView() {
+            console.log('🔗 Showing network view');
+            // Implementation for network view
+        }
+        
+        function showTreemapView() {
+            console.log('📊 Showing treemap view');
+            // Implementation for treemap view
+        }
+        
+        function showStatsView() {
+            console.log('📈 Showing stats view');
+            // Implementation for stats view
+        }
+        
+        // Search functionality
+        document.getElementById('treeSearch').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            renderFileTree(query);
+        });
+        
+        function initNetworkView() {
+            // Hide loading message
+            document.querySelector('#networkViz .loading').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

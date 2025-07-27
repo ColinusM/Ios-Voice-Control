@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRPs-agentic-eng Knowledge Graph</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 350px;
+        }
+
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .control-group input, .control-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .control-group input::placeholder {
+            color: #aaa;
+        }
+
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .category-chip {
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-chip.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .breadcrumb {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .breadcrumb:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .node {
+            cursor: pointer;
+            stroke-width: 2;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            stroke-width: 3;
+            filter: drop-shadow(0 6px 12px rgba(255, 255, 255, 0.2));
+        }
+
+        .node.highlighted {
+            stroke: #ffffff;
+            stroke-width: 4;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+        }
+
+        .link {
+            stroke: #666;
+            stroke-opacity: 0.6;
+            stroke-width: 1;
+            transition: all 0.3s ease;
+        }
+
+        .link.highlighted {
+            stroke: #ffffff;
+            stroke-opacity: 1;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
+        .link.prp-implementation {
+            stroke: #5856D6;
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+        }
+
+        .node-label {
+            font-size: 12px;
+            font-weight: 500;
+            text-anchor: middle;
+            pointer-events: none;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .stats {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1001;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .zoom-controls {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.8);
+            border: none;
+            color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        #search-results {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 10px;
+        }
+
+        .search-result {
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .search-result:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .level-indicator {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .prp-flow {
+            stroke: #5856D6;
+            stroke-width: 3;
+            stroke-dasharray: 10,5;
+            animation: dash 2s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -15;
+            }
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        h2 {
+            margin: 15px 0 10px 0;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        h3 {
+            margin: 10px 0 5px 0;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="controls">
+            <h1>🤖 PRPs Knowledge Graph</h1>
+            
+            <div class="control-group">
+                <label for="search">🔍 Search Files & Concepts</label>
+                <input type="text" id="search" placeholder="Enter file name, concept, or keyword...">
+                <div id="search-results"></div>
+            </div>
+
+            <div class="control-group">
+                <label for="view-mode">📊 View Mode</label>
+                <select id="view-mode">
+                    <option value="overview">Project Overview</option>
+                    <option value="ios-focus">iOS App Focus</option>
+                    <option value="prp-methodology">PRP Methodology</option>
+                    <option value="ai-workflow">AI Development Workflow</option>
+                    <option value="dependencies">Dependency Graph</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>🎨 Filter by Category</label>
+                <div class="category-filter" id="category-filters"></div>
+            </div>
+
+            <div class="control-group">
+                <label for="relationship-type">🔗 Show Relationships</label>
+                <select id="relationship-type">
+                    <option value="all">All Relationships</option>
+                    <option value="imports">Import Dependencies</option>
+                    <option value="prp_implementation">PRP → Implementation</option>
+                    <option value="none">No Relationships</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>🚀 PRP Development Flow</label>
+                <div style="display: flex; gap: 8px; margin-top: 8px;">
+                    <button class="category-chip" id="trace-prp-flow" style="background: #5856D6;">
+                        📋 Trace PRP Flow
+                    </button>
+                    <button class="category-chip" id="show-ai-workflow" style="background: #AF52DE;">
+                        🤖 AI Workflow
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats" id="stats"></div>
+        </div>
+
+        <div id="info-panel">
+            <h2>📄 File Details</h2>
+            <div id="file-info"></div>
+        </div>
+
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoom-in">+</button>
+            <button class="zoom-btn" id="zoom-out">−</button>
+            <button class="zoom-btn" id="zoom-reset">⌂</button>
+        </div>
+
+        <div class="breadcrumb" id="breadcrumb">📁 Project Root</div>
+        <div class="level-indicator" id="level-indicator">Level: Overview</div>
+
+        <div class="legend">
+            <h3>Legend</h3>
+            <div id="legend-items"></div>
+        </div>
+
+        <svg id="visualization"></svg>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        class ProjectKnowledgeGraph {
+            constructor() {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                this.currentLevel = 'overview';
+                this.currentData = null;
+                this.activeFilters = new Set();
+                this.searchResults = [];
+                this.currentZoom = 1;
+                this.currentRelationshipType = 'all';
+                
+                this.svg = d3.select("#visualization")
+                    .attr("width", this.width)
+                    .attr("height", this.height);
+                
+                // Create main group for zooming/panning
+                this.g = this.svg.append("g");
+                
+                // Setup zoom behavior
+                this.zoom = d3.zoom()
+                    .scaleExtent([0.1, 10])
+                    .on("zoom", (event) => {
+                        this.g.attr("transform", event.transform);
+                        this.currentZoom = event.transform.k;
+                    });
+                
+                this.svg.call(this.zoom);
+                
+                this.simulation = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    // Load project data
+                    const response = await fetch('project_visualization_data.json');
+                    this.projectData = await response.json();
+                    
+                    this.setupEventListeners();
+                    this.createCategoryFilters();
+                    this.createLegend();
+                    this.updateStats();
+                    this.renderVisualization();
+                    
+                } catch (error) {
+                    console.error('Failed to load project data:', error);
+                    this.showError('Failed to load project data. Please ensure project_visualization_data.json exists.');
+                }
+            }
+
+            setupEventListeners() {
+                // Search functionality
+                const searchInput = document.getElementById('search');
+                searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+                
+                // View mode changes
+                document.getElementById('view-mode').addEventListener('change', (e) => {
+                    this.changeViewMode(e.target.value);
+                });
+                
+                // Relationship type filter
+                document.getElementById('relationship-type').addEventListener('change', (e) => {
+                    this.currentRelationshipType = e.target.value;
+                    this.updateVisualization();
+                });
+                
+                // Zoom controls
+                document.getElementById('zoom-in').addEventListener('click', () => this.zoomIn());
+                document.getElementById('zoom-out').addEventListener('click', () => this.zoomOut());
+                document.getElementById('zoom-reset').addEventListener('click', () => this.resetZoom());
+                
+                // Breadcrumb navigation
+                document.getElementById('breadcrumb').addEventListener('click', () => this.navigateToRoot());
+                
+                // PRP workflow buttons
+                document.getElementById('trace-prp-flow').addEventListener('click', () => this.tracePRPFlow());
+                document.getElementById('show-ai-workflow').addEventListener('click', () => this.showAIWorkflow());
+                
+                // Window resize
+                window.addEventListener('resize', () => this.handleResize());
+                
+                // Hide info panel when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!e.target.closest('#info-panel') && !e.target.closest('.node')) {
+                        this.hideInfoPanel();
+                    }
+                });
+            }
+
+            createCategoryFilters() {
+                const container = document.getElementById('category-filters');
+                const categories = this.projectData.categories;
+                
+                Object.entries(categories).forEach(([key, category]) => {
+                    const chip = document.createElement('div');
+                    chip.className = 'category-chip active';
+                    chip.style.backgroundColor = category.color;
+                    chip.textContent = `${category.symbol} ${category.name}`;
+                    chip.dataset.category = key;
+                    
+                    chip.addEventListener('click', () => this.toggleCategoryFilter(key, chip));
+                    container.appendChild(chip);
+                    
+                    this.activeFilters.add(key);
+                });
+            }
+
+            createLegend() {
+                const container = document.getElementById('legend-items');
+                const categories = this.projectData.categories;
+                
+                Object.entries(categories).forEach(([key, category]) => {
+                    const item = document.createElement('div');
+                    item.className = 'legend-item';
+                    
+                    const color = document.createElement('div');
+                    color.className = 'legend-color';
+                    color.style.backgroundColor = category.color;
+                    
+                    const label = document.createElement('span');
+                    label.textContent = `${category.symbol} ${category.name}`;
+                    
+                    item.appendChild(color);
+                    item.appendChild(label);
+                    container.appendChild(item);
+                });
+            }
+
+            toggleCategoryFilter(category, chip) {
+                if (this.activeFilters.has(category)) {
+                    this.activeFilters.delete(category);
+                    chip.classList.remove('active');
+                } else {
+                    this.activeFilters.add(category);
+                    chip.classList.add('active');
+                }
+                this.updateVisualization();
+            }
+
+            handleSearch(query) {
+                const results = document.getElementById('search-results');
+                results.innerHTML = '';
+                
+                if (!query || query.length < 2) {
+                    return;
+                }
+                
+                this.searchResults = this.projectData.nodes.filter(node => {
+                    return node.name.toLowerCase().includes(query.toLowerCase()) ||
+                           node.path.toLowerCase().includes(query.toLowerCase()) ||
+                           node.key_concepts.some(concept => 
+                               concept.toLowerCase().includes(query.toLowerCase())) ||
+                           node.content_summary.toLowerCase().includes(query.toLowerCase());
+                });
+                
+                this.searchResults.slice(0, 10).forEach(node => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result';
+                    item.style.borderLeftColor = this.projectData.categories[node.category]?.color || '#666';
+                    
+                    const category = this.projectData.categories[node.category];
+                    item.innerHTML = `
+                        <div style="font-weight: 600;">${category?.symbol || '📄'} ${node.name}</div>
+                        <div style="color: #aaa; font-size: 11px;">${node.path}</div>
+                        <div style="color: #ccc; font-size: 10px;">${node.content_summary.substring(0, 100)}...</div>
+                    `;
+                    
+                    item.addEventListener('click', () => this.focusOnNode(node));
+                    results.appendChild(item);
+                });
+                
+                // Highlight matching nodes in visualization
+                this.highlightSearchResults();
+            }
+
+            focusOnNode(node) {
+                // Clear previous highlights
+                this.g.selectAll('.node').classed('highlighted', false);
+                this.g.selectAll('.link').classed('highlighted', false);
+                
+                // Find and highlight the target node
+                const targetNode = this.g.selectAll('.node')
+                    .filter(d => d.id === node.id);
+                
+                if (!targetNode.empty()) {
+                    targetNode.classed('highlighted', true);
+                    
+                    // Get node position and zoom to it
+                    const nodeData = targetNode.datum();
+                    const transform = d3.zoomIdentity
+                        .translate(this.width / 2, this.height / 2)
+                        .scale(2)
+                        .translate(-nodeData.x, -nodeData.y);
+                    
+                    this.svg.transition()
+                        .duration(750)
+                        .call(this.zoom.transform, transform);
+                    
+                    // Show node details
+                    this.showNodeDetails(nodeData);
+                }
+                
+                // Clear search
+                document.getElementById('search').value = '';
+                document.getElementById('search-results').innerHTML = '';
+            }
+
+            highlightSearchResults() {
+                if (this.searchResults.length === 0) {
+                    this.g.selectAll('.node').classed('highlighted', false);
+                    return;
+                }
+                
+                const resultIds = new Set(this.searchResults.map(r => r.id));
+                this.g.selectAll('.node')
+                    .classed('highlighted', d => resultIds.has(d.id));
+            }
+
+            changeViewMode(mode) {
+                this.currentLevel = mode;
+                document.getElementById('level-indicator').textContent = `Level: ${mode}`;
+                
+                switch (mode) {
+                    case 'overview':
+                        this.renderOverview();
+                        break;
+                    case 'ios-focus':
+                        this.renderIOSFocus();
+                        break;
+                    case 'prp-methodology':
+                        this.renderPRPMethodology();
+                        break;
+                    case 'ai-workflow':
+                        this.renderAIWorkflow();
+                        break;
+                    case 'dependencies':
+                        this.renderDependencyGraph();
+                        break;
+                }
+            }
+
+            renderVisualization() {
+                this.renderOverview();
+            }
+
+            renderOverview() {
+                // Show hierarchical overview of main project sections
+                const hierarchy = this.projectData.hierarchy;
+                const nodes = this.flattenHierarchy(hierarchy, 0);
+                const links = this.generateHierarchicalLinks(nodes);
+                
+                this.currentData = { nodes, links };
+                this.updateVisualization();
+            }
+
+            renderIOSFocus() {
+                // Focus on iOS app structure
+                const iosNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'ios_swift' || 
+                    node.path.startsWith('VoiceControlApp/'));
+                
+                const links = this.projectData.links.filter(link => 
+                    iosNodes.some(node => node.path === link.source) &&
+                    iosNodes.some(node => node.path === link.target));
+                
+                this.currentData = { nodes: iosNodes, links };
+                this.updateVisualization();
+            }
+
+            renderPRPMethodology() {
+                // Show PRP files and their relationships to implementation
+                const prpNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'prp_methodology' || node.category === 'thinking');
+                
+                const implementationNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'ios_swift');
+                
+                const allNodes = [...prpNodes, ...implementationNodes];
+                const links = this.projectData.links.filter(link =>
+                    link.type === 'prp_implementation');
+                
+                this.currentData = { nodes: allNodes, links };
+                this.updateVisualization();
+            }
+
+            renderAIWorkflow() {
+                // Show AI development tools and Claude agents
+                const aiNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'ai_claude' || 
+                    node.category === 'tools' ||
+                    node.name.includes('claude') ||
+                    node.name.includes('CLAUDE'));
+                
+                const links = this.projectData.links.filter(link => 
+                    aiNodes.some(node => node.path === link.source) &&
+                    aiNodes.some(node => node.path === link.target));
+                
+                this.currentData = { nodes: aiNodes, links };
+                this.updateVisualization();
+            }
+
+            renderDependencyGraph() {
+                // Show all import/dependency relationships
+                const nodes = this.projectData.nodes;
+                const links = this.projectData.links.filter(link => link.type === 'imports');
+                
+                this.currentData = { nodes, links };
+                this.updateVisualization();
+            }
+
+            flattenHierarchy(hierarchy, level) {
+                const nodes = [];
+                
+                const addNode = (item, depth) => {
+                    const node = {
+                        id: item.name.replace(/\s+/g, '_').toLowerCase(),
+                        name: item.name,
+                        category: item.category || 'tools',
+                        level: depth,
+                        type: item.type || 'group',
+                        children: item.children || [],
+                        size: item.children ? item.children.length * 100 : 50
+                    };
+                    nodes.push(node);
+                    
+                    if (item.children && depth < 2) {
+                        item.children.forEach(child => addNode(child, depth + 1));
+                    }
+                };
+                
+                addNode(hierarchy, level);
+                return nodes;
+            }
+
+            generateHierarchicalLinks(nodes) {
+                const links = [];
+                const nodeMap = new Map(nodes.map(n => [n.id, n]));
+                
+                nodes.forEach(node => {
+                    if (node.children) {
+                        node.children.forEach(child => {
+                            const childId = child.name?.replace(/\s+/g, '_').toLowerCase() || child.id;
+                            if (nodeMap.has(childId)) {
+                                links.push({
+                                    source: node.id,
+                                    target: childId,
+                                    type: 'hierarchy'
+                                });
+                            }
+                        });
+                    }
+                });
+                
+                return links;
+            }
+
+            updateVisualization() {
+                if (!this.currentData) return;
+                
+                // Filter nodes and links based on active filters
+                let { nodes, links } = this.currentData;
+                
+                // Apply category filters
+                if (this.activeFilters.size > 0) {
+                    nodes = nodes.filter(node => this.activeFilters.has(node.category));
+                    links = links.filter(link => {
+                        const sourceNode = nodes.find(n => n.id === link.source || n.path === link.source);
+                        const targetNode = nodes.find(n => n.id === link.target || n.path === link.target);
+                        return sourceNode && targetNode;
+                    });
+                }
+                
+                // Apply relationship type filter
+                if (this.currentRelationshipType !== 'all' && this.currentRelationshipType !== 'none') {
+                    links = links.filter(link => link.type === this.currentRelationshipType);
+                } else if (this.currentRelationshipType === 'none') {
+                    links = [];
+                }
+                
+                this.renderForceDirectedGraph(nodes, links);
+                this.updateStats();
+            }
+
+            renderForceDirectedGraph(nodes, links) {
+                // Clear previous visualization
+                this.g.selectAll("*").remove();
+                
+                if (nodes.length === 0) return;
+                
+                // Create simulation
+                this.simulation = d3.forceSimulation(nodes)
+                    .force("link", d3.forceLink(links).id(d => d.id || d.path).distance(100))
+                    .force("charge", d3.forceManyBody().strength(-300))
+                    .force("center", d3.forceCenter(this.width / 2, this.height / 2))
+                    .force("collision", d3.forceCollide().radius(d => this.getNodeRadius(d) + 5));
+                
+                // Create links
+                const link = this.g.selectAll(".link")
+                    .data(links)
+                    .enter().append("line")
+                    .attr("class", d => `link ${d.type}`)
+                    .style("stroke", d => this.getLinkColor(d))
+                    .style("stroke-width", d => this.getLinkWidth(d));
+                
+                // Create nodes
+                const node = this.g.selectAll(".node")
+                    .data(nodes)
+                    .enter().append("circle")
+                    .attr("class", "node")
+                    .attr("r", d => this.getNodeRadius(d))
+                    .style("fill", d => this.getNodeColor(d))
+                    .style("stroke", d => this.getNodeStroke(d))
+                    .on("click", (event, d) => this.handleNodeClick(event, d))
+                    .on("mouseover", (event, d) => this.showTooltip(event, d))
+                    .on("mouseout", () => this.hideTooltip());
+                
+                // Add labels for important nodes
+                const labels = this.g.selectAll(".node-label")
+                    .data(nodes.filter(d => this.shouldShowLabel(d)))
+                    .enter().append("text")
+                    .attr("class", "node-label")
+                    .text(d => this.getNodeLabel(d))
+                    .style("font-size", d => `${Math.max(10, this.getNodeRadius(d) / 3)}px`);
+                
+                // Add drag behavior
+                node.call(d3.drag()
+                    .on("start", (event, d) => this.dragStarted(event, d))
+                    .on("drag", (event, d) => this.dragged(event, d))
+                    .on("end", (event, d) => this.dragEnded(event, d)));
+                
+                // Update positions on simulation tick
+                this.simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+                    
+                    node
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y);
+                    
+                    labels
+                        .attr("x", d => d.x)
+                        .attr("y", d => d.y + 5);
+                });
+            }
+
+            getNodeRadius(d) {
+                const baseSize = 8;
+                if (d.type === 'group') return baseSize * 2;
+                if (d.lines) return Math.max(baseSize, Math.min(25, Math.sqrt(d.lines) * 0.5));
+                return baseSize;
+            }
+
+            getNodeColor(d) {
+                const category = this.projectData.categories[d.category];
+                return category ? category.color : '#666666';
+            }
+
+            getNodeStroke(d) {
+                return d3.rgb(this.getNodeColor(d)).darker(0.5);
+            }
+
+            getLinkColor(d) {
+                if (d.type === 'prp_implementation') return '#5856D6';
+                if (d.type === 'imports') return '#34C759';
+                return '#666666';
+            }
+
+            getLinkWidth(d) {
+                if (d.type === 'prp_implementation') return 2;
+                return 1;
+            }
+
+            shouldShowLabel(d) {
+                return d.type === 'group' || this.getNodeRadius(d) > 15;
+            }
+
+            getNodeLabel(d) {
+                const maxLength = 15;
+                if (d.name.length > maxLength) {
+                    return d.name.substring(0, maxLength) + '...';
+                }
+                return d.name;
+            }
+
+            handleNodeClick(event, d) {
+                event.stopPropagation();
+                this.showNodeDetails(d);
+                
+                // Highlight connected nodes
+                this.highlightConnectedNodes(d);
+            }
+
+            highlightConnectedNodes(targetNode) {
+                // Clear previous highlights
+                this.g.selectAll('.node').classed('highlighted', false);
+                this.g.selectAll('.link').classed('highlighted', false);
+                
+                // Highlight target node
+                this.g.selectAll('.node')
+                    .filter(d => d === targetNode)
+                    .classed('highlighted', true);
+                
+                // Highlight connected links and nodes
+                this.g.selectAll('.link')
+                    .each(function(d) {
+                        if (d.source === targetNode || d.target === targetNode) {
+                            d3.select(this).classed('highlighted', true);
+                        }
+                    });
+            }
+
+            showNodeDetails(d) {
+                const panel = document.getElementById('info-panel');
+                const content = document.getElementById('file-info');
+                
+                const category = this.projectData.categories[d.category] || { name: 'Unknown', symbol: '📄' };
+                
+                content.innerHTML = `
+                    <div style="border-left: 4px solid ${category.color || '#666'}; padding-left: 15px; margin-bottom: 20px;">
+                        <h3 style="color: ${category.color || '#666'}; margin: 0 0 5px 0;">
+                            ${category.symbol} ${category.name}
+                        </h3>
+                        <h2 style="margin: 0 0 10px 0;">${d.name}</h2>
+                        ${d.path ? `<p style="color: #aaa; font-size: 12px; margin: 0;">${d.path}</p>` : ''}
+                    </div>
+                    
+                    ${d.content_summary ? `
+                        <div style="margin-bottom: 15px;">
+                            <h3>📝 Summary</h3>
+                            <p style="font-size: 13px; line-height: 1.4;">${d.content_summary}</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${d.key_concepts && d.key_concepts.length > 0 ? `
+                        <div style="margin-bottom: 15px;">
+                            <h3>🏷️ Key Concepts</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                ${d.key_concepts.map(concept => 
+                                    `<span style="padding: 3px 8px; background: rgba(255,255,255,0.1); border-radius: 12px; font-size: 11px;">${concept}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${d.dependencies && d.dependencies.length > 0 ? `
+                        <div style="margin-bottom: 15px;">
+                            <h3>📦 Dependencies</h3>
+                            <div style="font-size: 12px; color: #ccc;">
+                                ${d.dependencies.slice(0, 8).map(dep => `<div>• ${dep}</div>`).join('')}
+                                ${d.dependencies.length > 8 ? `<div style="color: #aaa;">... and ${d.dependencies.length - 8} more</div>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin-bottom: 15px;">
+                        <h3>📊 File Stats</h3>
+                        <div style="font-size: 12px; color: #ccc;">
+                            ${d.language ? `<div>Language: <span style="color: #fff;">${d.language}</span></div>` : ''}
+                            ${d.lines ? `<div>Lines: <span style="color: #fff;">${d.lines.toLocaleString()}</span></div>` : ''}
+                            ${d.size ? `<div>Size: <span style="color: #fff;">${this.formatBytes(d.size)}</span></div>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                panel.style.display = 'block';
+            }
+
+            hideInfoPanel() {
+                document.getElementById('info-panel').style.display = 'none';
+            }
+
+            showTooltip(event, d) {
+                const tooltip = document.getElementById('tooltip');
+                const category = this.projectData.categories[d.category] || { symbol: '📄' };
+                
+                tooltip.innerHTML = `
+                    <div style="font-weight: 600;">${category.symbol} ${d.name}</div>
+                    ${d.path ? `<div style="color: #aaa; font-size: 11px;">${d.path}</div>` : ''}
+                    ${d.key_concepts && d.key_concepts.length > 0 ? 
+                        `<div style="color: #ccc; font-size: 10px; margin-top: 5px;">${d.key_concepts.slice(0, 3).join(', ')}</div>` : ''}
+                `;
+                
+                tooltip.style.display = 'block';
+                tooltip.style.left = (event.pageX + 10) + 'px';
+                tooltip.style.top = (event.pageY - 10) + 'px';
+            }
+
+            hideTooltip() {
+                document.getElementById('tooltip').style.display = 'none';
+            }
+
+            updateStats() {
+                const stats = document.getElementById('stats');
+                const data = this.currentData || { nodes: [], links: [] };
+                
+                const visibleNodes = data.nodes.filter(node => this.activeFilters.has(node.category));
+                const totalLines = visibleNodes.reduce((sum, node) => sum + (node.lines || 0), 0);
+                
+                stats.innerHTML = `
+                    <div>📊 <strong>${visibleNodes.length}</strong> files visible</div>
+                    <div>📏 <strong>${totalLines.toLocaleString()}</strong> lines of code</div>
+                    <div>🔗 <strong>${data.links.length}</strong> relationships</div>
+                    <div>🎯 <strong>${this.activeFilters.size}</strong>/${Object.keys(this.projectData.categories).length} categories active</div>
+                `;
+            }
+
+            formatBytes(bytes) {
+                if (bytes === 0) return '0 B';
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+            }
+
+            // Zoom and pan controls
+            zoomIn() {
+                this.svg.transition().duration(300).call(
+                    this.zoom.scaleBy, 1.5
+                );
+            }
+
+            zoomOut() {
+                this.svg.transition().duration(300).call(
+                    this.zoom.scaleBy, 1 / 1.5
+                );
+            }
+
+            resetZoom() {
+                this.svg.transition().duration(500).call(
+                    this.zoom.transform,
+                    d3.zoomIdentity
+                );
+            }
+
+            navigateToRoot() {
+                this.changeViewMode('overview');
+                this.resetZoom();
+            }
+
+            // Drag handlers
+            dragStarted(event, d) {
+                if (!event.active) this.simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+
+            dragEnded(event, d) {
+                if (!event.active) this.simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+
+            handleResize() {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
+                
+                this.svg
+                    .attr("width", this.width)
+                    .attr("height", this.height);
+                
+                if (this.simulation) {
+                    this.simulation
+                        .force("center", d3.forceCenter(this.width / 2, this.height / 2))
+                        .restart();
+                }
+            }
+
+            showError(message) {
+                const container = document.getElementById('container');
+                container.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column;">
+                        <h2 style="color: #ff6b6b; margin-bottom: 20px;">⚠️ Error Loading Visualization</h2>
+                        <p style="color: #aaa; text-align: center; max-width: 500px;">${message}</p>
+                        <p style="color: #666; font-size: 14px; margin-top: 20px;">
+                            Make sure you've run the analysis script: <code>python3 project_visualizer_analyzer.py</code>
+                        </p>
+                    </div>
+                `;
+            }
+
+            // PRP Methodology Specific Features
+            tracePRPFlow() {
+                // Trace the flow from PRPs to implementation to validation
+                this.currentLevel = 'prp-flow';
+                document.getElementById('level-indicator').textContent = 'Level: PRP Development Flow';
+                
+                // Get PRP-related nodes
+                const prpNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'prp_methodology' || 
+                    node.path.includes('PRPs/') ||
+                    node.name.includes('PRP') ||
+                    node.name.includes('prp'));
+                
+                // Get implementation nodes that connect to PRPs
+                const implementationNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'ios_swift' && 
+                    node.key_concepts.some(concept => 
+                        prpNodes.some(prp => 
+                            prp.key_concepts.includes(concept))));
+                
+                // Get thinking/analysis nodes
+                const thinkingNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'thinking');
+                
+                // Get AI tool nodes
+                const aiNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'ai_claude' || 
+                    node.name.includes('claude') ||
+                    node.name.includes('CLAUDE'));
+                
+                const allNodes = [...prpNodes, ...implementationNodes, ...thinkingNodes, ...aiNodes];
+                
+                // Create enhanced links showing the PRP flow
+                const links = this.createPRPFlowLinks(allNodes);
+                
+                this.currentData = { nodes: allNodes, links };
+                this.updateVisualization();
+                
+                // Add animated flow indicators
+                setTimeout(() => this.animatePRPFlow(), 1000);
+            }
+
+            createPRPFlowLinks(nodes) {
+                const links = [];
+                const nodeMap = new Map(nodes.map(n => [n.path || n.id, n]));
+                
+                // Create concept-based connections between PRPs and implementations
+                nodes.forEach(sourceNode => {
+                    if (sourceNode.category === 'prp_methodology') {
+                        nodes.forEach(targetNode => {
+                            if (targetNode.category === 'ios_swift' && sourceNode !== targetNode) {
+                                // Check for shared concepts
+                                const sharedConcepts = sourceNode.key_concepts.filter(concept =>
+                                    targetNode.key_concepts.includes(concept));
+                                
+                                if (sharedConcepts.length > 0) {
+                                    links.push({
+                                        source: sourceNode.path || sourceNode.id,
+                                        target: targetNode.path || targetNode.id,
+                                        type: 'prp_implementation',
+                                        strength: sharedConcepts.length,
+                                        concepts: sharedConcepts
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    
+                    // Connect thinking files to related PRPs
+                    if (sourceNode.category === 'thinking') {
+                        nodes.forEach(targetNode => {
+                            if (targetNode.category === 'prp_methodology' && sourceNode !== targetNode) {
+                                const sharedConcepts = sourceNode.key_concepts.filter(concept =>
+                                    targetNode.key_concepts.includes(concept));
+                                
+                                if (sharedConcepts.length > 0) {
+                                    links.push({
+                                        source: sourceNode.path || sourceNode.id,
+                                        target: targetNode.path || targetNode.id,
+                                        type: 'analysis_to_prp',
+                                        strength: 1,
+                                        concepts: sharedConcepts
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+                
+                return links;
+            }
+
+            animatePRPFlow() {
+                // Add flowing animation to PRP → Implementation links
+                this.g.selectAll('.link')
+                    .filter(d => d.type === 'prp_implementation')
+                    .style('stroke-dasharray', '10,5')
+                    .style('animation', 'dash 2s linear infinite');
+            }
+
+            showAIWorkflow() {
+                // Show the AI-assisted development workflow
+                this.currentLevel = 'ai-workflow';
+                document.getElementById('level-indicator').textContent = 'Level: AI Development Workflow';
+                
+                // Get Claude-related files
+                const claudeNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'ai_claude' ||
+                    node.name.toLowerCase().includes('claude') ||
+                    node.path.includes('claude_md_files/'));
+                
+                // Get PRP methodology files
+                const prpNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'prp_methodology');
+                
+                // Get thinking/analysis files
+                const thinkingNodes = this.projectData.nodes.filter(node => 
+                    node.category === 'thinking');
+                
+                // Get implementation files that resulted from AI assistance
+                const implementationNodes = this.projectData.nodes.filter(node => 
+                    (node.category === 'ios_swift' || node.category === 'tools') &&
+                    (node.content_summary.includes('AI') || 
+                     node.content_summary.includes('Generated') ||
+                     node.key_concepts.some(concept => 
+                         ['Authentication', 'Speech Recognition', 'Firebase'].includes(concept))));
+                
+                const allNodes = [...claudeNodes, ...prpNodes, ...thinkingNodes, ...implementationNodes];
+                
+                // Create workflow links
+                const links = this.createAIWorkflowLinks(allNodes);
+                
+                this.currentData = { nodes: allNodes, links };
+                this.updateVisualization();
+                
+                // Highlight the AI development workflow
+                setTimeout(() => this.highlightAIWorkflow(), 1000);
+            }
+
+            createAIWorkflowLinks(nodes) {
+                const links = [];
+                
+                // Create workflow: Thinking → PRP → Implementation
+                const thinkingNodes = nodes.filter(n => n.category === 'thinking');
+                const prpNodes = nodes.filter(n => n.category === 'prp_methodology');
+                const implementationNodes = nodes.filter(n => n.category === 'ios_swift');
+                const claudeNodes = nodes.filter(n => n.category === 'ai_claude');
+                
+                // Connect Claude agents to everything (they assist with all steps)
+                claudeNodes.forEach(claudeNode => {
+                    [...thinkingNodes, ...prpNodes, ...implementationNodes].forEach(targetNode => {
+                        if (claudeNode !== targetNode) {
+                            links.push({
+                                source: claudeNode.path || claudeNode.id,
+                                target: targetNode.path || targetNode.id,
+                                type: 'ai_assistance',
+                                strength: 1
+                            });
+                        }
+                    });
+                });
+                
+                // Connect thinking to PRPs
+                thinkingNodes.forEach(thinkingNode => {
+                    prpNodes.forEach(prpNode => {
+                        const sharedConcepts = thinkingNode.key_concepts.filter(concept =>
+                            prpNode.key_concepts.includes(concept));
+                        
+                        if (sharedConcepts.length > 0) {
+                            links.push({
+                                source: thinkingNode.path || thinkingNode.id,
+                                target: prpNode.path || prpNode.id,
+                                type: 'workflow_step',
+                                strength: 2,
+                                step: 'analysis_to_specification'
+                            });
+                        }
+                    });
+                });
+                
+                // Connect PRPs to implementations
+                prpNodes.forEach(prpNode => {
+                    implementationNodes.forEach(implNode => {
+                        const sharedConcepts = prpNode.key_concepts.filter(concept =>
+                            implNode.key_concepts.includes(concept));
+                        
+                        if (sharedConcepts.length > 0) {
+                            links.push({
+                                source: prpNode.path || prpNode.id,
+                                target: implNode.path || implNode.id,
+                                type: 'workflow_step',
+                                strength: 3,
+                                step: 'specification_to_implementation'
+                            });
+                        }
+                    });
+                });
+                
+                return links;
+            }
+
+            highlightAIWorkflow() {
+                // Add special styling for AI workflow visualization
+                this.g.selectAll('.link')
+                    .filter(d => d.type === 'ai_assistance')
+                    .style('stroke', '#AF52DE')
+                    .style('stroke-width', 1)
+                    .style('stroke-opacity', 0.3)
+                    .style('stroke-dasharray', '3,3');
+                
+                this.g.selectAll('.link')
+                    .filter(d => d.type === 'workflow_step')
+                    .style('stroke', '#5856D6')
+                    .style('stroke-width', d => d.strength)
+                    .style('stroke-opacity', 0.8);
+            }
+
+            // Enhanced node details for PRP methodology
+            showNodeDetails(d) {
+                const panel = document.getElementById('info-panel');
+                const content = document.getElementById('file-info');
+                
+                const category = this.projectData.categories[d.category] || { name: 'Unknown', symbol: '📄' };
+                
+                let prpSpecificInfo = '';
+                
+                // Add PRP-specific information
+                if (d.category === 'prp_methodology') {
+                    prpSpecificInfo = `
+                        <div style="margin-bottom: 15px; padding: 15px; background: rgba(88, 86, 214, 0.1); border-radius: 8px; border-left: 4px solid #5856D6;">
+                            <h3 style="color: #5856D6; margin: 0 0 10px 0;">📋 PRP Analysis</h3>
+                            <div style="font-size: 12px; color: #ccc;">
+                                <div><strong>Type:</strong> Product Requirement Prompt</div>
+                                <div><strong>Purpose:</strong> Define implementation requirements with context</div>
+                                <div><strong>Methodology:</strong> PRD + Context + Implementation Strategy + Validation</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Find related implementations
+                    const relatedImplementations = this.projectData.nodes.filter(node => 
+                        node.category === 'ios_swift' && 
+                        node.key_concepts.some(concept => d.key_concepts.includes(concept)));
+                    
+                    if (relatedImplementations.length > 0) {
+                        prpSpecificInfo += `
+                            <div style="margin-bottom: 15px;">
+                                <h3>🔗 Related Implementations</h3>
+                                <div style="font-size: 12px; color: #ccc;">
+                                    ${relatedImplementations.slice(0, 5).map(impl => 
+                                        `<div style="padding: 4px 0;">• ${impl.name} <span style="color: #666;">(${impl.path})</span></div>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else if (d.category === 'ai_claude') {
+                    prpSpecificInfo = `
+                        <div style="margin-bottom: 15px; padding: 15px; background: rgba(175, 82, 222, 0.1); border-radius: 8px; border-left: 4px solid #AF52DE;">
+                            <h3 style="color: #AF52DE; margin: 0 0 10px 0;">🤖 AI Agent</h3>
+                            <div style="font-size: 12px; color: #ccc;">
+                                <div><strong>Role:</strong> Specialized development assistant</div>
+                                <div><strong>Technology:</strong> Claude Code agent</div>
+                                <div><strong>Purpose:</strong> Provide context-aware coding assistance</div>
+                            </div>
+                        </div>
+                    `;
+                } else if (d.category === 'thinking') {
+                    prpSpecificInfo = `
+                        <div style="margin-bottom: 15px; padding: 15px; background: rgba(50, 215, 75, 0.1); border-radius: 8px; border-left: 4px solid #32D74B;">
+                            <h3 style="color: #32D74B; margin: 0 0 10px 0;">💭 Analysis Document</h3>
+                            <div style="font-size: 12px; color: #ccc;">
+                                <div><strong>Phase:</strong> Requirements analysis & exploration</div>
+                                <div><strong>Purpose:</strong> Document thought process and discoveries</div>
+                                <div><strong>Flow:</strong> Analysis → PRP → Implementation</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                content.innerHTML = `
+                    <div style="border-left: 4px solid ${category.color || '#666'}; padding-left: 15px; margin-bottom: 20px;">
+                        <h3 style="color: ${category.color || '#666'}; margin: 0 0 5px 0;">
+                            ${category.symbol} ${category.name}
+                        </h3>
+                        <h2 style="margin: 0 0 10px 0;">${d.name}</h2>
+                        ${d.path ? `<p style="color: #aaa; font-size: 12px; margin: 0;">${d.path}</p>` : ''}
+                    </div>
+                    
+                    ${prpSpecificInfo}
+                    
+                    ${d.content_summary ? `
+                        <div style="margin-bottom: 15px;">
+                            <h3>📝 Summary</h3>
+                            <p style="font-size: 13px; line-height: 1.4;">${d.content_summary}</p>
+                        </div>
+                    ` : ''}
+                    
+                    ${d.key_concepts && d.key_concepts.length > 0 ? `
+                        <div style="margin-bottom: 15px;">
+                            <h3>🏷️ Key Concepts</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                ${d.key_concepts.map(concept => 
+                                    `<span style="padding: 3px 8px; background: rgba(255,255,255,0.1); border-radius: 12px; font-size: 11px;">${concept}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${d.dependencies && d.dependencies.length > 0 ? `
+                        <div style="margin-bottom: 15px;">
+                            <h3>📦 Dependencies</h3>
+                            <div style="font-size: 12px; color: #ccc;">
+                                ${d.dependencies.slice(0, 8).map(dep => `<div>• ${dep}</div>`).join('')}
+                                ${d.dependencies.length > 8 ? `<div style="color: #aaa;">... and ${d.dependencies.length - 8} more</div>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin-bottom: 15px;">
+                        <h3>📊 File Stats</h3>
+                        <div style="font-size: 12px; color: #ccc;">
+                            ${d.language ? `<div>Language: <span style="color: #fff;">${d.language}</span></div>` : ''}
+                            ${d.lines ? `<div>Lines: <span style="color: #fff;">${d.lines.toLocaleString()}</span></div>` : ''}
+                            ${d.size ? `<div>Size: <span style="color: #fff;">${this.formatBytes(d.size)}</span></div>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                panel.style.display = 'block';
+            }
+        }
+
+        // Initialize the visualization when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProjectKnowledgeGraph();
+        });
+    </script>
+</body>
+</html>

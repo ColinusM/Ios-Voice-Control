@@ -7,7 +7,7 @@ import StoreKit
 class SubscriptionManager: ObservableObject {
     @Published var subscriptionState: SubscriptionState = .unknown
     @Published var availablePlans: [SubscriptionPlan] = []
-    @Published var currentSubscription: SubscriptionStatus?
+    @Published var currentSubscription: StoreKitSubscriptionStatus?
     @Published var isLoading = false
     @Published var errorMessage: String?
     

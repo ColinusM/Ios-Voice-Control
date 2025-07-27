@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03BB427CA7EE6E9067B2AD8F /* PremiumUsageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E654DCC9BC76C7DCC6F69C5 /* PremiumUsageTracker.swift */; };
 		050E414D826293F26B4D02FF /* SpeechRecognitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51024E149C762048FDF3A9C8 /* SpeechRecognitionManager.swift */; };
 		0A5C4F20BDB7C41AA14C2EF8 /* GuestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FB4590911E2267554D9E5C /* GuestUser.swift */; };
 		18DD40EB8DF43C7D4C9AA1E3 /* IOSSpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6464B8085D12B5755C5B351 /* IOSSpeechRecognizer.swift */; };
@@ -14,6 +15,7 @@
 		1C364BA0B63B08CC900FA2B9 /* GuestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958B4A4AB7BB5F90CC8514F3 /* GuestUser.swift */; };
 		2CD0402AAFA333102B935A1C /* SpeechRecognitionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5D47089EC57DC741ED043C /* SpeechRecognitionProtocol.swift */; };
 		2F324664879B11AA7EC82261 /* SubscriptionPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FA44DEAFE392FB45634235 /* SubscriptionPlan.swift */; };
+		34C245E2B184CE540218E8E2 /* SubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB94CCC999448BA28290732 /* SubscriptionStatus.swift */; };
 		38CF495F9B1105AC9F96DFE1 /* ProfessionalAudioTerms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C74854BD78735A3821739A /* ProfessionalAudioTerms.swift */; };
 		396B4685AFCC146458028D75 /* ChannelProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2D440D904E184F2F5663BA /* ChannelProcessor.swift */; };
 		3A49469099BEF8198120B41E /* EffectsProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */; };
@@ -41,6 +43,8 @@
 		913317DD2E282BF800E71CAE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 913317DC2E282BF800E71CAE /* GoogleSignIn */; };
 		913317DF2E282BF800E71CAE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 913317DE2E282BF800E71CAE /* GoogleSignInSwift */; };
 		91CEFACB2E28E8A0006480E7 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 91CEFACA2E28E8A0006480E7 /* Starscream */; };
+		923F40E6AA51B58E8216C5BC /* PaywallData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA446A6BBFA8FEDD38DC58D /* PaywallData.swift */; };
+		980B49A189595CA9210C24D0 /* PremiumFeatureGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631C48C8AC0653F7025E5095 /* PremiumFeatureGate.swift */; };
 		9C0840F7BC4B809B33A8471F /* ProcessedVoiceCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E54A539C49B7E76DA55341 /* ProcessedVoiceCommand.swift */; };
 		A01234567890ABCDEF123001 /* VoiceControlAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123000 /* VoiceControlAppApp.swift */; };
 		A01234567890ABCDEF123003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01234567890ABCDEF123002 /* ContentView.swift */; };
@@ -76,6 +80,8 @@
 		D42344C58CF2B3743E716CF8 /* VoiceCommandBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574718932A157455800E7D /* VoiceCommandBubble.swift */; };
 		D5574A2AAAEFF5BB8E259B1B /* VoiceCommandProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4D808D6247A823624451 /* VoiceCommandProcessor.swift */; };
 		D8ED414BA4AA6DCE04C6F240 /* VoiceCommandTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */; };
+		E08D4083975109E85C74C117 /* PremiumFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D542928941A9D80251DAEB /* PremiumFeature.swift */; };
+		E8374769B6A38737A6CE95DB /* CloudSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7904F269EFF9A15E120502C /* CloudSyncService.swift */; };
 		EA9043CDB3CC5C2DE17FD886 /* ContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0344C61BBF738337EFE9ACC /* ContextManager.swift */; };
 		F568485CBFD0A99F9379F7AE /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E724CF7A78BDB9F48497B0D /* SubscriptionManager.swift */; };
 		FB584170851C0D301165E8BE /* ValidationLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B548E7ADA0FC81A7272629 /* ValidationLimits.swift */; };
@@ -86,15 +92,20 @@
 /* Begin PBXFileReference section */
 		025947C480861214F939679D /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreKitService.swift; path = VoiceControlApp/Subscriptions/Services/StoreKitService.swift; sourceTree = SOURCE_ROOT; };
 		163F442C9C906B4C191D6617 /* SubscriptionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionError.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionError.swift; sourceTree = SOURCE_ROOT; };
+		178943D785F909802EAE1E4A /* LearningPromptManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LearningPromptManagerTests.swift; path = VoiceControlAppTests/LearningPromptManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		313249BA847C780E418C2EC1 /* BrainEmojiOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BrainEmojiOverlay.swift; path = VoiceControlApp/VoiceCommand/Components/BrainEmojiOverlay.swift; sourceTree = SOURCE_ROOT; };
 		31E54A539C49B7E76DA55341 /* ProcessedVoiceCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProcessedVoiceCommand.swift; path = VoiceControlApp/VoiceCommand/Models/ProcessedVoiceCommand.swift; sourceTree = SOURCE_ROOT; };
 		3B94434A99D74EA323D85C43 /* CompoundCommandProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompoundCommandProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/CompoundCommandProcessor.swift; sourceTree = SOURCE_ROOT; };
 		3D214F85B6E87C0845E382B0 /* NetworkSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkSettingsView.swift; path = VoiceControlApp/NetworkSettingsView.swift; sourceTree = SOURCE_ROOT; };
+		43D542928941A9D80251DAEB /* PremiumFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PremiumFeature.swift; path = VoiceControlApp/Authentication/Premium/Models/PremiumFeature.swift; sourceTree = SOURCE_ROOT; };
 		4ACF42B58CBB339C572883B7 /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
+		4DB94CCC999448BA28290732 /* SubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionStatus.swift; path = VoiceControlApp/Authentication/Premium/Models/SubscriptionStatus.swift; sourceTree = SOURCE_ROOT; };
 		51024E149C762048FDF3A9C8 /* SpeechRecognitionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeechRecognitionManager.swift; path = VoiceControlApp/SpeechRecognition/SpeechRecognitionManager.swift; sourceTree = SOURCE_ROOT; };
 		56FB4590911E2267554D9E5C /* GuestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GuestUser.swift; path = VoiceControlApp/Authentication/Models/GuestUser.swift; sourceTree = SOURCE_ROOT; };
 		57504B8E95CF6C8177D11928 /* PlanCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlanCardView.swift; path = VoiceControlApp/Subscriptions/Views/PlanCardView.swift; sourceTree = SOURCE_ROOT; };
 		5BEB4C8C8E8B9AE0F121D1CF /* SubscriptionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionState.swift; path = VoiceControlApp/Subscriptions/Models/SubscriptionState.swift; sourceTree = SOURCE_ROOT; };
+		631C48C8AC0653F7025E5095 /* PremiumFeatureGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PremiumFeatureGate.swift; path = VoiceControlApp/Authentication/Premium/PremiumFeatureGate.swift; sourceTree = SOURCE_ROOT; };
+		6E654DCC9BC76C7DCC6F69C5 /* PremiumUsageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PremiumUsageTracker.swift; path = VoiceControlApp/Authentication/Premium/Models/PremiumUsageTracker.swift; sourceTree = SOURCE_ROOT; };
 		71664F87AD5ED9E8B83C2DEE /* NetworkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkSettings.swift; path = VoiceControlApp/NetworkSettings.swift; sourceTree = SOURCE_ROOT; };
 		79CB452A8F781D1BF198318E /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WelcomeView.swift; path = VoiceControlApp/Authentication/Views/WelcomeView.swift; sourceTree = SOURCE_ROOT; };
 		81D84BCE947E115CC46D9995 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SubscriptionView.swift; path = VoiceControlApp/Subscriptions/Views/SubscriptionView.swift; sourceTree = SOURCE_ROOT; };
@@ -132,6 +143,7 @@
 		A01234567890ABCDEF123048 /* VoiceControlApp/Authentication/Models/SocialAuthResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/Authentication/Models/SocialAuthResult.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF123050 /* VoiceControlApp/Authentication/Views/SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceControlApp/Authentication/Views/SignUpView.swift; sourceTree = "<group>"; };
 		A01234567890ABCDEF12FFFD /* VoiceControlApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceControlApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5B2400D9C58F6BB9CA9F629 /* AuthenticationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthenticationManagerTests.swift; path = VoiceControlAppTests/AuthenticationManagerTests.swift; sourceTree = SOURCE_ROOT; };
 		AB2D4D03930E768A8D2E1E19 /* RecordButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RecordButton.swift; path = VoiceControlApp/Shared/Components/RecordButton.swift; sourceTree = SOURCE_ROOT; };
 		AC534A5EACB74F78852F720E /* StoreKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreKitService.swift; path = VoiceControlApp/Subscriptions/Services/StoreKitService.swift; sourceTree = SOURCE_ROOT; };
 		B215402FBA1407C51B5EF419 /* VoiceCommandBubblesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandBubblesView.swift; path = VoiceControlApp/VoiceCommand/Components/VoiceCommandBubblesView.swift; sourceTree = SOURCE_ROOT; };
@@ -142,8 +154,11 @@
 		C0344C61BBF738337EFE9ACC /* ContextManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContextManager.swift; path = VoiceControlApp/VoiceCommand/Services/ContextManager.swift; sourceTree = SOURCE_ROOT; };
 		D0384B58BD2846AD6F94966C /* RoutingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutingProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/RoutingProcessor.swift; sourceTree = SOURCE_ROOT; };
 		D19E48EAAEC7587618577790 /* RCPCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPCommand.swift; path = VoiceControlApp/VoiceCommand/Models/RCPCommand.swift; sourceTree = SOURCE_ROOT; };
+		D7904F269EFF9A15E120502C /* CloudSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CloudSyncService.swift; path = VoiceControlApp/Shared/Services/CloudSyncService.swift; sourceTree = SOURCE_ROOT; };
+		DC29476DA27A4159EA5F270C /* SimilarityDetectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SimilarityDetectionTests.swift; path = VoiceControlAppTests/SimilarityDetectionTests.swift; sourceTree = SOURCE_ROOT; };
 		DFFD465B8AD34F618306307A /* VoiceCommandTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandTester.swift; path = VoiceControlApp/VoiceCommand/Services/VoiceCommandTester.swift; sourceTree = SOURCE_ROOT; };
 		E4654B50B50F42A7D3F33912 /* RCPNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCPNetworkClient.swift; path = VoiceControlApp/Shared/Services/RCPNetworkClient.swift; sourceTree = SOURCE_ROOT; };
+		EAA446A6BBFA8FEDD38DC58D /* PaywallData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaywallData.swift; path = VoiceControlApp/Authentication/Premium/Models/PaywallData.swift; sourceTree = SOURCE_ROOT; };
 		ED834334A3947A0B06C22BD9 /* EffectsProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EffectsProcessor.swift; path = VoiceControlApp/VoiceCommand/Services/EffectsProcessor.swift; sourceTree = SOURCE_ROOT; };
 		F37B4C8381DE3E9F6C66122F /* OrbitalToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrbitalToggleButton.swift; path = VoiceControlApp/Shared/Components/OrbitalToggleButton.swift; sourceTree = SOURCE_ROOT; };
 		F5574718932A157455800E7D /* VoiceCommandBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VoiceCommandBubble.swift; path = VoiceControlApp/VoiceCommand/Components/VoiceCommandBubble.swift; sourceTree = SOURCE_ROOT; };
@@ -253,6 +268,15 @@
 				313249BA847C780E418C2EC1 /* BrainEmojiOverlay.swift */,
 				F9B548E7ADA0FC81A7272629 /* ValidationLimits.swift */,
 				E4654B50B50F42A7D3F33912 /* RCPNetworkClient.swift */,
+				D7904F269EFF9A15E120502C /* CloudSyncService.swift */,
+				DC29476DA27A4159EA5F270C /* SimilarityDetectionTests.swift */,
+				178943D785F909802EAE1E4A /* LearningPromptManagerTests.swift */,
+				A5B2400D9C58F6BB9CA9F629 /* AuthenticationManagerTests.swift */,
+				43D542928941A9D80251DAEB /* PremiumFeature.swift */,
+				4DB94CCC999448BA28290732 /* SubscriptionStatus.swift */,
+				631C48C8AC0653F7025E5095 /* PremiumFeatureGate.swift */,
+				EAA446A6BBFA8FEDD38DC58D /* PaywallData.swift */,
+				6E654DCC9BC76C7DCC6F69C5 /* PremiumUsageTracker.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -476,6 +500,12 @@
 				19E04CA8B83994B5BE57FC70 /* BrainEmojiOverlay.swift in Sources */,
 				FB584170851C0D301165E8BE /* ValidationLimits.swift in Sources */,
 				C9A642A0B47F008E30E6D896 /* RCPNetworkClient.swift in Sources */,
+				E8374769B6A38737A6CE95DB /* CloudSyncService.swift in Sources */,
+				E08D4083975109E85C74C117 /* PremiumFeature.swift in Sources */,
+				34C245E2B184CE540218E8E2 /* SubscriptionStatus.swift in Sources */,
+				980B49A189595CA9210C24D0 /* PremiumFeatureGate.swift in Sources */,
+				923F40E6AA51B58E8216C5BC /* PaywallData.swift in Sources */,
+				03BB427CA7EE6E9067B2AD8F /* PremiumUsageTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

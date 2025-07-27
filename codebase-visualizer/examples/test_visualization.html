@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Codebase Visualization - Debug Version</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #f0f0f0; }
+        .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+        .header { background: white; padding: 20px; border-bottom: 1px solid #ddd; }
+        .title { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .controls { display: flex; gap: 10px; align-items: center; }
+        .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .visualization { flex: 1; background: #1a1a2e; position: relative; }
+        .node { cursor: pointer; stroke: #fff; stroke-width: 1px; }
+        .link { stroke: #999; stroke-opacity: 0.6; stroke-width: 2px; }
+        
+        /* Category colors */
+        .cat-ios_swift { fill: #3498db; }
+        .cat-documentation { fill: #2ecc71; }
+        .cat-prp_methodology { fill: #9b59b6; }
+        .cat-configuration { fill: #f39c12; }
+        .cat-tests { fill: #e74c3c; }
+        .cat-tools { fill: #ff6b35; }
+        
+        .info { position: absolute; top: 20px; right: 20px; background: white; padding: 15px; 
+                border-radius: 8px; max-width: 300px; display: none; z-index: 1000; 
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        
+        .status { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                  color: white; font-size: 18px; text-align: center; }
+                  
+        .debug { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); 
+                 color: white; padding: 10px; border-radius: 4px; font-family: monospace; 
+                 font-size: 12px; max-width: 300px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">📊 Project Codebase Explorer (Debug Version)</div>
+            <div class="controls">
+                <button class="btn btn-primary" onclick="showAllNodes()">🔍 Show All</button>
+                <button class="btn btn-secondary" onclick="showCategory('ios_swift')">📱 iOS Code</button>
+                <button class="btn btn-secondary" onclick="showCategory('documentation')">📚 Docs</button>
+                <button class="btn btn-secondary" onclick="showCategory('prp_methodology')">📋 PRPs</button>
+                <span id="nodeCount" style="margin-left: 20px; font-weight: bold;"></span>
+            </div>
+        </div>
+        
+        <div class="visualization" id="viz">
+            <div class="status" id="status">🔄 Initializing D3.js visualization...</div>
+            <div class="debug" id="debug">
+                Debug Log:<br>
+                <div id="debugLog">Starting...</div>
+            </div>
+        </div>
+        
+        <div class="info" id="info">
+            <h3 id="infoTitle">File Information</h3>
+            <div id="infoContent"></div>
+            <button onclick="hideInfo()" style="margin-top: 10px;">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Debug logging function
+        function debugLog(message) {
+            console.log(message);
+            const log = document.getElementById('debugLog');
+            if (log) {
+                log.innerHTML += '<br>' + message;
+            }
+        }
+        
+        debugLog('🚀 Script loaded');
+        
+        // Simple test data to verify D3.js works
+        const testData = {
+            nodes: [
+                {id: '1', name: 'VoiceControlApp', category: 'ios_swift', size: 5000, path: 'VoiceControlApp/VoiceControlApp.swift'},
+                {id: '2', name: 'README.md', category: 'documentation', size: 3000, path: 'README.md'},
+                {id: '3', name: 'AuthManager', category: 'ios_swift', size: 8000, path: 'VoiceControlApp/Authentication/AuthenticationManager.swift'},
+                {id: '4', name: 'CLAUDE.md', category: 'prp_methodology', size: 15000, path: 'CLAUDE.md'},
+                {id: '5', name: 'Tests', category: 'tests', size: 2000, path: 'VoiceControlAppTests/'},
+                {id: '6', name: 'Config', category: 'configuration', size: 1000, path: 'Info.plist'},
+                {id: '7', name: 'Tools', category: 'tools', size: 4000, path: 'mobile-mcp-ios/'}
+            ],
+            links: [
+                {source: '1', target: '3'},
+                {source: '1', target: '6'},
+                {source: '2', target: '4'},
+                {source: '3', target: '5'},
+                {source: '4', target: '7'}
+            ]
+        };
+        
+        let svg, g, simulation;
+        let currentNodes = [];
+        let currentLinks = [];
+        
+        function initViz() {
+            debugLog('🔧 Initializing visualization...');
+            
+            // Check if D3 is loaded
+            if (typeof d3 === 'undefined') {
+                debugLog('❌ ERROR: D3.js not loaded!');
+                document.getElementById('status').innerHTML = '❌ Error: D3.js failed to load';
+                return;
+            }
+            
+            debugLog('✅ D3.js loaded successfully');
+            
+            const container = d3.select('#viz');
+            const rect = container.node().getBoundingClientRect();
+            const width = rect.width;
+            const height = rect.height;
+            
+            debugLog(`📐 Container size: ${width} x ${height}`);
+            
+            if (width < 10 || height < 10) {
+                debugLog('❌ ERROR: Container too small!');
+                document.getElementById('status').innerHTML = '❌ Error: Container too small';
+                return;
+            }
+            
+            // Remove status message
+            d3.select('#status').remove();
+            
+            // Create SVG
+            svg = container.append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .style('border', '2px solid #666'); // Debug border
+            
+            g = svg.append('g');
+            
+            debugLog('📊 SVG created');
+            
+            // Add zoom
+            const zoom = d3.zoom()
+                .scaleExtent([0.1, 4])
+                .on('zoom', (event) => {
+                    g.attr('transform', event.transform);
+                });
+            
+            svg.call(zoom);
+            
+            // Create simulation
+            simulation = d3.forceSimulation()
+                .force('link', d3.forceLink().id(d => d.id).distance(100))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(25));
+            
+            debugLog('⚡ Simulation created');
+            
+            // Start with test data
+            showNodes(testData.nodes, testData.links);
+        }
+        
+        function showNodes(nodes, links) {
+            debugLog(`🎯 Showing ${nodes.length} nodes and ${links.length} links`);
+            
+            currentNodes = nodes;
+            currentLinks = links;
+            
+            // Update node count
+            d3.select('#nodeCount').text(`${nodes.length} files`);
+            
+            // Update links
+            const link = g.selectAll('.link')
+                .data(links, d => `${d.source}-${d.target}`);
+            
+            link.exit().remove();
+            
+            link.enter().append('line')
+                .attr('class', 'link')
+                .merge(link);
+            
+            debugLog(`🔗 ${links.length} links created`);
+            
+            // Update nodes
+            const node = g.selectAll('.node')
+                .data(nodes, d => d.id);
+            
+            node.exit().remove();
+            
+            const nodeEnter = node.enter().append('circle')
+                .attr('class', d => `node cat-${d.category}`)
+                .attr('r', d => Math.max(12, Math.sqrt(d.size) / 100))
+                .on('click', showInfo)
+                .call(d3.drag()
+                    .on('start', dragStart)
+                    .on('drag', dragging)
+                    .on('end', dragEnd));
+            
+            debugLog(`⭕ ${nodes.length} nodes created`);
+            
+            // Add labels
+            const label = g.selectAll('.label')
+                .data(nodes, d => d.id);
+            
+            label.exit().remove();
+            
+            label.enter().append('text')
+                .attr('class', 'label')
+                .style('font-size', '10px')
+                .style('fill', 'white')
+                .style('text-anchor', 'middle')
+                .style('pointer-events', 'none')
+                .text(d => d.name.length > 12 ? d.name.substr(0, 12) + '...' : d.name)
+                .merge(label);
+            
+            debugLog('🏷️ Labels created');
+            
+            // Update simulation
+            simulation.nodes(nodes);
+            simulation.force('link').links(links);
+            simulation.alpha(1).restart();
+            
+            simulation.on('tick', () => {
+                g.selectAll('.link')
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+                
+                g.selectAll('.node')
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+                
+                g.selectAll('.label')
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y + 3);
+            });
+            
+            debugLog('✅ Visualization complete!');
+        }
+        
+        function showInfo(event, d) {
+            debugLog(`ℹ️ Showing info for: ${d.name}`);
+            
+            const info = d3.select('#info');
+            const title = d3.select('#infoTitle');
+            const content = d3.select('#infoContent');
+            
+            title.text(d.name);
+            content.html(`
+                <strong>Path:</strong> ${d.path}<br>
+                <strong>Category:</strong> ${d.category}<br>
+                <strong>Size:</strong> ${d.size.toLocaleString()} bytes<br>
+            `);
+            
+            info.style('display', 'block');
+        }
+        
+        function hideInfo() {
+            d3.select('#info').style('display', 'none');
+        }
+        
+        function showAllNodes() {
+            debugLog('🔍 Showing all nodes');
+            showNodes(testData.nodes, testData.links);
+        }
+        
+        function showCategory(cat) {
+            debugLog(`🎯 Filtering by category: ${cat}`);
+            const filtered = testData.nodes.filter(d => d.category === cat);
+            const nodeIds = new Set(filtered.map(d => d.id));
+            const filteredLinks = testData.links.filter(l => 
+                nodeIds.has(String(l.source)) && nodeIds.has(String(l.target))
+            );
+            showNodes(filtered, filteredLinks);
+        }
+        
+        function dragStart(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+        
+        function dragging(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+        
+        function dragEnd(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+        
+        // Initialize when loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            debugLog('📄 DOM loaded');
+            setTimeout(() => {
+                debugLog('⏰ Starting initialization...');
+                initViz();
+            }, 500);
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (svg) {
+                debugLog('📏 Window resized');
+                const container = d3.select('#viz');
+                const rect = container.node().getBoundingClientRect();
+                svg.attr('width', rect.width).attr('height', rect.height);
+                simulation.force('center', d3.forceCenter(rect.width / 2, rect.height / 2));
+                simulation.restart();
+            }
+        });
+        
+        // Error handling
+        window.addEventListener('error', function(e) {
+            debugLog(`❌ JavaScript Error: ${e.message}`);
+            console.error('Full error:', e);
+        });
+    </script>
+</body>
+</html>

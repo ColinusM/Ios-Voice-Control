@@ -204,7 +204,7 @@ class StoreKitService: ObservableObject {
     
     /// Checks current entitlements and returns active subscription
     /// - Returns: Result containing current subscription or error
-    static func checkSubscriptionStatus() async -> Result<SubscriptionStatus, SubscriptionError> {
+    static func checkSubscriptionStatus() async -> Result<StoreKitSubscriptionStatus, SubscriptionError> {
         #if DEBUG
         print("🔵 StoreKitService: Checking subscription status")
         #endif
@@ -254,7 +254,7 @@ class StoreKitService: ObservableObject {
             }
         }
         
-        let status = SubscriptionStatus(
+        let status = StoreKitSubscriptionStatus(
             isActive: hasActiveSubscription,
             currentTransaction: currentSubscription,
             productId: currentSubscription?.productID,
@@ -453,7 +453,7 @@ struct PurchaseResult {
 
 // MARK: - Subscription Status
 
-struct SubscriptionStatus {
+struct StoreKitSubscriptionStatus {
     let isActive: Bool
     let currentTransaction: StoreKit.Transaction?
     let productId: String?
@@ -497,10 +497,10 @@ extension PurchaseResult: CustomStringConvertible {
     }
 }
 
-extension SubscriptionStatus: CustomStringConvertible {
+extension StoreKitSubscriptionStatus: CustomStringConvertible {
     var description: String {
         return """
-        SubscriptionStatus(
+        StoreKitSubscriptionStatus(
             isActive: \(isActive)
             productId: \(productId ?? "nil")
             purchaseDate: \(purchaseDate?.description ?? "nil")
