@@ -20,7 +20,52 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
 
 **Bundle ID:** `com.voicecontrol.app`
 
-## 🤖 Technology Agents
+## 🔧 MANDATORY: Proactive MCP Server & AI Documentation Usage
+
+**CRITICAL: Always proactively leverage the 5 installed MCP servers and AI documentation when working on this project.**
+
+### 🤖 Installed MCP Servers (Use Proactively)
+
+**Claude must automatically use these MCP servers for appropriate tasks:**
+
+1. **`mcp__zen__*`** - AI analysis, debugging, consensus, planning tools
+   - Use for complex problem solving, code review, architectural decisions
+   - Leverage `mcp__zen__debug`, `mcp__zen__analyze`, `mcp__zen__consensus`
+
+2. **`mcp__context7__*`** - Up-to-date library documentation
+   - Use when working with Firebase, SwiftUI, Google Sign-In, AssemblyAI
+   - Always resolve library IDs before getting docs
+
+3. **`mcp__serena__*`** - Semantic code analysis and editing
+   - Use for Swift code understanding, symbol finding, code navigation
+   - Leverage for intelligent code modifications and refactoring
+
+4. **`mcp__voice-mode__*`** - Voice interaction capabilities
+   - Use for speech testing, voice command development
+   - Leverage for audio system integration
+
+5. **`mcp__brave-search__*`** - Web search for current information
+   - Use for latest iOS development practices, Swift updates
+   - Search for current Firebase/Google SDK documentation
+
+### 📚 AI Documentation Resources (Reference Frequently)
+
+**MANDATORY: Consult `/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng/docs/ai_docs/` for development guidance:**
+
+- **Claude Code Best Practices** - Development workflow optimization
+- **Claude Code Settings** - Configuration and security guidance  
+- **Claude Code Actions SDK** - Programmatic integration patterns
+- **Claude Code Base** - Core functionality reference
+- **Claude Code Tutorials** - Step-by-step implementation guides
+
+**Proactive Usage Pattern:**
+1. **Before starting any task** → Check relevant ai_docs files
+2. **For complex problems** → Use mcp_zen tools for analysis
+3. **For library questions** → Use mcp_context7 for current docs  
+4. **For code navigation** → Use mcp_serena for semantic analysis
+5. **For current info** → Use mcp_brave_search for latest practices
+
+### 🤖 Technology Agents
 
 **Available specialized agents in `claude_md_files/` folder:**
 
