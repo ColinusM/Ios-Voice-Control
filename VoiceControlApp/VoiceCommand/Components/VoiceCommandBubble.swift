@@ -18,8 +18,7 @@ struct VoiceCommandBubble: View {
     /// Callback for send button tap
     let onSend: (() -> Void)?
     
-    /// Learning prompt manager for brain emoji overlays
-    let promptManager: LearningPromptManager?
+
     
     // MARK: - State
     
@@ -42,13 +41,13 @@ struct VoiceCommandBubble: View {
         showMetadata: Bool = false,
         onTap: (() -> Void)? = nil,
         onSend: (() -> Void)? = nil,
-        promptManager: LearningPromptManager? = nil
+
     ) {
         self.command = command
         self.showMetadata = showMetadata
         self.onTap = onTap
         self.onSend = onSend
-        self.promptManager = promptManager
+
     }
     
     // MARK: - Body
@@ -59,20 +58,7 @@ struct VoiceCommandBubble: View {
                 // Main bubble content
                 bubbleContent
                 
-                // Brain emoji learning overlay
-                if let promptManager = promptManager,
-                   promptManager.showingPrompt,
-                   let promptData = promptManager.currentPromptData {
-                    BrainEmojiOverlay.forBubbleIntegration(
-                        promptManager: promptManager,
-                        promptData: promptData
-                    )
-                    .transition(.asymmetric(
-                        insertion: .scale.combined(with: .opacity),
-                        removal: .opacity
-                    ))
-                    .zIndex(1) // Ensure overlay appears above bubble content
-                }
+
             }
         }
         .buttonStyle(PlainButtonStyle())

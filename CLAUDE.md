@@ -528,3 +528,196 @@ cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild 
 - `ONBOARDING.md` - Comprehensive developer guide
 
 **Remember**: Always use iPhone 16 iOS 18.5 simulator, follow MVVM patterns, and stop for manual GUI actions.
+
+---
+
+## Research Query
+
+Investigate the "Network Settings View" component in detail. Focus your analysis on these key files:
+1. NetworkSettingsView.swift (PRPs-agentic-eng/VoiceControlApp/VoiceCommand/Network/NetworkSettingsView.swift)
+
+Provide insights about the component's main responsibilities and functionality and how it integrates with other system components
+
+*Session: bcf9efddc003546be184198762891527 | Generated: 06/08/2025, 00:16:29*
+
+### Analysis Summary
+
+# Network Settings View Component Analysis
+
+The **Network Settings View** component is a crucial part of the application, providing a user interface for configuring and managing network-related settings, primarily for sending RCP (Remote Control Protocol) commands to external devices like Yamaha consoles or a Mac GUI for testing.
+
+## High-Level Architecture
+
+The application's network configuration is managed through a dedicated SwiftUI view, **NetworkSettingsView** [NetworkSettingsView.swift](PRPs-agentic-eng/VoiceControlApp/NetworkSettingsView.swift), which acts as the primary interface for users to adjust network parameters. This view relies on a shared **NetworkSettings** [NetworkSettings.swift](PRPs-agentic-eng/VoiceControlApp/NetworkSettings.swift) object for persistent storage and state management of network configurations, and a **RCPNetworkClient** [RCPNetworkClient.swift](PRPs-agentic-eng/VoiceControlApp/RCPNetworkClient.swift) for performing actual network operations like connection testing.
+
+## NetworkSettingsView Component
+
+The **NetworkSettingsView** [NetworkSettingsView.swift](PRPs-agentic-eng/VoiceControlApp/NetworkSettingsView.swift) is a SwiftUI `View` responsible for presenting and allowing users to modify network-related settings within the application.
+
+### Purpose
+
+Its primary responsibility is to provide a user-friendly interface for:
+*   Selecting the target for RCP commands (e.g., Yamaha Console, Mac GUI).
+*   Configuring IP addresses and ports for selected targets.
+*   Testing network connections to configured targets.
+*   Displaying connection status and network availability.
+*   Adjusting advanced settings like connection timeouts and logging.
+*   Resetting settings to default values.
+
+### Internal Parts
+
+The **NetworkSettingsView** [NetworkSettingsView.swift](PRPs-agentic-eng/VoiceControlApp/NetworkSettingsView.swift) is structured using SwiftUI's `Form` and `Section` components, organizing settings into logical groups:
+
+*   **Properties:**
+    *   `@StateObject private var networkSettings = NetworkSettings.shared`: Manages the persistent network settings and their state.
+    *   `@StateObject private var networkClient = RCPNetworkClient.shared`: Handles network communication and connection testing.
+    *   `@State private var isTestingConnection`: A boolean flag to indicate if a connection test is in progress.
+    *   `@State private var testResult: String?`: Stores the result message of a connection test.
+    *   `@State private var showingResetAlert`: Controls the visibility of the reset confirmation alert.
+
+*   **Sections:**
+    *   `targetSelectionSection`: Allows the user to choose between different `NetworkTargetType` options (e.g., Console, GUI).
+    *   `consoleConfigurationSection`: Appears when the target is a console, providing input fields for **Console IP Address** and **Console Port**, and a button to **Test Console Connection**.
+    *   `testingConfigurationSection`: Appears when the target is the GUI, providing input fields for **Mac GUI IP Address** and **GUI Port**, and a button to **Test GUI Connection**.
+    *   `connectionStatusSection`: Displays the current **Connection Status** (disconnected, connecting, connected, error) and network availability, along with the **Last Successful Connection** time and any **Test Result**.
+    *   `advancedSettingsSection`: Contains settings for **Connection Timeout** and a toggle for **Enable Network Logging**.
+    *   `actionsSection`: Provides a button to **Reset to Defaults**, which triggers a confirmation alert.
+
+*   **Actions:**
+    *   `testConsoleConnection()`: Initiates a connection test to the configured console IP and port using `networkClient.testConnection()`.
+    *   `testGUIConnection()`: Initiates a connection test to the configured GUI IP and port using `networkClient.testConnection()`.
+    *   The "Done" button in the toolbar calls `networkSettings.saveSettings()` to persist any changes.
+    *   The "Reset" button in the alert calls `networkSettings.resetToDefaults()` to revert settings.
+
+### External Relationships
+
+The **NetworkSettingsView** [NetworkSettingsView.swift](PRPs-agentic-eng/VoiceControlApp/NetworkSettingsView.swift) integrates with other system components primarily through its `@StateObject` dependencies:
+
+*   **NetworkSettings (Data Model and Persistence):**
+    *   The view observes changes in `NetworkSettings.shared` to display current configurations (e.g., `networkSettings.targetType`, `networkSettings.consoleIP`).
+    *   It updates properties of `networkSettings` directly when user input changes (e.g., `networkSettings.consoleIP`, `networkSettings.timeoutSeconds`).
+    *   It triggers `networkSettings.saveSettings()` when the "Done" button is tapped to persist changes to user defaults.
+    *   It calls `networkSettings.resetToDefaults()` to revert settings.
+
+*   **RCPNetworkClient (Network Operations):**
+    *   The view utilizes `RCPNetworkClient.shared` to perform network connection tests (`networkClient.testConnection()`).
+    *   It observes `networkClient.isNetworkAvailable` to display the overall network status.
+
+This clear separation of concerns allows the view to focus solely on presentation and user interaction, while `NetworkSettings` handles data management and `RCPNetworkClient` manages network communication.
+
+---
+
+## Research Query
+
+Investigate the "NetworkSettingsView" component in detail. Focus your analysis on these key files:
+1. NetworkSettingsView.swift (VoiceControlApp/NetworkSettingsView.swift)
+
+Provide insights about the component's main responsibilities and functionality and how it integrates with other system components
+
+*Session: a150e0c816c2b9709035a72ce5856f94 | Generated: 06/08/2025, 00:21:13*
+
+### Analysis Summary
+
+# Network Settings Component Analysis
+
+The **NetworkSettingsView** component is a SwiftUI view responsible for allowing users to configure and manage network settings related to the application's communication with external devices, specifically a Yamaha RCP console and a Mac GUI for testing. It provides a user-friendly interface for inputting IP addresses and ports, testing connections, and viewing connection statuses.
+
+## Core Responsibilities and Functionality
+
+The primary responsibilities of the **NetworkSettingsView** are:
+
+*   **Network Configuration Management**: Provides input fields for users to specify target IP addresses and ports for both the Yamaha console and a Mac GUI.
+*   **Connection Testing**: Allows users to initiate connection tests to verify the reachability and responsiveness of the configured network targets.
+*   **Status Display**: Presents real-time connection status and network availability information to the user.
+*   **Settings Persistence**: Handles saving and loading of network settings to ensure configurations persist across app launches.
+*   **User Interface**: Offers a clear and intuitive SwiftUI interface for all network-related configurations.
+
+## Integration with Other System Components
+
+The **NetworkSettingsView** integrates with other system components primarily through shared data models and network clients:
+
+### 1. NetworkSettings (Data Model)
+
+The view uses a `@StateObject` to observe and interact with a shared instance of the **NetworkSettings** class [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:20). This class acts as the data model for all network-related configurations.
+
+*   **Purpose**: Manages the actual network settings data, including IP addresses, ports, target types, connection status, and logging preferences. It also handles the persistence of these settings.
+*   **Internal Parts**: Contains properties like `consoleIP`, `consolePort`, `testingIP`, `testingPort`, `targetType`, `connectionStatus`, `lastConnectionTime`, and `enableLogging`. It also includes methods for saving and loading settings (`saveSettings()`, `resetToDefaults()`).
+*   **External Relationships**:
+    *   **NetworkSettingsView**: Reads and writes network configuration values to and from the UI.
+    *   **RCPNetworkClient**: Provides network parameters for connection tests and actual command sending.
+
+### 2. RCPNetworkClient (Network Communication)
+
+The view also uses a `@StateObject` to interact with a shared instance of the **RCPNetworkClient** class [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:21). This client is responsible for handling the actual network communication.
+
+*   **Purpose**: Manages the underlying network connections and sends/receives data to and from the configured network targets. It also provides functionality to test connections.
+*   **Internal Parts**: Likely contains methods for sending RCP commands and testing network connectivity (`testConnection`). It also exposes a `isNetworkAvailable` property to indicate general network reachability.
+*   **External Relationships**:
+    *   **NetworkSettingsView**: Receives requests to test connections (`testConsoleConnection()`, `testGUIConnection()`) and provides the results back to the view for display. It also informs the view about general network availability.
+    *   **NetworkSettings**: Uses the configuration data (IP, port) from **NetworkSettings** to establish connections.
+
+### 3. SwiftUI Framework
+
+The entire view is built using the SwiftUI framework, leveraging its declarative syntax for UI construction.
+
+*   **Purpose**: Provides the visual structure and interactive elements of the network settings interface.
+*   **Internal Parts**: Utilizes various SwiftUI views such as `NavigationView`, `Form`, `Section`, `TextField`, `Button`, `Toggle`, `ProgressView`, `Alert`, `HStack`, `VStack`, `Image`, and `Text`.
+*   **External Relationships**: Relies on SwiftUI's state management (`@State`, `@StateObject`) to bind UI elements to the **NetworkSettings** and **RCPNetworkClient** data models.
+
+## Key Functionality Breakdown
+
+*   **Target Selection**: Users can select between different command destinations (e.g., console, GUI) using a `ForEach` loop iterating over `NetworkTargetType.allCases` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:50).
+*   **Console Configuration**: This section allows input for `consoleIP` and `consolePort` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:90). A "Test Connection" button triggers `testConsoleConnection()` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:130), which uses **RCPNetworkClient** to perform the test.
+*   **GUI Testing Configuration**: Similar to console configuration, this section allows input for `testingIP` and `testingPort` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:170). The `testGUIConnection()` function [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:210) handles the connection test.
+*   **Connection Status Display**: Shows the current `connectionStatus` from **NetworkSettings** and `isNetworkAvailable` from **RCPNetworkClient** [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:250). It also displays the `lastConnectionTime` and any `testResult`.
+*   **Advanced Settings**: Includes a slider for `timeoutSeconds` and a toggle for `enableLogging` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:320).
+*   **Actions**: Provides a "Reset to Defaults" button that triggers an alert before calling `networkSettings.resetToDefaults()` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:370).
+*   **Saving Settings**: The "Done" button in the navigation bar calls `networkSettings.saveSettings()` [NetworkSettingsView.swift](VoiceControlApp/NetworkSettingsView.swift:40) to persist the current configurations.
+
+---
+
+## Research Query
+
+Investigate the "RCPNetworkClient" component in detail. Provide a comprehensive analysis of its architecture, responsibilities, and implementation details.
+
+*Session: b784ddb612c367717b37c88dcdaf2a4a | Generated: 06/08/2025, 00:30:27*
+
+### Analysis Summary
+
+# RCPNetworkClient Component Analysis
+
+## Overview
+The **RCPNetworkClient** is a core networking component within the VoiceControlApp, primarily responsible for handling communication related to Yamaha Remote Control Protocol (RCP) commands. It acts as the bridge between the application's UI and logic, and the external audio mixer device. It is implemented as an `ObservableObject` [VoiceControlApp/Shared/Services/RCPNetworkClient.swift:8], allowing SwiftUI views to react to changes in its network status and test results.
+
+## Responsibilities
+The primary responsibilities of the `RCPNetworkClient` include:
+*   **Connection Management**: Establishing and managing network connections to the Yamaha audio mixer.
+*   **Command Transmission**: Sending RCP commands to the connected mixer.
+*   **Status Monitoring**: Providing real-time updates on network availability and connection status.
+*   **Connection Testing**: Offering functionality to test the connectivity to a specified IP address and port.
+
+## Architecture and Relationships
+The `RCPNetworkClient` is designed as a singleton [VoiceControlApp/Shared/Services/RCPNetworkClient.swift:542] (`static let shared = RCPNetworkClient()`), ensuring a single point of control for network operations across the application.
+
+It interacts with:
+*   **NetworkSettings**: It relies on the `NetworkSettings` object [CLAUDE.md:606] for persistent storage and retrieval of network configuration parameters (e.g., IP address, port).
+*   **SwiftUI Views**: Views like `NetworkSettingsView` [CLAUDE.md:551] observe the `RCPNetworkClient` to display connection status and enable/disable network-dependent UI elements.
+
+## Implementation Details
+The core implementation resides in [VoiceControlApp/Shared/Services/RCPNetworkClient.swift](VoiceControlApp/Shared/Services/RCPNetworkClient.swift).
+
+### Key Properties
+*   `@Published var isNetworkAvailable: Bool`: Indicates the current network reachability status.
+*   `@Published var connectionStatus: String`: Provides a descriptive string of the connection state.
+*   `@Published var lastConnectionTime: Date?`: Records the timestamp of the last successful connection.
+*   `@Published var testResult: String?`: Stores the result of the last connection test.
+
+### Key Functions
+*   `init()`: Initializes the network client, likely setting up initial network monitoring.
+*   `testConnection(ipAddress: String, port: Int)`: Initiates a connection test to the specified IP and port, updating `connectionStatus` and `testResult`.
+*   `sendCommand(command: String)`: Sends a given RCP command string to the configured network destination.
+*   `setupNetworkMonitor()`: Configures and starts monitoring network changes.
+
+### Error Handling
+The `RCPNetworkClient` incorporates error handling within its network operations, updating `connectionStatus` and `testResult` to reflect any failures during connection attempts or command transmission. Build logs indicate some asynchronous operation related errors that may need to be addressed [archive/build-logs/build_errors_final.log:765].
+

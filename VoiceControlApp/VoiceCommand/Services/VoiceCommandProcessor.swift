@@ -52,11 +52,7 @@ class VoiceCommandProcessor: ObservableObject {
     /// Compound command processor for multi-action commands
     private let compoundProcessor = CompoundCommandProcessor()
     
-    /// Similarity engine for learning from command variations
-    private let similarityEngine = SimilarityEngine()
-    
-    /// Learning prompt manager for brain emoji prompts  
-    @MainActor private lazy var learningPromptManager = LearningPromptManager()
+
     
     /// Processing queue for background work
     private let processingQueue = DispatchQueue(label: "voice.command.processing", qos: .userInitiated)
@@ -146,48 +142,7 @@ class VoiceCommandProcessor: ObservableObject {
     }
     
     /// Get learning prompt manager for UI integration
-    @MainActor var promptManager: LearningPromptManager {
-        return learningPromptManager
-    }
-    
-    // MARK: - Private Implementation
-    
-    /// Check for similar commands and trigger learning prompts
-    /// - Parameter currentCommand: The successful command to compare against recent failures
-    private func checkForSimilarCommandsAndShowPrompts(_ currentCommand: ProcessedVoiceCommand) async {
-        // Get recent failed commands (commands that weren't successful or had low confidence)
-        let recentFailures = getRecentFailedCommands()
-        
-        guard !recentFailures.isEmpty else { return }
-        
-        // Find similar commands using the similarity engine
-        let similarities = similarityEngine.findSimilarCommands(currentCommand, recentFailures)
-        
-        if !similarities.isEmpty {
-            // Show learning prompts for similar commands
-            await MainActor.run {
-                learningPromptManager.showPrompt(for: similarities)
-            }
-            
-            print("🧠 Found \(similarities.count) similar commands for learning")
-            for similarity in similarities {
-                print("   \(similarity.description)")
-            }
-        }
-    }
-    
-    /// Get recent failed or low-confidence commands for similarity comparison
-    /// - Returns: Array of recent commands that could be potential learning targets
-    private func getRecentFailedCommands() -> [ProcessedVoiceCommand] {
-        // Look at recent commands that might have been failed attempts
-        // This includes commands with low confidence or commands that were processed but may have been corrections
-        let recentWindow = Date().addingTimeInterval(-60) // Look back 60 seconds
-        
-        return recentCommands.filter { command in
-            // Include commands from the recent window that had lower confidence
-            command.timestamp > recentWindow && 
-            (command.confidence < 0.8 || command.ageInSeconds < 10)
-        }
+
     }
     
     /// Performs the actual voice command processing
@@ -229,10 +184,7 @@ class VoiceCommandProcessor: ObservableObject {
                 for command in processedCommands {
                     self.contextManager.learnFromCommand(command)
                     
-                    // NEW: Check for similar commands and trigger learning prompts
-                    Task { @MainActor in
-                        await self.checkForSimilarCommandsAndShowPrompts(command)
-                    }
+
                 }
             }
             
