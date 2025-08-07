@@ -1,43 +1,45 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with this iOS Voice Control app.
+This file provides guidance to Claude Code (claude.ai/code) when working with this Android Voice Control app.
 
 ## Project Overview
 
-This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth authentication and real-time speech-to-text capabilities. Built with SwiftUI and designed for iPhone X+ (iOS 16+) with Firebase backend services.
+This is an **Android Voice Control App** featuring enterprise-grade Google OAuth authentication and real-time speech-to-text capabilities. Built with Jetpack Compose and designed for Android 9.0+ (API 28+) with Firebase backend services.
 
 **Core Features:**
 - 🔐 Enterprise Google Sign-In with Firebase Auth
 - 🎙️ Real-time speech recognition via AssemblyAI streaming
 - 🎛️ Yamaha RCP mixer control integration
-- 📱 Native iOS SwiftUI interface with MVVM architecture
-- 🔄 Hot reloading for rapid development
+- 📱 Modern Android UI with Jetpack Compose and Material Design 3
+- 🔄 MVVM architecture with Hilt dependency injection
+- 🔒 Biometric authentication (fingerprint/face unlock)
+- 💳 Google Play Billing integration
 
 **📚 Developer Resources:**
-- **`QUICKSTART.md`** - Get running in 15 minutes (setup + first build)
-- **`ONBOARDING.md`** - Comprehensive developer guide (architecture, workflow, troubleshooting)
-- **Technology Stack**: Swift 5.9+, SwiftUI, Firebase 11.15.0, Google Sign-In 9.0.0, AssemblyAI streaming
+- **`ANDROID_QUICKSTART.md`** - Get running in 15 minutes (setup + first build)
+- **`ANDROID_ONBOARDING.md`** - Comprehensive developer guide (architecture, workflow, troubleshooting)
+- **Technology Stack**: Kotlin 1.9.22, Jetpack Compose, Firebase 32.7.0, Hilt, AssemblyAI streaming
 
 **Bundle ID:** `com.voicecontrol.app`
 
 ## 🔧 MANDATORY: Proactive MCP Server & AI Documentation Usage
 
-**CRITICAL: Always proactively leverage the 5 installed MCP servers and AI documentation when working on this project.**
+**CRITICAL: Always proactively leverage the installed MCP servers and AI documentation when working on this project.**
 
 ### 🤖 Installed MCP Servers (Use Proactively)
 
 **Claude must automatically use these MCP servers for appropriate tasks:**
 
-1. **`mcp__zen__*`** - AI analysis, debugging, consensus, planning tools
-   - Use for complex problem solving, code review, architectural decisions
-   - Leverage `mcp__zen__debug`, `mcp__zen__analyze`, `mcp__zen__consensus`
+1. **`mcp__zen__*`** - AI analysis, debugging, consensus, planning tools (Use Only When Asked)
+   - Only use when explicitly requested by user
+   - Includes `mcp__zen__debug`, `mcp__zen__analyze`, `mcp__zen__consensus`
 
 2. **`mcp__context7__*`** - Up-to-date library documentation
-   - Use when working with Firebase, SwiftUI, Google Sign-In, AssemblyAI
+   - Use when working with Firebase, Jetpack Compose, Hilt, Google Sign-In, AssemblyAI
    - Always resolve library IDs before getting docs
 
 3. **`mcp__serena__*`** - Semantic code analysis and editing
-   - Use for Swift code understanding, symbol finding, code navigation
+   - Use for Kotlin code understanding, symbol finding, code navigation
    - Leverage for intelligent code modifications and refactoring
 
 4. **`mcp__voice-mode__*`** - Voice interaction capabilities
@@ -45,7 +47,7 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
    - Leverage for audio system integration
 
 5. **`mcp__brave-search__*`** - Web search for current information
-   - Use for latest iOS development practices, Swift updates
+   - Use for latest Android development practices, Kotlin/Compose updates
    - Search for current Firebase/Google SDK documentation
 
 ### 📚 AI Documentation Resources (Reference Frequently)
@@ -60,7 +62,7 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
 
 **Proactive Usage Pattern:**
 1. **Before starting any task** → Check relevant ai_docs files
-2. **For complex problems** → Use mcp_zen tools for analysis
+2. **For complex problems** → Use mcp_zen tools only when explicitly requested
 3. **For library questions** → Use mcp_context7 for current docs  
 4. **For code navigation** → Use mcp_serena for semantic analysis
 5. **For current info** → Use mcp_brave_search for latest practices
@@ -69,129 +71,134 @@ This is an **iOS Voice Control App** featuring enterprise-grade Google OAuth aut
 
 **Available specialized agents in `claude_md_files/` folder:**
 
-- **Swift/iOS**: `CLAUDE-SWIFT-IOS-AGENT.md` - Scope error prevention, framework imports, type safety
+- **Java Gradle**: `CLAUDE-JAVA-GRADLE.md` - Android build system patterns, Kotlin/Gradle best practices
 - **React**: `CLAUDE-REACT.md` - Component patterns, type safety, testing  
 - **Node.js**: `CLAUDE-NODE.md` - Server patterns, async/await, error handling
-- **Java Gradle**: `CLAUDE-JAVA-GRADLE.md` - Build system patterns
 - **Python**: `CLAUDE-PYTHON-BASIC.md` - Python development patterns
 
 **To activate an agent, simply tell Claude:**
-- "use Swift iOS agent"
+- "use Java Gradle agent" (for Android/Kotlin development)
 - "use React agent" 
 - "use Node agent"
 
 **That's it.** No automatic detection - you control when to apply specific technology best practices.
 
-## 🔥 MANDATORY: Use iPhone 16 iOS 18.5 Simulator Only
+## 🔥 MANDATORY: Android Build and Run Instructions
 
-**CRITICAL RULE: ALWAYS use iPhone 16 iOS 18.5 simulator for builds and testing. NEVER use physical device or other simulators.**
+**CRITICAL RULE: Use Android Studio and Gradle for builds and testing. Support both emulator and physical device testing.**
 
-For this iOS project, use the optimized simulator workflow:
+For this Android project, use the standard Android development workflow:
 
 ```bash
-# REQUIRED: Build for iPhone 16 iOS 18.5 simulator
-cd /Users/colinmignot/Cursor/Ios\ Voice\ Control/PRPs-agentic-eng && xcodebuild -project VoiceControlApp.xcodeproj -scheme VoiceControlApp -destination 'platform=iOS Simulator,name=iPhone 16 18.5,OS=18.5' -configuration Debug build
+# REQUIRED: Build debug APK
+cd AndroidVoiceControlApp && ./gradlew assembleDebug
 
-# Then launch the app on simulator (after successful build)
-xcrun simctl launch 5B1989A0-1EC8-4187-8A99-466B20CB58F2 com.voicecontrol.app
+# Install on connected device or emulator
+./gradlew installDebug
+
+# Build and run in one command
+./gradlew installDebug && adb shell am start -n com.voicecontrol.app.debug/com.voicecontrol.app.MainActivity
 ```
 
-**Why iPhone 16 iOS 18.5 Simulator Only:**
-- Consistent testing environment
-- No iOS 26 compatibility issues (FBSceneErrorDomain crashes)
-- Firebase Authentication works properly
-- Google Sign-In bypassed in simulator (as intended)
-- Biometric authentication properly protected for simulator
-- Auto-login testing functionality works
-- Fast rebuild and deployment cycles
+**Why Android Studio + Gradle:**
+- Standard Android development workflow
+- Proper dependency management
+- Firebase integration works correctly
+- Google Sign-In works on real devices (limited on emulators)
+- Biometric authentication requires real device
+- Speech recognition needs real device for proper testing
+- Hilt dependency injection properly configured
 
-This command:
-- Builds the iOS app for simulator target
-- Builds for iPhone 16 iOS 18.5 simulator (5B1989A0-1EC8-4187-8A99-466B20CB58F2)
-- Creates build artifacts for simulator
-- Ready to launch with xcrun simctl command
-- Uses proper xcodebuild for simulator target
+**Alternative Android Studio method:**
+- Open `AndroidVoiceControlApp` in Android Studio
+- Click "Run" button (▶️) or use Shift+F10
+- Select target device (emulator or physical)
 
 ### ❌ DO NOT USE THESE COMMANDS:
 ```bash
-# NEVER USE PHYSICAL DEVICE:
-ios-deploy -b .../Debug-iphoneos/VoiceControlApp.app -i 2b51e8a8e9ffe69c13296dd6673c5e0d47027e14  # ❌ WRONG
+# NEVER BUILD WITHOUT GRADLE WRAPPER:
+gradle assembleDebug  # ❌ WRONG - use ./gradlew
 
-# NEVER USE OTHER SIMULATORS:
-ios-deploy -b .../Debug-iphonesimulator/VoiceControlApp.app -i [OTHER_SIMULATOR_ID]  # ❌ WRONG
+# NEVER SKIP DEPENDENCY SYNC:
+# Always let Android Studio sync when Gradle files change
 ```
 
-## iOS Simulator Log Capture Workflow
+## Android Log Capture Workflow
 
-After deploying with the fast build command, capture simulator logs for debugging:
+After deploying with Gradle commands, capture Android logs for debugging:
 
-**Simulator Log Capture:**
+**Android Logcat Capture:**
 
-When you say "grab logs", Claude retrieves recent logs from iOS simulator buffer - captures your past testing activity without needing live capture during testing.
+When you say "grab logs", Claude retrieves recent logs from Android logcat buffer - captures your past testing activity without needing live capture during testing.
 
 ```bash
-# SIMULATOR LOGS ONLY (5s max) - Recent buffer, no live streaming
-tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep VoiceControlApp | head -30
+# APP LOGS ONLY (5s max) - Recent buffer, no live streaming
+adb logcat -t 200 | grep "VoiceControlApp\|com.voicecontrol.app" | head -30
 
-# OAUTH/GOOGLE ERRORS - Past authentication issues  
-tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+# OAUTH/GOOGLE ERRORS - Past authentication issues
+adb logcat -t 300 | grep -E "(Google|OAuth|Firebase|Auth)" | head -20
 
 # APP CRASHES - Past error buffer
-tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
+adb logcat -t 100 | grep -E "(FATAL|AndroidRuntime|crash)" | head -15
+
+# FIREBASE/NETWORK ERRORS - Connection issues
+adb logcat -t 200 | grep -E "(Firebase|Network|HTTP|AssemblyAI)" | head -25
 ```
 
 **CRITICAL: All log commands must complete within 5 seconds and only read past buffer logs - never live stream.**
 
 **Buffer-Based Log Workflow:**
-1. **Build & Deploy**: Claude launches app to iPhone 16 iOS 18.5 simulator
+1. **Build & Deploy**: Claude builds and installs APK to device/emulator
 2. **Manual Testing**: You test freely - no logging interference 
 3. **Request Logs**: Say "grab logs" to get recent buffer:
    - "grab logs" → MINIMAL (50 lines, app-only)
-   - "grab verbose logs" → VERBOSE (200 lines, includes UIKit)
+   - "grab verbose logs" → VERBOSE (200 lines, includes system)
    - "grab error logs" → ERROR HUNTING (crashes only)
-4. **Analysis**: Claude analyzes your past testing activity from iOS simulator buffer
+4. **Analysis**: Claude analyzes your past testing activity from Android logcat buffer
 5. **Iterate**: Build → Test → Grab → Analyze → Repeat
 
-## 🛑 MANDATORY: File Addition to Xcode Project Rule
+## 🛑 MANDATORY: Android File Creation and Gradle Sync Rule
 
-**CRITICAL: Every time you create a new Swift file, you MUST add it to the Xcode project before building.**
+**CRITICAL: When creating new Kotlin files, follow Android project structure and sync Gradle when needed.**
 
-**✅ WORKING Command for adding new files to build target:**
-```bash
-cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng" && python3 -c "
-import pbxproj
-project = pbxproj.XcodeProject.load('VoiceControlApp.xcodeproj/project.pbxproj')
-project.add_file('VoiceControlApp/Path/To/NewFile.swift', target_name='VoiceControlApp')
-project.save()
-print('✅ NewFile.swift added to VoiceControlApp target')
-"
+**✅ Standard Android file creation workflow:**
+1. **Create Kotlin files** in appropriate package structure under `src/main/java/com/voicecontrol/app/`
+2. **Follow naming conventions**: PascalCase for classes, camelCase for functions
+3. **Use proper package declarations**: `package com.voicecontrol.app.feature.model`
+4. **Android Studio auto-sync**: Most file additions are automatically detected
+
+**File structure examples:**
+```kotlin
+// New Service: src/main/java/com/voicecontrol/app/feature/service/NewService.kt
+package com.voicecontrol.app.feature.service
+
+class NewService @Inject constructor() {
+    // Implementation
+}
+
+// New ViewModel: src/main/java/com/voicecontrol/app/ui/viewmodel/NewViewModel.kt
+package com.voicecontrol.app.ui.viewmodel
+
+@HiltViewModel
+class NewViewModel @Inject constructor() : ViewModel() {
+    // Implementation
+}
 ```
 
-**Alternative method (if Python method fails):**
-```bash
-cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng" && pbxproj file VoiceControlApp.xcodeproj VoiceControlApp/Path/To/NewFile.swift
-```
+**When to manually sync Gradle:**
+- Adding new dependencies to `build.gradle.kts`
+- Creating new modules
+- Changing build configurations
+- Use: **File → Sync Project with Gradle Files** in Android Studio
 
-**Examples of recent successful file additions:**
-```bash
-# EffectsProcessor.swift
-cd "/Users/colinmignot/Cursor/Ios Voice Control/PRPs-agentic-eng" && python3 -c "
-import pbxproj
-project = pbxproj.XcodeProject.load('VoiceControlApp.xcodeproj/project.pbxproj')
-project.add_file('VoiceControlApp/VoiceCommand/Services/EffectsProcessor.swift', target_name='VoiceControlApp')
-project.save()
-print('✅ EffectsProcessor.swift added to VoiceControlApp target')
-"
-```
-
-**This applies to ALL new Swift files:**
-- Service classes (ChannelProcessor, RoutingProcessor, EffectsProcessor, etc.)
-- UI components
-- Model files
-- Extension files
+**This applies to ALL new Kotlin files:**
+- Service classes (processors, managers, clients)
+- UI components (Composables, screens)
+- Model files (data classes)
+- ViewModels
 - Test files
 
-**NEVER attempt to build without adding new files to the project first.**
+**Gradle automatically includes new Kotlin files in the source tree.**
 
 ## 🛑 MANDATORY: Universal Manual Action Stop Rule
 
@@ -231,172 +238,194 @@ After completing these steps, I can help you:
 ## Current Technology Stack
 
 **Frontend:**
-- Swift 5.9+ with SwiftUI
+- Kotlin 1.9.22 with Jetpack Compose
 - MVVM architecture pattern
-- ObservableObject state management
-- Hot reloading (InjectionNext + HotSwiftUI)
+- StateFlow/LiveData state management
+- Material Design 3 theming
 
 **Backend & Services:**
-- Firebase iOS SDK 11.15.0 (Auth, Database, Firestore, Functions)
-- Google Sign-In SDK 9.0.0
+- Firebase Android SDK 32.7.0 (Auth, Database, Firestore, Functions)
+- Google Sign-In SDK 20.7.0
 - AssemblyAI real-time streaming API
-- Starscream WebSocket library 4.0.8
-- AppAuth-iOS 2.0.0 for OAuth flows
+- OkHttp 4.12.0 for networking
+- Google Play Billing 6.1.0
 
 **Development Tools:**
-- Xcode 15.0+
-- ios-deploy (simulator builds)
-- iOS Simulator (iPhone 16 iOS 18.5 - Device ID: 5B1989A0-1EC8-4187-8A99-466B20CB58F2)
-- HotSwiftUI 1.2.1 for hot reloading
+- Android Studio Hedgehog 2023.1.1+
+- Gradle 8.2.1 with Kotlin DSL
+- Hilt 2.48.1 for dependency injection
+- Compose UI tooling for live previews
 
-**Key Dependencies (from Package.resolved):**
-- Firebase iOS SDK 11.15.0
-- Google Sign-In 9.0.0
-- Starscream 4.0.8
-- HotSwiftUI 1.2.1
-- GoogleUtilities 8.1.0
+**Key Dependencies (from build.gradle.kts):**
+- Firebase BOM 32.7.0
+- Jetpack Compose BOM 2024.02.00
+- Hilt 2.48.1
+- Coroutines 1.7.3
+- Security Crypto 1.1.0-alpha06
 
 ## Project Structure
 
 ```
-VoiceControlApp/
-├── VoiceControlAppApp.swift          # App entry point with Firebase config
-├── ContentView.swift                 # Root view with auth flow
-├── VoiceControlMainView.swift        # Main app interface
-├── Info.plist                        # URL schemes & permissions
-├── GoogleService-Info.plist          # Firebase configuration
-├── VoiceControlApp.entitlements      # App capabilities
+AndroidVoiceControlApp/
+├── app/
+│   ├── build.gradle.kts             # App-level build configuration
+│   └── src/main/java/com/voicecontrol/app/
+│       ├── MainActivity.kt          # Main entry point
+│       ├── VoiceControlApplication.kt # Application class
+│       │
+│       ├── authentication/          # Complete auth system
+│       │   ├── model/               # Auth data models
+│       │   ├── service/             # Auth services (Google, Firebase, Biometric)
+│       │   └── viewmodel/           # Auth business logic
+│       │
+│       ├── di/                      # Dependency injection modules
+│       │   ├── ApplicationModule.kt # Core DI setup
+│       │   ├── AuthenticationModule.kt
+│       │   └── NetworkModule.kt
+│       │
+│       ├── speech/                  # Speech-to-text system
+│       │   ├── service/             # AssemblyAI integration
+│       │   └── model/               # Speech processing models
+│       │
+│       ├── ui/                      # UI layer
+│       │   ├── component/           # Reusable Compose components
+│       │   ├── screen/              # Screen composables
+│       │   ├── theme/               # Material Design theme
+│       │   └── navigation/          # Navigation setup
+│       │
+│       ├── network/                 # Network layer
+│       │   ├── service/             # RCP network client
+│       │   └── model/               # Network data models
+│       │
+│       └── voice/                   # Voice command processing
+│           ├── service/             # Command processing logic
+│           └── model/               # Voice command models
 │
-├── Authentication/                   # Complete auth system
-│   ├── Components/                  # UI components (GoogleSignInButton)
-│   ├── Models/                      # Auth models & state
-│   ├── Services/                    # Auth services (Google, Firebase, Biometric)
-│   ├── ViewModels/                  # Auth business logic
-│   └── Views/                       # Auth screens
-│
-├── SpeechRecognition/               # Speech-to-text system
-│   ├── AssemblyAIStreamer.swift     # Real-time streaming client
-│   ├── AudioManager.swift           # Audio capture & processing
-│   └── Models/                      # Speech processing models
-│
-└── Shared/                          # Common utilities
-    ├── Components/                  # Reusable UI components
-    ├── Extensions/                  # Swift extensions
-    └── Utils/                       # Helper utilities
+├── build.gradle.kts                 # Project-level build configuration
+├── gradle.properties               # Gradle properties
+└── local.properties               # Local configuration (API keys)
 ```
 
 ## Key Files & Components
 
 **Entry Points:**
-- **`VoiceControlAppApp.swift:12`**: App initialization with Firebase and Google Sign-In setup
-- **`ContentView.swift:1`**: Root view with authentication flow and main UI logic
-- **`VoiceControlMainView.swift`**: Main application interface post-authentication
+- **`MainActivity.kt`**: Main activity with Compose setup and navigation
+- **`VoiceControlApplication.kt`**: Application class with Hilt and Firebase initialization
+- **`ui/navigation/VoiceControlNavigation.kt`**: Navigation graph and routing logic
 
 **Authentication System:**
-- **`Authentication/ViewModels/AuthenticationManager.swift`**: Central auth state management
-- **`Authentication/Services/GoogleSignInService.swift`**: Google OAuth implementation
-- **`Authentication/Services/FirebaseAuthService.swift`**: Firebase Auth integration
-- **`Authentication/Services/BiometricService.swift`**: Face ID/Touch ID authentication
+- **`authentication/viewmodel/AuthenticationViewModel.kt`**: Central auth state management
+- **`authentication/service/GoogleSignInService.kt`**: Google OAuth implementation
+- **`authentication/service/FirebaseAuthService.kt`**: Firebase Auth integration
+- **`authentication/service/BiometricAuthService.kt`**: Fingerprint/face unlock
 
 **Speech Recognition:**
-- **`SpeechRecognition/AssemblyAIStreamer.swift`**: Real-time speech streaming client
-- **`SpeechRecognition/AudioManager.swift`**: Audio capture and processing
-- **`SpeechRecognition/Models/TranscriptionModels.swift`**: Speech processing models
+- **`speech/service/AssemblyAIStreamer.kt`**: Real-time speech streaming client
+- **`speech/service/AudioManager.kt`**: Audio capture and processing
+- **`speech/model/TranscriptionResult.kt`**: Speech processing models
+
+**Dependency Injection:**
+- **`di/ApplicationModule.kt`**: Core application dependencies
+- **`di/AuthenticationModule.kt`**: Authentication-specific dependencies
+- **`di/NetworkModule.kt`**: Network layer dependencies
 
 **Configuration:**
-- **`Info.plist`**: URL schemes (`com.googleusercontent.apps.1020288809254-gs8jhl1ak8oi5rasarpc1i5cq28sokjv`) and microphone permissions
-- **`GoogleService-Info.plist`**: Firebase configuration with OAuth client IDs
-- **`VoiceControlApp.entitlements`**: App capabilities and security settings
+- **`app/build.gradle.kts`**: App-level dependencies and build configuration
+- **`google-services.json`**: Firebase configuration (add to app/ directory)
+- **`local.properties`**: Local API keys and configuration
 
 ## Development Workflow
 
 **Standard Development Cycle:**
-1. **Make changes** to Swift files in Xcode
-2. **Build and deploy** using xcodebuild command to iPhone 16 iOS 18.5 simulator
-3. **Test manually** on iPhone 16 iOS 18.5 simulator (required)
-4. **Capture logs** when needed using buffer-based commands (5s max)
-5. **Iterate** quickly with hot reloading enabled
+1. **Make changes** to Kotlin files in Android Studio
+2. **Build and deploy** using Gradle commands to Android device/emulator
+3. **Test manually** on Android device/emulator (real device preferred for speech/auth)
+4. **Capture logs** when needed using logcat buffer commands (5s max)
+5. **Iterate** quickly with Compose live previews
 
 **Architecture Guidelines:**
-- **MVVM Pattern**: Separate Views, ViewModels, and Services
-- **Dependency Injection**: Services injected into ViewModels
-- **State Management**: @Published properties with ObservableObject
-- **Error Handling**: Result types with custom error models
+- **MVVM Pattern**: Separate Composables, ViewModels, and Services
+- **Dependency Injection**: Hilt for all service injection
+- **State Management**: StateFlow/LiveData with Compose state
+- **Error Handling**: Result types and sealed classes
 - **Security**: Never log sensitive data (tokens, passwords)
 
 **Code Organization:**
-- **Modular Structure**: Feature-based folders (Authentication/, SpeechRecognition/)
+- **Feature-based Structure**: Packages by feature (authentication/, speech/, etc.)
 - **Service Layer**: External API integrations (Google, Firebase, AssemblyAI)
-- **Shared Components**: Reusable UI and utility components
-- **Model Separation**: Clear data model definitions
+- **UI Components**: Reusable Compose components in ui/component/
+- **Model Separation**: Data classes and sealed classes for state
 
 **Testing Approach:**
-- **Manual Testing**: Primary method on iPhone 16 iOS 18.5 simulator
-- **Authentication Flow**: Test Google sign-in (bypassed in simulator), logout, session persistence
+- **Manual Testing**: Primary method on Android device (real device for full features)
+- **Authentication Flow**: Test Google sign-in, logout, session persistence
 - **Speech Features**: Test microphone permissions and real-time transcription
 - **Network Scenarios**: Test various connectivity conditions
-- **Biometric Auth**: Test Face ID/Touch ID simulation
-- **Hot Reload**: Verify UI changes reflect immediately during development
+- **Biometric Auth**: Test fingerprint/face unlock on real device
+- **Compose Previews**: Use @Preview for UI testing during development
 
 **Testing Workflow:**
-1. Build & deploy with xcodebuild command
-2. Manual testing on iPhone 16 iOS 18.5 simulator
-3. Capture logs when needed (buffer-based, 5s max)
-4. Iterate with hot reloading for UI changes
+1. Build & deploy with Gradle commands
+2. Manual testing on Android device/emulator
+3. Capture logs when needed (logcat buffer-based, 5s max)
+4. Iterate with Compose previews for UI changes
 
 ## Development Best Practices
 
 **✅ DO:**
-- Use iPhone 16 iOS 18.5 simulator (stable, consistent)
+- Use real Android device for full feature testing (preferred)
 - Follow MVVM architecture with clear separation
-- Use SwiftUI best practices and existing patterns
-- Implement proper error handling with Result types
-- Use dependency injection for services
-- Follow existing code style and naming conventions
-- Use hot reloading for rapid UI development
-- Capture logs efficiently (buffer-based, 5s max)
+- Use Jetpack Compose best practices and Material Design 3
+- Implement proper error handling with Result types and sealed classes
+- Use Hilt dependency injection for all services
+- Follow Kotlin coding conventions and existing patterns
+- Use Compose live previews for rapid UI development
+- Capture logs efficiently (logcat buffer-based, 5s max)
 
 **❌ DON'T:**
-- Use physical device or other simulators (compatibility issues)
-- Hardcode credentials or sensitive data
-- Skip URL scheme configuration (breaks OAuth)
+- Hardcode credentials or sensitive data (use local.properties)
+- Skip Gradle sync after dependency changes
 - Create workarounds for manual setup requirements
 - Continue when manual actions are needed
-- Block main thread with heavy operations
+- Block main thread with heavy operations (use coroutines)
 - Log sensitive authentication data
 - Use live streaming for log capture
 
 ## Common Development Tasks
 
 ### Adding New Authentication Method
-1. Create service in `Authentication/Services/`
-2. Extend `AuthenticationState.swift` and error models
-3. Update `AuthenticationManager.swift`
-4. Add UI components in `Authentication/Views/`
-5. Test with iPhone 16 iOS 18.5 simulator
+1. Create service in `authentication/service/`
+2. Extend `AuthState.kt` and error models
+3. Update `AuthenticationViewModel.kt`
+4. Add UI components in `ui/component/auth/`
+5. Test with Android device (real device preferred)
 
 ### Adding New Speech Feature
-1. Extend models in `SpeechRecognition/Models/`
-2. Modify `AssemblyAIStreamer.swift`
-3. Update `StreamingConfig.swift`
-4. Test real-time functionality
+1. Extend models in `speech/model/`
+2. Modify `AssemblyAIStreamer.kt`
+3. Update `StreamingConfig.kt`
+4. Test real-time functionality on device
 
 ### Debugging Common Issues
-1. **Build Failures**: Clean Xcode build folder (⌘⇧K), verify simulator
-2. **Authentication Issues**: Check URL schemes in Info.plist, verify Firebase config
-3. **Speech Recognition**: Verify microphone permissions, check AssemblyAI API key
-4. **WebSocket Errors**: Check network connectivity, verify endpoint URLs
+1. **Build Failures**: Clean project (Build → Clean Project), sync Gradle
+2. **Authentication Issues**: Check `google-services.json` placement, verify Firebase config
+3. **Speech Recognition**: Verify microphone permissions in AndroidManifest, check AssemblyAI API key
+4. **Network Errors**: Check network security config, verify endpoints
+5. **Hilt Errors**: Ensure proper @Inject annotations and module bindings
 
 ### Log Monitoring Commands
 ```bash
 # Standard app logs (use this most often)
-tail -200 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep VoiceControlApp | head -30
+adb logcat -t 200 | grep "VoiceControlApp\|com.voicecontrol.app" | head -30
 
 # OAuth/authentication errors
-tail -300 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(Google|OAuth|blocked)" | head -20
+adb logcat -t 300 | grep -E "(Google|OAuth|Firebase|Auth)" | head -20
 
 # App crashes and errors
-tail -100 /Users/colinmignot/Library/Developer/CoreSimulator/Devices/5B1989A0-1EC8-4187-8A99-466B20CB58F2/data/Library/Logs/system.log | grep -E "(VoiceControlApp.*error|crash)" | head -15
+adb logcat -t 100 | grep -E "(FATAL|AndroidRuntime|crash)" | head -15
+
+# Firebase/network errors
+adb logcat -t 200 | grep -E "(Firebase|Network|HTTP|AssemblyAI)" | head -25
 ```
 
 ## Google Cloud Console URLs
