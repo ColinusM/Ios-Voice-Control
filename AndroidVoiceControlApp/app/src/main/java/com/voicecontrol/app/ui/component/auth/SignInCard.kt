@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -191,7 +192,7 @@ fun SignInCard(
                     onDone = { 
                         focusManager.clearFocus()
                         if (!isSignUpMode && email.isNotBlank() && password.isNotBlank()) {
-                            authViewModel.signInWithEmailPassword(email, password)
+                            authViewModel.signIn(email, password)
                         }
                     }
                 ),
@@ -245,7 +246,7 @@ fun SignInCard(
                             focusManager.clearFocus()
                             if (email.isNotBlank() && password.isNotBlank() && 
                                 password == confirmPassword && displayName.isNotBlank()) {
-                                authViewModel.signUpWithEmailPassword(email, password, displayName)
+                                authViewModel.signUp(email, password, displayName)
                             }
                         }
                     ),
@@ -282,11 +283,11 @@ fun SignInCard(
                     if (isSignUpMode) {
                         if (email.isNotBlank() && password.isNotBlank() && 
                             password == confirmPassword && displayName.isNotBlank()) {
-                            authViewModel.signUpWithEmailPassword(email, password, displayName)
+                            authViewModel.signUp(email, password, displayName)
                         }
                     } else {
                         if (email.isNotBlank() && password.isNotBlank()) {
-                            authViewModel.signInWithEmailPassword(email, password)
+                            authViewModel.signIn(email, password)
                         }
                     }
                 },
@@ -341,14 +342,14 @@ fun SignInCard(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Divider(modifier = Modifier.weight(1f))
+                HorizontalDivider(modifier = Modifier.weight(1f))
                 Text(
                     text = "or",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
-                Divider(modifier = Modifier.weight(1f))
+                HorizontalDivider(modifier = Modifier.weight(1f))
             }
             
             Spacer(modifier = Modifier.height(16.dp))

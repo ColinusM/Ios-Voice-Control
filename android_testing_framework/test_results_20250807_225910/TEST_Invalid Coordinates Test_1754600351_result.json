@@ -1,0 +1,8 @@
+{
+  "test_name": "Invalid Coordinates Test",
+  "passed": false,
+  "timestamp": "2025-08-07T22:59:14.993150",
+  "expected_pattern": "ERROR|Exception|crash",
+  "found_lines": [],
+  "errors": []
+}

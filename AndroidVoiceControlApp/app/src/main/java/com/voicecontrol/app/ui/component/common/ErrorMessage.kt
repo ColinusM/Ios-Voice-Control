@@ -72,8 +72,8 @@ fun ErrorMessage(
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
-                containerColor = type.containerColor,
-                contentColor = type.contentColor
+                containerColor = type.containerColor(),
+                contentColor = type.contentColor()
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
             shape = MaterialTheme.shapes.medium
@@ -90,7 +90,7 @@ fun ErrorMessage(
                     imageVector = type.icon,
                     contentDescription = "${type.name} icon",
                     modifier = Modifier.size(24.dp),
-                    tint = type.iconColor
+                    tint = type.iconColor()
                 )
                 
                 Spacer(modifier = Modifier.width(12.dp))
@@ -99,7 +99,7 @@ fun ErrorMessage(
                 Text(
                     text = message,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = type.contentColor,
+                    color = type.contentColor(),
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Start
                 )
@@ -117,7 +117,7 @@ fun ErrorMessage(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Dismiss error",
                         modifier = Modifier.size(20.dp),
-                        tint = type.contentColor
+                        tint = type.contentColor()
                     )
                 }
             }

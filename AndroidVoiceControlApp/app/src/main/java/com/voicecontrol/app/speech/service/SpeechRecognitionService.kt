@@ -1,6 +1,6 @@
 package com.voicecontrol.app.speech.service
 
-import android.util.Log
+import com.voicecontrol.app.utils.VLogger
 import com.voicecontrol.app.BuildConfig
 import com.voicecontrol.app.speech.model.StreamingConfig
 import com.voicecontrol.app.speech.model.TranscriptionResult
@@ -81,17 +81,14 @@ class SpeechRecognitionService @Inject constructor(
     }
     
     init {
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🎙️ SpeechRecognitionService initialized")
-        }
+        VLogger.d(TAG, "🎙️ SpeechRecognitionService initialized")
         
         // Observe audio manager permission state
         serviceScope.launch {
             audioManager.hasAudioPermissionFlow.collect { hasPermission ->
                 _hasAudioPermission.value = hasPermission
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.d(TAG, "🔐 Audio permission: $hasPermission")
-                }
+                VLogger.d(TAG, "🔐 Audio permission: $hasPermission", 
+                    mapOf("hasPermission" to hasPermission.toString()))
             }
         }
         
@@ -105,9 +102,8 @@ class SpeechRecognitionService @Inject constructor(
         // Observe AssemblyAI connection state
         serviceScope.launch {
             assemblyAIStreamer.connectionState.collect { connectionState ->
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.d(TAG, "🔗 AssemblyAI connection: $connectionState")
-                }
+                VLogger.d(TAG, "🔗 AssemblyAI connection: $connectionState", 
+                    mapOf("connectionState" to connectionState.toString()))
                 
                 // Update recognition state based on connection
                 when (connectionState) {
@@ -145,9 +141,8 @@ class SpeechRecognitionService @Inject constructor(
         audioManager.updateAudioPermission(granted)
         _hasAudioPermission.value = granted
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🔐 Audio permission updated: $granted")
-        }
+        VLogger.d(TAG, "🔐 Audio permission updated: $granted", 
+            mapOf("granted" to granted.toString()))
     }
     
     /**
@@ -156,16 +151,12 @@ class SpeechRecognitionService @Inject constructor(
      */
     suspend fun startRecognition(config: StreamingConfig = StreamingConfig.professionalAudio()): Boolean {
         if (_isRecognizing.value) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Speech recognition already running")
-            }
+            VLogger.w(TAG, "⚠️ Speech recognition already running")
             return true
         }
         
         if (!_hasAudioPermission.value) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Cannot start recognition - no audio permission")
-            }
+            VLogger.e(TAG, "❌ Cannot start recognition - no audio permission")
             _recognitionState.value = RecognitionState.Error
             return false
         }
@@ -174,50 +165,43 @@ class SpeechRecognitionService @Inject constructor(
         _isRecognizing.value = true
         _recognitionState.value = RecognitionState.Starting
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🚀 Starting speech recognition")
-            Log.d(TAG, "📊 Config: $config")
-        }
+        VLogger.d(TAG, "🚀 Starting speech recognition", 
+            mapOf("config" to config.toString()))
         
         // Start recognition pipeline in coroutine
         recognitionJob = serviceScope.launch {
             try {
-                // Step 1: Connect to AssemblyAI
-                val streamingStarted = assemblyAIStreamer.startStreaming(config)
-                if (!streamingStarted) {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.e(TAG, "❌ Failed to start AssemblyAI streaming")
+                VLogger.time("speech_recognition_pipeline", "Speech Recognition Pipeline") {
+                    // Step 1: Connect to AssemblyAI
+                    val streamingStarted = assemblyAIStreamer.startStreaming(config)
+                    if (!streamingStarted) {
+                        VLogger.e(TAG, "❌ Failed to start AssemblyAI streaming")
+                        _recognitionState.value = RecognitionState.Error
+                        _isRecognizing.value = false
+                        return@launch
                     }
-                    _recognitionState.value = RecognitionState.Error
-                    _isRecognizing.value = false
-                    return@launch
-                }
-                
-                // Step 2: Start audio recording with callback
-                val audioStarted = audioManager.startRecording { audioData, length ->
-                    handleAudioData(audioData, length)
-                }
-                
-                if (!audioStarted) {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.e(TAG, "❌ Failed to start audio recording")
+                    
+                    // Step 2: Start audio recording with callback
+                    val audioStarted = audioManager.startRecording { audioData, length ->
+                        handleAudioData(audioData, length)
                     }
-                    assemblyAIStreamer.stopStreaming()
-                    _recognitionState.value = RecognitionState.Error
-                    _isRecognizing.value = false
-                    return@launch
-                }
-                
-                _recognitionState.value = RecognitionState.Processing
-                
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.d(TAG, "✅ Speech recognition pipeline started successfully")
+                    
+                    if (!audioStarted) {
+                        VLogger.e(TAG, "❌ Failed to start audio recording")
+                        assemblyAIStreamer.stopStreaming()
+                        _recognitionState.value = RecognitionState.Error
+                        _isRecognizing.value = false
+                        return@launch
+                    }
+                    
+                    _recognitionState.value = RecognitionState.Processing
+                    
+                    VLogger.d(TAG, "✅ Speech recognition pipeline started successfully")
                 }
                 
             } catch (e: Exception) {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.e(TAG, "❌ Error starting speech recognition", e)
-                }
+                VLogger.e(TAG, "❌ Error starting speech recognition", 
+                    mapOf("error" to (e.message ?: "Unknown error")), e)
                 _recognitionState.value = RecognitionState.Error
                 _isRecognizing.value = false
             }
@@ -232,17 +216,13 @@ class SpeechRecognitionService @Inject constructor(
      */
     suspend fun stopRecognition() {
         if (!_isRecognizing.value) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Speech recognition not running")
-            }
+            VLogger.w(TAG, "⚠️ Speech recognition not running")
             return
         }
         
         _recognitionState.value = RecognitionState.Stopping
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🛑 Stopping speech recognition")
-        }
+        VLogger.d(TAG, "🛑 Stopping speech recognition")
         
         try {
             // Cancel recognition job
@@ -259,14 +239,11 @@ class SpeechRecognitionService @Inject constructor(
             _recognitionState.value = RecognitionState.Stopped
             _audioLevel.value = 0.0f
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "✅ Speech recognition stopped successfully")
-            }
+            VLogger.d(TAG, "✅ Speech recognition stopped successfully")
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error stopping speech recognition", e)
-            }
+            VLogger.e(TAG, "❌ Error stopping speech recognition", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
             _recognitionState.value = RecognitionState.Error
         }
     }
@@ -286,23 +263,20 @@ class SpeechRecognitionService @Inject constructor(
             val audioLevel = _audioLevel.value
             if (audioLevel < MIN_AUDIO_LEVEL_THRESHOLD) {
                 // Skip very quiet audio to reduce processing
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.v(TAG, "🔇 Skipping quiet audio (level: ${"%.4f".format(audioLevel)})")
-                }
+                VLogger.v(TAG, "🔇 Skipping quiet audio (level: ${"%.4f".format(audioLevel)})", 
+                    mapOf("audioLevel" to "%.4f".format(audioLevel)))
                 return
             }
             
             // Send audio data to AssemblyAI
             assemblyAIStreamer.sendAudioData(audioData, length)
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.v(TAG, "🎵 Sent $length bytes to AssemblyAI (level: ${"%.3f".format(audioLevel)})")
-            }
+            VLogger.v(TAG, "🎵 Sent $length bytes to AssemblyAI (level: ${"%.3f".format(audioLevel)})", 
+                mapOf("bytesLength" to length.toString(), "audioLevel" to "%.3f".format(audioLevel)))
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error processing audio data", e)
-            }
+            VLogger.e(TAG, "❌ Error processing audio data", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
         }
     }
     
@@ -314,9 +288,8 @@ class SpeechRecognitionService @Inject constructor(
     fun updateConfiguration(config: StreamingConfig) {
         currentConfig = config
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "📊 Updated configuration: $config")
-        }
+        VLogger.d(TAG, "📊 Updated configuration: $config", 
+            mapOf("config" to config.toString()))
     }
     
     /**
@@ -358,9 +331,7 @@ class SpeechRecognitionService @Inject constructor(
             _recognitionState.value = RecognitionState.Stopped
             _isRecognizing.value = false
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "🔄 Error state cleared")
-            }
+            VLogger.d(TAG, "🔄 Error state cleared")
         }
     }
     
@@ -385,9 +356,7 @@ class SpeechRecognitionService @Inject constructor(
      * Equivalent to iOS cleanup method
      */
     fun cleanup() {
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🧹 Cleaning up SpeechRecognitionService")
-        }
+        VLogger.d(TAG, "🧹 Cleaning up SpeechRecognitionService")
         
         // Stop recognition if active
         if (_isRecognizing.value) {
@@ -403,8 +372,6 @@ class SpeechRecognitionService @Inject constructor(
         // Cancel coroutine scope
         serviceScope.cancel()
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🧹 SpeechRecognitionService cleanup completed")
-        }
+        VLogger.d(TAG, "🧹 SpeechRecognitionService cleanup completed")
     }
 }

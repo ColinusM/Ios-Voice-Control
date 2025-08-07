@@ -1,0 +1,1 @@
+08-07 22:33:54.506   677   980 D CoreBackPreview: Window{6b9dc11 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@94be555, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}

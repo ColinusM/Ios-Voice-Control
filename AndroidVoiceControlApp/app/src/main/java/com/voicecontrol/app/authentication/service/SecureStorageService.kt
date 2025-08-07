@@ -3,7 +3,7 @@ package com.voicecontrol.app.authentication.service
 import android.content.Context
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
+import androidx.security.crypto.MasterKey
 import com.voicecontrol.app.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.serialization.encodeToString
@@ -30,32 +30,34 @@ class SecureStorageService @Inject constructor(
 ) {
     
     companion object {
-        private const val TAG = "SecureStorageService"
-        private const val PREFERENCES_FILE_NAME = "voice_control_secure_prefs"
-        private const val KEY_USER_DATA = "current_user"
-        private const val KEY_FIREBASE_TOKEN = "firebase_id_token"
-        private const val KEY_GUEST_DATA = "guest_user"
-        private const val KEY_BIOMETRIC_ENABLED = "biometric_auth_enabled"
-        private const val KEY_SUBSCRIPTION_DATA = "subscription_data"
+        internal const val TAG = "SecureStorageService"
+        internal const val PREFERENCES_FILE_NAME = "voice_control_secure_prefs"
+        internal const val KEY_USER_DATA = "current_user"
+        internal const val KEY_FIREBASE_TOKEN = "firebase_id_token"
+        internal const val KEY_GUEST_DATA = "guest_user"
+        internal const val KEY_BIOMETRIC_ENABLED = "biometric_auth_enabled"
+        internal const val KEY_SUBSCRIPTION_DATA = "subscription_data"
     }
     
     // JSON serializer with lenient settings
-    private val json = Json {
+    internal val json = Json {
         ignoreUnknownKeys = true
         coerceInputValues = true
         isLenient = true
     }
     
     // Master key for encryption
-    private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    internal val masterKeyAlias = MasterKey.Builder(context)
+        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+        .build()
     
     // Encrypted SharedPreferences instance
-    private val encryptedPrefs by lazy {
+    internal val encryptedPrefs by lazy {
         try {
             EncryptedSharedPreferences.create(
+                context,
                 PREFERENCES_FILE_NAME,
                 masterKeyAlias,
-                context,
                 EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                 EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             )
@@ -76,7 +78,7 @@ class SecureStorageService @Inject constructor(
      * @param key The key to store the object under
      * @throws SecureStorageException if saving fails
      */
-    inline fun <reified T> save(data: T, key: String) {
+    internal inline fun <reified T> save(data: T, key: String) {
         try {
             if (BuildConfig.ENABLE_LOGGING) {
                 Log.d(TAG, "💾 Saving data for key: $key")
@@ -109,7 +111,7 @@ class SecureStorageService @Inject constructor(
      * @return The deserialized object
      * @throws SecureStorageException if retrieval or deserialization fails
      */
-    inline fun <reified T> retrieve(key: String): T {
+    internal inline fun <reified T> retrieve(key: String): T {
         try {
             if (BuildConfig.ENABLE_LOGGING) {
                 Log.d(TAG, "📖 Retrieving data for key: $key")
@@ -144,7 +146,7 @@ class SecureStorageService @Inject constructor(
      * @param key The key to retrieve the object for
      * @return The deserialized object or null if not found
      */
-    inline fun <reified T> retrieveOrNull(key: String): T? {
+    internal inline fun <reified T> retrieveOrNull(key: String): T? {
         return try {
             retrieve<T>(key)
         } catch (e: SecureStorageException) {
@@ -244,7 +246,7 @@ class SecureStorageService @Inject constructor(
      * Save current user data
      * Equivalent to iOS KeychainService.save(user, for: "current_user")
      */
-    inline fun <reified T> saveCurrentUser(user: T) {
+    internal inline fun <reified T> saveCurrentUser(user: T) {
         save(user, KEY_USER_DATA)
     }
     
@@ -252,7 +254,7 @@ class SecureStorageService @Inject constructor(
      * Retrieve current user data
      * Equivalent to iOS KeychainService.retrieve("current_user", as: User.self)
      */
-    inline fun <reified T> getCurrentUser(): T? {
+    internal inline fun <reified T> getCurrentUser(): T? {
         return retrieveOrNull<T>(KEY_USER_DATA)
     }
     
@@ -292,7 +294,7 @@ class SecureStorageService @Inject constructor(
      * Save guest user data
      * Equivalent to iOS GuestUser.saveToUserDefaults()
      */
-    inline fun <reified T> saveGuestUser(guestUser: T) {
+    internal inline fun <reified T> saveGuestUser(guestUser: T) {
         save(guestUser, KEY_GUEST_DATA)
     }
     
@@ -300,7 +302,7 @@ class SecureStorageService @Inject constructor(
      * Retrieve guest user data
      * Equivalent to iOS GuestUser.fromUserDefaults()
      */
-    inline fun <reified T> getGuestUser(): T? {
+    internal inline fun <reified T> getGuestUser(): T? {
         return retrieveOrNull<T>(KEY_GUEST_DATA)
     }
     
@@ -331,14 +333,14 @@ class SecureStorageService @Inject constructor(
     /**
      * Save subscription data
      */
-    inline fun <reified T> saveSubscriptionData(data: T) {
+    internal inline fun <reified T> saveSubscriptionData(data: T) {
         save(data, KEY_SUBSCRIPTION_DATA)
     }
     
     /**
      * Retrieve subscription data
      */
-    inline fun <reified T> getSubscriptionData(): T? {
+    internal inline fun <reified T> getSubscriptionData(): T? {
         return retrieveOrNull<T>(KEY_SUBSCRIPTION_DATA)
     }
 }

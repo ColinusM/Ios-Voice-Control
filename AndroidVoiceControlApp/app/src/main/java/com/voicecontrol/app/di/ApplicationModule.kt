@@ -10,6 +10,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import com.voicecontrol.app.utils.VoiceControlLogger
+import com.voicecontrol.app.utils.VLogger
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -62,7 +65,7 @@ object ApplicationModule {
     }
     
     /**
-     * Provides Encrypted SharedPreferences
+     * Provides Encrypted SharedPreferences for secure storage
      * Equivalent to iOS Keychain for secure data storage
      */
     @Provides
@@ -78,5 +81,30 @@ object ApplicationModule {
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
+    }
+    
+    /**
+     * Provides SharedPreferences for general settings
+     * Used by NetworkSettings and other non-sensitive configuration
+     */
+    @Provides
+    @Singleton
+    @Named("settings")
+    fun provideSettingsSharedPreferences(
+        @ApplicationContext context: Context
+    ): android.content.SharedPreferences {
+        return context.getSharedPreferences("voice_control_settings", Context.MODE_PRIVATE)
+    }
+    
+    /**
+     * Provides and initializes VoiceControlLogger
+     * Sets up global VLogger instance for structured logging
+     */
+    @Provides
+    @Singleton
+    fun provideVoiceControlLogger(): VoiceControlLogger {
+        val logger = VoiceControlLogger()
+        VLogger.init(logger)
+        return logger
     }
 }

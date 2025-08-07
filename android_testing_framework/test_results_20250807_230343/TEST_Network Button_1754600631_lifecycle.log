@@ -1,0 +1,1 @@
+08-07 23:03:55.988   677   728 W Looper  : Slow dispatch took 213ms android.ui app=system_server main=false group=TOP_APP h=com.android.server.am.ActivityManagerService$UiHandler c=com.android.server.am.UidObserverController$$ExternalSyntheticLambda0@1d1a56e m=0

@@ -1,0 +1,8 @@
+{
+  "test_name": "Record Button",
+  "passed": false,
+  "timestamp": "2025-08-08T00:09:38.141090",
+  "expected_pattern": "VoiceRecordingViewModel|SpeechRecognitionService|AudioManager|\ud83c\udf99\ufe0f|\ud83d\ude80|Recording|startRecording",
+  "found_lines": [],
+  "errors": []
+}

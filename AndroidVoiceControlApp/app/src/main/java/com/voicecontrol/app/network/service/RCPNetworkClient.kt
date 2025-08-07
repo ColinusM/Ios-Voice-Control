@@ -504,16 +504,16 @@ class RCPNetworkClient @Inject constructor(
      */
     fun getNetworkStats(): Map<String, Any> {
         return mapOf(
-            "connectionState" to _connectionState.value.name,
-            "isNetworkAvailable" to _isNetworkAvailable.value,
-            "sentCommands" to _sentCommandsCount.value,
-            "successfulCommands" to _successfulCommandsCount.value,
-            "failedCommands" to _failedCommandsCount.value,
-            "successRate" to if (_sentCommandsCount.value > 0) {
+            "connectionState" to _connectionState.value.name as Any,
+            "isNetworkAvailable" to _isNetworkAvailable.value as Any,
+            "sentCommands" to _sentCommandsCount.value as Any,
+            "successfulCommands" to _successfulCommandsCount.value as Any,
+            "failedCommands" to _failedCommandsCount.value as Any,
+            "successRate" to (if (_sentCommandsCount.value > 0) {
                 _successfulCommandsCount.value.toDouble() / _sentCommandsCount.value.toDouble()
-            } else 0.0,
-            "lastConnection" to _lastConnectionTime.value,
-            "lastTestResult" to _lastTestResult.value
+            } else 0.0) as Any,
+            "lastConnection" to (_lastConnectionTime.value ?: "Never") as Any,
+            "lastTestResult" to (_lastTestResult.value ?: "None") as Any
         )
     }
     

@@ -57,13 +57,9 @@ object AuthenticationModule {
     @Provides
     @Singleton
     fun provideGoogleSignInService(
-        @ApplicationContext context: Context,
-        firebaseAuthService: FirebaseAuthService
+        @ApplicationContext context: Context
     ): GoogleSignInService {
-        return GoogleSignInService(
-            context = context,
-            firebaseAuthService = firebaseAuthService
-        )
+        return GoogleSignInService(context)
     }
     
     /**
@@ -74,9 +70,9 @@ object AuthenticationModule {
     @Provides
     @Singleton
     fun provideSecureStorageService(
-        encryptedPrefs: SharedPreferences
+        @ApplicationContext context: Context
     ): SecureStorageService {
-        return SecureStorageService(encryptedPrefs)
+        return SecureStorageService(context)
     }
     
     /**
@@ -86,13 +82,7 @@ object AuthenticationModule {
      */
     @Provides
     @Singleton
-    fun provideBiometricAuthService(
-        @ApplicationContext context: Context,
-        secureStorageService: SecureStorageService
-    ): BiometricAuthService {
-        return BiometricAuthService(
-            context = context,
-            secureStorageService = secureStorageService
-        )
+    fun provideBiometricAuthService(): BiometricAuthService {
+        return BiometricAuthService()
     }
 }

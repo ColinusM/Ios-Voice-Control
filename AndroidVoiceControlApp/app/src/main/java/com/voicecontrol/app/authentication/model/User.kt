@@ -265,7 +265,7 @@ data class GuestUser(
      * Increment usage by specified minutes
      * Equivalent to iOS GuestUser.incrementUsage()
      */
-    fun incrementUsage(by minutes: Int): GuestUser {
+    fun incrementUsage(minutes: Int): GuestUser {
         return copy(totalAPIMinutesUsed = totalAPIMinutesUsed + minutes)
     }
     

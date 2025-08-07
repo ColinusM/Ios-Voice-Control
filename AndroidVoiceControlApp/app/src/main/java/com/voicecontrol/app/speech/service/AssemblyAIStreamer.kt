@@ -1,6 +1,6 @@
 package com.voicecontrol.app.speech.service
 
-import android.util.Log
+import com.voicecontrol.app.utils.VLogger
 import com.voicecontrol.app.BuildConfig
 import com.voicecontrol.app.di.WebSocketHttpClient
 import com.voicecontrol.app.speech.model.TranscriptionResult
@@ -93,18 +93,14 @@ class AssemblyAIStreamer @Inject constructor(
      */
     suspend fun startStreaming(config: StreamingConfig = StreamingConfig.default()): Boolean {
         if (isConnected) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Already connected to AssemblyAI")
-            }
+            VLogger.w(TAG, "⚠️ Already connected to AssemblyAI")
             return true
         }
         
         currentConfig = config
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🚀 Starting AssemblyAI streaming session")
-            Log.d(TAG, "📊 Config: $config")
-        }
+        VLogger.d(TAG, "🚀 Starting AssemblyAI streaming session", 
+            mapOf("config" to config.toString()))
         
         return connectWebSocket()
     }
@@ -114,9 +110,7 @@ class AssemblyAIStreamer @Inject constructor(
      * Equivalent to iOS stopStreaming method
      */
     suspend fun stopStreaming() {
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🛑 Stopping AssemblyAI streaming session")
-        }
+        VLogger.d(TAG, "🛑 Stopping AssemblyAI streaming session")
         
         _isListening.value = false
         disconnectWebSocket()
@@ -128,9 +122,7 @@ class AssemblyAIStreamer @Inject constructor(
      */
     fun sendAudioData(audioData: ByteArray, length: Int) {
         if (!isConnected || webSocket == null) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Cannot send audio - not connected")
-            }
+            VLogger.w(TAG, "⚠️ Cannot send audio - not connected")
             return
         }
         
@@ -147,14 +139,13 @@ class AssemblyAIStreamer @Inject constructor(
             
             val success = webSocket?.send(audioMessage) ?: false
             
-            if (!success && BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Failed to send audio data")
+            if (!success) {
+                VLogger.w(TAG, "⚠️ Failed to send audio data")
             }
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error sending audio data", e)
-            }
+            VLogger.e(TAG, "❌ Error sending audio data", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
         }
     }
     
@@ -173,16 +164,13 @@ class AssemblyAIStreamer @Inject constructor(
             
             webSocket = okHttpClient.newWebSocket(request, AssemblyAIWebSocketListener())
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "🔗 Connecting to AssemblyAI WebSocket...")
-            }
+            VLogger.d(TAG, "🔗 Connecting to AssemblyAI WebSocket...")
             
             return true
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error connecting to AssemblyAI", e)
-            }
+            VLogger.e(TAG, "❌ Error connecting to AssemblyAI", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
             _connectionState.value = ConnectionState.Error
             return false
         }
@@ -199,14 +187,11 @@ class AssemblyAIStreamer @Inject constructor(
             isConnected = false
             _connectionState.value = ConnectionState.Disconnected
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "🔌 Disconnected from AssemblyAI")
-            }
+            VLogger.d(TAG, "🔌 Disconnected from AssemblyAI")
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error disconnecting from AssemblyAI", e)
-            }
+            VLogger.e(TAG, "❌ Error disconnecting from AssemblyAI", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
         }
     }
     
@@ -222,18 +207,16 @@ class AssemblyAIStreamer @Inject constructor(
                 "punctuate": ${currentConfig.enablePunctuation},
                 "format_text": ${currentConfig.formatText},
                 "enable_extra_session_information": true,
-                "word_boost": ${json.encodeToString(kotlinx.serialization.builtins.ListSerializer(kotlinx.serialization.builtins.serializer()), currentConfig.wordBoost)}
+                "word_boost": ${json.encodeToString(kotlinx.serialization.serializer<List<String>>(), currentConfig.wordBoost)}
             }
         """.trimIndent()
         
         val success = webSocket?.send(configMessage) ?: false
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            if (success) {
-                Log.d(TAG, "📤 Sent streaming configuration")
-            } else {
-                Log.w(TAG, "⚠️ Failed to send streaming configuration")
-            }
+        if (success) {
+            VLogger.d(TAG, "📤 Sent streaming configuration")
+        } else {
+            VLogger.w(TAG, "⚠️ Failed to send streaming configuration")
         }
     }
     
@@ -266,9 +249,8 @@ class AssemblyAIStreamer @Inject constructor(
                         
                         transcriptionChannel.trySend(result)
                         
-                        if (BuildConfig.ENABLE_LOGGING) {
-                            Log.d(TAG, "📝 Partial: \"$text\" (${String.format("%.2f", confidence)})")
-                        }
+                        VLogger.d(TAG, "📝 Partial: \"$text\" (${String.format("%.2f", confidence)})", 
+                            mapOf("text" to text, "confidence" to String.format("%.2f", confidence), "isFinal" to "false"))
                     }
                 }
                 
@@ -285,30 +267,25 @@ class AssemblyAIStreamer @Inject constructor(
                         
                         transcriptionChannel.trySend(result)
                         
-                        if (BuildConfig.ENABLE_LOGGING) {
-                            Log.d(TAG, "✅ Final: \"$text\" (${String.format("%.2f", confidence)})")
-                        }
+                        VLogger.d(TAG, "✅ Final: \"$text\" (${String.format("%.2f", confidence)})", 
+                            mapOf("text" to text, "confidence" to String.format("%.2f", confidence), "isFinal" to "true"))
                     }
                 }
                 
                 "SessionEnded" -> {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.d(TAG, "🔚 AssemblyAI session ended")
-                    }
+                    VLogger.d(TAG, "🔚 AssemblyAI session ended")
                     _isListening.value = false
                 }
                 
                 else -> {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.v(TAG, "📨 Unknown message type: $messageType")
-                    }
+                    VLogger.v(TAG, "📨 Unknown message type: $messageType", 
+                        mapOf("messageType" to (messageType ?: "null")))
                 }
             }
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error parsing transcription message", e)
-            }
+            VLogger.e(TAG, "❌ Error parsing transcription message", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
         }
     }
     
@@ -319,10 +296,9 @@ class AssemblyAIStreamer @Inject constructor(
     private fun handleSessionBegin(sessionInfo: kotlinx.serialization.json.JsonObject) {
         _isListening.value = true
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            val sessionId = sessionInfo["session_id"]?.jsonPrimitive?.content ?: "unknown"
-            Log.d(TAG, "🎬 AssemblyAI session started - ID: $sessionId")
-        }
+        val sessionId = sessionInfo["session_id"]?.jsonPrimitive?.content ?: "unknown"
+        VLogger.d(TAG, "🎬 AssemblyAI session started - ID: $sessionId", 
+            mapOf("sessionId" to sessionId))
     }
     
     /**
@@ -338,9 +314,7 @@ class AssemblyAIStreamer @Inject constructor(
             reconnectAttempts = 0
             _connectionState.value = ConnectionState.Connected
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "✅ Connected to AssemblyAI WebSocket")
-            }
+            VLogger.d(TAG, "✅ Connected to AssemblyAI WebSocket")
             
             // Send configuration after connection
             sendStreamingConfig()
@@ -349,9 +323,8 @@ class AssemblyAIStreamer @Inject constructor(
         override fun onMessage(webSocket: WebSocket, text: String) {
             super.onMessage(webSocket, text)
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.v(TAG, "📨 Received message: $text")
-            }
+            VLogger.v(TAG, "📨 Received message: $text", 
+                mapOf("messageLength" to text.length.toString()))
             
             parseTranscriptionMessage(text)
         }
@@ -363,10 +336,12 @@ class AssemblyAIStreamer @Inject constructor(
             _connectionState.value = ConnectionState.Error
             _isListening.value = false
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ WebSocket connection failed", t)
-                Log.e(TAG, "📊 Response: ${response?.code} ${response?.message}")
-            }
+            VLogger.e(TAG, "❌ WebSocket connection failed", 
+                mapOf(
+                    "error" to (t.message ?: "Unknown error"),
+                    "responseCode" to (response?.code?.toString() ?: "null"),
+                    "responseMessage" to (response?.message ?: "null")
+                ), t)
             
             // Attempt reconnection if within retry limit
             if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
@@ -381,9 +356,8 @@ class AssemblyAIStreamer @Inject constructor(
             _connectionState.value = ConnectionState.Disconnected
             _isListening.value = false
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "🔌 WebSocket closed - Code: $code, Reason: $reason")
-            }
+            VLogger.d(TAG, "🔌 WebSocket closed - Code: $code, Reason: $reason", 
+                mapOf("code" to code.toString(), "reason" to reason))
         }
     }
     
@@ -393,17 +367,15 @@ class AssemblyAIStreamer @Inject constructor(
      */
     private fun attemptReconnection() {
         if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Max reconnection attempts reached")
-            }
+            VLogger.w(TAG, "⚠️ Max reconnection attempts reached", 
+                mapOf("maxAttempts" to MAX_RECONNECT_ATTEMPTS.toString()))
             return
         }
         
         reconnectAttempts++
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🔄 Attempting reconnection ($reconnectAttempts/$MAX_RECONNECT_ATTEMPTS)")
-        }
+        VLogger.d(TAG, "🔄 Attempting reconnection ($reconnectAttempts/$MAX_RECONNECT_ATTEMPTS)", 
+            mapOf("attempt" to reconnectAttempts.toString(), "maxAttempts" to MAX_RECONNECT_ATTEMPTS.toString()))
         
         // Use a simple thread for reconnection delay (not ideal but functional)
         Thread {
@@ -411,9 +383,7 @@ class AssemblyAIStreamer @Inject constructor(
                 Thread.sleep(RECONNECT_DELAY_MS * reconnectAttempts) // Exponential backoff
                 connectWebSocket()
             } catch (e: InterruptedException) {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.w(TAG, "⚠️ Reconnection interrupted")
-                }
+                VLogger.w(TAG, "⚠️ Reconnection interrupted")
             }
         }.start()
     }
@@ -427,8 +397,6 @@ class AssemblyAIStreamer @Inject constructor(
         }
         transcriptionChannel.close()
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🧹 AssemblyAI streamer cleanup completed")
-        }
+        VLogger.d(TAG, "🧹 AssemblyAI streamer cleanup completed")
     }
 }

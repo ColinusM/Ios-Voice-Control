@@ -1,0 +1,43 @@
+{
+  "app_package": "com.voicecontrol.app",
+  "app_activity": "com.voicecontrol.app.MainActivity",
+  "ui_elements": {
+    "network_button": [257, 1990],
+    "record_button": [512, 1800],
+    "upgrade_button": [771, 1990],
+    "menu_button": [975, 195],
+    "retry_button": [512, 1400],
+    "cancel_retry_button": [512, 1500]
+  },
+  "test_patterns": {
+    "network": "NetworkSettings|Navigation|nav_network|CoreBackPreview|NetworkSettingsViewModel",
+    "voice_recording": "VoiceRecordingViewModel|SpeechRecognitionService|AudioManager|🎙️|🚀|Recording|startRecording",
+    "assembly_ai": "AssemblyAI|WebSocket|🔗|Connected|Streaming|transcription",
+    "structured_logging": "VLogger|VoiceControlLogger|sessionId|metadata|JSON",
+    "retry_logic": "retry|RetryOperation|exponential backoff|startRecordingWithRetry|🔄",
+    "back": "onBackPressed|WindowDispatcher|CoreBackPreview|sendCancelIfRunning",
+    "launch": "MainActivity|onCreate|VoiceControlApp|🚀.*MainActivity",
+    "error": "ERROR|FATAL|Exception|ANR|crash|❌",
+    "touch": "TouchEvent|MotionEvent|onClick|InputDispatcher",
+    "lifecycle": "Activity|Fragment|onResume|onPause|onCreate|onDestroy",
+    "permission": "RECORD_AUDIO|permission|🔐|granted|Audio permission",
+    "command_processing": "VoiceCommandProcessor|processTranscription|🎯|Command|✅.*Parsed"
+  },
+  "timeouts": {
+    "log_capture": 5,
+    "action_delay": 2,
+    "screenshot_delay": 2,
+    "voice_test_duration": 8
+  },
+  "voice_tests": {
+    "enable_voice_testing": true,
+    "mock_transcription": "channel one mute on",
+    "expected_voice_patterns": [
+      "🎙️.*started",
+      "🔗.*Connected",
+      "📝.*Transcription",
+      "🎯.*Processing",
+      "✅.*Parsed"
+    ]
+  }
+}

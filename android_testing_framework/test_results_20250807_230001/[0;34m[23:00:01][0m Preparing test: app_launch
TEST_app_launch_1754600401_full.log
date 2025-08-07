@@ -1,0 +1,65 @@
+--------- beginning of main
+08-07 23:00:01.266  9120  9120 I TestMarker: TEST_app_launch_1754600401
+08-07 23:00:01.266  9120  9120 I TestMarker: 
+--------- beginning of system
+08-07 23:00:01.417   677  1306 W ActivityTaskManager: callingPackage for (uid=2000, pid=9124) has no WPC
+08-07 23:00:01.452   677  1306 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@e90720f1 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+08-07 23:00:01.463   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_USER_ASPECT_RATIO_OVERRIDE
+08-07 23:00:01.466   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_USER_ASPECT_RATIO_FULLSCREEN_OVERRIDE
+08-07 23:00:01.469   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_RESIZEABLE_ACTIVITY_OVERRIDES
+08-07 23:00:01.473   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_MIN_ASPECT_RATIO_OVERRIDE
+08-07 23:00:01.513   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_ORIENTATION_OVERRIDE
+08-07 23:00:01.742   504   545 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 23:00:01.764   677  1306 I ActivityTaskManager: START u0 {flg=0x10000000 xflg=0x5 cmp=com.voicecontrol.app/.MainActivity} with LAUNCH_MULTIPLE from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+08-07 23:00:01.773   944  1049 V WindowManagerShell: Transition requested (#61): android.os.BinderProxy@6322632 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=16 effectiveUid=10212 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.voicecontrol.app/.MainActivity } baseActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} topActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} origActivity=null realActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} numActivities=2 lastActiveTime=10629170 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@7a9af83} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{90bd500 com.voicecontrol.app.MainActivity} launchCookies=[android.os.BinderProxy@664b515] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(278, 711 - 803, 1791) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 142 - 1080, 2361) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 61 }
+08-07 23:00:01.788   944  1049 D ShellSplitScreen: logExit: no-op, mLoggerSessionId is null
+08-07 23:00:01.816   504   504 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 23:00:01.974  6726  6726 D MainActivity: ⏸️ MainActivity paused
+08-07 23:00:01.991  6726  6761 D SessionLifecycleClient: Sending lifecycle 2 to service
+08-07 23:00:02.001  6726  6776 D SessionLifecycleService: Activity backgrounding at 10629449
+08-07 23:00:02.060   677  2040 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ENABLE_FAKE_FOCUS
+08-07 23:00:02.100   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:00:02.233   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:00:02.242   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:00:02.324   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.328   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.331   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.332   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.332   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.332   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.333   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.333   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.334   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.335   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.336   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.339   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.339   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.340   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.342   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.344   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.344   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.344   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.344   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.345   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.345   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.346   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.349   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.350   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.350   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.350   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.351   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.352   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.353   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.355   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.356   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.356   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.356   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.356   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.357   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.357   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.358   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.358   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.359   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.360   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.361   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:00:02.362   677   730 W IPCThreadState: Sending oneway calls to frozen process.

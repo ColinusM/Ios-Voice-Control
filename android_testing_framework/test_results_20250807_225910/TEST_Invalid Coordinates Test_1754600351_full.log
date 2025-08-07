@@ -1,0 +1,7 @@
+--------- beginning of main
+08-07 22:59:10.717  8945  8945 I TestMarker: TEST_Invalid Coordinates Test_1754600351
+08-07 22:59:10.966  8949  8949 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-07 22:59:10.967  8949  8949 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-07 22:59:11.040   677   810 W InputDispatcher: Not sending touch gesture to 89852d3 ActivityRecordInputSink com.voicecontrol.app/.MainActivity because it has config NO_INPUT_CHANNEL
+08-07 22:59:12.041  1071  1284 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+08-07 22:59:13.078  1574  1923 I bdee    : (REDACTED) getHotwordActive::active query: %s, watch: %s, devices connected: %s

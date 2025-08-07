@@ -1,0 +1,8 @@
+--------- beginning of main
+08-07 23:03:50.937  9290  9290 I TestMarker: TEST_Network Button_1754600631
+08-07 23:03:51.630  9294  9294 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-07 23:03:51.633  9294  9294 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-07 23:03:51.635  9294  9294 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-07 23:03:51.668   504   621 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-07 23:03:51.669   504   621 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-07 23:03:52.151  1071  1284 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled

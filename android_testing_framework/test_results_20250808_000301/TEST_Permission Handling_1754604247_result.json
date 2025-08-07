@@ -1,0 +1,13 @@
+{
+  "test_name": "Permission Handling",
+  "passed": true,
+  "timestamp": "2025-08-08T00:04:28.229081",
+  "expected_pattern": "RECORD_AUDIO|permission|\ud83d\udd10|granted|Audio permission",
+  "found_lines": [
+    "[full] 08-08 00:04:08.175 10310 10310 I TestMarker: TEST_Permission Handling_1754604247",
+    "[full] 08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.permission.access.AccessCheckingService",
+    "[full] 08-08 00:04:09.460  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.policy.PermissionPolicyService",
+    "[full] 08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.permission.access.AccessCheckingService"
+  ],
+  "errors": []
+}

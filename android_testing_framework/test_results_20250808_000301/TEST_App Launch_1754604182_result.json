@@ -1,0 +1,10 @@
+{
+  "test_name": "App Launch",
+  "passed": false,
+  "timestamp": "2025-08-08T00:03:08.944213",
+  "expected_pattern": "MainActivity|onCreate|VoiceControlApp|\ud83d\ude80.*MainActivity",
+  "found_lines": [],
+  "errors": [
+    "08-08 00:03:06.578   216  9962 W libc    : Unable to set property \"ctl.interface_start\" to \"aidl/activity\": PROP_ERROR_HANDLE_CONTROL_MESSAGE (0x20)"
+  ]
+}

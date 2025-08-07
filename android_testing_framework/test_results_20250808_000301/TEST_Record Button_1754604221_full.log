@@ -1,0 +1,284 @@
+--------- beginning of main
+08-08 00:03:40.786  9922 10103 D WifiConfigStore: Reading from all stores completed in 596 ms.
+08-08 00:03:40.816  9922 10103 E WifiConfigManager: Cannot find network with networkId -1 or configKey "AndroidWifi"NONE or upgradable security type check
+--------- beginning of system
+08-08 00:03:40.828  9922 10103 W BroadcastLoopers: Found previously unknown looper Thread[WifiHandlerThread,5,main]
+08-08 00:03:40.869  9922 10103 I WifiInjector: enableVerboseLogging false hal false
+08-08 00:03:40.879  9922 10103 D WifiNative: enableVerboseLogging false hal false
+08-08 00:03:40.948  9922 10103 E SupplicantStaIfaceHalAidlImpl: Can't call setDebugParams, ISupplicant is null
+08-08 00:03:40.953  9922  9922 D nativeloader: Load libservice-thread-jni.so using class loader ns clns-shared-15 (caller=/apex/com.android.tethering/javalib/service-connectivity.jar): ok
+08-08 00:03:40.970 10218 10218 I TestMarker: TEST_Record Button_1754604221
+08-08 00:03:40.992  9922 10103 I WifiService: WifiService starting up with Wi-Fi enabled
+08-08 00:03:41.220  9922  9922 W SystemServiceManager: Service com.android.server.ConnectivityServiceInitializer took 871 ms in onBootPhase
+08-08 00:03:41.222  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.notification.NotificationManagerService
+08-08 00:03:41.226  9922 10217 V ThreadNetwork: [ControllerService] VERBOSE Initializing Thread system service: Thread is enabled
+08-08 00:03:41.330  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:41.353  9922 10103 D WifiController: isAirplaneModeOn = false, isWifiEnabled = true, isScanningAvailable = false, isLocationModeActive = true, isSatelliteModeOn = false
+08-08 00:03:41.367  9922 10103 D WifiActiveModeWarden: Starting primary ClientModeManager in connect mode
+08-08 00:03:41.381  9922  9951 W WindowManager: Keyguard drawn timeout. Setting mKeyguardDrawComplete
+08-08 00:03:42.188  9922 10123 D ConnectivityService: Got NetworkProvider Messenger for ThreadNetworkProvider
+08-08 00:03:42.220  9922  9968 E OomConnection: failed waiting for OOM events: java.lang.RuntimeException: listener failed waiting for OOM event
+08-08 00:03:42.310  9922 10217 I ThreadNetwork: [ControllerService] Starting OT daemon...
+08-08 00:03:42.334  9922  9922 W SystemServiceManager: Service com.android.server.notification.NotificationManagerService took 1111 ms in onBootPhase
+08-08 00:03:42.336  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.storage.DeviceStorageMonitorService
+08-08 00:03:42.336  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.timedetector.TimeDetectorService$Lifecycle
+08-08 00:03:42.336  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.location.LocationManagerService$Lifecycle
+08-08 00:03:42.402  9922 10103 I WifiHalAidlImpl: Obtained the IWifi binder. Local Version: 3
+08-08 00:03:42.431  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:42.472  9922 10103 I WifiHalAidlImpl: Remote Version: 3
+08-08 00:03:42.538  9922  9922 W SystemServiceManager: Service com.android.server.location.LocationManagerService$Lifecycle took 202 ms in onBootPhase
+08-08 00:03:42.538  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle
+08-08 00:03:42.539  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.location.altitude.AltitudeService$Lifecycle
+08-08 00:03:42.539  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.timezonedetector.location.LocationTimeZoneManagerService$Lifecycle
+08-08 00:03:42.617   465   465 D android.hardware.wifi-service: Stopping legacy HAL
+08-08 00:03:42.640  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.search.SearchManagerService$Lifecycle
+08-08 00:03:42.640  9922  9922 W SystemServiceManager: Service com.android.server.search.SearchManagerService$Lifecycle took 66 ms in onBootPhase
+08-08 00:03:42.640  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.wallpaper.WallpaperManagerService$Lifecycle
+08-08 00:03:42.665   465   465 I android.hardware.wifi-service: Legacy HAL stop complete callback received
+08-08 00:03:42.699  9922  9922 W SystemServiceManager: Service com.android.server.wallpaper.WallpaperManagerService$Lifecycle took 59 ms in onBootPhase
+08-08 00:03:42.699  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.wallpapereffectsgeneration.WallpaperEffectsGenerationManagerService
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.audio.AudioService$Lifecycle
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareService$Lifecycle
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.DockObserver
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.midi.MidiService$Lifecycle
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.adb.AdbService$Lifecycle
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.usb.UsbService$Lifecycle
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.SerialService$Lifecycle
+08-08 00:03:42.700  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.twilight.TwilightService
+08-08 00:03:42.701  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.display.color.ColorDisplayService
+08-08 00:03:42.701  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.job.JobSchedulerService
+08-08 00:03:42.866   465   924 D android.hardware.wifi-service: Legacy HAL event loop terminated
+08-08 00:03:42.866   465   465 D android.hardware.wifi-service: Legacy HAL stop complete
+08-08 00:03:42.875   465   465 I android.hardware.wifi-service: Wifi HAL stopped
+08-08 00:03:42.878   465   465 E IPCThreadState: binder thread pool (1 threads) starved for 381 ms
+08-08 00:03:42.920   465   465 W android.hardware.wifi-service: AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. This might not be intended. AIBinder_DeathRecipient_setOnUnlinked should be called first.
+08-08 00:03:42.924  9922 10103 I WifiHalAidlImpl: Initialization is complete
+08-08 00:03:42.975  9767  9776 E Netd    : Removing unknown address fec0::4fc8:c1c9:7de3:9f3/64 from ifindex 16
+08-08 00:03:43.007  9767  9776 E Netd    : Removing unknown address fec0::48e9:17f:e87a:cb23/64 from ifindex 16
+08-08 00:03:43.007  9767  9776 E Netd    : Removing unknown address fe80::c2e4:d4da:4d8e:3e7d/64 from ifindex 16
+08-08 00:03:43.020   465   465 W android.hardware.wifi-service: Duplicate death notification registration
+08-08 00:03:43.133  9922 10103 D WifiNl80211Manager: tearing down interfaces in wificond
+08-08 00:03:43.848  9922 10217 W ServiceManagerCppClient: Waited one second for ot_daemon (is service started? Number of threads started in the threadpool: 32. Are binder threads started and available?)
+08-08 00:03:44.515  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:44.670  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:44.719  9922  9922 W SystemServiceManager: Service com.android.server.job.JobSchedulerService took 2016 ms in onBootPhase
+08-08 00:03:44.724  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.soundtrigger.SoundTriggerService
+08-08 00:03:44.752  9922  9922 D SoundTriggerService: onBootPhase: 500 : false
+08-08 00:03:44.792  9922  9922 W SystemServiceManager: Service com.android.server.soundtrigger.SoundTriggerService took 69 ms in onBootPhase
+08-08 00:03:44.792  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.trust.TrustManagerService
+08-08 00:03:45.037  9922 10103 D WifiAdaptConnObserver: Adaptive connectivity status initialized to: true
+08-08 00:03:45.080  9922 10103 D WifiController: EnabledState.enter()
+08-08 00:03:45.092 10224 10224 W ot-daemon: AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. This might not be intended. AIBinder_DeathRecipient_setOnUnlinked should be called first.
+08-08 00:03:45.105  9922 10103 D WifiClientModeManager[14448895:unknown]: entering IdleState
+08-08 00:03:45.191   489   489 I android.hardware.threadnetwork-service: Open IThreadChip successfully
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: No service published for: face
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: face
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:203)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$72.createService(SystemServiceRegistry.java:993)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$72.createService(SystemServiceRegistry.java:987)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:2343)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1918)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2315)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at android.content.Context.getSystemService(Context.java:4630)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.server.trust.TrustManagerService.onBootPhase(TrustManagerService.java:353)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServiceManager.startBootPhase(SystemServiceManager.java:318)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServer.startOtherServices(SystemServer.java:3039)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServer.run(SystemServer.java:988)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServer.main(SystemServer.java:689)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at java.lang.reflect.Method.invoke(Native Method)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+08-08 00:03:45.277  9922  9922 E SystemServiceRegistry: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:910)
+08-08 00:03:45.299  9922  9922 E SystemServiceRegistry: Manager wrapper not available: face
+08-08 00:03:45.301  9922  9922 W SystemServiceManager: Service com.android.server.trust.TrustManagerService took 509 ms in onBootPhase
+08-08 00:03:45.301  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.backup.BackupManagerService$Lifecycle
+08-08 00:03:45.301  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.appwidget.AppWidgetService
+08-08 00:03:45.301  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.voiceinteraction.VoiceInteractionManagerService
+08-08 00:03:45.301  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.GestureLauncherService
+08-08 00:03:45.301  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.SensorNotificationService
+08-08 00:03:45.301  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.ContextHubSystemService
+08-08 00:03:45.349  9922  9922 D ContextHubSystemService: onBootPhase: PHASE_SYSTEM_SERVICES_READY
+08-08 00:03:45.374  9922  9922 W SystemServiceManager: Service com.android.server.ContextHubSystemService took 73 ms in onBootPhase
+08-08 00:03:45.374  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.emergency.EmergencyAffordanceService
+08-08 00:03:45.374  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.blob.BlobStoreManagerService
+08-08 00:03:45.374  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.dreams.DreamManagerService
+08-08 00:03:45.374  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.print.PrintManagerService
+08-08 00:03:45.374  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.security.AttestationVerificationManagerService
+08-08 00:03:45.374  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.companion.CompanionDeviceManagerService
+08-08 00:03:45.377  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.companion.virtual.VirtualDeviceManagerService
+08-08 00:03:45.377  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.restrictions.RestrictionsManagerService
+08-08 00:03:45.377  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.media.MediaSessionService
+08-08 00:03:45.379  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.media.MediaResourceMonitorService
+08-08 00:03:45.379  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.biometrics.sensors.fingerprint.FingerprintService
+08-08 00:03:45.379  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.biometrics.BiometricService
+08-08 00:03:45.379  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.biometrics.AuthService
+08-08 00:03:45.379  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.security.authenticationpolicy.AuthenticationPolicyService
+08-08 00:03:45.422  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.pm.ShortcutService$Lifecycle
+08-08 00:03:45.428  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.pm.LauncherAppsService
+08-08 00:03:45.428  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.pm.CrossProfileAppsService
+08-08 00:03:45.428  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.people.PeopleService
+08-08 00:03:45.429  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.media.metrics.MediaMetricsManagerService
+08-08 00:03:45.429  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.pm.BackgroundInstallControlService
+08-08 00:03:45.429  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.media.projection.MediaProjectionManagerService
+08-08 00:03:45.430  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.slice.SliceManagerService$Lifecycle
+08-08 00:03:45.430  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.stats.StatsCompanion$Lifecycle
+08-08 00:03:45.430  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.scheduling.RebootReadinessManagerService$Lifecycle
+08-08 00:03:45.432  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.stats.pull.StatsPullAtomService
+08-08 00:03:45.435 10228 10228 I ot-rcp  : OpenThread logs
+08-08 00:03:45.437 10228 10228 I ot-rcp  : - Program:  ot-rcp
+08-08 00:03:45.447  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.stats.bootstrap.StatsBootstrapAtomService$Lifecycle
+08-08 00:03:45.447  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.incident.IncidentCompanionService
+08-08 00:03:45.447  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.sdksandbox.SdkSandboxManagerService$Lifecycle
+08-08 00:03:45.447  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.adservices.AdServicesManagerService$Lifecycle
+08-08 00:03:45.447  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.ondevicepersonalization.OnDevicePersonalizationSystemService$Lifecycle
+08-08 00:03:45.447  9922  9922 D SystemServerTiming: OnBootPhase_500_android.os.profiling.ProfilingService$Lifecycle
+08-08 00:03:45.448  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.MmsServiceBroker
+08-08 00:03:45.448  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.autofill.AutofillManagerService
+08-08 00:03:45.448  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.credentials.CredentialManagerService
+08-08 00:03:45.448  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.translation.TranslationManagerService
+08-08 00:03:45.448  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.clipboard.ClipboardService
+08-08 00:03:45.448  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.appbinding.AppBindingService$Lifecycle
+08-08 00:03:45.450  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.tracing.TracingServiceProxy
+08-08 00:03:45.451  9922  9922 D SystemServerTiming: OnBootPhase_500_com.android.server.os.instrumentation.DynamicInstrumentationManagerService
+08-08 00:03:45.454  9922  9922 D SystemServerTiming: MakeWindowManagerServiceReady
+08-08 00:03:45.458 10224 10224 F ot-daemon: [C] P-SpinelDrive-: Software reset co-processor successfully
+08-08 00:03:45.480  9922 10217 W ServiceManagerCppClient: Waited one second for ot_daemon (is service started? Number of threads started in the threadpool: 32. Are binder threads started and available?)
+08-08 00:03:45.482  9922 10103 D NetdWrapper: NetdWrapper interface add, iface= thread-wpan
+08-08 00:03:45.498  9922 10103 I WifiHalAidlImpl: Service is already initialized
+08-08 00:03:45.677   465   465 D android.hardware.wifi-service: Initialize legacy HAL
+08-08 00:03:45.687   465   465 W libc    : Access denied finding property "persist.vendor.debug.wifi.hal.preset_interface_combination_idx"
+08-08 00:03:45.691   465   465 I android.hardware.wifi-service: Wifi HAL started
+08-08 00:03:45.666   465   465 W binder:465_2: type=1400 audit(0.0:5003): avc:  denied  { read } for  name="u:object_r:persist_vendor_debug_wifi_prop:s0" dev="tmpfs" ino=277 scontext=u:r:hal_wifi_default:s0 tcontext=u:object_r:persist_vendor_debug_wifi_prop:s0 tclass=file permissive=0
+08-08 00:03:45.738 10224 10224 F ot-daemon: [C] P-Resolver----: No domain name servers found in /etc/resolv.conf, default to 127.0.0.1
+08-08 00:03:45.807 10222 10222 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-08 00:03:45.811 10222 10222 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-08 00:03:45.813 10222 10222 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-08 00:03:45.847   504   621 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-08 00:03:45.848   504   621 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-08 00:03:45.853 10224 10224 I AidlLazyServiceRegistrar: Registering service ot_daemon
+08-08 00:03:45.864 10224 10224 I AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification ot_daemon has clients: 1
+08-08 00:03:46.085  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$RoleBookmark@e1818de shift=false char=b
+08-08 00:03:46.103  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$CategoryBookmark@18a6abf shift=false char=p
+08-08 00:03:46.104  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$CategoryBookmark@32fd58c shift=false char=e
+08-08 00:03:46.104  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$CategoryBookmark@4b6c4d5 shift=false char=c
+08-08 00:03:46.104  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$CategoryBookmark@388e4ea shift=false char=m
+08-08 00:03:46.104  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$CategoryBookmark@e04f3db shift=false char=u
+08-08 00:03:46.104  9922  9922 D ModifierShortcutManager: adding shortcut com.android.server.policy.ModifierShortcutManager$ComponentBookmark@cabe78 shift=false char=y
+08-08 00:03:46.212 10224 10224 W ot-daemon: AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. This might not be intended. AIBinder_DeathRecipient_setOnUnlinked should be called first.
+08-08 00:03:46.804  9922  9922 D SystemServerTiming: RegisterLogMteState
+08-08 00:03:46.986  9922 10103 E WifiChipAidlImpl: getMode failed with service-specific exception: android.os.ServiceSpecificException:  (code 5)
+08-08 00:03:47.086  9922 10225 I ThreadNetwork: [ControllerService] The action setNat64Cidr succeeded
+08-08 00:03:47.140   465   465 W android.hardware.wifi-service: No active wlan interfaces in use! Using default
+08-08 00:03:47.148   465   465 E android.hardware.wifi-service: Unknown iface name: wlan0
+08-08 00:03:47.148   465   465 E android.hardware.wifi-service: Unknown iface name: wlan0
+08-08 00:03:47.270  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:47.318  9922 10217 I ThreadNetwork: [ControllerService] Thread TUN interface becomes down
+08-08 00:03:47.355  9922 10217 I ThreadNetwork: [ControllerService] Detached from the Thread network
+08-08 00:03:47.456  9922 10065 I InputDispatcher: Dropped event because input dispatch is disabled.
+08-08 00:03:47.461  9922  9960 W InputManager: Input event injection from pid 10235 failed.
+08-08 00:03:47.495   480   480 I android.hardware.power-service.example: Power isBoostSupported: 0
+08-08 00:03:47.542  9922  9960 W InputManager: Input event injection from pid 10235 failed.
+08-08 00:03:47.631  9922  9922 V Configuration: Updating configuration, locales updated from [] to [en_US]
+08-08 00:03:47.680  9922  9922 D SystemServerTiming: StartPermissionPolicyService
+08-08 00:03:47.710  9922 10103 I WifiVendorHal: Vendor Hal started successfully
+08-08 00:03:47.712  9922  9922 I SystemServiceManager: Starting com.android.server.policy.PermissionPolicyService
+08-08 00:03:47.735  9922 10103 E WifiChipAidlImpl: getMode failed with service-specific exception: android.os.ServiceSpecificException:  (code 5)
+08-08 00:03:47.742  9922  9964 I HealthServiceWrapperAidl: health: HealthServiceWrapper listening to AIDL HAL
+08-08 00:03:47.748   465   465 W android.hardware.wifi-service: No active wlan interfaces in use! Using default
+08-08 00:03:47.757   465   465 E android.hardware.wifi-service: Unknown iface name: wlan0
+08-08 00:03:47.757   465   465 E android.hardware.wifi-service: Unknown iface name: wlan0
+08-08 00:03:47.780  9922 10103 I HalDevMgr: currentModeId=0, requestModeId=0, currentModeIdValid=false
+08-08 00:03:47.785   465   465 D android.hardware.wifi-service: Waiting for the driver ready
+08-08 00:03:47.842   465   465 D android.hardware.wifi-service: Starting legacy HAL
+08-08 00:03:47.874   465   465 I android.hardware.wifi-service: Adding interface handle for wlan0
+08-08 00:03:47.879   465   465 D android.hardware.wifi-service: Legacy HAL start complete
+08-08 00:03:47.879   465   465 W android.hardware.wifi-service: No active wlan interfaces in use! Using default
+08-08 00:03:47.879   465   465 E android.hardware.wifi-service: Failed to register radio mode change callback
+08-08 00:03:47.879   465   465 W android.hardware.wifi-service: No active wlan interfaces in use! Using default
+08-08 00:03:47.881  9922  9964 D StatsPullAtomService: Registering pullers with statsd
+08-08 00:03:47.892   465 10239 D android.hardware.wifi-service: Starting legacy HAL event loop
+08-08 00:03:47.899   465   465 E android.hardware.wifi-service: Failed to get SupportedIfaceCombinations matrix from legacy HAL: NOT_SUPPORTED
+08-08 00:03:47.904   465   465 I android.hardware.wifi-service: Configured chip in mode 0
+08-08 00:03:47.904   465   465 W android.hardware.wifi-service: No active wlan interfaces in use! Using default
+08-08 00:03:47.905   465   465 E IPCThreadState: binder thread pool (1 threads) starved for 122 ms
+08-08 00:03:47.910   465   465 W android.hardware.wifi-service: No active wlan interfaces in use! Using default
+08-08 00:03:47.936  9922 10103 I HalDevMgr: Chip info loaded successfully from the HAL
+08-08 00:03:47.945  9922  9964 I StatsPullAtomService: register thermal listener successfully
+08-08 00:03:47.959   465   465 I android.hardware.wifi-service: Adding interface handle for wlan0
+08-08 00:03:47.960   465   465 E android.hardware.wifi-service: Failed to set DFS flag; DFS channels may be unavailable.
+08-08 00:03:48.028  9922 10103 D HalDevMgr: updateRttController: no one is interested in RTT controllers
+08-08 00:03:48.049   465   465 W android.hardware.wifi-service: AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. This might not be intended. AIBinder_DeathRecipient_setOnUnlinked should be called first.
+08-08 00:03:48.049   465   465 I android.hardware.wifi-service: twtRegisterEvents is not supported-3
+08-08 00:03:48.055   465   465 W android.hardware.wifi-service: AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. This might not be intended. AIBinder_DeathRecipient_setOnUnlinked should be called first.
+08-08 00:03:48.056   465   465 E android.hardware.wifi-service: Failed to get chip capabilities from legacy HAL: NOT_SUPPORTED
+08-08 00:03:48.057  9922 10103 E WifiChipAidlImpl: getWifiChipCapabilities failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+08-08 00:03:48.065  9922 10103 D WifiNl80211Manager: Setting up interface for client mode: wlan0
+08-08 00:03:48.124  9768  9768 I wificond: Current driver country code 00
+08-08 00:03:48.129  9768  9768 I wificond: createClientInterface: wiphy_index 1 iface_name wlan0
+08-08 00:03:48.139  9922  9945 D WifiNl80211Manager: OnRegDomainChanged 00
+08-08 00:03:48.147  9768  9768 I wificond: create scanner for interface with index: 16
+08-08 00:03:48.147  9768  9768 I wificond: subscribe scan result for interface with index: 16
+08-08 00:03:48.148  9922 10123 D ConnectivityService: NetReassign [no changes] [c 0] [a 0] [i 0]
+08-08 00:03:48.157  9768  9768 I wificond: add channel type 0 support at wiphy index: 1
+08-08 00:03:48.158  9768  9768 I wificond: add channel type 1 support at wiphy index: 1
+08-08 00:03:48.166  9922  9945 D WifiNative: onCountryCodeChanged: 00
+08-08 00:03:48.184  9922  9945 I WifiCountryCode: Receive onDriverCountryCodeChanged 00
+08-08 00:03:48.333  9922 10103 I WifiNative: Interface state changed on Iface:{Name=wlan0,Id=0,Type=STA_SCAN}, isUp=true
+08-08 00:03:48.390  9922 10103 I WifiNative: Successfully setup Iface:{Name=wlan0,Id=0,Type=STA_SCAN}
+08-08 00:03:48.476  9922 10103 E SupplicantStaIfaceHalAidlImpl: Can't call getKeyMgmtCapabilities, ISupplicantStaIface is null for iface=wlan0
+08-08 00:03:48.481  9922 10103 E SupplicantStaIfaceHalAidlImpl: Can't call getWpaDriverCapabilities, ISupplicantStaIface is null for iface=wlan0
+08-08 00:03:49.394  9922  9922 W SystemServiceManager: Service com.android.server.policy.PermissionPolicyService took 1598 ms in onStart
+08-08 00:03:49.402  9922  9922 D SystemServerTiming: MakePackageManagerServiceReady
+08-08 00:03:49.458   273   273 I tombstoned: received crash request for pid 9922
+08-08 00:03:49.458   273   273 I tombstoned: found intercept fd 512 for pid 9922 and type kDebuggerdJavaBacktrace
+08-08 00:03:49.479   273   273 W tombstoned: skipping tombstone file creation due to intercept
+08-08 00:03:49.479  9922  9936 I system_server: Wrote stack traces to tombstoned
+08-08 00:03:49.485  9922  9956 I system_server: libdebuggerd_client: done dumping process 9922
+08-08 00:03:49.496   465   918 E android.hardware.wifi-service: Failed to get SupportedRadioCombinations matrix from legacy HAL: NOT_SUPPORTED
+08-08 00:03:49.515  9922 10103 E WifiChipAidlImpl: getSupportedRadioCombinations failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+08-08 00:03:49.554  9922  9956 I ActivityManager: dumpStackTraces nativepids=[577, 452, 457, 458, 459, 460, 588, 461, 463, 591, 465, 466, 467, 595, 472, 216, 476, 477, 478, 480, 484, 9764, 9765, 9766, 9767, 9769, 490, 234, 494, 244, 245, 504, 10171]
+08-08 00:03:49.554  9922  9956 I ActivityManager: Collecting stacks for native pid 577
+08-08 00:03:49.558  9922  9922 W watchdog: type=1400 audit(0.0:5004): avc:  denied  { read } for  name="transactions" dev="binder" ino=1048587 scontext=u:r:system_server:s0 tcontext=u:object_r:binderfs_logs_transactions:s0 tclass=file permissive=0
+08-08 00:03:49.585  9922  9956 E system_server: Could not open /dev/binderfs/binder_logs/transactions. Likely a permissions issue. errno: 2
+08-08 00:03:49.585  9922  9956 E android.os.Debug: Failed to get binder state info for pid: 577 status: -2: No such file or directory
+08-08 00:03:49.595  9922  9956 I system_server: libdebuggerd_client: started dumping process 577
+08-08 00:03:49.597   273   273 I tombstoned: registered intercept for pid 577 and type kDebuggerdNativeBacktrace
+08-08 00:03:49.611   577   577 I libc    : Requested dump for pid 577 (drmserver)
+08-08 00:03:49.618  9922 10103 E WifiStaIfaceAidlImpl: getTwtCapabilities failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+08-08 00:03:49.638  9922 10103 E WifiChipAidlImpl: getUsableChannels failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+08-08 00:03:49.888  9922 10103 E WifiChipAidlImpl: enableStaChannelForPeerNetwork failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+08-08 00:03:49.921  9922 10103 D WifiNative: setWifiNativeInterfaceEventCallback
+08-08 00:03:50.004  9922  9922 E UserManagerService: Auto-lock preference updated but private space user not found
+08-08 00:03:50.006  9922 10103 D WifiClientModeManager[14448895:wlan0]: entering StartedState
+08-08 00:03:50.457  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:50.558  9922 10103 I SupplicantStaIfaceHalAidlImpl: Clearing internal state
+08-08 00:03:51.353 10243 10243 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdNativeBacktrace
+08-08 00:03:51.381  9922  9922 I AS.AudioService: registerAudioPolicy for android.media.audiopolicy.AudioPolicy$1@dcebb13 u/pid:1000/9922 with config:reg:32:ap:0
+08-08 00:03:51.445   273   273 I tombstoned: received crash request for pid 577
+08-08 00:03:51.450   273   273 I tombstoned: found intercept fd 512 for pid 577 and type kDebuggerdNativeBacktrace
+08-08 00:03:51.517 10243 10243 I crash_dump64: performing dump of process 577 (target tid = 577)
+08-08 00:03:51.580  9922 10103 W ServiceManagerCppClient: Waited one second for android.hardware.wifi.supplicant.ISupplicant/default (is service started? Number of threads started in the threadpool: 32. Are binder threads started and available?)
+08-08 00:03:51.691  9922  9956 E system_server: libdebuggerd_client: poll timeout expired
+08-08 00:03:51.769  9922  9956 I ActivityManager: Collecting stacks for native pid 452
+08-08 00:03:51.786  9922  9956 E system_server: Could not open /dev/binderfs/binder_logs/transactions. Likely a permissions issue. errno: 2
+08-08 00:03:51.786  9922  9956 E android.os.Debug: Failed to get binder state info for pid: 452 status: -2: No such file or directory
+08-08 00:03:51.782  9922  9922 W watchdog: type=1400 audit(0.0:5005): avc:  denied  { read } for  name="transactions" dev="binder" ino=1048587 scontext=u:r:system_server:s0 tcontext=u:object_r:binderfs_logs_transactions:s0 tclass=file permissive=0
+08-08 00:03:51.922   273   273 W tombstoned: skipping tombstone file creation due to intercept
+08-08 00:03:51.996  9922  9956 I system_server: libdebuggerd_client: started dumping process 452
+08-08 00:03:52.014   273   273 I tombstoned: registered intercept for pid 452 and type kDebuggerdNativeBacktrace
+08-08 00:03:52.019   452   452 I libc    : Requested dump for pid 452 (binder:452_2)
+08-08 00:03:52.233  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:52.252  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:52.616  9922 10103 W ServiceManagerCppClient: Waited one second for android.hardware.wifi.supplicant.ISupplicant/default (is service started? Number of threads started in the threadpool: 32. Are binder threads started and available?)
+08-08 00:03:52.742  9922  9922 V UserDataPreparer: Found /data/user_de/0 with serial number 0
+08-08 00:03:52.742  9922  9922 V UserDataPreparer: Found /data/user/0 with serial number 0
+08-08 00:03:52.745  9922  9922 V UserDataPreparer: Found /data/system_de/0 with serial number 0
+08-08 00:03:52.747  9922  9922 V UserDataPreparer: Found /data/system_ce/0 with serial number 0
+08-08 00:03:52.747  9922  9922 V UserDataPreparer: Found /data/misc_ce/0 with serial number 0
+08-08 00:03:53.325 10255 10255 I crash_dump64: obtaining output fd from tombstoned, type: kDebuggerdNativeBacktrace
+08-08 00:03:53.427   273   273 I tombstoned: received crash request for pid 452
+08-08 00:03:53.427   273   273 I tombstoned: found intercept fd 512 for pid 452 and type kDebuggerdNativeBacktrace
+08-08 00:03:53.431 10255 10255 I crash_dump64: performing dump of process 452 (target tid = 452)
+08-08 00:03:53.523 10245 10245 I wpa_supplicant: Processing aidl events on FD 3
+08-08 00:03:53.530 10245 10245 I wpa_supplicant: Starting AIDL supplicant
+08-08 00:03:53.539 10245 10245 I wpa_supplicant: AIDL Interface version: 4
+08-08 00:03:53.551  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false

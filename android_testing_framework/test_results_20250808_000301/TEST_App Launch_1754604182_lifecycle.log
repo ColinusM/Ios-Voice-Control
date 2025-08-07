@@ -1,0 +1,5 @@
+08-08 00:03:06.788  9922  9922 D SystemServerTiming: StartActivityManager
+08-08 00:03:06.789  9922  9922 I SystemServiceManager: Starting com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:03:06.809  9922  9922 I SystemServiceManager: Starting com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:03:06.832  9922  9922 I ActivityManager: Memory class: 192
+08-08 00:03:07.150  9922  9945 W android.permission.PermissionManager: Missing ActivityManager; assuming 1047 does not hold android.permission.MANAGE_APP_OPS_MODES

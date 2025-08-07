@@ -1,0 +1,13 @@
+{
+  "test_name": "AssemblyAI Integration",
+  "passed": true,
+  "timestamp": "2025-08-08T00:04:58.435711",
+  "expected_pattern": "AssemblyAI|WebSocket|\ud83d\udd17|Connected|Streaming|transcription",
+  "found_lines": [
+    "[full] 08-08 00:04:33.532 10404 10404 I TestMarker: TEST_AssemblyAI Integration_1754604273",
+    "[full] 08-08 00:04:35.561  9922 10123 D ConnectivityService: Switching to new default network for: uid/pid:1000/9922 activeRequest: null callbackRequest: 12 [NetworkRequest [ TRACK_DEFAULT id=12, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10143 RequestorUid: 1000 RequestorPkg: android UnderlyingNetworks: Null] ], NetworkRequest [ REQUEST id=13, [ Transports: SATELLITE Capabilities: INTERNET&TRUSTED&NOT_VPN&NOT_VCN_MANAGED Uid: 10143 UnderlyingNetworks: Null] ]] callback flags: 0 order: 40 isUidTracked: false declaredMethods: NONE using NetworkAgentInfo{network{52}  handle{226743996429}  ni{ IDLE} created=2025-08-07T22:03:15.333Z Score(Policies :  ; KeepConnected : 0)   lp{{LinkAddresses: [ ] DnsAddresses: [ ] Domains: null MTU: 0 Routes: [ ]}}  nc{[ Capabilities: NOT_RESTRICTED&TRUSTED&NOT_VPN&NOT_BANDWIDTH_CONSTRAINED UnderlyingNetworks: Null]}  factorySerialNumber=0}",
+    "[full] 08-08 00:04:35.864  9922 10123 D ConnectivityService: register offer from providerId 3 : NetworkOffer [ Provider Id (3) Score(Policies : EVER_EVALUATED&IS_UNMETERED ; KeepConnected : 0) Caps [ Transports: BLUETOOTH Capabilities: NOT_METERED&NOT_VPN&NOT_ROAMING&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Specifier: <L2capNetworkSpecifier(ROLE_SERVER, HEADER_COMPRESSION_ANY, RemoteAddress=null, PSM=PSM_ANY)> ReservationId: * UnderlyingNetworks: Null] Needed by []]",
+    "[full] 08-08 00:04:35.864  9922 10123 D ConnectivityService: register offer from providerId 3 : NetworkOffer [ Provider Id (3) Score(Policies : EVER_EVALUATED&IS_UNMETERED ; KeepConnected : 0) Caps [ Transports: BLUETOOTH Capabilities: NOT_METERED&NOT_VPN&NOT_ROAMING&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Specifier: <L2capNetworkSpecifier(ROLE_CLIENT, HEADER_COMPRESSION_ANY, RemoteAddress=null, PSM=PSM_ANY)> UnderlyingNetworks: Null] Needed by []]"
+  ],
+  "errors": []
+}

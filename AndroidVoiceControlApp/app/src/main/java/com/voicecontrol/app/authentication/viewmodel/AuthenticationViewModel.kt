@@ -562,7 +562,7 @@ class AuthenticationViewModel @Inject constructor(
             }
             
             // Update usage
-            val updatedGuest = guest.incrementUsage(by = minutesUsed)
+            val updatedGuest = guest.incrementUsage(minutesUsed)
             _guestUser.value = updatedGuest
             
             // Persist updated usage

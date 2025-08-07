@@ -113,7 +113,7 @@ sealed class SubscriptionStatus {
      * Get remaining minutes (0 for premium/unlimited)
      * Equivalent to iOS computed property
      */
-    val remainingMinutes: Int
+    val totalRemainingMinutes: Int
         get() = when (this) {
             is Premium -> Int.MAX_VALUE // Unlimited
             is Free -> remainingMinutes

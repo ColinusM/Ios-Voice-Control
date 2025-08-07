@@ -1,0 +1,13 @@
+{
+  "test_name": "Back Navigation",
+  "passed": true,
+  "timestamp": "2025-08-07T22:33:58.879547",
+  "expected_pattern": "onBackPressed|WindowDispatcher|CoreBackPreview|sendCancelIfRunning",
+  "found_lines": [
+    "[full] 08-07 22:33:54.503  6726  6726 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@d39606a",
+    "[full] 08-07 22:33:54.506   677   980 D CoreBackPreview: Window{6b9dc11 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@94be555, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}",
+    "[app] 08-07 22:33:54.506   677   980 D CoreBackPreview: Window{6b9dc11 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@94be555, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}",
+    "[lifecycle] 08-07 22:33:54.506   677   980 D CoreBackPreview: Window{6b9dc11 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@94be555, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}"
+  ],
+  "errors": []
+}

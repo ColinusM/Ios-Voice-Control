@@ -1,0 +1,18 @@
+--------- beginning of main
+08-07 22:34:37.717  8584  8584 I TestMarker: TEST_back_nav_1754598878
+08-07 22:34:37.717  8584  8584 I TestMarker: 
+08-07 22:34:37.861  1422  1422 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+--------- beginning of system
+08-07 22:34:37.921   944  1049 V WindowManagerShell: Transition requested (#55): android.os.BinderProxy@d07189c TransitionRequestInfo { type = CLOSE, triggerTask = null, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 55 }
+08-07 22:34:37.931   504   621 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 22:34:37.973   504   504 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 22:34:37.976  6726  6726 D MainActivity: ⏸️ MainActivity paused
+08-07 22:34:37.980  6726  6770 D SessionLifecycleClient: Sending lifecycle 2 to service
+08-07 22:34:37.981  6726  6776 D SessionLifecycleService: Activity backgrounding at 9105437
+08-07 22:34:38.038   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 22:34:38.089   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 22:34:38.103   677   730 W ProcessStats: Tracking association SourceState{bed26e2 com.google.android.gms/10147 BTop #4283} whose proc state 2 is better than process ProcessState{c1645ff com.google.android.gms.unstable/10147 pkg=com.google.android.gms} proc state 14 (16 skipped)
+08-07 22:34:38.112   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 22:34:38.144  6726  6726 D MainActivity: 📱 MainActivity resumed
+08-07 22:34:38.148  6726  6759 D SessionLifecycleClient: Sending lifecycle 1 to service
+08-07 22:34:38.150  6726  6776 D SessionLifecycleService: Activity foregrounding at 9105605.

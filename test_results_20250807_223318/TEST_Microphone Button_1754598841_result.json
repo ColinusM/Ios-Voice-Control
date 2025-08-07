@@ -1,0 +1,11 @@
+{
+  "test_name": "Microphone Button",
+  "passed": true,
+  "timestamp": "2025-08-07T22:34:06.446585",
+  "expected_pattern": "Microphone|Audio|Recording|RECORD_AUDIO|Listening",
+  "found_lines": [
+    "[full] 08-07 22:34:00.724  8482  8482 I TestMarker: TEST_Microphone Button_1754598841",
+    "[full] 08-07 22:34:01.116  8486  8486 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps."
+  ],
+  "errors": []
+}

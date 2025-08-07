@@ -1,0 +1,9 @@
+08-08 00:03:11.273  9922  9922 D ActivityManager: Freezer timeout set to 10000
+08-08 00:03:11.273  9922  9922 D ActivityManager: Freezer exemption set to false
+08-08 00:03:11.276  9922  9965 D ActivityManager: Freezer enabled
+08-08 00:03:11.276  9922  9965 D ActivityManager: freezer override set to false
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:03:13.129  9922  9922 I ActivityTaskManager: Config changes=20005df8 {1.0 ?mcc0mnc [en_US] ldltr sw411dp w411dp h923dp 420dpi nrml long port ?uimode ?night finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2424) mAppBounds=Rect(0, 0 - 1080, 2424) mMaxBounds=Rect(0, 0 - 1080, 2424) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.2 ?fontWeightAdjustment}
+08-08 00:03:13.140  9922  9922 I WindowManager: Override config changes=60007dfc {1.0 ?mcc0mnc [en_US] ldltr sw411dp w411dp h923dp 420dpi nrml long port ?uimode ?night finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2424) mAppBounds=Rect(0, 0 - 1080, 2424) mMaxBounds=Rect(0, 0 - 1080, 2424) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.2 ?fontWeightAdjustment} for displayId=0
+08-08 00:03:14.756  9922  9922 I WifiContext: Got resolveInfos for com.android.server.wifi.intent.action.SERVICE_WIFI_RESOURCES_APK: [ResolveInfo{2e91c7 com.google.android.wifi.resources/android.app.Activity m=0x108000 userHandle=UserHandle{0}}]

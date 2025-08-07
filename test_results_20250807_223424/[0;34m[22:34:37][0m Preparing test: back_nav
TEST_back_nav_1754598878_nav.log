@@ -1,0 +1,4 @@
+08-07 22:34:37.976  6726  6726 D MainActivity: ⏸️ MainActivity paused
+08-07 22:34:37.981  6726  6776 D SessionLifecycleService: Activity backgrounding at 9105437
+08-07 22:34:38.144  6726  6726 D MainActivity: 📱 MainActivity resumed
+08-07 22:34:38.150  6726  6776 D SessionLifecycleService: Activity foregrounding at 9105605.

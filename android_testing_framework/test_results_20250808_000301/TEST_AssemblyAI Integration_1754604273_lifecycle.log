@@ -1,0 +1,23 @@
+08-08 00:04:32.729  9922  9956 I ActivityManager: Dumping to /data/anr/anr_2025-08-08-00-04-29-599
+08-08 00:04:32.782  9922  9956 I ActivityManager: Collecting stacks for pid 9922
+08-08 00:04:33.413  9922  9945 W ActivityManager: Slow operation: 2526ms so far, now at attachApplicationLocked: before bindApplication
+08-08 00:04:33.761  9922  9945 W ActivityManager: Slow operation: 2874ms so far, now at attachApplicationLocked: immediately before bindApplication
+08-08 00:04:34.633  9922  9945 W ActivityManager: Slow operation: 3746ms so far, now at attachApplicationLocked: immediately after bindApplication
+08-08 00:04:34.648  9922  9945 W ActivityManager: Slow operation: 3761ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+08-08 00:04:34.788  9922  9945 W ActivityManager: Slow operation: 3901ms so far, now at attachApplicationLocked: after updateOomAdjLocked
+08-08 00:04:34.839  9922  9951 W Looper  : Slow dispatch took 150ms android.ui app=system_server main=false group=TOP_APP h=com.android.server.am.ActivityManagerService$UiHandler c=com.android.server.am.UidObserverController$$ExternalSyntheticLambda0@5336929 m=0
+08-08 00:04:35.106  9922  9965 W ActivityManager: Process ProcessRecord{321b4a4 10350:com.android.systemui/u0a185} failed to attach
+08-08 00:04:35.206  9922  9965 W ActivityManager: Forcing bringing down service: ServiceRecord{7172c36 u0 com.android.systemui/.wallpapers.ImageWallpaper c:android}
+08-08 00:04:35.612  9922  9965 I ActivityManager: Killing 10350:com.android.systemui/u0a185 (adj -800): start timeout
+08-08 00:04:35.727  9922  9965 W ActivityManager: Removing persistent process that hasn't been killed: ProcessRecord{321b4a4 10350:com.android.systemui/u0a185}
+08-08 00:04:35.849  9922  9960 W ActivityManager: Slow operation: 88ms so far, now at attachApplicationLocked: before bindApplication
+08-08 00:04:35.899  9922  9960 W ActivityManager: Slow operation: 137ms so far, now at attachApplicationLocked: immediately before bindApplication
+08-08 00:04:35.967  9922  9960 W ActivityManager: Slow operation: 206ms so far, now at attachApplicationLocked: immediately after bindApplication
+08-08 00:04:35.968  9922  9960 W ActivityManager: Slow operation: 207ms so far, now at attachApplicationLocked: after updateLruProcessLocked
+08-08 00:04:36.168  9922  9960 W ActivityManager: Slow operation: 407ms so far, now at attachApplicationLocked: after updateOomAdjLocked
+08-08 00:04:36.234  9922  9951 W Looper  : Slow dispatch took 102ms android.ui app=system_server main=false group=TOP_APP h=com.android.server.am.ActivityManagerService$UiHandler c=com.android.server.am.UidObserverController$$ExternalSyntheticLambda0@5336929 m=0
+08-08 00:04:36.399  9922  9922 D SystemServerTiming: OnBootPhase_600_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:04:36.399  9922  9922 D SystemServerTiming: OnBootPhase_600_com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:04:36.432  9922  9922 D ActivityManager: ThemeHomeDelay: Home launch is not delayable, skipping timeout creation
+08-08 00:04:38.199  9922  9944 V ActivityManager: Got obituary of 10350:com.android.systemui
+08-08 00:04:45.628  9922  9956 W ActivityManager: Dumping Java threads failed, initiating native stack dump.

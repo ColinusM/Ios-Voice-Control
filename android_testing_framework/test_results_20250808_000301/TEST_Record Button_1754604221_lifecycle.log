@@ -1,0 +1,6 @@
+08-08 00:03:49.554  9922  9956 I ActivityManager: dumpStackTraces nativepids=[577, 452, 457, 458, 459, 460, 588, 461, 463, 591, 465, 466, 467, 595, 472, 216, 476, 477, 478, 480, 484, 9764, 9765, 9766, 9767, 9769, 490, 234, 494, 244, 245, 504, 10171]
+08-08 00:03:49.554  9922  9956 I ActivityManager: Collecting stacks for native pid 577
+08-08 00:03:51.769  9922  9956 I ActivityManager: Collecting stacks for native pid 452
+08-08 00:03:53.734  9922  9956 I ActivityManager: Collecting stacks for native pid 457
+08-08 00:03:55.923  9922  9956 I ActivityManager: Collecting stacks for native pid 458
+08-08 00:03:58.166  9922  9956 I ActivityManager: Collecting stacks for native pid 459

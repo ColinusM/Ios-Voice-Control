@@ -1,0 +1,393 @@
+--------- beginning of system
+08-08 00:04:07.039  9922 10306 I DropBoxManagerService: add tag=system_server_pre_watchdog isTagEnabled=true flags=0x6
+--------- beginning of main
+08-08 00:04:07.417  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:04:07.433  9922  9922 D nativeloader: Load libuwb_uci_jni_rust.so using class loader ns clns-shared-16 (caller=/apex/com.android.uwb/javalib/service-uwb.jar): ok
+08-08 00:04:07.796  9922  9922 D uwb     : uwb_uci_jni_rust::uci_jni_android_new: Java_com_android_server_uwb_jni_NativeUwbManager_nativeInit: enter
+08-08 00:04:08.120  9922  9950 W Looper  : Slow dispatch took 238ms android.fg app=system_server main=false group=FOREGROUND h=com.android.server.DropBoxManagerService$DropBoxManagerBroadcastHandler c=null m=1
+08-08 00:04:08.175 10310 10310 I TestMarker: TEST_Permission Handling_1754604247
+08-08 00:04:08.298  9922  9922 I UwbContext: Found Uwb Resources APK at: com.google.android.uwb.resources
+08-08 00:04:08.449  9922  9922 I system_server: AssetManager2(0xb400007767a45598) locale list changing from [] to [en-US]
+08-08 00:04:08.980  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:04:09.003  9922  9922 D UwbServiceCore: Starting Uwb
+08-08 00:04:09.040  9922  9922 I UwbService: Registering uwb
+08-08 00:04:09.078  9922  9922 D SystemServerTiming: RangingService
+08-08 00:04:09.119  9922  9922 I SystemServiceManager: Starting com.android.server.ranging.RangingService
+08-08 00:04:09.201  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:04:09.218  9922  9922 I UwbContext: Found Uwb Resources APK at: com.google.android.uwb.resources
+08-08 00:04:09.263  9922  9922 I RangingService: Registering Ranging service
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: StartBootPhaseDeviceSpecificServicesReady
+08-08 00:04:09.265  9922  9922 I SystemServiceManager: Starting phase 520
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.FileIntegrityService
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.Installer
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.os.DeviceIdentifiersPolicyService
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.flags.FeatureFlagsService
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.uri.UriGrantsManagerService$Lifecycle
+08-08 00:04:09.265  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.powerstats.PowerStatsService
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.permission.access.AccessCheckingService
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.DataLoaderManagerService
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.power.PowerManagerService
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.power.ThermalManagerService
+08-08 00:04:09.266  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.recoverysystem.RecoverySystemService$Lifecycle
+08-08 00:04:09.267  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.lights.LightsService
+08-08 00:04:09.268  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.display.DisplayManagerService
+08-08 00:04:09.268  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.verify.domain.DomainVerificationService
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.PackageInstallerService$Lifecycle
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.UserManagerService$LifeCycle
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.om.OverlayManagerService
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.resources.ResourcesManagerService
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.sensorprivacy.SensorPrivacyService
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.sensors.SensorService
+08-08 00:04:09.270  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.SystemConfigService
+08-08 00:04:09.271  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.BatteryService
+08-08 00:04:09.273  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.usage.UsageStatsService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.webkit.WebViewUpdateService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.CachedDeviceStateService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.BinderCallsStatsService$LifeCycle
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.LooperStatsService$Lifecycle
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.rollback.RollbackManagerService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.os.NativeTombstoneManagerService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.os.BugreportManagerService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.gpu.GpuService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.rkp.RemoteProvisioningService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.KeyChainSystemService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.BinaryTransparencyService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.telecom.TelecomLoaderService
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.accounts.AccountManagerService$Lifecycle
+08-08 00:04:09.280  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.content.ContentService$Lifecycle
+08-08 00:04:09.282  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.deviceconfig.DeviceConfigInit$Lifecycle
+08-08 00:04:09.282  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.DropBoxManagerService
+08-08 00:04:09.283  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.ecm.EnhancedConfirmationService
+08-08 00:04:09.283  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.power.hint.HintManagerService
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.role.RoleService
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.supervision.SupervisionService$Lifecycle
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.vibrator.VibratorManagerService$Lifecycle
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.alarm.AlarmManagerService
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.input.InputManagerService$Lifecycle
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.devicestate.DeviceStateManagerService
+08-08 00:04:09.285  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.camera.CameraServiceProxy
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.bluetooth.BluetoothService
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.connectivity.IpConnectivityMetrics
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.net.watchlist.NetworkWatchlistService$Lifecycle
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pinner.PinnerService
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.integrity.AppIntegrityManagerService
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.logcat.LogcatManagerService
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.intrusiondetection.IntrusionDetectionService
+08-08 00:04:09.286  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.appfunctions.AppFunctionManagerService
+08-08 00:04:09.288  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.advancedprotection.AdvancedProtectionService$Lifecycle
+08-08 00:04:09.288  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.TradeInModeService
+08-08 00:04:09.289  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.inputmethod.InputMethodManagerService$Lifecycle
+08-08 00:04:09.289  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.accessibility.AccessibilityManagerService$Lifecycle
+08-08 00:04:09.290  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.StorageManagerService$Lifecycle
+08-08 00:04:09.291  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.usage.StorageStatsService$Lifecycle
+08-08 00:04:09.291  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.UiModeManagerService
+08-08 00:04:09.291  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.locales.LocaleManagerService
+08-08 00:04:09.292  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.grammaticalinflection.GrammaticalInflectionService
+08-08 00:04:09.292  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.apphibernation.AppHibernationService
+08-08 00:04:09.293  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.locksettings.LockSettingsService$Lifecycle
+08-08 00:04:09.295  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.testharness.TestHarnessModeService
+08-08 00:04:09.297  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.DeviceIdleController
+08-08 00:04:09.298  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle
+08-08 00:04:09.300  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.musicrecognition.MusicRecognitionManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.contentcapture.ContentCaptureManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.systemcaptions.SystemCaptionsManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.texttospeech.TextToSpeechManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wearable.WearableSensingManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.ondeviceintelligence.OnDeviceIntelligenceManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.ambientcontext.AmbientContextManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.speech.SpeechRecognitionManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.appprediction.AppPredictionManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.contentsuggestions.ContentSuggestionsManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.searchui.SearchUiManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.smartspace.SmartspaceManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.contextualsearch.ContextualSearchManagerService
+08-08 00:04:09.301  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.graphics.fonts.FontManagerService$Lifecycle
+08-08 00:04:09.302  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.textservices.TextServicesManagerService$Lifecycle
+08-08 00:04:09.302  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.textclassifier.TextClassificationManagerService$Lifecycle
+08-08 00:04:09.302  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.NetworkScoreService$Lifecycle
+08-08 00:04:09.302  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.NetworkStatsServiceInitializer
+08-08 00:04:09.302  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wifi.WifiService
+08-08 00:04:09.303  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wifi.scanner.WifiScanningService
+08-08 00:04:09.303  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wifi.p2p.WifiP2pService
+08-08 00:04:09.303  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.ConnectivityServiceInitializer
+08-08 00:04:09.304  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.notification.NotificationManagerService
+08-08 00:04:09.379  9922  9922 W SystemServiceManager: Service com.android.server.notification.NotificationManagerService took 74 ms in onBootPhase
+08-08 00:04:09.380  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.storage.DeviceStorageMonitorService
+08-08 00:04:09.380  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.timedetector.TimeDetectorService$Lifecycle
+08-08 00:04:09.380  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.location.LocationManagerService$Lifecycle
+08-08 00:04:09.380  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle
+08-08 00:04:09.380  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.location.altitude.AltitudeService$Lifecycle
+08-08 00:04:09.380  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.timezonedetector.location.LocationTimeZoneManagerService$Lifecycle
+08-08 00:04:09.385  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.search.SearchManagerService$Lifecycle
+08-08 00:04:09.385  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wallpaper.WallpaperManagerService$Lifecycle
+08-08 00:04:09.393  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.wallpapereffectsgeneration.WallpaperEffectsGenerationManagerService
+08-08 00:04:09.393  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.audio.AudioService$Lifecycle
+08-08 00:04:09.394  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.soundtrigger_middleware.SoundTriggerMiddlewareService$Lifecycle
+08-08 00:04:09.394  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.DockObserver
+08-08 00:04:09.394  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.midi.MidiService$Lifecycle
+08-08 00:04:09.394  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.adb.AdbService$Lifecycle
+08-08 00:04:09.395  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.usb.UsbService$Lifecycle
+08-08 00:04:09.396  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.SerialService$Lifecycle
+08-08 00:04:09.396  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.twilight.TwilightService
+08-08 00:04:09.398  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.display.color.ColorDisplayService
+08-08 00:04:09.398  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.job.JobSchedulerService
+08-08 00:04:09.398  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.soundtrigger.SoundTriggerService
+08-08 00:04:09.400  9922  9922 D SoundTriggerService: onBootPhase: 520 : false
+08-08 00:04:09.406  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.trust.TrustManagerService
+08-08 00:04:09.407  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.backup.BackupManagerService$Lifecycle
+08-08 00:04:09.407  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.appwidget.AppWidgetService
+08-08 00:04:09.407  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.voiceinteraction.VoiceInteractionManagerService
+08-08 00:04:09.408  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.GestureLauncherService
+08-08 00:04:09.409  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.SensorNotificationService
+08-08 00:04:09.409  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.ContextHubSystemService
+08-08 00:04:09.410  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.emergency.EmergencyAffordanceService
+08-08 00:04:09.412  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.blob.BlobStoreManagerService
+08-08 00:04:09.412  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.dreams.DreamManagerService
+08-08 00:04:09.412  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.print.PrintManagerService
+08-08 00:04:09.412  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.AttestationVerificationManagerService
+08-08 00:04:09.412  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.companion.CompanionDeviceManagerService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.companion.virtual.VirtualDeviceManagerService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.restrictions.RestrictionsManagerService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.media.MediaSessionService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.media.MediaResourceMonitorService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.biometrics.sensors.fingerprint.FingerprintService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.biometrics.BiometricService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.biometrics.AuthService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.security.authenticationpolicy.AuthenticationPolicyService
+08-08 00:04:09.414  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.ShortcutService$Lifecycle
+08-08 00:04:09.415  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.LauncherAppsService
+08-08 00:04:09.415  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.CrossProfileAppsService
+08-08 00:04:09.415  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.people.PeopleService
+08-08 00:04:09.416  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.media.metrics.MediaMetricsManagerService
+08-08 00:04:09.416  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.BackgroundInstallControlService
+08-08 00:04:09.416  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.media.projection.MediaProjectionManagerService
+08-08 00:04:09.416  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.slice.SliceManagerService$Lifecycle
+08-08 00:04:09.416  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.stats.StatsCompanion$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.scheduling.RebootReadinessManagerService$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.stats.pull.StatsPullAtomService
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.stats.bootstrap.StatsBootstrapAtomService$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.incident.IncidentCompanionService
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.sdksandbox.SdkSandboxManagerService$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.adservices.AdServicesManagerService$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.ondevicepersonalization.OnDevicePersonalizationSystemService$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_android.os.profiling.ProfilingService$Lifecycle
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.MmsServiceBroker
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.autofill.AutofillManagerService
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.credentials.CredentialManagerService
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.translation.TranslationManagerService
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.clipboard.ClipboardService
+08-08 00:04:09.417  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.appbinding.AppBindingService$Lifecycle
+08-08 00:04:09.460  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.tracing.TracingServiceProxy
+08-08 00:04:09.460  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.os.instrumentation.DynamicInstrumentationManagerService
+08-08 00:04:09.460  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.policy.PermissionPolicyService
+08-08 00:04:09.503  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.pm.StagingManager$Lifecycle
+08-08 00:04:09.503  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.crashrecovery.CrashRecoveryModule$Lifecycle
+08-08 00:04:09.504  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.app.GameManagerService$Lifecycle
+08-08 00:04:09.505  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.uwb.UwbService
+08-08 00:04:09.505  9922  9922 D SystemServerTiming: OnBootPhase_520_com.android.server.ranging.RangingService
+08-08 00:04:09.508  9922  9922 D SystemServerTiming: StartSafetyCenterService
+08-08 00:04:09.535  9922  9922 I SystemServiceManager: Starting com.android.safetycenter.SafetyCenterService
+08-08 00:04:09.833  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:04:09.860  9922  9922 I SafetyCenterResApk: Found Safety Center resources APK at: com.google.android.safetycenter.resources
+08-08 00:04:10.026  9922  9922 I system_server: AssetManager2(0xb400007767a445f8) locale list changing from [] to [en-US]
+08-08 00:04:10.181 10314 10314 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-08 00:04:10.186 10314 10314 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-08 00:04:10.187 10314 10314 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-08 00:04:10.223   504   615 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-08 00:04:10.225   504   615 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-08 00:04:10.257  9922  9922 D SafetyCenterConfigReade: SafetyCenterConfig loaded successfully
+08-08 00:04:10.301  9922  9922 D SafetyCenterIssueDis: Safety Center persisted issues read successfully
+08-08 00:04:10.459  9922  9922 W SystemServiceManager: Service com.android.safetycenter.SafetyCenterService took 801 ms in onStart
+08-08 00:04:10.464  9922  9922 D SystemServerTiming: AppSearchModule
+08-08 00:04:10.491  9922  9922 I SystemServiceManager: Starting com.android.server.appsearch.AppSearchModule$Lifecycle
+08-08 00:04:10.821  9922  9922 W SystemServiceManager: Service com.android.server.appsearch.AppSearchModule$Lifecycle took 313 ms in onStart
+08-08 00:04:10.841  9922  9922 D SystemServerTiming: StartMediaCommunicationService
+08-08 00:04:10.892  9922  9922 I SystemServiceManager: Starting com.android.server.media.MediaCommunicationService
+08-08 00:04:11.833  9922  9922 W SystemServiceManager: Service com.android.server.media.MediaCommunicationService took 935 ms in onStart
+08-08 00:04:11.943  9922  9922 D SystemServerTiming: AppCompatOverridesService
+08-08 00:04:11.953  9922  9922 I SystemServiceManager: Starting com.android.server.compat.overrides.AppCompatOverridesService$Lifecycle
+08-08 00:04:12.178  9922  9922 W SystemServiceManager: Service com.android.server.compat.overrides.AppCompatOverridesService$Lifecycle took 225 ms in onStart
+08-08 00:04:12.187  9922  9922 D SystemServerTiming: HealthConnectManagerService
+08-08 00:04:12.254  9922  9922 I SystemServiceManager: Starting com.android.server.healthconnect.HealthConnectManagerService
+08-08 00:04:13.360  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:04:14.406  9922  9922 W SystemServiceManager: Service com.android.server.healthconnect.HealthConnectManagerService took 226 ms in onStart
+08-08 00:04:14.415  9922  9922 D SystemServerTiming: DeviceLockService
+08-08 00:04:14.512  9922  9922 I SystemServiceManager: Starting com.android.server.devicelock.DeviceLockService
+08-08 00:04:14.532  9922  9922 D DeviceLockService: DeviceLockService constructor
+08-08 00:04:14.587  9922  9922 I DeviceLockService: Registering device_lock
+08-08 00:04:14.587  9922  9922 D SystemServerTiming: StartSensitiveContentProtectionManager
+08-08 00:04:14.622  9922  9922 I SystemServiceManager: Starting com.android.server.SensitiveContentProtectionManagerService
+08-08 00:04:14.726  9922  9922 D SystemServerTiming: PhaseActivityManagerReady
+08-08 00:04:14.727  9922  9922 D SystemServerTiming: controllersReady
+08-08 00:04:15.656  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:04:15.965  9922  9922 D SystemServerTiming: killProcesses
+08-08 00:04:15.969  9922  9922 I ActivityManager: System now ready
+08-08 00:04:15.973  9922  9922 D SystemServerTiming: updateTopComponentForFactoryTest
+08-08 00:04:15.987  9922  9922 D SystemServerTiming: registerActivityLaunchObserver
+08-08 00:04:16.029  9922  9922 D SystemServerTiming: watchDeviceProvisioning
+08-08 00:04:16.062  9922 10022 W InputManager: Input event injection from pid 10327 failed.
+08-08 00:04:16.084  9922  9922 D SystemServerTiming: retrieveSettings
+08-08 00:04:16.177  9922 10022 W InputManager: Input event injection from pid 10327 failed.
+08-08 00:04:16.349  9922  9922 I ActivityTaskManager: Config changes=10008000 {1.0 ?mcc0mnc [en_US] ldltr sw411dp w411dp h923dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2424) mAppBounds=Rect(0, 0 - 1080, 2424) mMaxBounds=Rect(0, 0 - 1080, 2424) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.6 fontWeightAdjustment=0}
+08-08 00:04:16.525  9922  9922 I WindowManager: Override config changes=10008000 {1.0 ?mcc0mnc [en_US] ldltr sw411dp w411dp h923dp 420dpi nrml long port finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2424) mAppBounds=Rect(0, 0 - 1080, 2424) mMaxBounds=Rect(0, 0 - 1080, 2424) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.6 fontWeightAdjustment=0} for displayId=0
+08-08 00:04:16.656  9922 10103 D WifiConfigStore: Writing to stores completed in 38 ms.
+08-08 00:04:16.684  9922  9922 D SystemServerTiming: Ugm.onSystemReady
+08-08 00:04:16.726  9922  9922 D SystemServerTiming: updateForceBackgroundCheck
+08-08 00:04:16.733  9922  9922 I SystemServer: Making services ready
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: StartActivityManagerReadyPhase
+08-08 00:04:16.733  9922  9922 I SystemServiceManager: Starting phase 550
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.security.FileIntegrityService
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.pm.Installer
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.os.DeviceIdentifiersPolicyService
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.flags.FeatureFlagsService
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.uri.UriGrantsManagerService$Lifecycle
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.powerstats.PowerStatsService
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.permission.access.AccessCheckingService
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:04:16.733  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:04:16.745  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.pm.DataLoaderManagerService
+08-08 00:04:16.745  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.power.PowerManagerService
+08-08 00:04:16.745  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.power.ThermalManagerService
+08-08 00:04:16.749   245 10300 I keystore2: system/security/keystore2/watchdog/src/lib.rs:377 - Watchdog thread idle -> terminating. Have a great day.
+08-08 00:04:16.876  9922  9922 I ThermalManagerService$ThermalHalWrapper: Thermal HAL AIDL service connected with version 3
+08-08 00:04:16.929  9922  9950 D BrightnessThermalClamper: New thermal throttling status = 0
+08-08 00:04:16.935  9922  9922 W SystemServiceManager: Service com.android.server.power.ThermalManagerService took 190 ms in onBootPhase
+08-08 00:04:16.935  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.recoverysystem.RecoverySystemService$Lifecycle
+08-08 00:04:16.935  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.lights.LightsService
+08-08 00:04:16.935  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.display.DisplayManagerService
+08-08 00:04:16.935  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.pm.verify.domain.DomainVerificationService
+08-08 00:04:16.936  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.pm.PackageInstallerService$Lifecycle
+08-08 00:04:16.936  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.pm.UserManagerService$LifeCycle
+08-08 00:04:16.941  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.om.OverlayManagerService
+08-08 00:04:16.942  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.resources.ResourcesManagerService
+08-08 00:04:16.942  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.sensorprivacy.SensorPrivacyService
+08-08 00:04:16.954  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.sensors.SensorService
+08-08 00:04:16.955  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.SystemConfigService
+08-08 00:04:16.955  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.BatteryService
+08-08 00:04:16.965  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.usage.UsageStatsService
+08-08 00:04:16.967  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.webkit.WebViewUpdateService
+08-08 00:04:16.967  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.CachedDeviceStateService
+08-08 00:04:16.967  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.BinderCallsStatsService$LifeCycle
+08-08 00:04:16.967  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.LooperStatsService$Lifecycle
+08-08 00:04:16.967  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.rollback.RollbackManagerService
+08-08 00:04:16.967  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.os.NativeTombstoneManagerService
+08-08 00:04:17.018  9922  9922 W SystemServiceManager: Service com.android.server.os.NativeTombstoneManagerService took 51 ms in onBootPhase
+08-08 00:04:17.019  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.os.BugreportManagerService
+08-08 00:04:17.019  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.gpu.GpuService
+08-08 00:04:17.019  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.security.rkp.RemoteProvisioningService
+08-08 00:04:17.019  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.security.KeyChainSystemService
+08-08 00:04:17.019  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.BinaryTransparencyService
+08-08 00:04:17.022  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.telecom.TelecomLoaderService
+08-08 00:04:17.118  9922  9922 W ActivityManager: Too early to start/bind service in system_server: Phase=550 ComponentInfo{com.android.server.telecom/com.android.server.telecom.components.TelecomService}
+08-08 00:04:17.123  9922  9922 W ActivityManager: Too early to start/bind service in system_server: Phase=550 ComponentInfo{com.android.server.telecom/com.android.server.telecom.components.TelecomService}
+08-08 00:04:17.135  9922  9922 W SystemServiceManager: Service com.android.server.telecom.TelecomLoaderService took 113 ms in onBootPhase
+08-08 00:04:17.135  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.accounts.AccountManagerService$Lifecycle
+08-08 00:04:17.135  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.content.ContentService$Lifecycle
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.deviceconfig.DeviceConfigInit$Lifecycle
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.DropBoxManagerService
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.ecm.EnhancedConfirmationService
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.power.hint.HintManagerService
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.role.RoleService
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.supervision.SupervisionService$Lifecycle
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.vibrator.VibratorManagerService$Lifecycle
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.alarm.AlarmManagerService
+08-08 00:04:17.138  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.input.InputManagerService$Lifecycle
+08-08 00:04:17.139  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.devicestate.DeviceStateManagerService
+08-08 00:04:17.139  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.camera.CameraServiceProxy
+08-08 00:04:17.139  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.bluetooth.BluetoothService
+08-08 00:04:17.140  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.connectivity.IpConnectivityMetrics
+08-08 00:04:17.140  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.net.watchlist.NetworkWatchlistService$Lifecycle
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.pinner.PinnerService
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.integrity.AppIntegrityManagerService
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.logcat.LogcatManagerService
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.security.intrusiondetection.IntrusionDetectionService
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.appfunctions.AppFunctionManagerService
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.security.advancedprotection.AdvancedProtectionService$Lifecycle
+08-08 00:04:17.175  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.TradeInModeService
+08-08 00:04:17.176  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.inputmethod.InputMethodManagerService$Lifecycle
+08-08 00:04:17.228  9922  9953 I InputManager: Enabling motion classifier because just booted: feature enabled, long press timeout = 400 ms
+08-08 00:04:17.229  9922  9953 I InputProcessor: Enabling motion classifier
+08-08 00:04:17.250  9922 10331 I InputProcessor: HAL android.hardware.input.processor.IInputProcessor/default is not declared
+08-08 00:04:17.261  9922  9953 I InputManager: Setting user activity interval (ms) of 100
+08-08 00:04:17.334  9922  9953 D AppShortcutManager: adding shortcut RoleData{mRole='android.app.role.BROWSER'} modifierState=65536 keycode=30
+08-08 00:04:17.366  9922  9953 D AppShortcutManager: adding shortcut CategoryData{mCategory='android.intent.category.APP_CONTACTS'} modifierState=65536 keycode=44
+08-08 00:04:17.366  9922  9953 D AppShortcutManager: adding shortcut CategoryData{mCategory='android.intent.category.APP_EMAIL'} modifierState=65536 keycode=33
+08-08 00:04:17.366  9922  9953 D AppShortcutManager: adding shortcut CategoryData{mCategory='android.intent.category.APP_CALENDAR'} modifierState=65536 keycode=31
+08-08 00:04:17.366  9922  9953 D AppShortcutManager: adding shortcut CategoryData{mCategory='android.intent.category.APP_MAPS'} modifierState=65536 keycode=41
+08-08 00:04:17.366  9922  9953 D AppShortcutManager: adding shortcut CategoryData{mCategory='android.intent.category.APP_CALCULATOR'} modifierState=65536 keycode=49
+08-08 00:04:17.367  9922  9953 D AppShortcutManager: adding shortcut ComponentData{mPackageName='com.google.android.youtube', mClassName='com.google.android.youtube.app.honeycomb.Shell$HomeActivity'} modifierState=65536 keycode=53
+08-08 00:04:17.438  9922 10066 I InputReader: Reconfiguring input devices, changes=DEVICE_ALIAS
+08-08 00:04:17.470  9922  9953 I system_server: AssetManager2(0xb400007767a5b6b8) locale list changing from [] to [en-US]
+08-08 00:04:17.508  9922  9922 I system_server: AssetManager2(0xb400007767a5eef8) locale list changing from [] to [en-US]
+08-08 00:04:17.895  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:04:18.126  9922 10066 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS
+08-08 00:04:18.131  9922  9922 W SystemServiceManager: Service com.android.server.inputmethod.InputMethodManagerService$Lifecycle took 955 ms in onBootPhase
+08-08 00:04:18.133  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.accessibility.AccessibilityManagerService$Lifecycle
+08-08 00:04:18.134  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.StorageManagerService$Lifecycle
+08-08 00:04:18.140  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.usage.StorageStatsService$Lifecycle
+08-08 00:04:18.140  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.UiModeManagerService
+08-08 00:04:18.142  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.locales.LocaleManagerService
+08-08 00:04:18.147  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.grammaticalinflection.GrammaticalInflectionService
+08-08 00:04:18.147  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.apphibernation.AppHibernationService
+08-08 00:04:18.147  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.locksettings.LockSettingsService$Lifecycle
+08-08 00:04:18.159  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.testharness.TestHarnessModeService
+08-08 00:04:18.159  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.DeviceIdleController
+08-08 00:04:18.160  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle
+08-08 00:04:18.216  9922  9922 I DevicePolicyManager: Migrating password complexity to policy engine
+08-08 00:04:18.219  9922  9922 I DevicePolicyManager: ResetPasswordWithToken not migrated because coexistence support is not enabled.
+08-08 00:04:18.220  9922  9922 I DevicePolicyManager: Migrating suspended packages to policy engine
+08-08 00:04:18.220  9922  9922 I DevicePolicyManager: Migrating set keyguard disabled features to policy engine
+08-08 00:04:18.226  9922  9922 W SystemServiceManager: Service com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle took 66 ms in onBootPhase
+08-08 00:04:18.226  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.musicrecognition.MusicRecognitionManagerService
+08-08 00:04:18.227  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.contentcapture.ContentCaptureManagerService
+08-08 00:04:18.227  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.systemcaptions.SystemCaptionsManagerService
+08-08 00:04:18.228  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.texttospeech.TextToSpeechManagerService
+08-08 00:04:18.228  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.wearable.WearableSensingManagerService
+08-08 00:04:18.228  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.ondeviceintelligence.OnDeviceIntelligenceManagerService
+08-08 00:04:18.228  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.ambientcontext.AmbientContextManagerService
+08-08 00:04:18.228  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.speech.SpeechRecognitionManagerService
+08-08 00:04:18.228  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.appprediction.AppPredictionManagerService
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.contentsuggestions.ContentSuggestionsManagerService
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.searchui.SearchUiManagerService
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.smartspace.SmartspaceManagerService
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.contextualsearch.ContextualSearchManagerService
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.graphics.fonts.FontManagerService$Lifecycle
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.textservices.TextServicesManagerService$Lifecycle
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.textclassifier.TextClassificationManagerService$Lifecycle
+08-08 00:04:18.230  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.NetworkScoreService$Lifecycle
+08-08 00:04:18.231  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.NetworkStatsServiceInitializer
+08-08 00:04:18.273   234   234 W vold    : There is no valid blk device path for data partition
+08-08 00:04:18.289   234   234 W vold    : Cannot find dev sysfs path
+08-08 00:04:18.290  9922 10079 W StorageManagerService: Failed to get storage lifetime
+08-08 00:04:19.018  9922  9922 W BestClock: java.time.DateTimeException: No network time available
+08-08 00:04:19.118  9922 10079 W VideoCapabilities: Unsupported mime video/apv
+08-08 00:04:19.122  9922 10079 W VideoCapabilities: Unsupported mime video/apv
+08-08 00:04:19.203  9922 10066 I InputReader: Reconfiguring input devices, changes=KEYBOARD_LAYOUTS | KEY_REMAPPING
+08-08 00:04:19.598  9922  9922 I TetheringManager: registerTetheringEventCallback caller:android
+08-08 00:04:19.838  9922  9922 W SystemServiceManager: Service com.android.server.NetworkStatsServiceInitializer took 1593 ms in onBootPhase
+08-08 00:04:19.838  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.wifi.WifiService
+08-08 00:04:19.847  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.wifi.scanner.WifiScanningService
+08-08 00:04:19.847  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.wifi.p2p.WifiP2pService
+08-08 00:04:19.847  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.ConnectivityServiceInitializer
+08-08 00:04:19.849  9922  9922 I ConnectivityServiceInitializerB: Starting vcn_management
+08-08 00:04:19.913  9922 10123 D ConnectivityService: Got NetworkProvider Messenger for VcnNetworkProvider
+08-08 00:04:20.097  9922 10123 D ConnectivityService: register offer from providerId 2 : NetworkOffer [ Provider Id (2) Score(Policies : TRANSPORT_PRIMARY&EVER_EVALUATED&IS_UNMETERED&EVER_VALIDATED&IS_VALIDATED ; KeepConnected : 0) Caps [ Transports: CELLULAR Capabilities: MMS&SUPL&DUN&FOTA&IMS&CBS&IA&RCS&XCAP&EIMS&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&MCX&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED UnderlyingNetworks: Null] Needed by []]
+08-08 00:04:20.125  9922 10123 D ConnectivityService: NetReassign [no changes] [c 0] [a 13] [i 0]
+08-08 00:04:20.141  9922  9922 W SystemServiceManager: Service com.android.server.ConnectivityServiceInitializer took 294 ms in onBootPhase
+08-08 00:04:20.143  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.notification.NotificationManagerService
+08-08 00:04:20.149  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.storage.DeviceStorageMonitorService
+08-08 00:04:20.150  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.timedetector.TimeDetectorService$Lifecycle
+08-08 00:04:20.150  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.location.LocationManagerService$Lifecycle
+08-08 00:04:20.150  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.timezonedetector.TimeZoneDetectorService$Lifecycle
+08-08 00:04:20.150  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.location.altitude.AltitudeService$Lifecycle
+08-08 00:04:20.150  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.timezonedetector.location.LocationTimeZoneManagerService$Lifecycle
+08-08 00:04:20.161  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.search.SearchManagerService$Lifecycle
+08-08 00:04:20.161  9922  9922 D SystemServerTiming: OnBootPhase_550_com.android.server.wallpaper.WallpaperManagerService$Lifecycle
+08-08 00:04:20.171  9922 10129 I VcnManagementService: new snapshot: TelephonySubscriptionSnapshot{ mActiveDataSubId=-1, mSubIdToInfoMap={}, mSubIdToCarrierConfigMap={}, mPrivilegedPackages={} }
+08-08 00:04:20.213  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:04:20.232  9922  9922 V WallpaperManagerService: bindWallpaperComponentLocked: componentName=ComponentInfo{com.android.systemui/com.android.systemui.wallpapers.ImageWallpaper}
+08-08 00:04:20.236  9922  9922 D WallpaperManagerService: WPMS.bindWallpaperComponentLocked-ComponentInfo{com.android.systemui/com.android.systemui.wallpapers.ImageWallpaper}

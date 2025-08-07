@@ -1,10 +1,14 @@
 package com.voicecontrol.app
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -40,6 +44,20 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "MainActivity"
     }
     
+    // Permission result callback to communicate with ViewModel
+    private var permissionResultCallback: ((Boolean) -> Unit)? = null
+    
+    // Permission request launcher for microphone permission
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (BuildConfig.ENABLE_LOGGING) {
+            Log.d(TAG, "🔐 Microphone permission result: $isGranted")
+        }
+        // Notify the callback about permission result
+        permissionResultCallback?.invoke(isGranted)
+    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
@@ -51,8 +69,34 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         
         setContent {
-            VoiceControlApp()
+            VoiceControlApp(
+                hasMicrophonePermission = ::hasMicrophonePermission,
+                requestMicrophonePermission = ::requestMicrophonePermission
+            )
         }
+    }
+    
+    /**
+     * Check if microphone permission is granted
+     * Equivalent to iOS AVAudioSession.recordPermission check
+     */
+    fun hasMicrophonePermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+    
+    /**
+     * Request microphone permission
+     * Equivalent to iOS AVAudioSession.requestRecordPermission
+     */
+    fun requestMicrophonePermission(callback: ((Boolean) -> Unit)? = null) {
+        if (BuildConfig.ENABLE_LOGGING) {
+            Log.d(TAG, "🎙️ Requesting microphone permission")
+        }
+        permissionResultCallback = callback
+        requestPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
     }
     
     override fun onResume() {
@@ -84,7 +128,10 @@ class MainActivity : ComponentActivity() {
  * Manages authentication state and navigation flow
  */
 @Composable
-fun VoiceControlApp() {
+fun VoiceControlApp(
+    hasMicrophonePermission: () -> Boolean = { false },
+    requestMicrophonePermission: (((Boolean) -> Unit)?) -> Unit = {}
+) {
     // System UI controller for status bar theming
     val systemUiController = rememberSystemUiController()
     
@@ -101,7 +148,10 @@ fun VoiceControlApp() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            VoiceControlContent()
+            VoiceControlContent(
+                hasMicrophonePermission = hasMicrophonePermission,
+                requestMicrophonePermission = requestMicrophonePermission
+            )
         }
     }
 }
@@ -114,6 +164,8 @@ fun VoiceControlApp() {
  */
 @Composable
 private fun VoiceControlContent(
+    hasMicrophonePermission: () -> Boolean = { false },
+    requestMicrophonePermission: (((Boolean) -> Unit)?) -> Unit = {},
     authViewModel: AuthenticationViewModel = hiltViewModel()
 ) {
     // Observe authentication state (equivalent to iOS @Published authState)
@@ -129,6 +181,8 @@ private fun VoiceControlContent(
     // This replaces iOS NavigationView and conditional view presentation
     VoiceControlNavigation(
         authState = authState,
-        authViewModel = authViewModel
+        authViewModel = authViewModel,
+        hasMicrophonePermission = hasMicrophonePermission,
+        requestMicrophonePermission = requestMicrophonePermission
     )
 }

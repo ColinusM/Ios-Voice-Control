@@ -1,0 +1,502 @@
+--------- beginning of system
+08-08 00:03:05.546  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.devicelock/etc/permissions/com.android.devicelockcontroller.xml
+--------- beginning of main
+08-08 00:03:05.551  9764  9764 W ServiceManagerCppClient: Waited one second for activity (is service started? Number of threads started in the threadpool: 16. Are binder threads started and available?)
+08-08 00:03:05.580  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.ipsec/etc/permissions/android.net.ipsec.ike.xml
+08-08 00:03:05.584   216  9948 W libc    : Unable to set property "ctl.interface_start" to "aidl/activity": PROP_ERROR_HANDLE_CONTROL_MESSAGE (0x20)
+08-08 00:03:05.607  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.mediaprovider/etc/permissions/privapp_allowlist_com.google.android.providers.media.module.xml
+08-08 00:03:05.611  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.mediaprovider/etc/permissions/privapp_allowlist_com.google.android.photopicker.xml
+08-08 00:03:05.620  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.healthfitness/etc/permissions/privapp_allowlist_com.google.android.healthconnect.controller.xml
+08-08 00:03:05.633  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.bt/etc/permissions/privapp_allowlist_com.google.android.bluetooth.xml
+08-08 00:03:05.642  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.tethering/etc/permissions/privapp_allowlist_com.google.android.networkstack.tethering.xml
+08-08 00:03:05.649  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.cellbroadcast/etc/permissions/privapp_allowlist_com.google.android.cellbroadcastreceiver.xml
+08-08 00:03:05.651  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.cellbroadcast/etc/permissions/privapp_allowlist_com.google.android.cellbroadcastservice.xml
+08-08 00:03:05.656  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.extservices/etc/permissions/privapp_allowlist_com.google.android.ext.services.xml
+08-08 00:03:05.666  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.adservices/etc/permissions/privapp_allowlist_com.google.android.adservices.api.xml
+08-08 00:03:05.680  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.permission/etc/permissions/privapp_allowlist_com.google.android.permissioncontroller.xml
+08-08 00:03:05.696  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.nfcservices/etc/permissions/privapp_allowlist_com.google.android.nfc.xml
+08-08 00:03:05.700  9922  9947 I SystemConfig: Reading permissions from /apex/com.android.nfcservices/etc/permissions/privapp_allowlist_com.android.nfc.xml
+08-08 00:03:05.712  9922  9947 I incfs   : Initial API level of the device: 35
+08-08 00:03:05.714  9922  9947 I incfs   : ro.incremental.enable: yes
+08-08 00:03:05.718  9922  9947 I incfs   : isFsAvailable: true
+08-08 00:03:05.718  9922  9947 I incfs   : isFsAvailable: true
+08-08 00:03:05.718  9922  9947 I incfs   : IncFs_Features: v2
+08-08 00:03:05.730  9922  9947 D SystemConfig: /vendor/etc/public.libraries.txt does not exist
+08-08 00:03:05.888  9922  9922 D nativeloader: Load /system/lib64/libandroid_servers.so using ns default for caller /system/framework/services.jar in same partition (is_bridged=0): ok
+08-08 00:03:06.011  9922  9922 V Configuration: Updating configuration, locales updated from [] to [en_US]
+08-08 00:03:06.017  9922  9922 V Configuration: Updating configuration, locales updated from [] to [en_US]
+08-08 00:03:06.017  9922  9922 I system_server: AssetManager2(0xb400007767a3e838) locale list changing from [] to [en-US]
+08-08 00:03:06.033  9922  9922 D SystemServerTiming: StartServices
+08-08 00:03:06.033  9922  9922 D SystemServerTiming: startBootstrapServices
+08-08 00:03:06.033  9922  9922 D SystemServerTiming: ArtModuleServiceInitializer
+08-08 00:03:06.035  9922  9922 D SystemServerTiming: StartWatchdog
+08-08 00:03:06.076  9922  9922 D SystemServerTiming: InitializeProtoLog
+08-08 00:03:06.093  9922  9922 D SystemServerTiming: PlatformCompat
+08-08 00:03:06.095  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/SystemUI-core-compat-config.xml
+08-08 00:03:06.099  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/TeleService-platform-compat-config.xml
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@411511a
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@631a44b
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@33fe28
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8839741
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@56364e6
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3f43a27
+08-08 00:03:06.100  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/calendar-provider-compat-config.xml
+08-08 00:03:06.100  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8b1667d
+08-08 00:03:06.100  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/contacts-provider-platform-compat-config.xml
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@16051c3
+08-08 00:03:06.101  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/documents-ui-compat-config.xml
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8f2ed79
+08-08 00:03:06.101  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/framework-location-compat-config.xml
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@aec471f
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@53fea6c
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@12be835
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e7034ca
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@418363b
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b774158
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9bfd2b1
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ec4d396
+08-08 00:03:06.101  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/framework-ondeviceintelligence-platform-compat-config.xml
+08-08 00:03:06.101  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/framework-platform-compat-config.xml
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3cde8ed
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ff29322
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@16931b3
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a60e370
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@92d26e9
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b4abf6e
+08-08 00:03:06.101  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@23b360f
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c48c69c
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2848a5
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@be7647a
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@27f242b
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@169b088
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ef9ca21
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2774e46
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6c9d807
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2d4d34
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b07e75d
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9ca08d2
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e21eda3
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9ec08a0
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fe09c59
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@81be01e
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@75bc0ff
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b190ecc
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9f5a515
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@921e02a
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@356e1b
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@22e4bb8
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1187d91
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@cd5d4f6
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a32d0f7
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9586b64
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@eb661cd
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7024a82
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1398593
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ee2d9d0
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@bd44dc9
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b8e8cce
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fece7ef
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@863c2fc
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2cafd85
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@38aa7da
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@dca140b
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ca812e8
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c2ed01
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6fb67a6
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@303e5e7
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5f7594
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2f0583d
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7665832
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e1ef983
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1885700
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b8f3b39
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@71dc57e
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@74daadf
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d9be32c
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a9f51f5
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@94cbb8a
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d8c15fb
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e7a0618
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6601871
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6c30656
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@97c16d7
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a156bc4
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f8ccaad
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@38131e2
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2014973
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@df8030
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d5864a9
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1048a2e
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e9d09cf
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6f46f5c
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d29a265
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9531b3a
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@38a73eb
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4072548
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@216ffe1
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ec7b106
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@39a63c7
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@60d4df4
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@22b91d
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c9dd792
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3cf7563
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2ab5560
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f36ca19
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@43ddade
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@cba04bf
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@360678c
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1e0eed5
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@348c6ea
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5942ddb
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8727078
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@bcea351
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e6467b6
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@51dccb7
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e9a1c24
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@409238d
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@cc74942
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4387d53
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@36ed690
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ef16b89
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@84b78e
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e439baf
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@492cbbc
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@bfc3745
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@798be9a
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b3843cb
+08-08 00:03:06.102  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@59ee7a8
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@32e02c1
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1b42a66
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f8551a7
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8ced654
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e5709fd
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6c886f2
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@dab6143
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@66d03c0
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a0f48f9
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a54203e
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@598ce9f
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@efe9bec
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a727bb5
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@76e024a
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@dc5b5bb
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@42f8ad8
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f9c1e31
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@191f916
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@20ff297
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@47e7c84
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5e36c6d
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@62c90a2
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4572133
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5a8dcf0
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@dd76269
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ae714ee
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ad89d8f
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9d6d81c
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7fabc25
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4b391fa
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@84b83ab
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b875a08
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3ff5a1
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@398d3c6
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9bcaf87
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c3c0eb4
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5454add
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f3e6652
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@62abd23
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1e56220
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@750b7d9
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@38959e
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@be2087f
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f0e804c
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b0bf895
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2146daa
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@798ad9b
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1c95538
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c008911
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a23ba76
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@14a8877
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@55a8ce4
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ad3a54d
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f090802
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ad53513
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2a59350
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3424949
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d03a24e
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c540f6f
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b58947c
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5dd3105
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2fb955a
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a3c338b
+08-08 00:03:06.103  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/icu4j-platform-compat-config.xml
+08-08 00:03:06.103  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@184d881
+08-08 00:03:06.103  9922  9922 D CompatConfig: Found a config file: /system/etc/compatconfig/services-platform-compat-config.xml
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1387d67
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fecf714
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8a57bbd
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b5775b2
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3c58903
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@62c7080
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e3316b9
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8c33afe
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@58db25f
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e2814ac
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6656575
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b94090a
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@85157b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d57cf98
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@733e3f1
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@df1abd6
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fc58e57
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6c64d44
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@491ce2d
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2b4af62
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c2ab8f3
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@17cf9b0
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@46a2029
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fb25fae
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6adf14f
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9b000dc
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@65b95e5
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c8c8ba
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c82536b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8aa4ec8
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b34ab61
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@faab686
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f0bb47
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f798f74
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@82f9c9d
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c6bb512
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8f3c4e3
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5a2ee0
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1ee6599
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2cc105e
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@493cc3f
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2e3590c
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b36c255
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@844d46a
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@202ed5b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ef2f9f8
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@36e2ed1
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ed3cd36
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6790437
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a59bda4
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d5e70d
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@88786c2
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8cfacd3
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5471010
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@286e709
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7cb4d0e
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9de432f
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1751d3c
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@62deac5
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8732c1a
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@695e34b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@14d128
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d876e41
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d87efe6
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fdd6927
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@279d7d4
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f9bad7d
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fd32472
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@42d70c3
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9869d40
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1baa479
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@92b15be
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6ec561f
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fd84d6c
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4380f35
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@87ecfca
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@18a353b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ab2d458
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ee769b1
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@aa21e96
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a5cea17
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@dacde04
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@957efed
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3d98e22
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d3c10b3
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d1bd670
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ad09de9
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6266a6e
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1dd050f
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b3fe99c
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e0c2fa5
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@52bf7a
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@beee32b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c300388
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4b52121
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1bd5946
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f68707
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c85d034
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6a1ae5d
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ee5c3d2
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@fea8ca3
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6c9bba0
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8cfd359
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2b84b1e
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@68f4fff
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@39ef1cc
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8214c15
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@899fb2a
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@92ed1b
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@af5eb8
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3d79491
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@b349ff6
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c693ff7
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a57ae64
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@3cfe8cd
+08-08 00:03:06.104  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@402c582
+08-08 00:03:06.105  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@1e7e493
+08-08 00:03:06.105  9922  9922 D CompatConfig: Found a config file: /system/system_ext/etc/compatconfig/settings-platform-compat-config.xml
+08-08 00:03:06.105  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@67f44c9
+08-08 00:03:06.108  9922  9922 D ApexManagerTiming: getActiveApexInfos_noCache
+08-08 00:03:06.275  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:06.573  9764  9764 W ServiceManagerCppClient: Waited one second for activity (is service started? Number of threads started in the threadpool: 16. Are binder threads started and available?)
+08-08 00:03:06.578   216  9962 W libc    : Unable to set property "ctl.interface_start" to "aidl/activity": PROP_ERROR_HANDLE_CONTROL_MESSAGE (0x20)
+08-08 00:03:06.667  9922  9922 D CompatConfig: No directory /apex/com.android.tzdata/etc/compatconfig, skipping
+08-08 00:03:06.667  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.thermal/etc/compatconfig, skipping
+08-08 00:03:06.668  9922  9922 D CompatConfig: No directory /apex/com.android.extservices/etc/compatconfig, skipping
+08-08 00:03:06.668  9922  9922 D CompatConfig: No directory /apex/com.android.neuralnetworks/etc/compatconfig, skipping
+08-08 00:03:06.668  9922  9922 D CompatConfig: No directory /apex/com.android.uwb/etc/compatconfig, skipping
+08-08 00:03:06.669  9922  9922 D CompatConfig: Found a config file: /apex/com.android.tethering/etc/compatconfig/connectivity-platform-compat-config.xml
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@19493bf
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6014a8c
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@78b95d5
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5d3e1ea
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@f08acdb
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7be8378
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@efcba51
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e0632b6
+08-08 00:03:06.670  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@adb3bb7
+08-08 00:03:06.670  9922  9922 D CompatConfig: No directory /apex/com.android.media/etc/compatconfig, skipping
+08-08 00:03:06.670  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.gatekeeper/etc/compatconfig, skipping
+08-08 00:03:06.670  9922  9922 D CompatConfig: No directory /apex/com.android.rkpd/etc/compatconfig, skipping
+08-08 00:03:06.670  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.cas/etc/compatconfig, skipping
+08-08 00:03:06.670  9922  9922 D CompatConfig: No directory /apex/com.android.appsearch/etc/compatconfig, skipping
+08-08 00:03:06.670  9922  9922 D CompatConfig: No directory /apex/com.android.cellbroadcast/etc/compatconfig, skipping
+08-08 00:03:06.671  9922  9922 D CompatConfig: No directory /apex/com.android.crashrecovery/etc/compatconfig, skipping
+08-08 00:03:06.672  9922  9922 D CompatConfig: Found a config file: /apex/com.android.permission/etc/compatconfig/framework-permission-s-compat-config.xml
+08-08 00:03:06.676  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@181aa8d
+08-08 00:03:06.676  9922  9922 D CompatConfig: No directory /apex/com.android.media.swcodec/etc/compatconfig, skipping
+08-08 00:03:06.676  9922  9922 D CompatConfig: No directory /apex/com.android.profiling/etc/compatconfig, skipping
+08-08 00:03:06.676  9922  9922 D CompatConfig: No directory /apex/com.android.ondevicepersonalization/etc/compatconfig, skipping
+08-08 00:03:06.676  9922  9922 D CompatConfig: No directory /apex/com.google.android.widevine/etc/compatconfig, skipping
+08-08 00:03:06.676  9922  9922 D CompatConfig: No directory /apex/com.android.ipsec/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.resolv/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.healthfitness/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.adservices/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.runtime/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.adbd/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.vibrator/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.sdkext/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.power/etc/compatconfig, skipping
+08-08 00:03:06.677  9922  9922 D CompatConfig: No directory /apex/com.android.configinfrastructure/etc/compatconfig, skipping
+08-08 00:03:06.678  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.contexthub/etc/compatconfig, skipping
+08-08 00:03:06.678  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.neuralnetworks/etc/compatconfig, skipping
+08-08 00:03:06.678  9922  9922 D CompatConfig: No directory /apex/com.android.i18n/etc/compatconfig, skipping
+08-08 00:03:06.678  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.rebootescrow/etc/compatconfig, skipping
+08-08 00:03:06.679  9922  9922 D CompatConfig: Found a config file: /apex/com.android.art/etc/compatconfig/libcore-platform-compat-config.xml
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@9dddc53
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7ca4990
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@8eb6289
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@334e28e
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@25feaaf
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@eb26ebc
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@11e9e45
+08-08 00:03:06.680  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ca0999a
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@64a82cb
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@595baa8
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@58fd9c1
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@edeb566
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2fc80a7
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@cdfd954
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a7f50fd
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@390c1f2
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2e68043
+08-08 00:03:06.681  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@e0b36c0
+08-08 00:03:06.681  9922  9922 D CompatConfig: No directory /apex/com.android.nfcservices/etc/compatconfig, skipping
+08-08 00:03:06.682  9922  9922 D CompatConfig: Found a config file: /apex/com.android.mediaprovider/etc/compatconfig/framework-pdf-v-platform-compat-config.xml
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ae50b3e
+08-08 00:03:06.683  9922  9922 D CompatConfig: Found a config file: /apex/com.android.mediaprovider/etc/compatconfig/media-provider-platform-compat-config.xml
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@dccfeec
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c7ca2b5
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@7a29d4a
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@d65b4bb
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5011dd8
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5a1b531
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ff54416
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@530e197
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c563f84
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@c2b736d
+08-08 00:03:06.683  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@ef98ba2
+08-08 00:03:06.683  9922  9922 D CompatConfig: No directory /apex/com.android.apex.cts.shim/etc/compatconfig, skipping
+08-08 00:03:06.684  9922  9922 D CompatConfig: Found a config file: /apex/com.android.bt/etc/compatconfig/bluetoothapk-platform-compat-config.xml
+08-08 00:03:06.685  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@6b9cff0
+08-08 00:03:06.685  9922  9922 D CompatConfig: Found a config file: /apex/com.android.bt/etc/compatconfig/bluetooth-compat-config.xml
+08-08 00:03:06.686  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@308bfee
+08-08 00:03:06.686  9922  9922 D CompatConfig: Found a config file: /apex/com.android.bt/etc/compatconfig/framework-bluetooth-compat-config.xml
+08-08 00:03:06.687  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@683fb1c
+08-08 00:03:06.687  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@5ca325
+08-08 00:03:06.687  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@4c4ecfa
+08-08 00:03:06.687  9922  9922 D CompatConfig: No directory /apex/com.android.conscrypt/etc/compatconfig, skipping
+08-08 00:03:06.687  9922  9922 D CompatConfig: No directory /apex/com.android.os.statsd/etc/compatconfig, skipping
+08-08 00:03:06.687  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.threadnetwork/etc/compatconfig, skipping
+08-08 00:03:06.687  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.uwb/etc/compatconfig, skipping
+08-08 00:03:06.687  9922  9922 D CompatConfig: No directory /apex/com.android.devicelock/etc/compatconfig, skipping
+08-08 00:03:06.688  9922  9922 D CompatConfig: Found a config file: /apex/com.android.wifi/etc/compatconfig/wifi-compat-config.xml
+08-08 00:03:06.691  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@963ad08
+08-08 00:03:06.691  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@a594ca1
+08-08 00:03:06.691  9922  9922 D CompatConfig: Adding: com.android.server.compat.config.Change@2e4dec6
+08-08 00:03:06.691  9922  9922 D CompatConfig: No directory /apex/com.android.uprobestats/etc/compatconfig, skipping
+08-08 00:03:06.691  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.dumpstate/etc/compatconfig, skipping
+08-08 00:03:06.691  9922  9922 D CompatConfig: No directory /apex/com.android.scheduling/etc/compatconfig, skipping
+08-08 00:03:06.691  9922  9922 D CompatConfig: No directory /apex/com.android.virt/etc/compatconfig, skipping
+08-08 00:03:06.691  9922  9922 D CompatConfig: No directory /apex/com.android.hardware.authsecret/etc/compatconfig, skipping
+08-08 00:03:06.695  9922  9922 W CompatConfig: Change ID 203673428 not found. Skipping overrides for it.
+08-08 00:03:06.695  9922  9922 W CompatConfig: Change ID 200324021 not found. Skipping overrides for it.
+08-08 00:03:06.729  9922  9922 D SystemServerTiming: StartFileIntegrityService
+08-08 00:03:06.730  9922  9922 I SystemServiceManager: Starting com.android.server.security.FileIntegrityService
+08-08 00:03:06.730  9922  9922 D SystemServerTiming: StartInstaller
+08-08 00:03:06.731  9922  9922 I SystemServiceManager: Starting com.android.server.pm.Installer
+08-08 00:03:06.751   586   794 D installd: Found quota mount /dev/block/dm-53 at /data
+08-08 00:03:06.753   586   794 D installd: Found quota mount /dev/block/dm-53 at /data/user/0
+08-08 00:03:06.753   586   794 D installd: Found quota mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:06.758   586   794 D installd: Found storage mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:06.758   586   794 D installd: Found storage mount  at /mnt/pass_through/0/emulated
+08-08 00:03:06.759  9922  9922 D SystemServerTiming: DeviceIdentifiersPolicyService
+08-08 00:03:06.760  9922  9922 I SystemServiceManager: Starting com.android.server.os.DeviceIdentifiersPolicyService
+08-08 00:03:06.761  9922  9922 D SystemServerTiming: StartFeatureFlagsService
+08-08 00:03:06.761  9922  9922 I SystemServiceManager: Starting com.android.server.flags.FeatureFlagsService
+08-08 00:03:06.761  9922  9922 D FeatureFlagsService: Started Feature Flag Service
+08-08 00:03:06.764  9922  9922 D SystemServerTiming: UriGrantsManagerService
+08-08 00:03:06.765  9922  9922 I SystemServiceManager: Starting com.android.server.uri.UriGrantsManagerService$Lifecycle
+08-08 00:03:06.767  9922  9922 D SystemServerTiming: StartPowerStatsService
+08-08 00:03:06.768  9922  9922 I SystemServiceManager: Starting com.android.server.powerstats.PowerStatsService
+08-08 00:03:06.777  9922  9922 D SystemServerTiming: StartIStatsService
+08-08 00:03:06.781   220   220 I hwservicemanager: getTransport: Cannot find entry android.frameworks.stats@1.0::IStats/default in either framework or device VINTF manifest.
+08-08 00:03:06.782  9922  9922 E HidlServiceManagement: Service android.frameworks.stats@1.0::IStats/default must be in VINTF manifest in order to register/get.
+08-08 00:03:06.782  9922  9922 W system_server: Cannot register HIDL android.frameworks.stats@1.0::IStats: -2147483648
+08-08 00:03:06.782  9922  9922 D SystemServerTiming: MemtrackProxyService
+08-08 00:03:06.783   220   220 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+08-08 00:03:06.783  9922  9922 I Stability: Interface set with vintf stability downgraded to system stability stability
+08-08 00:03:06.783  9922  9922 D SystemServerTiming: StartAccessCheckingService
+08-08 00:03:06.784  9922  9922 I SystemServiceManager: Starting com.android.server.permission.access.AccessCheckingService
+08-08 00:03:06.788  9922  9922 D SystemServerTiming: StartActivityManager
+08-08 00:03:06.789  9922  9922 I SystemServiceManager: Starting com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:03:06.809  9922  9922 I SystemServiceManager: Starting com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:03:06.832  9922  9922 I ActivityManager: Memory class: 192
+08-08 00:03:06.848  9922  9965 I Binder  : Setting heavy hitter watcher config: false, 0, 0.0
+08-08 00:03:06.913  9922  9922 W PowerProfile: ambient.on is deprecated! Use ambient.on.display0 instead.
+08-08 00:03:06.913  9922  9922 W PowerProfile: screen.on is deprecated! Use screen.on.display0 instead.
+08-08 00:03:06.913  9922  9922 W PowerProfile: screen.full is deprecated! Use screen.full.display0 instead.
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x0, drain:SLEEP,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x10000000, drain:IDLE,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x20000000, drain:RX,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x30000000, drain:TX,level:0,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x31000000, drain:TX,level:1,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x32000000, drain:TX,level:2,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x33000000, drain:TX,level:3,RAT:DEFAULT
+08-08 00:03:06.913  9922  9922 W ModemPowerProfile: getAverageBatteryDrainMaH called with unexpected key: 0x34000000, drain:TX,level:4,RAT:DEFAULT
+08-08 00:03:06.949  9922  9922 D nativeloader: Load libstats_jni.so using APEX ns com_android_os_statsd for caller /apex/com.android.os.statsd/javalib/framework-statsd.jar: ok
+08-08 00:03:06.954  9922  9922 D BatteryStatsImpl: Reading daily items from /data/system/batterystats-daily.xml

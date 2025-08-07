@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608316391359",
+    "project_id": "android-voice-control",
+    "storage_bucket": "android-voice-control.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608316391359:android:fd30b7c9acd6ac37a36b0a",
+        "android_client_info": {
+          "package_name": "com.voicecontrol.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyg-LcBwHnbDd6rRmPKo_dYnBGqtn_s1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

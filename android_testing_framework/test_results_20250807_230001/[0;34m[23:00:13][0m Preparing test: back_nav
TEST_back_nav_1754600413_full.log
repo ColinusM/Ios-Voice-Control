@@ -1,0 +1,17 @@
+--------- beginning of main
+08-07 23:00:13.081  1574  1782 I bdee    : (REDACTED) getHotwordActive::active query: %s, watch: %s, devices connected: %s
+08-07 23:00:13.162  9174  9174 I TestMarker: TEST_back_nav_1754600413
+08-07 23:00:13.162  9174  9174 I TestMarker: 
+08-07 23:00:13.217  1422  1422 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+--------- beginning of system
+08-07 23:00:13.229   944  1049 V WindowManagerShell: Transition requested (#62): android.os.BinderProxy@a2c90ad TransitionRequestInfo { type = CLOSE, triggerTask = null, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 62 }
+08-07 23:00:13.233   504   615 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 23:00:13.270  6726  6726 D MainActivity: ⏸️ MainActivity paused
+08-07 23:00:13.273  6726  6770 D SessionLifecycleClient: Sending lifecycle 2 to service
+08-07 23:00:13.274  6726  6776 D SessionLifecycleService: Activity backgrounding at 10640730
+08-07 23:00:13.280   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:00:13.283   504   504 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 23:00:13.284   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:00:13.284   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:00:13.303  6726  6726 D ViewRootImpl: Skipping stats log for color mode
+08-07 23:00:13.316  6726  6726 D MainActivity: 📱 MainActivity resumed

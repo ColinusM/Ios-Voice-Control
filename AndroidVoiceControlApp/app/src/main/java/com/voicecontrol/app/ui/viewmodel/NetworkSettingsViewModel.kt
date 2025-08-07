@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -113,7 +115,11 @@ class NetworkSettingsViewModel @Inject constructor(
             isValidConfiguration = networkSettings.isValidConfiguration,
             hasUnsavedChanges = false // Could implement change detection if needed
         )
-    }.asStateFlow()
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = NetworkSettingsUiState()
+    )
     
     init {
         if (BuildConfig.ENABLE_LOGGING) {

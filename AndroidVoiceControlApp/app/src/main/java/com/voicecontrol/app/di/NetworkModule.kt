@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -79,7 +80,7 @@ object NetworkModule {
     }
     
     /**
-     * Provides RCP Network client
+     * Provides RCP Network client (Custom Qualifier)
      * For Yamaha mixer communication
      * Equivalent to iOS RCPNetworkClient
      */
@@ -87,6 +88,25 @@ object NetworkModule {
     @Singleton
     @RCPHttpClient
     fun provideRCPOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .connectTimeout(5, TimeUnit.SECONDS)  // Faster timeout for mixer
+            .writeTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build()
+    }
+    
+    /**
+     * Provides RCP Network client (Named Qualifier) 
+     * Alternative provider for @Named("RCPHttpClient") injection
+     * Same client configuration as above but with Named qualifier
+     */
+    @Provides
+    @Singleton
+    @Named("RCPHttpClient")
+    fun provideNamedRCPOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()

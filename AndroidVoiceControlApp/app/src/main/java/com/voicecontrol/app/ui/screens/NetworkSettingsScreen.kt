@@ -6,8 +6,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,12 +21,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.voicecontrol.app.network.model.NetworkSettings
-import com.voicecontrol.app.ui.theme.AudioBlue
-import com.voicecontrol.app.ui.theme.AudioGreen
-import com.voicecontrol.app.ui.theme.AudioOrange
-import com.voicecontrol.app.ui.theme.AudioRed
+import com.voicecontrol.app.ui.theme.VoiceControlColors.AudioBlue
+import com.voicecontrol.app.ui.theme.VoiceControlColors.ConnectedGreen
+import com.voicecontrol.app.ui.theme.VoiceControlColors.BrandOrange  
+import com.voicecontrol.app.ui.theme.VoiceControlColors.BrandError
 import com.voicecontrol.app.ui.viewmodel.NetworkSettingsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,7 +52,7 @@ fun NetworkSettingsScreen(
     onNavigateBack: () -> Unit,
     viewModel: NetworkSettingsViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
     
     var showResetDialog by remember { mutableStateOf(false) }
@@ -67,7 +69,7 @@ fun NetworkSettingsScreen(
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
                     }
@@ -167,7 +169,7 @@ fun NetworkSettingsScreen(
                         showResetDialog = false
                     }
                 ) {
-                    Text("Reset", color = AudioRed)
+                    Text("Reset", color = BrandError)
                 }
             },
             dismissButton = {
@@ -308,7 +310,7 @@ private fun ConsoleConfigurationSection(
                 onClick = onTestConnection,
                 enabled = !isTestingConnection && consoleIP.isNotBlank() && consolePort > 0,
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = AudioGreen)
+                colors = ButtonDefaults.buttonColors(containerColor = ConnectedGreen)
             ) {
                 if (isTestingConnection) {
                     CircularProgressIndicator(
@@ -355,7 +357,7 @@ private fun TestingConfigurationSection(
                 Icon(
                     imageVector = Icons.Default.BugReport,
                     contentDescription = null,
-                    tint = AudioOrange
+                    tint = BrandOrange
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -408,7 +410,7 @@ private fun TestingConfigurationSection(
                 onClick = onTestConnection,
                 enabled = !isTestingConnection && testingIP.isNotBlank() && testingPort > 0,
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = AudioOrange)
+                colors = ButtonDefaults.buttonColors(containerColor = BrandOrange)
             ) {
                 if (isTestingConnection) {
                     CircularProgressIndicator(
@@ -453,7 +455,7 @@ private fun ConnectionStatusSection(
                 Icon(
                     imageVector = Icons.Default.NetworkWifi,
                     contentDescription = null,
-                    tint = if (connectionStatus.isConnected) AudioGreen else AudioRed
+                    tint = if (connectionStatus.isConnected) ConnectedGreen else BrandError
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -498,9 +500,9 @@ private fun ConnectionStatusSection(
                         text = connectionStatus.displayName,
                         style = MaterialTheme.typography.bodyMedium,
                         color = when (connectionStatus) {
-                            NetworkSettings.ConnectionStatus.CONNECTED -> AudioGreen
-                            NetworkSettings.ConnectionStatus.CONNECTING -> AudioOrange
-                            NetworkSettings.ConnectionStatus.ERROR -> AudioRed
+                            NetworkSettings.ConnectionStatus.CONNECTED -> ConnectedGreen
+                            NetworkSettings.ConnectionStatus.CONNECTING -> BrandOrange
+                            NetworkSettings.ConnectionStatus.ERROR -> BrandError
                             NetworkSettings.ConnectionStatus.DISCONNECTED -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
                         }
                     )
@@ -520,7 +522,7 @@ private fun ConnectionStatusSection(
                 Text(
                     text = if (isNetworkAvailable) "Yes" else "No",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = if (isNetworkAvailable) AudioGreen else AudioRed
+                    color = if (isNetworkAvailable) ConnectedGreen else BrandError
                 )
             }
             
@@ -545,7 +547,7 @@ private fun ConnectionStatusSection(
             
             // Test Result
             testResult?.let { result ->
-                Divider()
+                HorizontalDivider()
                 Text(
                     text = "Test Result:",
                     style = MaterialTheme.typography.bodyMedium,
@@ -555,7 +557,7 @@ private fun ConnectionStatusSection(
                     text = result,
                     style = MaterialTheme.typography.bodySmall,
                     color = if (result.contains("successful", ignoreCase = true)) 
-                        AudioGreen else AudioRed,
+                        ConnectedGreen else BrandError,
                     modifier = Modifier.padding(top = 4.dp)
                 )
             }

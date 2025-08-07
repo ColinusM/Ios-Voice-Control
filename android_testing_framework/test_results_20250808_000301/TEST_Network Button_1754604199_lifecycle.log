@@ -1,0 +1,5 @@
+08-08 00:03:27.398  9922 10065 E PowerManagerService-JNI: An exception was thrown by callback 'userActivityFromNative'.
+08-08 00:03:27.407  9922 10065 E PowerManagerService-JNI: 	at com.android.server.power.PowerManagerService.userActivityInternal(PowerManagerService.java:2128)
+08-08 00:03:27.407  9922 10065 E PowerManagerService-JNI: 	at com.android.server.power.PowerManagerService.userActivityFromNative(PowerManagerService.java:2115)
+08-08 00:03:33.061  9922  9922 D SystemServerTiming: OnBootPhase_480_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:03:33.061  9922  9922 D SystemServerTiming: OnBootPhase_480_com.android.server.am.ActivityManagerService$Lifecycle

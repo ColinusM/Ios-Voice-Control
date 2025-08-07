@@ -1,0 +1,244 @@
+--------- beginning of system
+08-08 00:03:18.610  9922  9922 D SystemServerTiming: StartDiskStatsService
+08-08 00:03:18.612  9922 10020 D SystemServerTimingAsync: InitThreadPoolExec:Init ContextHubSystemService
+--------- beginning of main
+08-08 00:03:18.636  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:18.726  9922  9922 D SystemServerTiming: RuntimeService
+08-08 00:03:18.746  9922  9922 D SystemServerTiming: StartNetworkTimeUpdateService
+08-08 00:03:18.788  9922 10020 I ContextHubService: Starting Context Hub Service init
+08-08 00:03:18.792  9922  9922 D SystemServerTiming: CertBlocklister
+08-08 00:03:18.831  9922  9922 D SystemServerTiming: StartEmergencyAffordanceService
+08-08 00:03:18.833  9922  9922 I SystemServiceManager: Starting com.android.server.emergency.EmergencyAffordanceService
+08-08 00:03:18.854  9922  9922 D SystemServerTiming: startBlobStoreManagerService
+08-08 00:03:18.882  9922  9922 I SystemServiceManager: Starting com.android.server.blob.BlobStoreManagerService
+08-08 00:03:18.976  9922  9922 W SystemServiceManager: Service com.android.server.blob.BlobStoreManagerService took 76 ms in onStart
+08-08 00:03:18.977  9922  9922 D SystemServerTiming: StartDreamManager
+08-08 00:03:18.979  9922  9922 I SystemServiceManager: Starting com.android.server.dreams.DreamManagerService
+08-08 00:03:18.992 10155 10155 I TestMarker: TEST_Network Button_1754604199
+08-08 00:03:19.014  9922  9922 D SystemServerTiming: AddGraphicsStatsService
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: Failed to register ContextHubService as message hub
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: java.lang.IllegalStateException: 
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3348)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at android.os.Parcel.createException(Parcel.java:3324)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at android.os.Parcel.readException(Parcel.java:3307)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at android.os.Parcel.readException(Parcel.java:3249)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at android.hardware.contexthub.IContextHub$Stub$Proxy.registerEndpointHub(IContextHub.java:695)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.location.contexthub.IContextHubWrapper$ContextHubWrapperAidl.registerEndpointHub(IContextHubWrapper.java:677)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.location.contexthub.ContextHubEndpointManager.init(ContextHubEndpointManager.java:212)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.location.contexthub.ContextHubService.<init>(ContextHubService.java:344)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.ContextHubSystemService.lambda$new$0(ContextHubSystemService.java:40)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.ContextHubSystemService.$r8$lambda$rh2pjqKKW3BPmYQWkE44zlrrbEc(ContextHubSystemService.java:0)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.ContextHubSystemService$$ExternalSyntheticLambda0.run(R8$$SyntheticClass:0)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.SystemServerInitThreadPool.lambda$submitTask$0(SystemServerInitThreadPool.java:107)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.SystemServerInitThreadPool.$r8$lambda$KBkrFsHiqcxWyjNRg1WxRI4WNHA(SystemServerInitThreadPool.java:0)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.server.SystemServerInitThreadPool$$ExternalSyntheticLambda1.run(R8$$SyntheticClass:0)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:524)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+08-08 00:03:19.077  9922 10020 E ContextHubEndpointManager: 	at com.android.internal.util.ConcurrentUtils$1$1.run(ConcurrentUtils.java:65)
+08-08 00:03:19.083  9922  9922 D SystemServerTiming: StartPrintManager
+08-08 00:03:19.084  9922  9922 I SystemServiceManager: Starting com.android.server.print.PrintManagerService
+08-08 00:03:19.089  9922 10159 W system_server: AIBinder_linkToDeath is being called with a non-null cookie and no onUnlink callback set. This might not be intended. AIBinder_DeathRecipient_setOnUnlinked should be called first.
+08-08 00:03:19.105  9922  9922 D SystemServerTiming: StartAttestationVerificationService
+08-08 00:03:19.109  9922  9922 I SystemServiceManager: Starting com.android.server.security.AttestationVerificationManagerService
+08-08 00:03:19.110  9922 10020 D ContextHubService: Mic Disabled Setting: false
+08-08 00:03:19.118  9922 10020 E BluetoothAdapter: Bluetooth service is null
+08-08 00:03:19.118  9922 10020 D ContextHubService: BT adapter not available. Getting permissions from user settings
+08-08 00:03:19.123  9922 10020 I ContextHubService: Finished Context Hub Service init
+08-08 00:03:19.163  9922  9922 D AVF     : Started
+08-08 00:03:19.164  9922  9922 D SystemServerTiming: StartCompanionDeviceManager
+08-08 00:03:19.167  9922  9922 I SystemServiceManager: Starting com.android.server.companion.CompanionDeviceManagerService
+08-08 00:03:19.170   452  1014 I ServiceManagerCppClient: Waiting for service 'statscompanion' on '/dev/binder'...
+08-08 00:03:19.327  9922  9922 I CDM_CompanionTransportManager: Registering OnTransportsChangedListener
+08-08 00:03:19.361  9922  9922 I CDM_AssociationDiskStore: Reading associations for user 0 from disk.
+08-08 00:03:19.383  9922 10163 I CDM_ObservableUuidStore: Reading ObservableUuid for user 0 from file=/data/system_de/0/observing_uuids_presence.xml
+08-08 00:03:19.384  9922 10163 D CDM_ObservableUuidStore: File does not exist -> Abort
+08-08 00:03:19.403  9922  9922 D SystemServerTiming: StartVirtualDeviceManager
+08-08 00:03:19.406  9922  9922 I SystemServiceManager: Starting com.android.server.companion.virtual.VirtualDeviceManagerService
+08-08 00:03:19.448  9922  9922 D SystemServerTiming: StartRestrictionManager
+08-08 00:03:19.450  9922  9922 I SystemServiceManager: Starting com.android.server.restrictions.RestrictionsManagerService
+08-08 00:03:19.457  9922  9922 D SystemServerTiming: StartMediaSessionService
+08-08 00:03:19.467  9922  9922 I SystemServiceManager: Starting com.android.server.media.MediaSessionService
+08-08 00:03:19.666  9922  9922 W SystemServiceManager: Service com.android.server.media.MediaSessionService took 178 ms in onStart
+08-08 00:03:19.707  9922  9922 D SystemServerTiming: StartMediaResourceMonitor
+08-08 00:03:19.714  9922  9922 I SystemServiceManager: Starting com.android.server.media.MediaResourceMonitorService
+08-08 00:03:19.788  9922  9922 W SystemServiceManager: Service com.android.server.media.MediaResourceMonitorService took 67 ms in onStart
+08-08 00:03:19.791  9922  9922 D SystemServerTiming: StartMediaRouterService
+08-08 00:03:19.983  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:20.084  9922  9922 D SystemServerTiming: StartFingerprintSensor
+08-08 00:03:20.101  9922  9922 I SystemServiceManager: Starting com.android.server.biometrics.sensors.fingerprint.FingerprintService
+08-08 00:03:20.266  9922  9922 D SystemServerTiming: StartBiometricService
+08-08 00:03:20.267  9922  9922 I SystemServiceManager: Starting com.android.server.biometrics.BiometricService
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: No service published for: face
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: face
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:203)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$72.createService(SystemServiceRegistry.java:993)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$72.createService(SystemServiceRegistry.java:987)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:2343)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1918)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2315)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at android.content.Context.getSystemService(Context.java:4630)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.biometrics.BiometricService$Injector.getSettingObserver(BiometricService.java:1314)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.biometrics.BiometricService.<init>(BiometricService.java:1409)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.biometrics.BiometricService.<init>(BiometricService.java:1396)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at java.lang.reflect.Constructor.newInstance0(Native Method)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at java.lang.reflect.Constructor.newInstance(Constructor.java:343)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServiceManager.startService(SystemServiceManager.java:242)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServer.startOtherServices(SystemServer.java:2725)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServer.run(SystemServer.java:988)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.server.SystemServer.main(SystemServer.java:689)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at java.lang.reflect.Method.invoke(Native Method)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+08-08 00:03:20.423  9922  9922 E SystemServiceRegistry: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:910)
+08-08 00:03:20.450  9922  9922 E SystemServiceRegistry: Manager wrapper not available: face
+08-08 00:03:20.772  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:20.881  9922  9944 W OverlayManager: service 'idmap' died
+08-08 00:03:20.916  9922  9922 W SystemServiceManager: Service com.android.server.biometrics.BiometricService took 76 ms in onStart
+08-08 00:03:20.924  9922  9922 D SystemServerTiming: StartAuthService
+08-08 00:03:20.933  9922  9950 W Looper  : Slow dispatch took 271ms android.fg app=system_server main=false group=FOREGROUND h=android.os.Handler c=com.android.server.om.IdmapDaemon$Connection$$ExternalSyntheticLambda0@e2a5c65 m=0
+08-08 00:03:20.948  9922  9922 I SystemServiceManager: Starting com.android.server.biometrics.AuthService
+08-08 00:03:21.096  9922  9922 I FingerprintService: Before:getDeclaredInstances: IFingerprint instance found, a.length=1
+08-08 00:03:21.114  9922  9922 I FingerprintService: After:getDeclaredInstances: a.length=2
+08-08 00:03:21.242  9922  9922 I FaceService: Before:getDeclaredInstances: IFace instance found, a.length=0
+08-08 00:03:21.246  9922  9922 I FaceService: After:getDeclaredInstances: a.length=1
+08-08 00:03:21.485  9922 10168 E AuthService: Face configuration exists, but FaceService is null.
+08-08 00:03:21.817  9922  9922 W SystemServiceManager: Service com.android.server.biometrics.AuthService took 843 ms in onStart
+08-08 00:03:21.843  9922  9922 D SystemServerTiming: StartAuthenticationPolicyService
+08-08 00:03:21.879  9922  9922 I SystemServiceManager: Starting com.android.server.security.authenticationpolicy.AuthenticationPolicyService
+08-08 00:03:22.060  9922  9922 D SystemServerTiming: StartDynamicCodeLoggingService
+08-08 00:03:22.218  9922  9922 D SystemServerTiming: StartPruneInstantAppsJobService
+08-08 00:03:22.248  9922  9922 D SystemServerTiming: StartSelinuxAuditLogsService
+08-08 00:03:22.348 10171 10171 I AidlLazyServiceRegistrar: Registering service android.hardware.biometrics.fingerprint.IFingerprint/default
+08-08 00:03:22.387 10171 10173 I AidlLazyServiceRegistrar: Process has 1 (of 1 available) client(s) in use after notification android.hardware.biometrics.fingerprint.IFingerprint/default has clients: 1
+08-08 00:03:23.183  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:23.319  9922  9922 D SelinuxAuditLogs: SelinuxAuditLogsService scheduled successfully.
+08-08 00:03:23.370 10164 10164 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-08 00:03:23.382 10164 10164 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-08 00:03:23.383 10164 10164 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-08 00:03:23.389  9922 10169 D FingerprintProvider/default: Adding AIDL configs
+08-08 00:03:23.452   504   615 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-08 00:03:23.454   504   615 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-08 00:03:23.479  9922  9922 D SystemServerTiming: StartShortcutServiceLifecycle
+08-08 00:03:23.488  9922  9922 I SystemServiceManager: Starting com.android.server.pm.ShortcutService$Lifecycle
+08-08 00:03:23.552  9922 10169 D FingerprintProvider/default: Added: com.android.server.biometrics.sensors.fingerprint.aidl.Sensor@39736b7
+08-08 00:03:23.852  9922 10169 D BiometricService: Registering ID: 0 Modality: 2 Strength: 15
+08-08 00:03:23.889  9922 10167 D BiometricScheduler: [Added] {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, new queue size: 1
+08-08 00:03:23.936  9922 10167 D BiometricScheduler: [Starting User] {[1] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintStartUserClient, proto=17, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:23.938  9922 10167 D FingerprintProvider/default: Daemon was null, reconnecting
+08-08 00:03:24.115 10171 10173 E fingerprint-service.ranchu: openFile:48 failure: open('/data/vendor_de/0/fpdata/sensor0.bin', output=0) failed with errno=2
+08-08 00:03:24.115 10171 10173 D fingerprint-service.ranchu: 0xb40000771a8c1010:Session:135: New session: sensorId=0 userId=0
+08-08 00:03:24.161  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:24.303  9922 10169 D BiometricStrengthController: updateStrengths: revert sensorId=0 to oemStrength=15
+08-08 00:03:24.354  9922 10169 D BiometricService/Sensor: updateStrength: Before(ID(0), oemStrength: 15, updatedStrength: 15, modality 2, state: 0, cookie: 0) After(ID(0), oemStrength: 15, updatedStrength: 15, modality 2, state: 0, cookie: 0)
+08-08 00:03:24.409   452  1014 W ServiceManagerCppClient: Service statscompanion didn't start. Returning NULL
+08-08 00:03:24.429  9922  9922 W SystemServiceManager: Service com.android.server.pm.ShortcutService$Lifecycle took 182 ms in onStart
+08-08 00:03:24.465  9922  9922 D SystemServerTiming: StartLauncherAppsService
+08-08 00:03:24.510   452  1014 E statsd  : Uid 1000 does not have the android.permission.REGISTER_STATS_PULL_ATOM permission when registering atom 10068 (-1)
+08-08 00:03:24.563  9922  9922 I SystemServiceManager: Starting com.android.server.pm.LauncherAppsService
+08-08 00:03:24.602  9922 10167 D Sensor  : New fingerprint session created for user: 0 with hal version: 3
+08-08 00:03:25.011  9922 10167 D BiometricScheduler: [Added] {[2] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintGetAuthenticatorIdClient, proto=5, owner=android, cookie=0, requestId=-1, userId=0}, new queue size: 2
+08-08 00:03:25.045  9922 10167 V BiometricScheduler: Not idle, current operation: {[1] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintStartUserClient, proto=17, owner=android, cookie=0, requestId=-1, userId=0}, State: 2
+08-08 00:03:25.045  9922 10167 D BiometricScheduler: [Added] {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, new queue size: 3
+08-08 00:03:25.045  9922 10167 V BiometricScheduler: Not idle, current operation: {[1] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintStartUserClient, proto=17, owner=android, cookie=0, requestId=-1, userId=0}, State: 2
+08-08 00:03:25.049  9922 10167 D BiometricScheduler: [Client finished] {[1] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintStartUserClient, proto=17, owner=android, cookie=0, requestId=-1, userId=0}, success: true
+08-08 00:03:25.060  9922 10167 D BiometricScheduler: [Polled] {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, State: 0
+08-08 00:03:25.069  9922 10167 D BiometricScheduler: [Started] {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.077  9922 10167 W BiometricStateCallback: Other authentication client: FingerprintInternalCleanupClient
+08-08 00:03:25.079  9922 10167 D BiometricStateCallback: State updated from 0 to 0, client {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.083  9922  9940 I system_server: Background concurrent mark compact GC freed 11MB AllocSpace bytes, 37(1188KB) LOS objects, 50% free, 20MB/41MB, paused 5.740ms,108.926ms total 6.681s
+08-08 00:03:25.088  9922 10167 D Biometrics/InternalCleanupClient: Starting enumerate: {[4] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalEnumerateClient, proto=6, owner=android, cookie=0, requestId=-1, userId=0} enrolledList size:0
+08-08 00:03:25.092 10171 10173 D fingerprint-service.ranchu: 0xb40000771a8c1010:enumerateEnrollments:279: onEnrollmentsEnumerated(enrollmentIds=empty)
+08-08 00:03:25.103  9922 10167 V BiometricSchedulerOperation: started: {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, State: 2
+08-08 00:03:25.103  9922 10167 D Biometrics/InternalCleanupClient: onEnumerated, remaining: 0
+08-08 00:03:25.117  9922 10167 D Biometrics/InternalEnumerateClient: Null identifier
+08-08 00:03:25.125  9922 10167 W BiometricLogger: Unknown field detected: CLIENT_UNKNOWN
+08-08 00:03:25.127  9922 10167 D Biometrics/InternalCleanupClient: Enumerate onClientFinished: {[4] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalEnumerateClient, proto=6, owner=android, cookie=0, requestId=-1, userId=0}, success: true
+08-08 00:03:25.132  9922 10167 D BiometricStateCallback: Client finished, state updated to 0, client {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.132  9922 10167 D BiometricStateCallback: Enrollment state changed: false
+08-08 00:03:25.146  9922 10167 D BiometricSchedulerOperation: [Finished / destroy]: {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.146  9922 10167 D BiometricScheduler: [Finishing] {[0] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, success: true
+08-08 00:03:25.146  9922 10167 D BiometricScheduler: [Polled] {[2] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintGetAuthenticatorIdClient, proto=5, owner=android, cookie=0, requestId=-1, userId=0}, State: 0
+08-08 00:03:25.146  9922 10167 D BiometricScheduler: [Started] {[2] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintGetAuthenticatorIdClient, proto=5, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.147 10171 10173 D fingerprint-service.ranchu: 0xb40000771a8c1010:getAuthenticatorId:303: onAuthenticatorIdRetrieved(authId=0)
+08-08 00:03:25.148  9922 10167 V BiometricSchedulerOperation: started: {[2] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintGetAuthenticatorIdClient, proto=5, owner=android, cookie=0, requestId=-1, userId=0}, State: 2
+08-08 00:03:25.148  9922 10167 D BiometricSchedulerOperation: [Finished / destroy]: {[2] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintGetAuthenticatorIdClient, proto=5, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.149  9922 10167 D BiometricScheduler: [Finishing] {[2] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintGetAuthenticatorIdClient, proto=5, owner=android, cookie=0, requestId=-1, userId=0}, success: true
+08-08 00:03:25.149  9922 10167 D BiometricScheduler: [Polled] {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, State: 0
+08-08 00:03:25.149  9922 10167 D BiometricScheduler: [Started] {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.149  9922 10167 W BiometricStateCallback: Other authentication client: FingerprintInternalCleanupClient
+08-08 00:03:25.149  9922 10167 D BiometricStateCallback: State updated from 0 to 0, client {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.149  9922 10167 D Biometrics/InternalCleanupClient: Starting enumerate: {[5] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalEnumerateClient, proto=6, owner=android, cookie=0, requestId=-1, userId=0} enrolledList size:0
+08-08 00:03:25.149 10171 10173 D fingerprint-service.ranchu: 0xb40000771a8c1010:enumerateEnrollments:279: onEnrollmentsEnumerated(enrollmentIds=empty)
+08-08 00:03:25.154  9922 10167 V BiometricSchedulerOperation: started: {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, State: 2
+08-08 00:03:25.154  9922 10167 D Biometrics/InternalCleanupClient: onEnumerated, remaining: 0
+08-08 00:03:25.154  9922 10167 D Biometrics/InternalEnumerateClient: Null identifier
+08-08 00:03:25.154  9922 10167 W BiometricLogger: Unknown field detected: CLIENT_UNKNOWN
+08-08 00:03:25.154  9922 10167 D Biometrics/InternalCleanupClient: Enumerate onClientFinished: {[5] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalEnumerateClient, proto=6, owner=android, cookie=0, requestId=-1, userId=0}, success: true
+08-08 00:03:25.154  9922 10167 D BiometricStateCallback: Client finished, state updated to 0, client {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.154  9922 10167 D BiometricStateCallback: Enrollment state changed: false
+08-08 00:03:25.154  9922 10167 D BiometricSchedulerOperation: [Finished / destroy]: {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}
+08-08 00:03:25.154  9922 10167 D BiometricScheduler: [Finishing] {[3] com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintInternalCleanupClient, proto=7, owner=android, cookie=0, requestId=-1, userId=0}, success: true
+08-08 00:03:25.155  9922 10167 D BiometricScheduler: No operations, returning to idle
+08-08 00:03:25.170  9922  9922 W SystemServiceManager: Service com.android.server.pm.LauncherAppsService took 89 ms in onStart
+08-08 00:03:25.172  9922  9922 D SystemServerTiming: StartCrossProfileAppsService
+08-08 00:03:25.173  9922  9922 I SystemServiceManager: Starting com.android.server.pm.CrossProfileAppsService
+08-08 00:03:25.181  9922  9922 D SystemServerTiming: StartPeopleService
+08-08 00:03:25.183  9922  9922 I SystemServiceManager: Starting com.android.server.people.PeopleService
+08-08 00:03:25.199  9922  9922 D SystemServerTiming: StartMediaMetricsManager
+08-08 00:03:25.210  9922  9922 I SystemServiceManager: Starting com.android.server.media.metrics.MediaMetricsManagerService
+08-08 00:03:25.336  9922  9922 D SystemServerTiming: StartBackgroundInstallControlService
+08-08 00:03:25.346  9922  9922 I SystemServiceManager: Starting com.android.server.pm.BackgroundInstallControlService
+08-08 00:03:25.582  9922  9922 D SystemServerTiming: StartMediaProjectionManager
+08-08 00:03:25.656  9922  9922 I SystemServiceManager: Starting com.android.server.media.projection.MediaProjectionManagerService
+08-08 00:03:26.373  9922  9922 V MediaRouter: Selecting route: RouteInfo{ name=Phone, description=null, status=null, category=RouteCategory{ name=System types=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO  groupable=false }, supportedTypes=ROUTE_TYPE_LIVE_AUDIO ROUTE_TYPE_LIVE_VIDEO , presentationDisplay=null }
+08-08 00:03:26.466  9922  9922 I MediaRouter: Skip setBluetoothA2dpOn(): types=8388615, isPlaybackActive()=false, BT route=null
+08-08 00:03:26.934  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:27.189  9922  9922 W SystemServiceManager: Service com.android.server.media.projection.MediaProjectionManagerService took 448 ms in onStart
+08-08 00:03:27.215  9922  9922 D SystemServerTiming: StartSliceManagerService
+08-08 00:03:27.222  9922  9922 I SystemServiceManager: Starting com.android.server.slice.SliceManagerService$Lifecycle
+08-08 00:03:27.387  9922 10065 I InputDispatcher: Dropped event because input dispatch is disabled.
+08-08 00:03:27.393  9922  9945 W InputManager: Input event injection from pid 10181 failed.
+08-08 00:03:27.398  9922 10065 E PowerManagerService-JNI: An exception was thrown by callback 'userActivityFromNative'.
+08-08 00:03:27.407  9922 10065 E PowerManagerService-JNI: java.lang.NullPointerException: Attempt to invoke virtual method 'android.view.DisplayInfo android.hardware.display.DisplayManagerInternal.getDisplayInfo(int)' on a null object reference
+08-08 00:03:27.407  9922 10065 E PowerManagerService-JNI: 	at com.android.server.power.PowerManagerService.userActivityInternal(PowerManagerService.java:2128)
+08-08 00:03:27.407  9922 10065 E PowerManagerService-JNI: 	at com.android.server.power.PowerManagerService.userActivityFromNative(PowerManagerService.java:2115)
+08-08 00:03:27.408  9922  9945 W InputManager: Input event injection from pid 10181 failed.
+08-08 00:03:27.598  9922  9922 W SystemServiceManager: Service com.android.server.slice.SliceManagerService$Lifecycle took 351 ms in onStart
+08-08 00:03:27.663  9922  9922 D SystemServerTiming: StartStatsCompanion
+08-08 00:03:27.917  9922  9922 I SystemServiceManager: Starting com.android.server.stats.StatsCompanion$Lifecycle
+08-08 00:03:28.269  9922  9922 W SystemServiceManager: Service com.android.server.stats.StatsCompanion$Lifecycle took 298 ms in onStart
+08-08 00:03:28.280  9922  9922 D SystemServerTiming: StartRebootReadinessManagerService
+08-08 00:03:28.350  9922  9922 I SystemServiceManager: Starting com.android.server.scheduling.RebootReadinessManagerService$Lifecycle
+08-08 00:03:28.458  9922  9922 I TetheringManager: registerTetheringEventCallback:android
+08-08 00:03:28.462  9922  9922 I TetheringManager: registerTetheringEventCallback caller:android
+08-08 00:03:28.464  9922  9922 W SystemServiceManager: Service com.android.server.scheduling.RebootReadinessManagerService$Lifecycle took 107 ms in onStart
+08-08 00:03:28.466  9922  9922 D SystemServerTiming: StartStatsPullAtomService
+08-08 00:03:28.466  9922  9922 I SystemServiceManager: Starting com.android.server.stats.pull.StatsPullAtomService
+08-08 00:03:28.470  9922  9922 D SystemServerTiming: StatsBootstrapAtomService
+08-08 00:03:28.472  9922  9922 I SystemServiceManager: Starting com.android.server.stats.bootstrap.StatsBootstrapAtomService$Lifecycle
+08-08 00:03:28.482  9922  9922 D SystemServerTiming: StartIncidentCompanionService
+08-08 00:03:28.485  9922  9922 I SystemServiceManager: Starting com.android.server.incident.IncidentCompanionService
+08-08 00:03:28.500  9922  9922 D SystemServerTiming: StarSdkSandboxManagerService
+08-08 00:03:28.517  9922  9922 I SystemServiceManager: Starting com.android.server.sdksandbox.SdkSandboxManagerService$Lifecycle
+08-08 00:03:28.673  9922  9922 D SdkSandboxManager: Property services_allowlist_per_targetSdkVersion is empty.
+08-08 00:03:28.957  9922  9922 D SdkSandboxManager: Property sdksandbox_next_service_allowlist is empty.
+08-08 00:03:29.079  9922  9922 D SdkSandboxManager: Property contentprovider_allowlist_per_targetSdkVersion is empty.
+08-08 00:03:29.079  9922  9922 D SdkSandboxManager: Property sdksandbox_next_contentprovider_allowlist is empty.
+08-08 00:03:29.079  9922  9922 D SdkSandboxManager: Property sdksandbox_broadcastreceiver_allowlist_per_targetSdkVersion is empty.
+08-08 00:03:29.079  9922  9922 D SdkSandboxManager: Property sdksandbox_next_broadcastreceiver_allowlist is empty.
+08-08 00:03:29.092  9922  9922 D SdkSandboxManager: Property sdksandbox_activity_allowlist_per_targetSdkVersion is empty.
+08-08 00:03:29.252  9922  9922 D SdkSandboxManager: Property sdksandbox_next_activity_allowlist is empty.
+08-08 00:03:30.877  9922  9922 D SdkSandboxManager: Registering callback with StatsManager
+08-08 00:03:30.982  9922  9922 D SystemServerTiming: StartAdServicesManagerService
+08-08 00:03:31.016  9922  9922 I SystemServiceManager: Starting com.android.server.adservices.AdServicesManagerService$Lifecycle
+08-08 00:03:31.061  9922  9922 I SystemCtxSingleton: Set singleton context as android.app.ContextImpl@c065433
+08-08 00:03:31.276  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:31.315  9922  9922 D SdkSandboxManager: registerAdServicesManagerService(): published=true
+08-08 00:03:31.316  9922  9922 D SystemServerTiming: StartOnDevicePersonalizationSystemService
+08-08 00:03:31.329  9922  9922 I SystemServiceManager: Starting com.android.server.ondevicepersonalization.OnDevicePersonalizationSystemService$Lifecycle
+08-08 00:03:31.927  9922  9922 I ondevicepersonalization: OnDevicePersonalizationSystemService started!
+08-08 00:03:31.927  9922  9922 W SystemServiceManager: Service com.android.server.ondevicepersonalization.OnDevicePersonalizationSystemService$Lifecycle took 365 ms in onStart
+08-08 00:03:31.928  9922  9922 D SystemServerTiming: StartProfilingCompanion
+08-08 00:03:31.992  9922  9922 I SystemServiceManager: Starting android.os.profiling.ProfilingService$Lifecycle
+08-08 00:03:32.165  9922  9922 D SystemServerTiming: StartMmsService

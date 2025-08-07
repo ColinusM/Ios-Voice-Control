@@ -132,6 +132,9 @@ object VoiceControlColors {
     
     // MARK: - Audio Mixer Inspired Colors
     
+    /** Audio blue - Professional audio interface blue */
+    val AudioBlue = Color(0xFF1976D2)
+    
     /** Channel strip background - Mixing console channel color */
     val ChannelStripBackground = Color(0xFF37474F)
     

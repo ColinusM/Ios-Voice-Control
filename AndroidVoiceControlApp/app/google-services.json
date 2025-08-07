@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "608316391359",
+    "project_id": "android-voice-control",
+    "storage_bucket": "android-voice-control.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608316391359:android:fd30b7c9acd6ac37a36b0a",
+        "android_client_info": {
+          "package_name": "com.voicecontrol.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608316391359-ou6jod8lon9575k4p7danr1geg8p0afc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voicecontrol.app",
+            "certificate_hash": "dbcea92ea276a7c01b6aab8eb004d345bafb4fef"
+          }
+        },
+        {
+          "client_id": "608316391359-oqq0hml8n12l5cda8cj0h9m5ufcmoeea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyg-LcBwHnbDd6rRmPKo_dYnBGqtn_s1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608316391359-oqq0hml8n12l5cda8cj0h9m5ufcmoeea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

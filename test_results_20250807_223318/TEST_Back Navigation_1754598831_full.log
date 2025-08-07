@@ -1,0 +1,13 @@
+--------- beginning of main
+08-07 22:33:51.163  8449  8449 I TestMarker: TEST_Back Navigation_1754598831
+08-07 22:33:52.790  1071  1284 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+08-07 22:33:53.789  8453  8453 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-07 22:33:53.799  8453  8453 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-07 22:33:53.800  8453  8453 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-07 22:33:53.853   504   621 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-07 22:33:53.854   504   621 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-07 22:33:54.384  1422  1422 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+08-07 22:33:54.503  6726  6726 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@d39606a
+--------- beginning of system
+08-07 22:33:54.506   677   980 D CoreBackPreview: Window{6b9dc11 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@94be555, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+08-07 22:33:55.116  6726  6738 I oicecontrol.app: Background concurrent mark compact GC freed 6908KB AllocSpace bytes, 13(456KB) LOS objects, 49% free, 7999KB/15MB, paused 1.298ms,24.384ms total 597.297ms

@@ -1,0 +1,14 @@
+{
+  "test_name": "Back Navigation",
+  "passed": true,
+  "timestamp": "2025-08-07T23:04:05.879643",
+  "expected_pattern": "onBackPressed|WindowDispatcher|CoreBackPreview|sendCancelIfRunning",
+  "found_lines": [
+    "[full] 08-07 23:04:01.087  6726  6726 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@dda35bd",
+    "[full] 08-07 23:04:01.088   677  2040 D CoreBackPreview: Window{aaf6103 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback null",
+    "[app] 08-07 23:04:01.088   677  2040 D CoreBackPreview: Window{aaf6103 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback null",
+    "[lifecycle] 08-07 23:04:01.087  6726  6726 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@dda35bd",
+    "[lifecycle] 08-07 23:04:01.088   677  2040 D CoreBackPreview: Window{aaf6103 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback null"
+  ],
+  "errors": []
+}

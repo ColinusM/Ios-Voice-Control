@@ -43,7 +43,9 @@ object VoiceControlRoutes {
 @Composable
 fun VoiceControlNavigation(
     authState: AuthState,
-    authViewModel: AuthenticationViewModel
+    authViewModel: AuthenticationViewModel,
+    hasMicrophonePermission: () -> Boolean = { false },
+    requestMicrophonePermission: (((Boolean) -> Unit)?) -> Unit = {}
 ) {
     val navController = rememberNavController()
     
@@ -119,6 +121,8 @@ fun VoiceControlNavigation(
         composable(VoiceControlRoutes.MAIN) {
             VoiceControlMainScreen(
                 authViewModel = authViewModel,
+                hasMicrophonePermission = hasMicrophonePermission,
+                requestMicrophonePermission = requestMicrophonePermission,
                 onNavigateToSettings = {
                     navController.navigate(VoiceControlRoutes.SETTINGS)
                 },

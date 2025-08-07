@@ -86,31 +86,31 @@ class NetworkSettings @Inject constructor(
     }
     
     // State flows for reactive UI updates
-    private val _consoleIP = MutableStateFlow(getConsoleIP())
+    private val _consoleIP = MutableStateFlow(loadConsoleIP())
     val consoleIPFlow: StateFlow<String> = _consoleIP.asStateFlow()
     
-    private val _consolePort = MutableStateFlow(getConsolePort())
+    private val _consolePort = MutableStateFlow(loadConsolePort())
     val consolePortFlow: StateFlow<Int> = _consolePort.asStateFlow()
     
-    private val _testingIP = MutableStateFlow(getTestingIP())
+    private val _testingIP = MutableStateFlow(loadTestingIP())
     val testingIPFlow: StateFlow<String> = _testingIP.asStateFlow()
     
-    private val _testingPort = MutableStateFlow(getTestingPort())
+    private val _testingPort = MutableStateFlow(loadTestingPort())
     val testingPortFlow: StateFlow<Int> = _testingPort.asStateFlow()
     
-    private val _targetType = MutableStateFlow(getTargetType())
+    private val _targetType = MutableStateFlow(loadTargetType())
     val targetTypeFlow: StateFlow<NetworkTargetType> = _targetType.asStateFlow()
     
-    private val _connectionStatus = MutableStateFlow(getConnectionStatus())
+    private val _connectionStatus = MutableStateFlow(loadConnectionStatus())
     val connectionStatusFlow: StateFlow<ConnectionStatus> = _connectionStatus.asStateFlow()
     
-    private val _timeoutSeconds = MutableStateFlow(getTimeoutSeconds())
+    private val _timeoutSeconds = MutableStateFlow(loadTimeoutSeconds())
     val timeoutSecondsFlow: StateFlow<Int> = _timeoutSeconds.asStateFlow()
     
-    private val _enableLogging = MutableStateFlow(getEnableLogging())
+    private val _enableLogging = MutableStateFlow(loadEnableLogging())
     val enableLoggingFlow: StateFlow<Boolean> = _enableLogging.asStateFlow()
     
-    private val _lastConnectionTime = MutableStateFlow(getLastConnectionTime())
+    private val _lastConnectionTime = MutableStateFlow(loadLastConnectionTime())
     val lastConnectionTimeFlow: StateFlow<Long?> = _lastConnectionTime.asStateFlow()
     
     init {
@@ -390,23 +390,23 @@ class NetworkSettings @Inject constructor(
     }
     
     // Private getters for initialization
-    private fun getConsoleIP(): String {
+    private fun loadConsoleIP(): String {
         return sharedPreferences.getString(PREF_CONSOLE_IP, DEFAULT_CONSOLE_IP) ?: DEFAULT_CONSOLE_IP
     }
     
-    private fun getConsolePort(): Int {
+    private fun loadConsolePort(): Int {
         return sharedPreferences.getInt(PREF_CONSOLE_PORT, DEFAULT_CONSOLE_PORT)
     }
     
-    private fun getTestingIP(): String {
+    private fun loadTestingIP(): String {
         return sharedPreferences.getString(PREF_TESTING_IP, DEFAULT_TESTING_IP) ?: DEFAULT_TESTING_IP
     }
     
-    private fun getTestingPort(): Int {
+    private fun loadTestingPort(): Int {
         return sharedPreferences.getInt(PREF_TESTING_PORT, DEFAULT_TESTING_PORT)
     }
     
-    private fun getTargetType(): NetworkTargetType {
+    private fun loadTargetType(): NetworkTargetType {
         val typeName = sharedPreferences.getString(PREF_TARGET_TYPE, NetworkTargetType.CONSOLE.name)
         return try {
             NetworkTargetType.valueOf(typeName ?: NetworkTargetType.CONSOLE.name)
@@ -415,7 +415,7 @@ class NetworkSettings @Inject constructor(
         }
     }
     
-    private fun getConnectionStatus(): ConnectionStatus {
+    private fun loadConnectionStatus(): ConnectionStatus {
         val statusName = sharedPreferences.getString(PREF_CONNECTION_STATUS, ConnectionStatus.DISCONNECTED.name)
         return try {
             ConnectionStatus.valueOf(statusName ?: ConnectionStatus.DISCONNECTED.name)
@@ -424,15 +424,15 @@ class NetworkSettings @Inject constructor(
         }
     }
     
-    private fun getTimeoutSeconds(): Int {
+    private fun loadTimeoutSeconds(): Int {
         return sharedPreferences.getInt(PREF_TIMEOUT_SECONDS, DEFAULT_TIMEOUT_SECONDS)
     }
     
-    private fun getEnableLogging(): Boolean {
+    private fun loadEnableLogging(): Boolean {
         return sharedPreferences.getBoolean(PREF_ENABLE_LOGGING, DEFAULT_ENABLE_LOGGING)
     }
     
-    private fun getLastConnectionTime(): Long? {
+    private fun loadLastConnectionTime(): Long? {
         val timestamp = sharedPreferences.getLong(PREF_LAST_CONNECTION_TIME, 0L)
         return if (timestamp > 0L) timestamp else null
     }

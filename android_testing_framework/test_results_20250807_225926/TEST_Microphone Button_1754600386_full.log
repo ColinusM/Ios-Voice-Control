@@ -1,0 +1,9 @@
+--------- beginning of main
+08-07 22:59:46.412  1600  1612 W gle.android.gms: Suspending all threads took: 46.510ms
+08-07 22:59:46.652  9085  9085 I TestMarker: TEST_Microphone Button_1754600386
+08-07 22:59:48.481  9089  9089 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-07 22:59:48.482  9089  9089 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-07 22:59:48.483  9089  9089 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-07 22:59:48.494   504   615 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-07 22:59:48.494   504   615 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-07 22:59:50.523  1600  1600 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.measurement.START xflg=0x4 pkg=com.google.android.gms }

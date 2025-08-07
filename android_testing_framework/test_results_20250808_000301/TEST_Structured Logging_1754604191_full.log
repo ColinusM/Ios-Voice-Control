@@ -1,0 +1,514 @@
+--------- beginning of system
+08-08 00:03:11.179  9922  9922 E SettingsState: invalid override flag name adservices/DownloadConfig__mdd_package_deny_registry_manifest_file_url
+08-08 00:03:11.179  9922  9922 E SettingsState: invalid override flag name device_personalization_services/NotificationAssistant__enable_upgrade_importance
+08-08 00:03:11.179  9922  9922 E SettingsState: invalid override flag name health_fitness/RateLimiter__max_write_requests_per_15m_foreground
+08-08 00:03:11.179  9922  9922 E SettingsState: invalid override flag name health_fitness/count_migration_state_allowed
+08-08 00:03:11.179  9922  9922 E SettingsState: invalid override flag name device_personalization_services/Overview__enable_proactive_hints
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_api_register_web_trigger_kill_switch
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/SmartNotification__min_string_length_for_private_summary
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/Measurement__adr_budget_window_length_ms
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_custom_audience_max_expire_in_days
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/usage_events_risk_utf_score
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/EchoSmartspace__loud_sound_test_threshold_duration_seconds
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_custom_audience_max_num_ads
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name storage_native_boot/dirty_reclaim_rate
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name captive_portal_login/use_any_custom_tab_provider
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/phl_autofill_hint_suspicious_score
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_enable_odp_web_trigger_registration
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/enable_back_compat
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicModels__mdd_maintenance_at_init_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_enable_delete_reports_on_unrecoverable_exception
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/mdd_network_stats_logging_sample_interval
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name health_fitness/count_migration_state_in_progress
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/phl_button_scores
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name input_method/InputMethodManager__hide_ime_when_no_editor_focus
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/cp_debug_keywords
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name on_device_personalization/default_scheduling_period_secs
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicSafety__messages_custom_protection_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/AicModels__mdd_filter_filegroups_for_background_jobs
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name media/player_metrics_per_app_user_media_activity_allowlist
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name notification_assistant/generate_actions
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name health_fitness/migration_completion_job_run_interval_days
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_auction_server_enable_pas_unlimited_egress
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name netd_native/max_cache_entries
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/PccFlogger__enable_pcc_flogger_backend
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name privacy/safety_center_show_subpages
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/VisualCortex__enable
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicSafety__use_flexible_safety_magic_rewrite_classifier
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name nnapi_native/telemetry_enable
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/NowPlaying__enable_now_playing_quick_settings
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/max_low_cost_scanning_apps
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/max_classification_reports
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name health_fitness/RateLimiter__max_write_requests_per_24h_background
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_background_fetch_thread_pool_size
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name connectivity/ipclient_multicast_ns_version
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name health_fitness/RateLimiter__max_read_requests_per_15m_foreground
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/topics_number_of_random_topics
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/AicModels__mdd_enable_background_jobs
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name runtime_native_boot/iorap_perfetto_enable
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/phl_text_box_score
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name privacy/safety_label_changes_job_interval_millis
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name on_device_personalization/fcp_enable_authentication
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name package_manager_service/Archiving__enable_archiving
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/mdd_enrollment_manifest_file_url
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/protected_signals_cleanup_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name exo/use_target_dpi
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/topics_on_device_classifier_kill_switch
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/safety_center_bll_warnings_v2_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name textclassifier/manifest_download_max_attempts
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name content_capture/content_protection_optional_groups_config
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicFeatures__features
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/enrollment_proto_file_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/old_versioned_ww_data_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_async_registration_job_trigger_max_delay_ms
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_custom_audience_per_app_max_count
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/safety_center_refresh_sources_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name wifi/abnormal_connection_failure_bugreport_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_job_aggregate_reporting_kill_switch
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/SmartNotification__application_channel_verify_rules
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicFeatures__customer_packages
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_auction_server_key_fetch_metrics_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/phl_clickable_text_view_score
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name connectivity/dhcp_init_reboot_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_enable_aggregatable_report_payload_padding
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_auction_server_join_key_fetch_uri
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name connectivity/dhcp_ip_conflict_detect_version
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/Captions__enable_drag_and_double_tap_to_resize
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/bll_classifier_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name health_fitness/RateLimiter__max_read_requests_per_24h_background
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_max_sources_per_publisher
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/NowPlaying__enable_now_playing_ipc
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name privacy/safety_center_background_refresh_denied_sources
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name privacy/safety_center_background_requires_charging
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/safety_center_killswitch
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicModels__mdd_manifest_config
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicCommon__serving_group_mismatch_exception_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name health_fitness/cloud_restore_enable
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name wifi/health_monitor_ratio_thr_numerator
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name credential_manager/credential_manager_service_search_uri
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/u18_ux_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/Captions__enable_augmented_modality_input
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name appsearch/contacts_indexer_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicSafety__messages_output_screen_classification_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_enable_event_level_epsilon_in_source
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_job_delete_uninstalled_kill_switch
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name connectivity/dhcp_rapid_commit_version
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name on_device_personalization/fcp_enable_encryption
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/NowPlaying__ambient_music_update_album_art_old_recognitions
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_max_triggers_per_destination
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_default_destination_limit_algorithm
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_debug_report_sender_job_period_ms
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_aggregate_reporting_job_required_network_type
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name odad/phl_autofill_hint_critical_score
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_background_fetch_network_connect_timeout_ms
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/NotificationAssistant__enable_service
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name on_device_personalization/web_trigger_flow_deadline_seconds
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicOnDeviceIntelligence__enable_fd_caching_for_lightweight_features
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/SmartNotification__excluded_packages
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name launcher_lily/HomeScreenShortcuts__enable_camera_block
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_enforce_foreground_status_register_source
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_event_reports_ctc_early_reporting_windows
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/measurement_enforce_foreground_status_register_web_source
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/NoOp__flag_for_droidfood
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name autofill/trigger_fill_request_on_unimportant_view
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/Superpacks__require_battery_not_low_by_default
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name configuration/beta_public_launch
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/ViewSemantics__model_version
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/SmartSelect__enable_smart_select_example_cache_on_suggest_selection
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name interaction_jank_monitor/trace_threshold_frame_time_millis
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/enable_appsearch_consent_data
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name uwb/device_error_bugreport_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name aicore/AicSafety__periodic_refresh_only_requested_clients_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/Overview__enable_pir_westworld_logging
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name activity_manager_native_boot/modern_queue_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/mdd_maintenance_gcm_task_period_seconds
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name media/player_metrics_per_app_use_time_allowlist
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/PccStorageStats__directory_report_known_directory_names
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/EchoSmartspace__enable_ambient_data_predictor
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name textclassifier/manifest_url_annotator_universal
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name device_personalization_services/SpeechRecognitionService__max_concurrent_recognition_sessions
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name package_manager_service/MinInstallableTargetSdkStrictMode__install_block_strict_mode_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name adservices/fledge_report_impression_api_metrics_enabled
+08-08 00:03:11.180  9922  9922 E SettingsState: invalid override flag name connectivity/ipclient_accept_ipv6_link_local_dns_version
+08-08 00:03:11.180  9922  9922 I SettingsState: 0 flag override requests created
+--------- beginning of main
+08-08 00:03:11.201  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:11.221  9922  9922 V Configuration: Updating configuration, locales updated from [] to [en_US]
+08-08 00:03:11.222  9922  9922 I system_server: AssetManager2(0xb400007767a681d8) locale list changing from [] to [en-US]
+08-08 00:03:11.232  9922  9922 D nativeloader: Configuring clns-shared-20 for other apk /system/priv-app/Telecom/Telecom.apk. target_sdk_version=36, uses_libraries=, library_path=/system/priv-app/Telecom/lib/arm64:/system/priv-app/Telecom/Telecom.apk!/lib/arm64-v8a:/system/lib64:/system_ext/lib64, permitted_path=/data:/mnt/expand:/data/user_de/0/com.android.server.telecom:/system/priv-app/Telecom:/system/lib64:/system_ext/lib64
+08-08 00:03:11.243  9922  9922 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+08-08 00:03:11.273  9922  9922 D ActivityManager: Freezer timeout set to 10000
+08-08 00:03:11.273  9922  9922 D ActivityManager: Freezer exemption set to false
+08-08 00:03:11.276  9922  9965 D ActivityManager: Freezer enabled
+08-08 00:03:11.276  9922  9965 D ActivityManager: freezer override set to false
+08-08 00:03:11.278  9922  9922 I system_server: Waiting for a blocking GC ClassLinker
+08-08 00:03:11.355 10055 10055 W cmd     : Can't find service input
+08-08 00:03:11.374  9922  9940 I system_server: Background concurrent mark compact GC freed 12MB AllocSpace bytes, 25(2352KB) LOS objects, 49% free, 15MB/31MB, paused 266us,6.685ms total 129.801ms
+08-08 00:03:11.374  9922  9922 I system_server: WaitForGcToComplete blocked ClassLinker on Background for 95.853ms
+08-08 00:03:11.376  9922  9922 I SystemServiceManager: Starting com.android.server.deviceconfig.DeviceConfigInit$Lifecycle
+08-08 00:03:11.381  9922  9922 I DeviceConfig: Bootstrap values not found
+08-08 00:03:11.382  9922  9922 D SystemServerTiming: StartDropBoxManager
+08-08 00:03:11.382  9922  9922 I SystemServiceManager: Starting com.android.server.DropBoxManagerService
+08-08 00:03:11.384  9922  9922 D SystemServerTiming: StartEnhancedConfirmationService
+08-08 00:03:11.389  9922  9922 I SystemServiceManager: Starting com.android.ecm.EnhancedConfirmationService
+08-08 00:03:11.402  9922  9922 D SystemServerTiming: StartHintManager
+08-08 00:03:11.404  9922  9922 I SystemServiceManager: Starting com.android.server.power.hint.HintManagerService
+08-08 00:03:11.461  9922  9922 D SystemServerTiming: StartRoleManagerService
+08-08 00:03:11.465  9922  9922 I SystemServiceManager: Starting com.android.role.RoleService
+08-08 00:03:11.490  9922  9922 D SystemServerTiming: StartSupervisionService
+08-08 00:03:11.492  9922  9922 I SystemServiceManager: Starting com.android.server.supervision.SupervisionService$Lifecycle
+08-08 00:03:11.499  9922  9922 D SystemServerTiming: StartVibratorManagerService
+08-08 00:03:11.500  9922  9922 I SystemServiceManager: Starting com.android.server.vibrator.VibratorManagerService$Lifecycle
+08-08 00:03:11.534  9922  9922 D SystemServerTiming: StartDynamicSystemService
+08-08 00:03:11.537  9922  9922 D SystemServerTiming: StartAlarmManagerService
+08-08 00:03:11.543  9922  9922 I SystemServiceManager: Starting com.android.server.alarm.AlarmManagerService
+08-08 00:03:11.568  9922  9922 D nativeloader: Load /system/lib64/libalarm_jni.so using ns default for caller /system/framework/services.jar in same partition (is_bridged=0): ok
+08-08 00:03:11.645  9922  9964 W UserWakeupStore: User wakeup file not available: /data/system/alarms/usersWithAlarmClocks.xml
+08-08 00:03:11.655  9922  9922 W SystemServiceManager: Service com.android.server.alarm.AlarmManagerService took 96 ms in onStart
+08-08 00:03:11.655  9922  9922 D SystemServerTiming: StartInputManagerService
+08-08 00:03:11.656  9922  9922 I SystemServiceManager: Starting com.android.server.input.InputManagerService$Lifecycle
+08-08 00:03:11.707  9922  9922 D Minikin : android_logger: android_logger: log::set_logger failed: attempted to set a logger after the logging system was already initialized
+08-08 00:03:11.712  9922  9922 D inputflinger: Creating InputFlingerRust
+08-08 00:03:11.717  9922  9922 E system_server: Class descriptors 'com.android.server.inputflinger.IInputFlingerRust' match during associateClass, but they are different class objects (0xb400007897a2d860 vs 0xb400007897a39640). Class descriptor collision?
+08-08 00:03:11.745  9922  9922 D inputflinger: Creating InputFilter
+08-08 00:03:11.745  9922  9922 E system_server: Class descriptors 'com.android.server.inputflinger.IInputFilter' match during associateClass, but they are different class objects (0xb400007897a2d8d0 vs 0xb400007897a3b010). Class descriptor collision?
+08-08 00:03:11.856  9922  9922 I InputManager: Initializing input manager, mUseDevInputEventForAudioJack=true
+08-08 00:03:11.859  9922  9922 D SystemServerTiming: DeviceStateManagerService
+08-08 00:03:11.859  9922  9922 I SystemServiceManager: Starting com.android.server.devicestate.DeviceStateManagerService
+08-08 00:03:11.886  9922  9922 E DeviceStateManagerService: Cannot notify device state info change before the initial state has been committed.
+08-08 00:03:11.886  9922  9922 I DeviceStateManagerService: Cannot notify device state info change when pending state is present.
+08-08 00:03:11.895  9922  9922 D SystemServerTiming: StartCameraServiceProxy
+08-08 00:03:11.908  9922  9922 I SystemServiceManager: Starting com.android.server.camera.CameraServiceProxy
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: StartWindowManagerService
+08-08 00:03:11.926  9922  9922 I SystemServiceManager: Starting phase 200
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.security.FileIntegrityService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.pm.Installer
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.os.DeviceIdentifiersPolicyService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.flags.FeatureFlagsService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.uri.UriGrantsManagerService$Lifecycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.powerstats.PowerStatsService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.permission.access.AccessCheckingService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.wm.ActivityTaskManagerService$Lifecycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.am.ActivityManagerService$Lifecycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.pm.DataLoaderManagerService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.power.PowerManagerService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.power.ThermalManagerService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.recoverysystem.RecoverySystemService$Lifecycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.lights.LightsService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.display.DisplayManagerService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.pm.verify.domain.DomainVerificationService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.pm.PackageInstallerService$Lifecycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.pm.UserManagerService$LifeCycle
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.om.OverlayManagerService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.resources.ResourcesManagerService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.sensorprivacy.SensorPrivacyService
+08-08 00:03:11.926  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.sensors.SensorService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.SystemConfigService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.BatteryService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.usage.UsageStatsService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.webkit.WebViewUpdateService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.CachedDeviceStateService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.BinderCallsStatsService$LifeCycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.LooperStatsService$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.rollback.RollbackManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.os.NativeTombstoneManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.os.BugreportManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.gpu.GpuService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.security.rkp.RemoteProvisioningService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.security.KeyChainSystemService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.BinaryTransparencyService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.telecom.TelecomLoaderService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.accounts.AccountManagerService$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.content.ContentService$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.deviceconfig.DeviceConfigInit$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.DropBoxManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.ecm.EnhancedConfirmationService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.power.hint.HintManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.role.RoleService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.supervision.SupervisionService$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.vibrator.VibratorManagerService$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.alarm.AlarmManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.input.InputManagerService$Lifecycle
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.devicestate.DeviceStateManagerService
+08-08 00:03:11.927  9922  9922 D SystemServerTiming: OnBootPhase_200_com.android.server.camera.CameraServiceProxy
+08-08 00:03:11.947  9922  9922 I WindowManager: No existing display settings, starting empty
+08-08 00:03:11.947  9922  9922 I WindowManager: No existing display settings, starting empty
+08-08 00:03:12.050  9922  9964 D LatencyTracker: Latency tracker enabled.
+08-08 00:03:12.098  9922  9922 D SystemServerTiming: SetWindowManagerService
+08-08 00:03:12.098  9922  9922 V Configuration: Updating configuration, locales updated from [] to [en_US]
+08-08 00:03:12.112  9922  9922 V DisplayManagerService: FrozenStateChangeCallback not supported for pid 9922
+08-08 00:03:12.197  9922  9922 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+08-08 00:03:12.364  9922  9922 I CameraManagerGlobal: Connecting to camera service
+08-08 00:03:12.446  9922  9922 D SystemServerTiming: WindowManagerServiceOnInitReady
+08-08 00:03:12.446  9922  9951 D WindowManager: DeferredDisplayUpdater: applying DisplayInfo(1080 x 2424) immediately
+08-08 00:03:12.483  9922  9951 W BroadcastLoopers: Found previously unknown looper Thread[android.ui,5,main]
+08-08 00:03:12.515  9922  9922 D SystemServerTiming: StartInputManager
+08-08 00:03:12.515  9922  9922 I InputManager: Starting input manager
+08-08 00:03:12.515  9922 10020 D SystemServerTimingAsync: InitThreadPoolExec:StartISensorManagerService
+08-08 00:03:12.515  9922 10020 D SystemServerTimingAsync: StartISensorManagerService
+08-08 00:03:12.515  9922 10032 D SystemServerTimingAsync: InitThreadPoolExec:StartHidlServices
+08-08 00:03:12.515  9922 10032 D SystemServerTimingAsync: StartHidlServices
+08-08 00:03:12.535  9922  9922 D SystemServerTiming: DisplayManagerWindowManagerAndInputReady
+08-08 00:03:12.537   220   220 I hwservicemanager: getTransport: Cannot find entry android.frameworks.schedulerservice@1.0::ISchedulingPolicyService/default in either framework or device VINTF manifest.
+08-08 00:03:12.537  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:12.537  9922  9922 D SystemServerTiming: StartBluetoothService
+08-08 00:03:12.538  9922 10032 W system_server: android.frameworks.schedulerservice@1.0::ISchedulingPolicyService is deprecated. Skipping registration.
+08-08 00:03:12.551  9922 10066 D EventHub: No input device configuration file found for device 'gpio-keys'.
+08-08 00:03:12.551  9922 10020 I HidlServiceManagement: Registered android.frameworks.sensorservice@1.0::ISensorManager/default
+08-08 00:03:12.552  9922  9922 I SystemServiceManager: Starting com.android.server.bluetooth.BluetoothService
+08-08 00:03:12.610  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event0: Function not implemented
+08-08 00:03:12.610  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.613  9922 10066 I EventHub: New device: id=1, fd=220, path='/dev/input/event0', name='gpio-keys', classes=KEYBOARD, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.650  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event1: Function not implemented
+08-08 00:03:12.650  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.650  9922 10066 I EventHub: New device: id=2, fd=221, path='/dev/input/event1', name='virtio_input_multi_touch_1', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.658  9922  9922 D BluetoothSystemServer: BtPermissionUtils: Detected SystemUiUid: 10185
+08-08 00:03:12.665  9922  9922 I BluetoothSystemServer: BleScanSettingListener: Settings not found. Default to false
+08-08 00:03:12.670  9922  9922 D BluetoothSystemServer: BluetoothManagerService: Local adapter: Name=sdk_gphone64_arm64, Address=XX:XX:XX:XX:17:00
+08-08 00:03:12.670  9922  9922 D BluetoothSystemServer: BluetoothManagerService: isBluetoothPersistedStateOn: 1
+08-08 00:03:12.670  9922  9922 I BluetoothSystemServer: BluetoothManagerService: Startup: Bluetooth persisted state is ON.
+08-08 00:03:12.670  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event2: Function not implemented
+08-08 00:03:12.670  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.670  9922  9922 D BluetoothSystemServer: BluetoothManagerService: AutoOnFeature property=false
+08-08 00:03:12.670  9922 10066 I EventHub: New device: id=3, fd=226, path='/dev/input/event2', name='virtio_input_multi_touch_2', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.670  9922  9922 D SystemServerTiming: IpConnectivityMetrics
+08-08 00:03:12.674  9922  9922 I SystemServiceManager: Starting com.android.server.connectivity.IpConnectivityMetrics
+08-08 00:03:12.678  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event3: Function not implemented
+08-08 00:03:12.678  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.678  9922 10066 I EventHub: New device: id=4, fd=227, path='/dev/input/event3', name='virtio_input_multi_touch_3', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.682  9922  9922 D SystemServerTiming: NetworkWatchlistService
+08-08 00:03:12.682  9922  9922 I SystemServiceManager: Starting com.android.server.net.watchlist.NetworkWatchlistService$Lifecycle
+08-08 00:03:12.687  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event4: Function not implemented
+08-08 00:03:12.687  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.687  9922 10066 I EventHub: New device: id=5, fd=228, path='/dev/input/event4', name='virtio_input_multi_touch_4', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.697  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event5: Function not implemented
+08-08 00:03:12.698  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.698  9922 10066 I EventHub: New device: id=6, fd=229, path='/dev/input/event5', name='virtio_input_multi_touch_5', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.701  9922  9922 I WatchlistSettings: Reload watchlist settings done
+08-08 00:03:12.702  9922 10070 I WatchlistLoggingHandler: Start aggregating watchlist records.
+08-08 00:03:12.702  9922  9922 D SystemServerTiming: PinnerService
+08-08 00:03:12.702  9922  9922 I SystemServiceManager: Starting com.android.server.pinner.PinnerService
+08-08 00:03:12.703  9922  9922 V LegacyHistoricalRegistry: Interaction before persistence initialized
+08-08 00:03:12.707  9922  9922 D SystemServerTiming: SignedConfigService
+08-08 00:03:12.707  9922  9922 D SystemServerTiming: AppIntegrityService
+08-08 00:03:12.707  9922  9922 I SystemServiceManager: Starting com.android.server.integrity.AppIntegrityManagerService
+08-08 00:03:12.708  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event6: Function not implemented
+08-08 00:03:12.708  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.708  9922 10066 I EventHub: New device: id=7, fd=232, path='/dev/input/event6', name='virtio_input_multi_touch_6', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.709  9922  9922 D SystemServerTiming: StartLogcatManager
+08-08 00:03:12.711  9922  9922 I SystemServiceManager: Starting com.android.server.logcat.LogcatManagerService
+08-08 00:03:12.713  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event7: Function not implemented
+08-08 00:03:12.713  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.715  9922 10066 I EventHub: New device: id=8, fd=234, path='/dev/input/event7', name='virtio_input_multi_touch_7', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.720  9922  9922 D SystemServerTiming: StartIntrusionDetectionService
+08-08 00:03:12.720  9922  9922 I SystemServiceManager: Starting com.android.server.security.intrusiondetection.IntrusionDetectionService
+08-08 00:03:12.744  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event8: Function not implemented
+08-08 00:03:12.744  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.744  9922 10066 I EventHub: New device: id=9, fd=235, path='/dev/input/event8', name='virtio_input_multi_touch_8', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.753  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event9: Function not implemented
+08-08 00:03:12.753  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.753  9922 10066 I EventHub: New device: id=10, fd=240, path='/dev/input/event9', name='virtio_input_multi_touch_9', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.758  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event10: Function not implemented
+08-08 00:03:12.758  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.758  9922 10066 I EventHub: New device: id=11, fd=241, path='/dev/input/event10', name='virtio_input_multi_touch_10', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.761  9922  9922 D SystemServerTiming: StartAppFunctionManager
+08-08 00:03:12.762  9922 10066 W EventHub: Unable to disable kernel key repeat for /dev/input/event11: Function not implemented
+08-08 00:03:12.762  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.762  9922 10066 I EventHub: New device: id=12, fd=243, path='/dev/input/event11', name='virtio_input_multi_touch_11', classes=KEYBOARD | TOUCH | TOUCH_MT | SWITCH, configuration='', keyLayout='/system/usr/keylayout/Generic.kl', keyCharacterMap='/system/usr/keychars/Generic.kcm', builtinKeyboard=false, 
+08-08 00:03:12.766  9922  9922 I SystemServiceManager: Starting com.android.server.appfunctions.AppFunctionManagerService
+08-08 00:03:12.772  9922 10066 I EventHub: usingClockIoctl=true
+08-08 00:03:12.772  9922 10066 I EventHub: New device: id=13, fd=244, path='/dev/input/event12', name='qwerty2', classes=KEYBOARD | ALPHAKEY | DPAD, configuration='', keyLayout='/vendor/usr/keylayout/qwerty2.kl', keyCharacterMap='/vendor/usr/keychars/qwerty2.kcm', builtinKeyboard=true, 
+08-08 00:03:12.772  9922  9922 D SystemServerTiming: StartAdvancedProtectionService
+08-08 00:03:12.772  9922  9922 I SystemServiceManager: Starting com.android.server.security.advancedprotection.AdvancedProtectionService$Lifecycle
+08-08 00:03:12.777  9922  9922 D SystemServerTiming: StartTradeInModeService
+08-08 00:03:12.777  9922  9922 I SystemServiceManager: Starting com.android.server.TradeInModeService
+08-08 00:03:12.790  9922 10050 I SyncManager: No initial accounts
+08-08 00:03:12.807  9922 10066 I InputReader: Device added: id=-1, eventHubId=-1, name='Virtual', descriptor='a718a782d34bc767f4689c232d64d527998ea7fd',sources=KEYBOARD | DPAD
+08-08 00:03:12.809  9922  9964 W PinnerService: Could not find pinlist.meta for "/system_ext/priv-app/NexusLauncherRelease/NexusLauncherRelease.apk": pinning as blob
+08-08 00:03:12.826  9922 10066 I InputReader: Device added: id=0, eventHubId=0, name='qwerty2', descriptor='e9ac6dde47cf0ffa91b87f7b85e6f8de0933fc98',sources=KEYBOARD | DPAD
+08-08 00:03:12.845  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: No service published for: jobscheduler
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: android.os.ServiceManager$ServiceNotFoundException: No service published for: jobscheduler
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.os.ServiceManager.getServiceOrThrow(ServiceManager.java:203)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$149.createService(SystemServiceRegistry.java:2232)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry$CachedServiceFetcher.getService(SystemServiceRegistry.java:2343)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.app.SystemServiceRegistry.getSystemService(SystemServiceRegistry.java:1918)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.app.ContextImpl.getSystemService(ContextImpl.java:2315)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at com.android.providers.settings.SettingsProvider.scheduleWriteFallbackFilesJob(SettingsProvider.java:3061)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at com.android.providers.settings.SettingsProvider$SettingsRegistry$MyHandler.handleMessage(SettingsProvider.java:4075)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.os.Looper.loopOnce(Looper.java:248)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.os.Looper.loop(Looper.java:338)
+08-08 00:03:12.845  9922 10050 E SystemServiceRegistry: 	at android.os.HandlerThread.run(HandlerThread.java:85)
+08-08 00:03:12.846  9922 10050 E SystemServiceRegistry: Manager wrapper not available: jobscheduler
+08-08 00:03:12.849  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.849  9922 10066 I InputReader: Device added: id=2, eventHubId=12, name='virtio_input_multi_touch_11', descriptor='e760666b71e579617395a5018f318365e9f44147',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.849  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.849  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.849  9922 10066 I InputReader: Device added: id=3, eventHubId=11, name='virtio_input_multi_touch_10', descriptor='03d5168c37d991df1726df002537cd6ccc5b68cb',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.850  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.850  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.850  9922 10066 I InputReader: Device added: id=4, eventHubId=10, name='virtio_input_multi_touch_9', descriptor='ac8abc2b3d95a68148a903fffc0a312b4dd19302',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.850  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.850  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.850  9922 10066 I InputReader: Device added: id=5, eventHubId=9, name='virtio_input_multi_touch_8', descriptor='df0ec362af5f2fec5a1bbb512f6e9556bd6b3fcf',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.850  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.850  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.850  9922 10066 I InputReader: Device added: id=6, eventHubId=8, name='virtio_input_multi_touch_7', descriptor='e1c836c7be888adb29ca6646292e486f96461e97',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Device added: id=7, eventHubId=7, name='virtio_input_multi_touch_6', descriptor='0b49b597447c4c7be1d009f9a86bbed08b2e6b6d',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Device added: id=8, eventHubId=6, name='virtio_input_multi_touch_5', descriptor='a009ac16f7539a9e4072c1f537120c35a8163d3b',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Device added: id=9, eventHubId=5, name='virtio_input_multi_touch_4', descriptor='3e50b6575df319e017bd447766007caeb20ef93b',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.851  9922 10066 I InputReader: Device added: id=10, eventHubId=4, name='virtio_input_multi_touch_3', descriptor='d02b0eff93435c71d7fcb0c5db2c4e01c700002e',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.852  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.852  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.852  9922 10066 I InputReader: Device added: id=11, eventHubId=3, name='virtio_input_multi_touch_2', descriptor='929d4636b8e04f50240a26561429a6e91c9eff9e',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.852  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_1' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.852  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_1' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:12.852  9922 10066 I InputReader: Device added: id=12, eventHubId=2, name='virtio_input_multi_touch_1', descriptor='43db9dd6fa61939c1b516cd9522f0fe93926a00b',sources=KEYBOARD | TOUCHSCREEN | STYLUS
+08-08 00:03:12.852  9922 10066 I InputReader: Device added: id=13, eventHubId=1, name='gpio-keys', descriptor='485d69228e24f5e46da1598745890b214130dbc4',sources=KEYBOARD
+08-08 00:03:12.883  9751  9756 D BootAnimation: Playing files = /product/media/bootanimation.zip/part3, Requested repeat = 0, playUntilComplete = false
+08-08 00:03:12.940  9922  9922 I WindowManager: SAFE MODE not enabled
+08-08 00:03:12.940  9922  9922 D SystemServerTiming: StartInputMethodManagerLifecycle
+08-08 00:03:12.952  9922  9922 I SystemServiceManager: Starting com.android.server.inputmethod.InputMethodManagerService$Lifecycle
+08-08 00:03:12.979  9922  9922 D InputMethodManagerService: Schedule initialization for users=[0]
+08-08 00:03:12.980  9922 10075 D InputMethodManagerService: Start initialization for user=0
+08-08 00:03:12.988  9922  9922 D SystemServerTiming: StartAccessibilityManagerService
+08-08 00:03:12.992  9922  9922 I SystemServiceManager: Starting com.android.server.accessibility.AccessibilityManagerService$Lifecycle
+08-08 00:03:13.128  9922  9922 D SystemServerTiming: MakeDisplayReady
+08-08 00:03:13.129  9922  9922 I ActivityTaskManager: Config changes=20005df8 {1.0 ?mcc0mnc [en_US] ldltr sw411dp w411dp h923dp 420dpi nrml long port ?uimode ?night finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2424) mAppBounds=Rect(0, 0 - 1080, 2424) mMaxBounds=Rect(0, 0 - 1080, 2424) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.2 ?fontWeightAdjustment}
+08-08 00:03:13.140  9922  9922 I WindowManager: Override config changes=60007dfc {1.0 ?mcc0mnc [en_US] ldltr sw411dp w411dp h923dp 420dpi nrml long port ?uimode ?night finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(0, 0 - 1080, 2424) mAppBounds=Rect(0, 0 - 1080, 2424) mMaxBounds=Rect(0, 0 - 1080, 2424) mDisplayRotation=ROTATION_0 mWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.2 ?fontWeightAdjustment} for displayId=0
+08-08 00:03:13.156  9922  9922 I DisplayDevice: [0] Layerstack set to 0 for local:4619827259835644672
+08-08 00:03:13.167  9922  9922 D DisplayManagerService: supportedStates=[0]
+08-08 00:03:13.167  9922  9922 D DisplayManagerService: possibleInfos={DisplayInfo{"Built-in Screen", displayId 0, displayGroupId 0, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS, FLAG_TRUSTED, real 1080 x 2424, largest app 2424 x 2424, smallest app 1080 x 1080, appVsyncOff 1000000, presDeadline 16666666, mode 1, renderFrameRate 60.000004, hasArrSupport false, frameRateCategoryRate FrameRateCategoryRate {normal=60.0, high=90.0}, supportedRefreshRates [60.000004], defaultMode 1, userPreferredModeId -1, supportedModes [{id=1, width=1080, height=2424, fps=60.000004, vsync=60.000004, synthetic=false, alternativeRefreshRates=[], supportedHdrTypes=[]}], appsSupportedModes [{id=1, width=1080, height=2424, fps=60.000004, vsync=60.000004, synthetic=false, alternativeRefreshRates=[], supportedHdrTypes=[]}], hdrCapabilities HdrCapabilities{mSupportedHdrTypes=[], mMaxLuminance=500.0, mMaxAverageLuminance=500.0, mMinLuminance=0.0}, isForceSdr false, userDisabledHdrTypes [], minimalPostProcessingSupported false, rotation 0, state UNKNOWN, committedState UNKNOWN, type INTERNAL, uniqueId "local:4619827259835644672", app 1080 x 2424, density 420 (420.0 x 420.0) dpi, layerStack 0, colorMode 0, supportedColorModes [0], address {port=0, model=0x401cec6a7a2b7b}, deviceProductInfo DeviceProductInfo{name=EMU_display_0, manufacturerPnpId=GGL, productId=1, modelYear=null, manufactureDate=ManufactureDate{week=27, year=2006}, connectionToSinkType=1}, removeMode 0, refreshRateOverride 0.0, brightnessMinimum 0.035433073, brightnessMaximum 1.0, brightnessDefault 0.39763778, brightnessDim 0.05, installOrientation ROTATION_0, layoutLimitedRefreshRate null, hdrSdrRatio not_available, thermalRefreshRateThrottling {}, thermalBrightnessThrottlingDataId default, canHostTasks true}}
+08-08 00:03:13.167  9922  9922 D SystemServerTiming: StartStorageManagerService
+08-08 00:03:13.167  9922  9922 I SystemServiceManager: Starting com.android.server.StorageManagerService$Lifecycle
+08-08 00:03:13.168  9922  9951 D WindowManager: DeferredDisplayUpdater: applying DisplayInfo(1080 x 2424) immediately
+08-08 00:03:13.191   586   794 D installd: Found quota mount /dev/block/dm-53 at /data
+08-08 00:03:13.192   586   794 D installd: Found quota mount /dev/block/dm-53 at /data/user/0
+08-08 00:03:13.192   586   794 D installd: Found quota mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:13.193   586   794 D installd: Found storage mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:13.193   586   794 D installd: Found storage mount  at /mnt/pass_through/0/emulated
+08-08 00:03:13.211  9922  9953 W BroadcastLoopers: Found previously unknown looper Thread[android.display,5,main]
+08-08 00:03:13.212  9922  9953 I InputManager-JNI: Viewport [0] to add: local:4619827259835644672, isActive: false
+08-08 00:03:13.214  9922 10066 I InputReader: Reconfiguring input devices, changes=DISPLAY_INFO
+08-08 00:03:13.214  9922 10066 I InputReader: Disabling virtio_input_multi_touch_1 (device 12) because the associated viewport is not active
+08-08 00:03:13.214  9922 10066 I InputReader: Device reconfigured: id=12, name='virtio_input_multi_touch_1', size 32768x32768, orientation Rotation0, mode DISABLED, display id 0
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_2' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_4' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_5' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_6' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_7' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_8' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_10' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_11' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_9' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.214  9922 10066 I InputReader: Touch device 'virtio_input_multi_touch_3' could not query the properties of its associated display.  The device will be inoperable until the display size becomes available.
+08-08 00:03:13.223  9922 10079 D StorageManagerService: Thinking about reset, mBootCompleted=false, mDaemonConnected=true
+08-08 00:03:13.254  9922  9922 D StorageManagerService: CE storage for users [0] is already unlocked
+08-08 00:03:13.254  9922  9922 W SystemServiceManager: Service com.android.server.StorageManagerService$Lifecycle took 87 ms in onStart
+08-08 00:03:13.254  9922  9922 D SystemServerTiming: StartStorageStatsService
+08-08 00:03:13.254  9922 10079 D StorageManagerService: Thinking about reset, mBootCompleted=false, mDaemonConnected=true
+08-08 00:03:13.254  9922  9922 I SystemServiceManager: Starting com.android.server.usage.StorageStatsService$Lifecycle
+08-08 00:03:13.257   586   794 D installd: Found quota mount /dev/block/dm-53 at /data
+08-08 00:03:13.258   586   794 D installd: Found quota mount /dev/block/dm-53 at /data/user/0
+08-08 00:03:13.258   586   794 D installd: Found quota mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:13.258   586   794 D installd: Found storage mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:13.258   586   794 D installd: Found storage mount  at /mnt/pass_through/0/emulated
+08-08 00:03:13.266   586   795 D installd: Found quota mount /dev/block/dm-53 at /data
+08-08 00:03:13.267   586   795 D installd: Found quota mount /dev/block/dm-53 at /data/user/0
+08-08 00:03:13.267   586   795 D installd: Found quota mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:13.270   586   795 D installd: Found storage mount /dev/block/dm-53 at /mnt/pass_through/0/emulated
+08-08 00:03:13.270   586   795 D installd: Found storage mount  at /mnt/pass_through/0/emulated
+08-08 00:03:13.272  9922  9922 D SystemServerTiming: StartUiModeManager
+08-08 00:03:13.272  9922  9922 I SystemServiceManager: Starting com.android.server.UiModeManagerService
+08-08 00:03:13.287  9922 10048 D SystemServerTimingAsync: InitThreadPoolExec:UiModeManager.onStart
+08-08 00:03:13.288  9922  9922 D SystemServerTiming: StartLocaleManagerService
+08-08 00:03:13.288  9922  9922 I SystemServiceManager: Starting com.android.server.locales.LocaleManagerService
+08-08 00:03:13.301  9922  9922 D SystemServerTiming: StartGrammarInflectionService
+08-08 00:03:13.301  9922  9922 I SystemServiceManager: Starting com.android.server.grammaticalinflection.GrammaticalInflectionService
+08-08 00:03:13.313  9922  9922 D SystemServerTiming: StartAppHibernationService
+08-08 00:03:13.313  9922  9922 I SystemServiceManager: Starting com.android.server.apphibernation.AppHibernationService
+08-08 00:03:13.326  9922  9922 D SystemServerTiming: ArtManagerLocal
+08-08 00:03:13.349  9922  9922 D SystemServerTiming: UpdatePackagesIfNeeded
+08-08 00:03:13.349  9922  9922 I Watchdog: Pausing HandlerChecker: main thread for reason: dexopt. Pause count: 1
+08-08 00:03:13.355  9922  9922 I Watchdog: Resuming HandlerChecker: main thread for reason: dexopt. Pause count: 0
+08-08 00:03:13.355  9922  9922 D SystemServerTiming: UpdateMetricsIfNeeded
+08-08 00:03:13.356  9922  9922 D SystemServerTiming: PerformFstrimIfNeeded
+08-08 00:03:13.356  9922  9922 D SystemServerTiming: StartLockSettingsService
+08-08 00:03:13.356  9922  9922 I SystemServiceManager: Starting com.android.server.locksettings.LockSettingsService$Lifecycle
+08-08 00:03:13.403  9922 10075 I system_server: AssetManager2(0xb400007767a64678) locale list changing from [] to [en-US]
+08-08 00:03:13.467  9922  9922 W SystemServiceManager: Service com.android.server.locksettings.LockSettingsService$Lifecycle took 111 ms in onStart
+08-08 00:03:13.467  9922  9922 D SystemServerTiming: StartTestHarnessMode
+08-08 00:03:13.467  9922  9922 I SystemServiceManager: Starting com.android.server.testharness.TestHarnessModeService
+08-08 00:03:13.477   220   220 I hwservicemanager: getTransport: Cannot find entry android.hardware.oemlock@1.0::IOemLock/default in either framework or device VINTF manifest.
+08-08 00:03:13.478  9922  9922 I OemLock : OemLock Hidl HAL not present on device
+08-08 00:03:13.478  9922  9922 D SystemServerTiming: StartDeviceIdleController
+08-08 00:03:13.481  9922  9922 I SystemServiceManager: Starting com.android.server.DeviceIdleController
+08-08 00:03:13.528  9922 10075 I system_server: AssetManager2(0xb400007767a607f8) locale list changing from [] to [en-US]
+08-08 00:03:13.528  9922  9922 D SystemServerTiming: StartDevicePolicyManager
+08-08 00:03:13.533  9922  9922 I SystemServiceManager: Starting com.android.server.devicepolicy.DevicePolicyManagerService$Lifecycle
+08-08 00:03:13.648  9922  9922 I DevicePolicyManager: Current version 6, latest version 6, not upgrading.
+08-08 00:03:13.669  9922  9922 D DevicePolicyManagerService: /data/system/updated_resources.xml doesn't exist
+08-08 00:03:13.669  9922  9922 D DevicePolicyEngine: Reading device policies from file.
+08-08 00:03:13.673  9922  9922 D DevicePolicyEngine: Reading from /data/system/device_policy_state.xml
+08-08 00:03:13.679  9922  9922 D SystemServerTiming: StartStatusBarManagerService
+08-08 00:03:13.697  9922  9922 D SystemServerTiming: StartMusicRecognitionManagerService
+08-08 00:03:13.705  9922  9922 I SystemServiceManager: Starting com.android.server.musicrecognition.MusicRecognitionManagerService
+08-08 00:03:13.705  9922 10075 I system_server: AssetManager2(0xb400007767a59778) locale list changing from [] to [en-US]
+08-08 00:03:13.711  9922 10075 D InputMethodManagerService: Complete initialization for user=0
+08-08 00:03:13.727  9922  9922 D SystemServerTiming: StartContentCaptureService
+08-08 00:03:13.731  9922  9922 I SystemServiceManager: Starting com.android.server.contentcapture.ContentCaptureManagerService
+08-08 00:03:13.741  9922  9922 I ContentCaptureHelper: Setting logging level to OFF
+08-08 00:03:13.756  9922  9922 D SystemServer: AttentionService is not configured on this device
+08-08 00:03:13.756  9922  9922 D SystemServer: RotationResolverService is not configured on this device
+08-08 00:03:13.756  9922  9922 D SystemServerTiming: StartSystemCaptionsManagerService
+08-08 00:03:13.756  9922  9922 I SystemServiceManager: Starting com.android.server.systemcaptions.SystemCaptionsManagerService
+08-08 00:03:13.756  9922  9922 D SystemServerTiming: StartTextToSpeechManagerService
+08-08 00:03:13.760  9922  9922 I SystemServiceManager: Starting com.android.server.texttospeech.TextToSpeechManagerService
+08-08 00:03:13.767  9922  9922 D SystemServerTiming: startWearableSensingService
+08-08 00:03:13.767  9922  9922 I SystemServiceManager: Starting com.android.server.wearable.WearableSensingManagerService
+08-08 00:03:13.781  9922  9922 D SystemServerTiming: startOnDeviceIntelligenceManagerService
+08-08 00:03:13.781  9922  9922 I SystemServiceManager: Starting com.android.server.ondeviceintelligence.OnDeviceIntelligenceManagerService
+08-08 00:03:13.798  9922  9922 D SystemServerTiming: StartAmbientContextService
+08-08 00:03:13.800  9922  9922 I SystemServiceManager: Starting com.android.server.ambientcontext.AmbientContextManagerService
+08-08 00:03:13.805  9922  9922 D SystemServerTiming: StartSpeechRecognitionManagerService
+08-08 00:03:13.805  9922  9922 I SystemServiceManager: Starting com.android.server.speech.SpeechRecognitionManagerService
+08-08 00:03:13.809  9922  9922 D SystemServerTiming: StartAppPredictionService
+08-08 00:03:13.809  9922  9922 I SystemServiceManager: Starting com.android.server.appprediction.AppPredictionManagerService
+08-08 00:03:13.814  9922  9922 D SystemServerTiming: StartContentSuggestionsService
+08-08 00:03:13.814  9922  9922 I SystemServiceManager: Starting com.android.server.contentsuggestions.ContentSuggestionsManagerService
+08-08 00:03:13.817  9922  9922 D SystemServerTiming: StartSearchUiService
+08-08 00:03:13.820  9922  9922 I SystemServiceManager: Starting com.android.server.searchui.SearchUiManagerService
+08-08 00:03:13.826  9922  9922 D SystemServerTiming: StartSmartspaceService
+08-08 00:03:13.826  9922  9922 I SystemServiceManager: Starting com.android.server.smartspace.SmartspaceManagerService
+08-08 00:03:13.826  9922  9922 D SystemServerTiming: StartContextualSearchService
+08-08 00:03:13.826  9922  9922 I SystemServiceManager: Starting com.android.server.contextualsearch.ContextualSearchManagerService
+08-08 00:03:13.833  9922  9922 D SystemServerTiming: InitConnectivityModuleConnector
+08-08 00:03:13.833  9922  9922 D ConnectivityModuleConnector: Network stack init
+08-08 00:03:13.833  9922  9922 D SystemServerTiming: InitNetworkStackClient
+08-08 00:03:13.833  9922  9922 D NetworkStackClient: Network stack init
+08-08 00:03:13.833  9922  9922 D SystemServerTiming: StartNetworkManagementService
+08-08 00:03:13.935  9922  9922 D SystemServerTiming: StartFontManagerService
+08-08 00:03:13.936  9922  9922 I FontManagerService: Using optimized boot-time font loading.
+08-08 00:03:13.936  9922  9947 D SystemServerTimingAsync: InitThreadPoolExec:FontManagerService_create
+08-08 00:03:13.936  9922  9922 D SystemServerTiming: StartTextServicesManager
+08-08 00:03:13.937  9922  9922 I SystemServiceManager: Starting com.android.server.textservices.TextServicesManagerService$Lifecycle
+08-08 00:03:13.941  9922  9922 D SystemServerTiming: StartTextClassificationManagerService
+08-08 00:03:13.941  9922  9922 I SystemServiceManager: Starting com.android.server.textclassifier.TextClassificationManagerService$Lifecycle
+08-08 00:03:13.951  9922  9922 D SystemServerTiming: StartNetworkScoreService
+08-08 00:03:13.951  9922  9947 I SystemFonts: Loading font config from /system/etc/font_fallback.xml
+08-08 00:03:13.954  9922  9922 I SystemServiceManager: Starting com.android.server.NetworkScoreService$Lifecycle
+08-08 00:03:13.962  9922  9922 I NetworkScoreService: Registering network_score
+08-08 00:03:13.963  9922  9922 D SystemServerTiming: StartNetworkStatsService
+08-08 00:03:13.999  9922  9922 I SystemServiceManager: Starting com.android.server.NetworkStatsServiceInitializer
+08-08 00:03:14.189  9922  9922 D nativeloader: Load libservice-connectivity.so using class loader ns clns-shared-15 (caller=/apex/com.android.tethering/javalib/service-connectivity.jar): ok
+08-08 00:03:14.331  9922  9922 D nativeloader: Load libandroid_net_connectivity_com_android_net_module_util_jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity.jar: ok

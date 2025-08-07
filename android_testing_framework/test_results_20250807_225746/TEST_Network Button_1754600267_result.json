@@ -1,0 +1,8 @@
+{
+  "test_name": "Network Button",
+  "passed": false,
+  "timestamp": "2025-08-07T22:57:53.143428",
+  "expected_pattern": "NetworkSettings|Navigation|nav_network|CoreBackPreview",
+  "found_lines": [],
+  "errors": []
+}

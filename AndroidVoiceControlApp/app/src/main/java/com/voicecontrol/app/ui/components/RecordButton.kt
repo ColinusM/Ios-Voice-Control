@@ -1,6 +1,7 @@
 package com.voicecontrol.app.ui.components
 
 import androidx.compose.animation.core.*
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -98,10 +99,10 @@ fun RecordButton(
     // Color transitions
     val buttonColor by animateColorAsState(
         targetValue = when {
-            !enabled -> AudioGray
-            recognitionState == SpeechRecognitionService.RecognitionState.Error -> AudioRed
-            isRecording -> AudioRed
-            else -> AudioGreen
+            !enabled -> VoiceControlColors.DisconnectedGray
+            recognitionState == SpeechRecognitionService.RecognitionState.Error -> VoiceControlColors.RecordingRed
+            isRecording -> VoiceControlColors.RecordingRed
+            else -> VoiceControlColors.ConnectedGreen
         },
         animationSpec = tween(300),
         label = "ButtonColor"
@@ -222,9 +223,9 @@ private fun RecordButtonLabel(
     }
     
     val labelColor = when (recognitionState) {
-        SpeechRecognitionService.RecognitionState.Error -> AudioRed
-        SpeechRecognitionService.RecognitionState.Recording -> AudioGreen
-        SpeechRecognitionService.RecognitionState.Processing -> AudioBlue
+        SpeechRecognitionService.RecognitionState.Error -> VoiceControlColors.RecordingRed
+        SpeechRecognitionService.RecognitionState.Recording -> VoiceControlColors.ConnectedGreen
+        SpeechRecognitionService.RecognitionState.Processing -> VoiceControlColors.AudioBlue
         else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
     }
     
@@ -240,12 +241,12 @@ private fun RecordButtonLabel(
     // Audio level indicator
     if (isRecording && audioLevel > 0.05f) {
         LinearProgressIndicator(
-            progress = audioLevel.coerceIn(0f, 1f),
+            progress = { audioLevel.coerceIn(0f, 1f) },
             modifier = Modifier
                 .width(60.dp)
                 .height(2.dp)
                 .padding(top = 2.dp),
-            color = AudioGreen,
+            color = VoiceControlColors.ConnectedGreen,
             trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
         )
     }

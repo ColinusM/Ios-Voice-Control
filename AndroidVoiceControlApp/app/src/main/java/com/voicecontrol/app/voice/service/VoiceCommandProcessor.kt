@@ -1,6 +1,6 @@
 package com.voicecontrol.app.voice.service
 
-import android.util.Log
+import com.voicecontrol.app.utils.VLogger
 import com.voicecontrol.app.BuildConfig
 import com.voicecontrol.app.voice.model.VoiceCommand
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,9 +54,7 @@ class VoiceCommandProcessor @Inject constructor() {
     private val globalPatterns = GlobalPatterns()
     
     init {
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🎙️ VoiceCommandProcessor initialized")
-        }
+        VLogger.d(TAG, "🎙️ VoiceCommandProcessor initialized")
     }
     
     /**
@@ -71,9 +69,8 @@ class VoiceCommandProcessor @Inject constructor() {
         
         _processedCommandsCount.value += 1
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🎯 Processing: \"$text\" (confidence: ${"%.3f".format(confidence)})")
-        }
+        VLogger.d(TAG, "🎯 Processing: \"$text\" (confidence: ${"%.3f".format(confidence)})", 
+            mapOf("text" to text, "confidence" to "%.3f".format(confidence)))
         
         // Normalize input text
         val normalizedText = normalizeText(text)
@@ -93,9 +90,8 @@ class VoiceCommandProcessor @Inject constructor() {
             _successfulCommandsCount.value += 1
         }
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "✅ Parsed: ${command.javaClass.simpleName} - ${getCommandSummary(command)}")
-        }
+        VLogger.d(TAG, "✅ Parsed: ${command.javaClass.simpleName} - ${getCommandSummary(command)}", 
+            mapOf("commandType" to command.javaClass.simpleName, "summary" to getCommandSummary(command)))
         
         return command
     }
@@ -156,16 +152,14 @@ class VoiceCommandProcessor @Inject constructor() {
                     )
                     
                     if (command.isValid) {
-                        if (BuildConfig.ENABLE_LOGGING) {
-                            Log.d(TAG, "📻 Channel command: Ch$channelNumber ${operation.name} ${parameterValue ?: ""}")
-                        }
+                        VLogger.d(TAG, "📻 Channel command: Ch$channelNumber ${operation.name} ${parameterValue ?: ""}", 
+                            mapOf("channelNumber" to channelNumber.toString(), "operation" to operation.name, "parameterValue" to (parameterValue?.toString() ?: "")))
                         return command
                     }
                     
                 } catch (e: Exception) {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.w(TAG, "⚠️ Error parsing channel command: ${e.message}")
-                    }
+                    VLogger.w(TAG, "⚠️ Error parsing channel command: ${e.message}", 
+                        mapOf("error" to (e.message ?: "Unknown error")))
                 }
             }
         }
@@ -205,16 +199,14 @@ class VoiceCommandProcessor @Inject constructor() {
                     )
                     
                     if (command.isValid) {
-                        if (BuildConfig.ENABLE_LOGGING) {
-                            Log.d(TAG, "🎬 Scene command: ${operation.name} Scene $sceneNumber")
-                        }
+                        VLogger.d(TAG, "🎬 Scene command: ${operation.name} Scene $sceneNumber", 
+                            mapOf("operation" to operation.name, "sceneNumber" to sceneNumber.toString()))
                         return command
                     }
                     
                 } catch (e: Exception) {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.w(TAG, "⚠️ Error parsing scene command: ${e.message}")
-                    }
+                    VLogger.w(TAG, "⚠️ Error parsing scene command: ${e.message}", 
+                        mapOf("error" to (e.message ?: "Unknown error")))
                 }
             }
         }
@@ -253,9 +245,8 @@ class VoiceCommandProcessor @Inject constructor() {
                 )
                 
                 if (command.isValid) {
-                    if (BuildConfig.ENABLE_LOGGING) {
-                        Log.d(TAG, "🌍 Global command: ${operation.name} ${parameter ?: ""}")
-                    }
+                    VLogger.d(TAG, "🌍 Global command: ${operation.name} ${parameter ?: ""}", 
+                        mapOf("operation" to operation.name, "parameter" to (parameter ?: "")))
                     return command
                 }
             }
@@ -267,7 +258,7 @@ class VoiceCommandProcessor @Inject constructor() {
     /**
      * Extract channel number from regex match
      */
-    private fun extractChannelNumber(matcher: java.util.regex.Matcher, pattern: ChannelPattern): Int {
+    private fun extractChannelNumber(matcher: java.util.regex.Matcher, pattern: ChannelPatterns.ChannelPattern): Int {
         val channelGroup = when (pattern.channelGroupIndex) {
             1 -> matcher.group(1)
             2 -> matcher.group(2)
@@ -292,7 +283,7 @@ class VoiceCommandProcessor @Inject constructor() {
     /**
      * Extract parameter value and unit from regex match
      */
-    private fun extractParameter(matcher: java.util.regex.Matcher, pattern: ChannelPattern): Pair<Float?, String?> {
+    private fun extractParameter(matcher: java.util.regex.Matcher, pattern: ChannelPatterns.ChannelPattern): Pair<Float?, String?> {
         if (pattern.parameterGroupIndex == null || pattern.parameterGroupIndex > matcher.groupCount()) {
             return Pair(null, null)
         }
@@ -414,9 +405,7 @@ class VoiceCommandProcessor @Inject constructor() {
         _processedCommandsCount.value = 0
         _successfulCommandsCount.value = 0
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "📊 Processing statistics reset")
-        }
+        VLogger.d(TAG, "📊 Processing statistics reset")
     }
 }
 

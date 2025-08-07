@@ -1,0 +1,34 @@
+--------- beginning of main
+08-08 00:22:25.762  4672  4672 I TestMarker: TEST_RECORD_BUTTON_TEST_1754605345
+08-08 00:22:26.114   677  1936 D WifiNl80211Manager: Scan result ready event
+08-08 00:22:26.115   677  1936 D WifiNative: Scan result ready event
+08-08 00:22:26.142  1232  2442 I WifiScanner: onFullResults
+08-08 00:22:26.153  1232  1651 I WifiScanner: onFullResults
+08-08 00:22:26.164   677   822 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+08-08 00:22:26.465  3821  4679 I okhttp.OkHttpClient: --> GET https://api.assemblyai.com/v2/realtime/ws
+08-08 00:22:26.467  3821  4679 I okhttp.OkHttpClient: Authorization: 
+08-08 00:22:26.468  3821  4679 I okhttp.OkHttpClient: Upgrade: websocket
+08-08 00:22:26.468  3821  4679 I okhttp.OkHttpClient: Connection: Upgrade
+08-08 00:22:26.468  3821  4679 I okhttp.OkHttpClient: Sec-WebSocket-Key: B59wq/Qn2BttMLmyo+CN4g==
+08-08 00:22:26.468  3821  4679 I okhttp.OkHttpClient: Sec-WebSocket-Version: 13
+08-08 00:22:26.468  3821  4679 I okhttp.OkHttpClient: Sec-WebSocket-Extensions: permessage-deflate
+08-08 00:22:26.468  3821  4679 I okhttp.OkHttpClient: --> END GET
+08-08 00:22:26.553   510  4434 D NativePermissionController: checkPermission: missing 8 for 10212
+08-08 00:22:26.655   510  4684 I AudioFlinger: AudioFlinger's thread 0xb40000747ba0da88 tid=4684 ready to run
+08-08 00:22:26.782   459   459 E android.hardware.audio@7.1-impl.ranchu: updateSinkMetadata:387 failure: Result::NOT_SUPPORTED
+08-08 00:22:26.914   459  4686 E android.hardware.audio@7.1-impl.ranchu: pcmOpen:181 pcm_prepare failed for nChannels=1 sampleRateHz=16000 period_count=4 period_size=128 isOut=0 with cannot prepare channel: I/O error (-1)
+08-08 00:22:26.915   459  4686 E android.hardware.audio@7.1-impl.ranchu: pcmOpen:184 failure: nullptr
+08-08 00:22:26.915   459  4686 E android.hardware.audio@7.1-impl.ranchu: create:216 failure: nullptr
+08-08 00:22:26.915   459  4686 D android.hardware.audio@7.1-impl.ranchu: ~TinyalsaSource: joining producerThread
+08-08 00:22:26.928   459  4686 W android.hardware.audio@7.1-impl.ranchu: create:453 failed to create alsa source for 'AUDIO_DEVICE_IN_BUILTIN_MIC'; creating a tone source instead.
+08-08 00:22:27.106  3821  3834 I HWUI    : Davey! duration=868ms; Flags=0, FrameTimelineVsyncId=309515, IntendedVsync=976660908613, Vsync=976960908601, InputEventId=-948924877, HandleInputStart=976963083798, AnimationStart=976963088548, PerformTraversalsStart=977122355131, DrawStart=977152332840, FrameDeadline=976677575279, FrameStartTime=976962108840, FrameInterval=16666666, WorkloadTarget=16666666, SyncQueued=977328361465, SyncStart=977329995631, IssueDrawCommandsStart=977343391673, SwapBuffers=977429592257, FrameCompleted=977530865923, DequeueBufferDuration=28084, QueueBufferDuration=776458, GpuCompleted=977530651507, SwapBuffersCompleted=977530865923, DisplayPresentTime=0, CommandSubmissionCompleted=977429592257, 
+08-08 00:22:27.555  1065  1270 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+08-08 00:22:27.846  3821  4679 I okhttp.OkHttpClient: <-- 101 Switching Protocols https://api.assemblyai.com/v2/realtime/ws (1377ms)
+08-08 00:22:27.871  3821  4679 I okhttp.OkHttpClient: Date: Thu, 07 Aug 2025 22:22:27 GMT
+08-08 00:22:27.907  3821  4679 I okhttp.OkHttpClient: Connection: upgrade
+08-08 00:22:27.907  3821  4679 I okhttp.OkHttpClient: Sec-Websocket-Accept: 1fh8rwdA+Gqw6/NbY8+wwiL5s00=
+08-08 00:22:27.907  3821  4679 I okhttp.OkHttpClient: Upgrade: websocket
+08-08 00:22:27.908  3821  4679 I okhttp.OkHttpClient: <-- END HTTP
+08-08 00:22:28.729   927   927 I Choreographer: Skipped 45 frames!  The application may be doing too much work on its main thread.
+08-08 00:22:29.245   927  1387 I HWUI    : Davey! duration=1234ms; Flags=0, FrameTimelineVsyncId=309833, IntendedVsync=978544241871, Vsync=979294241841, InputEventId=0, HandleInputStart=979319046007, AnimationStart=979319048216, PerformTraversalsStart=979328283257, DrawStart=979571705174, FrameDeadline=978560908537, FrameStartTime=979295861924, FrameInterval=16666666, WorkloadTarget=16666666, SyncQueued=979582547049, SyncStart=979582664549, IssueDrawCommandsStart=979595842341, SwapBuffers=979736841508, FrameCompleted=979779029424, DequeueBufferDuration=7833, QueueBufferDuration=3253917, GpuCompleted=979778843091, SwapBuffersCompleted=979779029424, DisplayPresentTime=0, CommandSubmissionCompleted=979736841508, 
+08-08 00:22:29.911  3821  3828 I oicecontrol.app: Background concurrent mark compact GC freed 9093KB AllocSpace bytes, 4(80KB) LOS objects, 49% free, 10076KB/19MB, paused 791us,59.569ms total 2.574s

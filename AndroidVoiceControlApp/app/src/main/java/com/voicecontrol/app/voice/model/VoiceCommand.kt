@@ -40,6 +40,11 @@ sealed class VoiceCommand {
     abstract val timestamp: Long
     
     /**
+     * Whether this command has valid parameters
+     */
+    abstract val isValid: Boolean
+    
+    /**
      * Channel Commands - Control individual audio channels
      * Equivalent to iOS ChannelCommand cases
      */
@@ -130,7 +135,7 @@ sealed class VoiceCommand {
         /**
          * Validate channel number and parameters
          */
-        val isValid: Boolean
+        override val isValid: Boolean
             get() = channelNumber in 1..64 && // Typical mixer channel range
                     confidence > 0.3 &&
                     validateParameterValue()
@@ -184,7 +189,7 @@ sealed class VoiceCommand {
                 SceneOperation.STORE -> "Store Scene $sceneNumber"
             }
         
-        val isValid: Boolean
+        override val isValid: Boolean
             get() = sceneNumber in 1..999 && confidence > 0.4 // Higher confidence for scene operations
     }
     
@@ -249,7 +254,7 @@ sealed class VoiceCommand {
                 GlobalOperation.PLAYBACK_STOP -> "Stop Playback"
             }
         
-        val isValid: Boolean
+        override val isValid: Boolean
             get() = confidence > 0.5 // Higher confidence for global operations
     }
     
@@ -274,7 +279,7 @@ sealed class VoiceCommand {
         val displayText: String
             get() = "Unknown: \"$originalText\""
         
-        val isValid: Boolean
+        override val isValid: Boolean
             get() = false // Unknown commands are inherently invalid
     }
     

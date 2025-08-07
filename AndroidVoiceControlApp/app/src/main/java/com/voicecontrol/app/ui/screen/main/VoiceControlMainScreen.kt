@@ -2,17 +2,23 @@ package com.voicecontrol.app.ui.screen.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.voicecontrol.app.authentication.viewmodel.AuthenticationViewModel
 import com.voicecontrol.app.ui.component.common.LoadingIndicator
+import com.voicecontrol.app.ui.components.RecordButton
+import com.voicecontrol.app.ui.components.RecordButtonSize
 import com.voicecontrol.app.ui.theme.VoiceControlTheme
+import com.voicecontrol.app.ui.viewmodel.VoiceRecordingViewModel
 
 /**
  * Main Voice Control Screen for Voice Control App
@@ -39,14 +45,25 @@ import com.voicecontrol.app.ui.theme.VoiceControlTheme
 @Composable
 fun VoiceControlMainScreen(
     authViewModel: AuthenticationViewModel,
+    hasMicrophonePermission: () -> Boolean = { false },
+    requestMicrophonePermission: (((Boolean) -> Unit)?) -> Unit = {},
     onNavigateToSettings: () -> Unit,
     onNavigateToNetworkSettings: () -> Unit,
     onNavigateToSubscription: () -> Unit,
     onSignOut: () -> Unit
 ) {
-    // State for main screen functionality
-    var isRecording by remember { mutableStateOf(false) }
-    var lastCommand by remember { mutableStateOf<String?>(null) }
+    // Voice recording ViewModel for complete voice control functionality
+    val voiceRecordingViewModel: VoiceRecordingViewModel = hiltViewModel()
+    val recordingUiState by voiceRecordingViewModel.uiState.collectAsState()
+    
+    // Permission handling
+    LaunchedEffect(Unit) {
+        // Update initial permission state
+        val hasPermission = hasMicrophonePermission()
+        voiceRecordingViewModel.updatePermissionResult(hasPermission)
+    }
+    
+    // Local state for other screen functionality
     var connectionStatus by remember { mutableStateOf("Disconnected") }
     var isMenuOpen by remember { mutableStateOf(false) }
     
@@ -61,14 +78,28 @@ fun VoiceControlMainScreen(
             )
         },
         floatingActionButton = {
-            VoiceRecordButton(
-                isRecording = isRecording,
-                onStartRecording = { isRecording = true },
-                onStopRecording = { 
-                    isRecording = false
-                    // TODO: Process voice command
-                    lastCommand = "Channel 1 mute on"
-                }
+            RecordButton(
+                isRecording = recordingUiState.isRecording,
+                audioLevel = recordingUiState.audioLevel,
+                recognitionState = recordingUiState.recognitionState,
+                onClick = {
+                    // Handle permission-aware recording toggle
+                    if (!recordingUiState.hasPermission) {
+                        requestMicrophonePermission { isGranted ->
+                            // Update ViewModel with permission result
+                            voiceRecordingViewModel.updatePermissionResult(isGranted)
+                            // If permission was granted, start recording
+                            if (isGranted) {
+                                voiceRecordingViewModel.startRecording()
+                            }
+                        }
+                    } else {
+                        voiceRecordingViewModel.toggleRecording()
+                    }
+                },
+                size = RecordButtonSize.Large,
+                enabled = recordingUiState.error == null,
+                showLabel = true
             )
         },
         floatingActionButtonPosition = FabPosition.Center
@@ -97,8 +128,16 @@ fun VoiceControlMainScreen(
             
             // MARK: - Voice Command History
             VoiceCommandHistory(
-                lastCommand = lastCommand,
-                isRecording = isRecording,
+                lastCommand = recordingUiState.lastCommand,
+                isRecording = recordingUiState.isRecording,
+                isProcessing = recordingUiState.isProcessingCommand,
+                error = recordingUiState.error,
+                recognitionState = recordingUiState.recognitionState,
+                isRetrying = recordingUiState.isRetrying,
+                retryAttempt = recordingUiState.retryAttempt,
+                maxRetryAttempts = recordingUiState.maxRetryAttempts,
+                onRetryClick = voiceRecordingViewModel::retryOperation,
+                onCancelRetry = voiceRecordingViewModel::cancelRetry,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 24.dp)
@@ -182,7 +221,7 @@ private fun VoiceControlTopBar(
                     }
                 )
                 
-                Divider()
+                HorizontalDivider()
                 
                 DropdownMenuItem(
                     text = { Text("Sign Out") },
@@ -191,7 +230,7 @@ private fun VoiceControlTopBar(
                         onSignOutClick()
                     },
                     leadingIcon = {
-                        Icon(Icons.Default.ExitToApp, contentDescription = null)
+                        Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = null)
                     }
                 )
             }
@@ -337,6 +376,14 @@ private fun ConnectionStatusCard(
 private fun VoiceCommandHistory(
     lastCommand: String?,
     isRecording: Boolean,
+    isProcessing: Boolean = false,
+    error: String? = null,
+    recognitionState: com.voicecontrol.app.speech.service.SpeechRecognitionService.RecognitionState = com.voicecontrol.app.speech.service.SpeechRecognitionService.RecognitionState.Stopped,
+    isRetrying: Boolean = false,
+    retryAttempt: Int = 0,
+    maxRetryAttempts: Int = 3,
+    onRetryClick: () -> Unit = {},
+    onCancelRetry: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -357,44 +404,171 @@ private fun VoiceCommandHistory(
             
             Spacer(modifier = Modifier.height(12.dp))
             
-            if (isRecording) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    LoadingIndicator(
-                        message = null,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(
-                        text = "Listening...",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+            when {
+                // Retry state
+                isRetrying -> {
+                    Column {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            LoadingIndicator(
+                                message = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Retrying... (attempt $retryAttempt/$maxRetryAttempts)",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        
+                        Spacer(modifier = Modifier.height(8.dp))
+                        
+                        OutlinedButton(
+                            onClick = onCancelRetry,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("Cancel Retry")
+                        }
+                    }
                 }
-            } else if (lastCommand != null) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Check,
-                        contentDescription = "Command executed",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(20.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
+                
+                // Error state
+                error != null -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Error,
+                            contentDescription = "Error",
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = error,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                }
+                
+                // Processing command
+                isProcessing -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LoadingIndicator(
+                            message = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Processing command...",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+                
+                // Recording states  
+                recognitionState == com.voicecontrol.app.speech.service.SpeechRecognitionService.RecognitionState.Starting -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LoadingIndicator(
+                            message = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Starting...",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+                
+                recognitionState == com.voicecontrol.app.speech.service.SpeechRecognitionService.RecognitionState.Recording || isRecording -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LoadingIndicator(
+                            message = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Listening...",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+                
+                recognitionState == com.voicecontrol.app.speech.service.SpeechRecognitionService.RecognitionState.Processing -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LoadingIndicator(
+                            message = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Processing speech...",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+                
+                recognitionState == com.voicecontrol.app.speech.service.SpeechRecognitionService.RecognitionState.Stopping -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        LoadingIndicator(
+                            message = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Stopping...",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+                
+                // Success state with command
+                lastCommand != null -> {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = "Command executed",
+                            tint = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Last command: \"$lastCommand\"",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+                
+                // Default ready state
+                else -> {
                     Text(
-                        text = "Last command: \"$lastCommand\"",
+                        text = "Ready for voice commands. Press and hold the microphone to start.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-            } else {
-                Text(
-                    text = "No commands yet. Press the microphone to start.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
             }
         }
     }

@@ -6,8 +6,8 @@ import android.content.pm.PackageManager
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.voicecontrol.app.utils.VLogger
 import com.voicecontrol.app.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -79,9 +79,8 @@ class AudioManager @Inject constructor(
     
     init {
         checkAudioPermission()
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🎙️ AudioManager initialized - Buffer size: $bufferSize bytes")
-        }
+        VLogger.d(TAG, "🎙️ AudioManager initialized - Buffer size: $bufferSize bytes", 
+            mapOf("bufferSize" to bufferSize.toString()))
     }
     
     /**
@@ -96,9 +95,8 @@ class AudioManager @Inject constructor(
         
         _hasAudioPermission.value = hasPermission
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🔐 Audio permission status: $hasPermission")
-        }
+        VLogger.d(TAG, "🔐 Audio permission status: $hasPermission", 
+            mapOf("hasPermission" to hasPermission.toString()))
     }
     
     /**
@@ -107,9 +105,8 @@ class AudioManager @Inject constructor(
      */
     fun updateAudioPermission(granted: Boolean) {
         _hasAudioPermission.value = granted
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🔐 Audio permission updated: $granted")
-        }
+        VLogger.d(TAG, "🔐 Audio permission updated: $granted", 
+            mapOf("granted" to granted.toString()))
     }
     
     /**
@@ -128,9 +125,7 @@ class AudioManager @Inject constructor(
                     Manifest.permission.RECORD_AUDIO
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.e(TAG, "❌ Audio permission not granted")
-                }
+                VLogger.e(TAG, "❌ Audio permission not granted")
                 return@withContext false
             }
             
@@ -144,21 +139,17 @@ class AudioManager @Inject constructor(
             
             val state = audioRecord?.state
             if (state == AudioRecord.STATE_INITIALIZED) {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.d(TAG, "✅ AudioRecord initialized successfully")
-                }
+                VLogger.d(TAG, "✅ AudioRecord initialized successfully")
                 return@withContext true
             } else {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.e(TAG, "❌ AudioRecord initialization failed - State: $state")
-                }
+                VLogger.e(TAG, "❌ AudioRecord initialization failed - State: $state", 
+                    mapOf("state" to state.toString()))
                 return@withContext false
             }
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error setting up audio session", e)
-            }
+            VLogger.e(TAG, "❌ Error setting up audio session", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
             return@withContext false
         }
     }
@@ -169,9 +160,7 @@ class AudioManager @Inject constructor(
      */
     suspend fun startRecording(onAudioData: (ByteArray, Int) -> Unit): Boolean {
         if (isRecording) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Recording already in progress")
-            }
+            VLogger.w(TAG, "⚠️ Recording already in progress")
             return true
         }
         
@@ -187,9 +176,7 @@ class AudioManager @Inject constructor(
                 isRecording = true
                 _isRecording.value = true
                 
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.d(TAG, "🎙️ Started recording audio")
-                }
+                VLogger.d(TAG, "🎙️ Started recording audio")
                 
                 // Start recording thread
                 recordingThread = Thread { recordingLoop() }
@@ -197,9 +184,8 @@ class AudioManager @Inject constructor(
                 
                 true
             } catch (e: Exception) {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.e(TAG, "❌ Error starting recording", e)
-                }
+                VLogger.e(TAG, "❌ Error starting recording", 
+                    mapOf("error" to (e.message ?: "Unknown error")), e)
                 isRecording = false
                 _isRecording.value = false
                 false
@@ -213,9 +199,7 @@ class AudioManager @Inject constructor(
      */
     suspend fun stopRecording() = withContext(Dispatchers.IO) {
         if (!isRecording) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.w(TAG, "⚠️ Recording not in progress")
-            }
+            VLogger.w(TAG, "⚠️ Recording not in progress")
             return@withContext
         }
         
@@ -231,14 +215,11 @@ class AudioManager @Inject constructor(
             
             _audioLevel.value = 0.0f
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "🛑 Stopped recording audio")
-            }
+            VLogger.d(TAG, "🛑 Stopped recording audio")
             
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error stopping recording", e)
-            }
+            VLogger.e(TAG, "❌ Error stopping recording", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
         }
     }
     
@@ -249,9 +230,7 @@ class AudioManager @Inject constructor(
     private fun recordingLoop() {
         val audioBuffer = ByteArray(bufferSize)
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🔄 Recording loop started")
-        }
+        VLogger.d(TAG, "🔄 Recording loop started")
         
         while (isRecording && audioRecord?.recordingState == AudioRecord.RECORDSTATE_RECORDING) {
             try {
@@ -265,23 +244,21 @@ class AudioManager @Inject constructor(
                     // Send audio data to callback (AssemblyAI streamer)
                     audioDataCallback?.invoke(audioBuffer, bytesRead)
                     
-                    if (BuildConfig.ENABLE_LOGGING && audioLevel > 0.1f) {
+                    if (audioLevel > 0.1f) {
                         // Only log when there's actual audio to avoid spam
-                        Log.v(TAG, "🎵 Audio data: $bytesRead bytes, level: ${"%.3f".format(audioLevel)}")
+                        VLogger.v(TAG, "🎵 Audio data: $bytesRead bytes, level: ${"%.3f".format(audioLevel)}", 
+                            mapOf("bytesRead" to bytesRead.toString(), "audioLevel" to "%.3f".format(audioLevel)))
                     }
                 }
                 
             } catch (e: Exception) {
-                if (BuildConfig.ENABLE_LOGGING) {
-                    Log.e(TAG, "❌ Error reading audio data", e)
-                }
+                VLogger.e(TAG, "❌ Error reading audio data", 
+                    mapOf("error" to (e.message ?: "Unknown error")), e)
                 break
             }
         }
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🔄 Recording loop ended")
-        }
+        VLogger.d(TAG, "🔄 Recording loop ended")
     }
     
     /**
@@ -317,13 +294,10 @@ class AudioManager @Inject constructor(
             audioRecord?.release()
             audioRecord = null
             
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.d(TAG, "🧹 AudioRecord resources released")
-            }
+            VLogger.d(TAG, "🧹 AudioRecord resources released")
         } catch (e: Exception) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                Log.e(TAG, "❌ Error releasing AudioRecord", e)
-            }
+            VLogger.e(TAG, "❌ Error releasing AudioRecord", 
+                mapOf("error" to (e.message ?: "Unknown error")), e)
         }
     }
     
@@ -340,9 +314,8 @@ class AudioManager @Inject constructor(
         
         val isSupported = minBufferSize != AudioRecord.ERROR_BAD_VALUE
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🎵 Audio format supported: $isSupported (min buffer: $minBufferSize)")
-        }
+        VLogger.d(TAG, "🎵 Audio format supported: $isSupported (min buffer: $minBufferSize)", 
+            mapOf("isSupported" to isSupported.toString(), "minBufferSize" to minBufferSize.toString()))
         
         return isSupported
     }
@@ -366,8 +339,6 @@ class AudioManager @Inject constructor(
         }
         releaseAudioRecord()
         
-        if (BuildConfig.ENABLE_LOGGING) {
-            Log.d(TAG, "🧹 AudioManager cleanup completed")
-        }
+        VLogger.d(TAG, "🧹 AudioManager cleanup completed")
     }
 }

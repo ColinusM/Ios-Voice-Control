@@ -1,0 +1,180 @@
+--------- beginning of main
+08-07 23:03:43.045  9246  9246 I TestMarker: TEST_App Launch_1754600623
+08-07 23:03:43.938  9250  9250 W screencap: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: SurfaceFlingerAIDL
+08-07 23:03:43.938  9250  9250 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+08-07 23:03:43.939  9250  9250 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+08-07 23:03:43.967   504   621 E HwcComposer: getLuts failed Status(-8, EX_SERVICE_SPECIFIC): '8: '
+08-07 23:03:43.968   504   621 E HWComposer: getLuts: getLuts failed for display 4619827259835644672: UNSUPPORTED (8)
+08-07 23:03:44.094  1262  9145 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 10911550]
+08-07 23:03:44.137  1262  9145 W WakeLock: GCM_HB_ALARM release without a matched acquire!
+08-07 23:03:44.232  1262  9145 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 11321689]
+--------- beginning of system
+08-07 23:03:44.338   677  1306 W ActivityTaskManager: callingPackage for (uid=2000, pid=9254) has no WPC
+08-07 23:03:44.375   677  1306 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@e90720f1 does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+08-07 23:03:44.381   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_USER_ASPECT_RATIO_OVERRIDE
+08-07 23:03:44.381   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_USER_ASPECT_RATIO_FULLSCREEN_OVERRIDE
+08-07 23:03:44.383   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_RESIZEABLE_ACTIVITY_OVERRIDES
+08-07 23:03:44.388   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_MIN_ASPECT_RATIO_OVERRIDE
+08-07 23:03:44.434   677  1306 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ALLOW_ORIENTATION_OVERRIDE
+08-07 23:03:44.507   504   621 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 23:03:44.512   677  1306 I ActivityTaskManager: START u0 {flg=0x10000000 xflg=0x5 cmp=com.voicecontrol.app/.MainActivity} with LAUNCH_MULTIPLE from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+08-07 23:03:44.521   944  1049 V WindowManagerShell: Transition requested (#63): android.os.BinderProxy@75d7ae3 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=16 effectiveUid=10212 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.voicecontrol.app/.MainActivity } baseActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} topActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} origActivity=null realActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} numActivities=2 lastActiveTime=10851953 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@cd0ace0} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{ec60b99 com.voicecontrol.app.MainActivity} launchCookies=[android.os.BinderProxy@664b515] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(278, 711 - 803, 1791) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 142 - 1080, 2361) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 63 }
+08-07 23:03:44.541   944  1049 D ShellSplitScreen: logExit: no-op, mLoggerSessionId is null
+08-07 23:03:44.575   504   504 I BpBinder: onLastStrongRef automatically unlinking death recipients: 
+08-07 23:03:44.618  6726  6726 D MainActivity: ⏸️ MainActivity paused
+08-07 23:03:44.626  6726  6759 D SessionLifecycleClient: Sending lifecycle 2 to service
+08-07 23:03:44.640  6726  6776 D SessionLifecycleService: Activity backgrounding at 10852096
+08-07 23:03:44.646   677  1793 W OptProp : Cannot read opt property android.window.PROPERTY_COMPAT_ENABLE_FAKE_FOCUS
+08-07 23:03:44.653   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:44.690   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:44.691   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:44.692   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.693   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.694   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.694   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.695   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.695   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.696   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.696   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.697   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.698   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.698   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.699   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.704   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.705   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.706   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.706   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.706   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.707   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.708   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.708   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.708   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.709   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.710   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.710   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.711   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.712   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.713   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.714   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.714   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.715   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.715   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.716   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.716   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.717   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.719   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.719   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.719   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.719   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.720   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.721   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.721   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.721   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.721   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.722   677   730 W IPCThreadState: Sending oneway calls to frozen process.
+08-07 23:03:44.727  6726  6726 D MainActivity: 🚀 MainActivity created
+08-07 23:03:44.754   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:44.769  6726  6766 D SessionLifecycleClient: Sending lifecycle 1 to service
+08-07 23:03:44.769  6726  6776 D SessionLifecycleService: Activity foregrounding at 10852226.
+08-07 23:03:44.769  6726  6726 D MainActivity: 📱 MainActivity resumed
+08-07 23:03:44.792   677   716 D ActivityManager: sync unfroze 1600 com.google.android.gms for 6
+08-07 23:03:44.855   677   716 D ActivityManager: sync unfroze 2625 com.google.android.gms.unstable for 6
+08-07 23:03:44.856   677   980 D CoreBackPreview: Window{aaf6103 u0 com.voicecontrol.app/com.voicecontrol.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@caeb9, mPriority=-1, mIsAnimationCallback=false, mOverrideBehavior=0}
+08-07 23:03:44.901   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:44.901   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:44.905  6726  6726 D AuthenticationViewModel: 🚀 AuthenticationViewModel initialized
+08-07 23:03:44.906  6726  6726 D FirebaseAuthService: 🔍 Starting Firebase Auth state observation
+08-07 23:03:44.907  6726  6726 D SecureStorageService: 📖 Retrieving data for key: current_user
+08-07 23:03:44.916  6726  6726 D SecureStorageService: 🔍 No data found for key: current_user
+08-07 23:03:44.916  6726  6726 D SecureStorageService: 📖 Retrieving data for key: guest_user
+08-07 23:03:44.916  6726  6726 D SecureStorageService: 🔍 No data found for key: guest_user
+08-07 23:03:44.916  6726  6726 D AuthenticationViewModel: ℹ️ No persisted session found
+08-07 23:03:44.916  6726  6726 D AuthenticationViewModel: 🔧 DEV MODE: Auto-login attempt with test credentials
+08-07 23:03:44.916  6726  6726 D FirebaseAuthService: 🔐 Attempting sign in for email: colin.mignot1@gmail.com
+08-07 23:03:44.917  6726  6726 I FirebaseAuth: Logging in as colin.mignot1@gmail.com with empty reCAPTCHA token
+08-07 23:03:44.932  6726  9259 W System  : Ignoring header X-Firebase-Locale because its value was null.
+08-07 23:03:44.937  1600  1600 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.measurement.START xflg=0x4 pkg=com.google.android.gms }
+08-07 23:03:44.937  1600  1600 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.measurement.START xflg=0x4 pkg=com.google.android.gms }
+08-07 23:03:44.942   677   980 W ProcessStats: Tracking association SourceState{bed26e2 com.google.android.gms/10147 BTop #4545} whose proc state 2 is better than process ProcessState{c1645ff com.google.android.gms.unstable/10147 pkg=com.google.android.gms} proc state 14 (10 skipped)
+08-07 23:03:45.093   944  1165 V WindowManagerShell: onTransitionReady(transaction=2907692861760)
+08-07 23:03:45.093   677   727 I ActivityTaskManager: Displayed com.voicecontrol.app/.MainActivity for user 0: +774ms
+08-07 23:03:45.095   944  1049 V WindowManagerShell: onTransitionReady (#63) android.os.BinderProxy@75d7ae3: {id=63 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+08-07 23:03:45.095   944  1049 V WindowManagerShell:         {m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{49443944 u0 com.voicecontrol.app/.MainActivity)/@0x331be5e sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=-1->0 r=-1->0:-1 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}},
+08-07 23:03:45.095   944  1049 V WindowManagerShell:         {m=TO_BACK f=FILLS_TASK leash=Surface(name=ActivityRecord{71941648 u0 com.voicecontrol.app/.MainActivity)/@0xee2e23f sb=Rect(0, 0 - 1080, 2424) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=0 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}}
+08-07 23:03:45.095   944  1049 V WindowManagerShell:     ]}
+08-07 23:03:45.096   944  1049 V WindowManagerShell: Playing animation for (#63) android.os.BinderProxy@75d7ae3@0
+08-07 23:03:45.097   944  1049 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+08-07 23:03:45.097   944  1049 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=63 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{49443944 u0 com.voicecontrol.app/.MainActivity)/@0x331be5e sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=-1->0 r=-1->0:-1 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}},{m=TO_BACK f=FILLS_TASK leash=Surface(name=ActivityRecord{71941648 u0 com.voicecontrol.app/.MainActivity)/@0xee2e23f sb=Rect(0, 0 - 1080, 2424) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=0 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}}]}
+08-07 23:03:45.098   944  1049 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=undefined independent=true modes=[CLOSE,TO_BACK] flags=IN_TASK_WITH_EMBEDDED_ACTIVITY mustBeTask=false order=ANY topActivity=null launchCookie=null taskFragmentToken=android.os.BinderProxy@89bd885 windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@231e6da, appThread = android.app.IApplicationThread$Stub$Proxy@a31e70b, debugName = overlayBackTransition }}
+08-07 23:03:45.098   944  1049 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=dream independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{atype=home independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@926e9e8, appThread = android.app.IApplicationThread$Stub$Proxy@2467801, debugName = LauncherToDream }}
+08-07 23:03:45.098   944  1049 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity} launchCookie=null windowingMode=undefined},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined},{NOT atype=undefined independent=true modes=[] flags=NONE mustBeTask=true order=ANY topActivity=null launchCookie=null customAnim=true windowingMode=undefined}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@995e8e7, appThread = android.app.IApplicationThread$Stub$Proxy@b74bc94, debugName = QuickstepLaunchHome }}
+08-07 23:03:45.098   944  1049 V WindowManagerShell:  Delegate animation for (#63) to null
+08-07 23:03:45.098   944  1049 V WindowManagerShell: start default transition animation, info = {id=63 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{49443944 u0 com.voicecontrol.app/.MainActivity)/@0x331be5e sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=-1->0 r=-1->0:-1 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}},{m=TO_BACK f=FILLS_TASK leash=Surface(name=ActivityRecord{71941648 u0 com.voicecontrol.app/.MainActivity)/@0xee2e23f sb=Rect(0, 0 - 1080, 2424) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=0 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}}]}
+08-07 23:03:45.100   677   727 V WindowManager: Sent Transition (#63) createdAt=08-07 23:03:44.401 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=16 effectiveUid=10212 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.voicecontrol.app/.MainActivity } baseActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} topActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} origActivity=null realActivity=ComponentInfo{com.voicecontrol.app/com.voicecontrol.app.MainActivity} numActivities=2 lastActiveTime=10851953 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{667e37d Task{baefd09 #16 type=standard A=10212:com.voicecontrol.app}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{7a87bf1 com.voicecontrol.app.MainActivity} launchCookies=[android.os.BinderProxy@26b96c3] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=Rect(278, 711 - 803, 1791) capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=-9 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 142 - 1080, 2361) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { freeformCameraCompatMode=inactive}} topActivityMainWindowFrame=null}, pipChange = null, remoteTransition = null, displayChange = null, flags = 0, debugId = 63 }
+08-07 23:03:45.100   677   727 V WindowManager:     startWCT=WindowContainerTransaction { changes= {} hops= [] errorCallbackToken=null taskFragmentOrganizer=null }
+08-07 23:03:45.100   677   727 V WindowManager:     info={id=63 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+08-07 23:03:45.100   677   727 V WindowManager:         {m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{49443944 u0 com.voicecontrol.app/.MainActivity)/@0x72d410a sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=-1->0 r=-1->0:-1 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}},
+08-07 23:03:45.100   677   727 V WindowManager:         {m=TO_BACK f=FILLS_TASK leash=Surface(name=ActivityRecord{71941648 u0 com.voicecontrol.app/.MainActivity)/@0xbee3c5a sb=Rect(0, 0 - 1080, 2424) eb=Rect(0, 0 - 1080, 2424) epz=Point(1080, 2424) d=0 bc=fffafafa component=com.voicecontrol.app/.MainActivity opt={t=FROM_STYLE mUserId=0}}
+08-07 23:03:45.100   677   727 V WindowManager:     ]}
+08-07 23:03:45.101  6726  6726 D VoiceControlContent: 📱 Auth state changed: com.voicecontrol.app.authentication.model.AuthState$Unauthenticated@930d446
+08-07 23:03:45.106   944  1049 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@7fb37f8 animAttr=0x5 type=OPEN isEntrance=false
+08-07 23:03:45.107   944  1049 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@cd4da37 animAttr=0x4 type=OPEN isEntrance=true
+08-07 23:03:45.109   944  1049 V WindowManagerShell:  animated by com.android.wm.shell.transition.DefaultTransitionHandler@a94f1c0
+08-07 23:03:45.112  6726  6726 D FirebaseAuthService: 🔄 Auth state changed: null
+08-07 23:03:45.112  6726  6726 D AuthenticationViewModel: 🔄 Firebase auth state changed: null
+08-07 23:03:45.112  6726  6726 D SecureStorageService: 🗑️ Deleting data for key: current_user
+08-07 23:03:45.116  6726  6726 D SecureStorageService: ℹ️ Key did not exist: current_user
+08-07 23:03:45.116  6726  6726 D SecureStorageService: 🗑️ Deleting data for key: firebase_id_token
+08-07 23:03:45.117  6726  6726 D SecureStorageService: ℹ️ Key did not exist: firebase_id_token
+08-07 23:03:45.117  6726  6726 D SecureStorageService: 🗑️ Deleting data for key: guest_user
+08-07 23:03:45.118  6726  6726 D SecureStorageService: ℹ️ Key did not exist: guest_user
+08-07 23:03:45.118  6726  6726 D AuthenticationViewModel: 🗑️ Persisted session cleared
+08-07 23:03:45.177  6726  6726 E RecaptchaCallWrapper: Initial task failed for action RecaptchaAction(action=signInWithPassword)with exception - The supplied auth credential is incorrect, malformed or has expired.
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: ❌ Sign in failed: The supplied auth credential is incorrect, malformed or has expired.
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The supplied auth credential is incorrect, malformed or has expired.
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzacf.zza(com.google.firebase:firebase-auth@@22.3.0:30)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzade.zza(com.google.firebase:firebase-auth@@22.3.0:21)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzacx.zza(com.google.firebase:firebase-auth@@22.3.0:35)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzacz.zza(com.google.firebase:firebase-auth@@22.3.0:75)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzacd.zza(com.google.firebase:firebase-auth@@22.3.0:46)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzyo.zza(com.google.firebase:firebase-auth@@22.3.0:3)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzadn.zza(com.google.firebase:firebase-auth@@22.3.0:15)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzadn.zza(com.google.firebase:firebase-auth@@22.3.0:64)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzacu.zza(com.google.firebase:firebase-auth@@22.3.0:176)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzyj.zzb(com.google.firebase:firebase-auth@@22.3.0:200)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzacg.zzb(com.google.firebase:firebase-auth@@22.3.0:192)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzabo.zza(com.google.firebase:firebase-auth@@22.3.0:16)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.android.gms.internal.firebase-auth-api.zzadg.run(com.google.firebase:firebase-auth@@22.3.0:2)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.firebase.concurrent.CustomThreadFactory.lambda$newThread$0$com-google-firebase-concurrent-CustomThreadFactory(CustomThreadFactory.java:47)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at com.google.firebase.concurrent.CustomThreadFactory$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+08-07 23:03:45.180  6726  6726 E FirebaseAuthService: 	at java.lang.Thread.run(Thread.java:1119)
+08-07 23:03:45.181  6726  6726 W AuthenticationViewModel: ⚠️ DEV MODE: Auto-login failed, will show login screen
+08-07 23:03:45.354   677   818 I ImeTracker: com.voicecontrol.app:70c26f6a: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+08-07 23:03:45.360  6726  6726 D InsetsController: hide(ime(), fromIme=false)
+08-07 23:03:45.361  6726  6726 I ImeTracker: com.voicecontrol.app:70c26f6a: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+08-07 23:03:45.380  1600  9265 D AdvertisingIdClient: AdvertisingIdClient already created.
+08-07 23:03:45.380  1600  9265 D AdvertisingIdClient: AdvertisingIdClient is not bounded. Starting to bind it...
+08-07 23:03:45.388   677   716 I ImeTracker: system_server:b97fea20: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+08-07 23:03:45.404  1600  9265 D AdvertisingIdClient: AdvertisingIdClient is bounded
+08-07 23:03:45.406   677   730 I ImeTracker: system_server:b97fea20: onCancelled at PHASE_SERVER_SHOULD_HIDE
+08-07 23:03:45.405  1422  1422 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043 
+08-07 23:03:45.414  1600  9265 I AdvertisingIdClient: shouldSendLog -1
+08-07 23:03:45.415  1600  9265 I AdvertisingIdClient: GetInfoInternal elapse 34ms
+08-07 23:03:45.431  1422  1422 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+08-07 23:03:45.435  1422  1422 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.voicecontrol.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+08-07 23:03:45.436  1600  1600 I AdvertisingIdClient: getting error as 17: API: ClientTelemetry.API is not available on this device. Connection failed with: ConnectionResult{statusCode=API_DISABLED, resolution=null, message=null}
+08-07 23:03:45.445  1422  1422 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+08-07 23:03:45.447   677   716 W PackageConfigPersister: App-specific configuration not found for packageName: com.voicecontrol.app and userId: 0
+08-07 23:03:45.463  1262  1262 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.presencemanager.service.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.PersistentApiService }
+08-07 23:03:45.470  1262  1262 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.presencemanager.service.INTERNAL_IDENTITY dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.PersistentApiService }
+08-07 23:03:45.518  1262  9146 I NetworkScheduler: (REDACTED) Error inserting %s
+08-07 23:03:45.520  1262  9146 I NetworkScheduler: (REDACTED) Error inserting %s
+08-07 23:03:45.575   944  1049 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#63) android.os.BinderProxy@75d7ae3@0
+08-07 23:03:45.580   677   727 V WindowManager: Finish Transition (#63): created at 08-07 23:03:44.401 collect-started=5.997ms request-sent=107.366ms started=160.97ms ready=261.408ms sent=687.928ms commit=44.071ms finished=1177.968ms
+08-07 23:03:45.582  6726  6726 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+08-07 23:03:45.584   944  1049 V WindowManagerShell: Track 0 became idle
+08-07 23:03:45.584   944  1049 V WindowManagerShell: All active transition animations finished
+08-07 23:03:45.659   677   899 D BackgroundInstallControlService: Package event received: 0
+08-07 23:03:47.466   677  1674 E TaskPersister: File error accessing recents directory (directory doesn't exist?).

@@ -1,0 +1,8 @@
+{
+  "test_name": "Structured Logging",
+  "passed": false,
+  "timestamp": "2025-08-08T00:03:16.542791",
+  "expected_pattern": "VLogger|VoiceControlLogger|sessionId|metadata|JSON",
+  "found_lines": [],
+  "errors": []
+}

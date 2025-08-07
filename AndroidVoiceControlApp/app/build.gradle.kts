@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.gms.google-services") // Firebase services plugin
     id("com.google.firebase.crashlytics") // Crashlytics plugin
     id("com.google.firebase.firebase-perf") // Performance monitoring
@@ -60,28 +61,29 @@ android {
         }
         
         debug {
-            applicationIdSuffix = ".debug"
+            // applicationIdSuffix = ".debug" // Temporarily removed for Firebase compatibility
             isDebuggable = true
             buildConfigField("boolean", "ENABLE_LOGGING", "true")
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            freeCompilerArgs.addAll(
+                "-Xannotation-default-target=param-property"
+            )
+        }
     }
 
     buildFeatures {
         compose = true
         buildConfig = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
     }
 
     packaging {
@@ -126,8 +128,8 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     
     // Hilt Dependency Injection
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    kapt("com.google.dagger:hilt-compiler:2.48.1")
+    implementation("com.google.dagger:hilt-android:2.54")
+    kapt("com.google.dagger:hilt-compiler:2.54")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     
     // Networking

@@ -105,7 +105,7 @@ sealed class AuthState {
  * Comprehensive error handling for all authentication scenarios
  */
 sealed class AuthenticationError(
-    val message: String,
+    override val message: String,
     val code: String? = null,
     cause: Throwable? = null
 ) : Exception(message, cause) {
